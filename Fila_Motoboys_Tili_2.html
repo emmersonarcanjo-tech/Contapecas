@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fila de Motoboys Tili</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: quadro de expedição de uma tela — fila | na rua + pausa | resumo do dia; abas para detalhe. Escuro de propósito: é tela de balcão à noite. */
+:root{
+  --bg:#0e1322; --panel:#161c2d; --panel2:#1d2538; --line:#2a3450; --line2:#36425f;
+  --fg:#eef1f8; --muted:#94a1bb; --faint:#5f6b85;
+  --accent:#d62828; --accent-hi:#f03a3a; --gold:#f2b705; --gold-dim:#8a6a07;
+  --ok:#2bd576; --warn:#f5a524; --crit:#ff5c5c;
+  --font-display:"Barlow Condensed","Arial Narrow","Roboto Condensed",system-ui,sans-serif;
+  --font-body:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --radius:14px; --radius-sm:9px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.35;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+h1,h2,h3{margin:0;font-family:var(--font-display);text-wrap:balance}
+.num{font-variant-numeric:tabular-nums}
+[hidden]{display:none!important}
+
+/* ---- cabeçalho ---- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand .mark{width:34px;height:34px;border-radius:9px;background:var(--accent);display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:20px;color:#fff;flex:none}
+.brand h1{font-size:22px;font-weight:700;letter-spacing:.01em;line-height:1}
+.brand small{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-family:var(--font-body);font-weight:600}
+.tabs{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.tab{padding:8px 14px;border-radius:999px;color:var(--muted);font-weight:600}
+.tab:hover{color:var(--fg);background:var(--panel2)}
+.tab.on{background:var(--panel2);color:var(--fg);box-shadow:inset 0 0 0 1px var(--line2)}
+.clock{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--fg);min-width:70px;text-align:right}
+.btn-tv{padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--line2);color:var(--muted);font-weight:600;font-size:13px}
+.btn-tv:hover{color:var(--fg);border-color:var(--gold)}
+
+/* ---- conteúdo ---- */
+.wrap{padding-block:16px 28px;padding-inline:16px;max-width:1500px;margin:0 auto}
+.board{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,.85fr);gap:16px;align-items:start}
+@media (max-width:1100px){.board{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.board>.col-hoje{grid-column:1/-1}}
+@media (max-width:720px){.board{grid-template-columns:minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:14px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;min-width:0}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.card-head h2{font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+.badge{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:var(--panel2);color:var(--fg);font-weight:700;font-size:13px;border:1px solid var(--line2)}
+.card-head .sp{flex:1}
+.hint{color:var(--muted);font-size:13px}
+.empty{color:var(--faint);font-size:14px;padding:10px 2px}
+
+/* próximo */
+.proximo{background:linear-gradient(160deg,#1b2238,#121829);border:1px solid var(--line2);border-radius:var(--radius);padding:16px 18px 18px;position:relative;overflow:hidden}
+.proximo::before{content:"";position:absolute;inset:0 auto 0 0;width:6px;background:var(--gold)}
+.proximo .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.proximo .nome{font-family:var(--font-display);font-weight:800;font-size:clamp(44px,6vw,72px);line-height:.95;text-transform:uppercase;margin-top:6px;overflow-wrap:anywhere}
+.proximo .nome.vazio{font-size:clamp(26px,3vw,34px);color:var(--muted);font-weight:700;text-transform:none}
+.proximo .sub{color:var(--muted);margin-top:6px;font-size:14px}
+.proximo .acao{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:var(--radius-sm);font-weight:700;font-size:14px;border:1px solid transparent;line-height:1.1;white-space:nowrap}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover:not(:disabled){background:var(--accent-hi)}
+.btn-ok{background:var(--ok);color:#06240f}
+.btn-ok:hover:not(:disabled){filter:brightness(1.08)}
+.btn-ghost{border-color:var(--line2);color:var(--fg);background:transparent}
+.btn-ghost:hover:not(:disabled){background:var(--panel2)}
+.btn-gold{background:var(--gold);color:#241a00}
+.btn-danger{background:transparent;border-color:var(--crit);color:var(--crit)}
+.btn-danger:hover{background:rgba(255,92,92,.12)}
+.btn-lg{font-size:17px;padding:14px 22px;text-transform:uppercase;letter-spacing:.04em;font-family:var(--font-display);font-size:21px}
+.btn-sm{padding:7px 10px;font-size:13px}
+.btn-icon{width:34px;height:34px;padding:0;border-radius:var(--radius-sm);border:1px solid var(--line2);color:var(--muted);display:inline-grid;place-items:center;font-size:15px}
+.btn-icon:hover:not(:disabled){color:var(--fg);background:var(--panel2)}
+
+/* listas */
+.lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 12px}
+@media (max-width:560px){.item{grid-template-columns:auto minmax(0,1fr);gap:8px 12px}.item .acts{grid-column:1/-1;justify-content:flex-start}}
+.item.first{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold-dim)}
+.item.warn{border-color:var(--warn)}
+.item.crit{border-color:var(--crit);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,92,92,0)}50%{box-shadow:0 0 0 4px rgba(255,92,92,.25)}}
+@media (prefers-reduced-motion:reduce){.item.crit{animation:none}}
+.pos{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:17px;background:var(--panel);border:1px solid var(--line2);color:var(--muted)}
+.item.first .pos{background:var(--gold);color:#241a00;border-color:var(--gold)}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:16px;color:#fff;flex:none}
+.opcao{min-width:0}.opcao>span+*{min-width:0}
+.item .info{min-width:0;display:flex;flex-direction:column;gap:3px}
+.item .nome{font-family:var(--font-display);font-weight:700;font-size:21px;line-height:1;text-transform:uppercase;overflow-wrap:break-word}
+.item .meta{color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.item .meta b{color:var(--fg);font-weight:600}
+.t-warn{color:var(--warn)!important}.t-crit{color:var(--crit)!important;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{display:inline-block;padding:1px 7px;border-radius:999px;background:var(--panel);border:1px solid var(--line2);font-size:12px;font-weight:600;color:var(--fg)}
+.chip.gold{border-color:var(--gold-dim);color:var(--gold)}
+.acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.menu{position:relative}
+.menu-pop{position:absolute;right:0;top:calc(100% + 4px);background:var(--panel);border:1px solid var(--line2);border-radius:var(--radius-sm);padding:6px;display:flex;flex-direction:column;min-width:190px;z-index:30;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.menu-pop button{text-align:left;padding:8px 10px;border-radius:7px;font-weight:600;font-size:14px}
+.menu-pop button:hover{background:var(--panel2)}
+.menu-pop button.danger{color:var(--crit)}
+.alerta-bar{display:flex;align-items:center;gap:10px;background:rgba(255,92,92,.12);border:1px solid var(--crit);border-radius:var(--radius-sm);padding:8px 12px;color:var(--fg);font-weight:600;font-size:14px}
+.alerta-bar.warn{background:rgba(245,165,36,.12);border-color:var(--warn)}
+.demo-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(242,183,5,.1);border:1px solid var(--gold-dim);border-radius:var(--radius-sm);padding:8px 12px;font-size:14px;margin-bottom:14px}
+
+/* resumo do dia (coluna) */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tile{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 12px}
+.tile .v{font-family:var(--font-display);font-weight:800;font-size:30px;line-height:1}
+.tile .l{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-top:4px}
+.rank{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.rank li{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:10px;align-items:center;font-size:14px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.rank li:last-child{border-bottom:0}
+.rank .n{font-weight:700;text-transform:uppercase;font-family:var(--font-display);font-size:17px;overflow-wrap:anywhere}
+.rank .s{color:var(--muted);font-size:12px}
+.rank .k{font-family:var(--font-display);font-weight:800;font-size:20px;text-align:right}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--faint);margin-right:6px;vertical-align:middle}
+.dot.fila{background:var(--gold)}.dot.rota{background:var(--accent-hi)}.dot.pausa{background:var(--warn)}
+
+/* tabelas */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-sm)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;background:var(--panel2);position:sticky;top:0}
+td.r,th.r{text-align:right}
+td.num,td.nw,th{white-space:nowrap}
+tr.total td{font-weight:700;background:var(--panel2)}
+tbody tr:hover td{background:rgba(255,255,255,.025)}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.03em}
+.tag.fila{background:rgba(242,183,5,.15);color:var(--gold)}.tag.rota{background:rgba(240,58,58,.15);color:var(--accent-hi)}.tag.pausa{background:rgba(245,165,36,.15);color:var(--warn)}.tag.fora{background:var(--panel2);color:var(--muted)}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.toolbar .sp{flex:1}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700}
+.in{background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius-sm);padding:9px 11px;min-height:40px;width:100%;min-width:0}
+.in:focus{border-color:var(--gold)}
+select.in{appearance:auto}
+textarea.in{resize:vertical;min-height:70px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+.row>.field{flex:1 1 160px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;align-items:start}
+.check{display:flex;align-items:center;gap:10px;font-weight:600;padding:8px 0}
+.check input{width:20px;height:20px;accent-color:var(--gold)}
+.sec-title{font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:4px 0 10px;font-weight:700}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px}
+.kv dt{color:var(--muted)}.kv dd{margin:0}
+
+/* modal */
+.ov{position:fixed;inset:0;background:rgba(5,8,16,.72);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50;backdrop-filter:blur(2px)}
+.modal{background:var(--panel);border:1px solid var(--line2);border-radius:var(--radius);width:min(540px,100%);max-height:92vh;overflow:auto;padding:18px 18px 16px;display:flex;flex-direction:column;gap:14px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.modal h3{font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+.modal .sub{color:var(--muted);margin-top:-8px}
+.modal .acts{justify-content:flex-end;margin-top:4px}
+.pin{letter-spacing:.5em;text-align:center;font-family:var(--font-display);font-size:30px;font-weight:700;max-width:220px}
+.opcoes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.opcao{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-sm);border:1px solid var(--line2);background:var(--panel2);font-weight:700;text-transform:uppercase;font-family:var(--font-display);font-size:18px;text-align:left}
+.opcao:hover{border-color:var(--gold)}
+.opcao.sel{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.pedidos{display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius-sm);padding:6px 8px;min-height:44px}
+.pedidos .chip{font-size:14px;padding:3px 9px;display:inline-flex;gap:6px;align-items:center}
+.pedidos .chip button{color:var(--muted);font-size:15px;line-height:1}
+.pedidos input{background:none;border:0;min-width:110px;flex:1;padding:4px;outline:none}
+.resumo-viagem{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.resumo-viagem .tile .v{font-size:26px}
+.erro{color:var(--crit);font-weight:600;font-size:14px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--panel2);border:1px solid var(--line2);color:var(--fg);padding:10px 16px;border-radius:999px;font-weight:600;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:calc(100% - 32px)}
+.toast.ok{border-color:var(--ok)}.toast.crit{border-color:var(--crit)}
+
+/* modo TV */
+.tv{position:fixed;inset:0;background:var(--bg);z-index:40;display:grid;grid-template-rows:auto 1fr;padding:3vh 4vw;gap:3vh}
+.tv .head{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-family:var(--font-display);font-size:clamp(20px,3vw,34px);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.tv .main{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:4vw;min-height:0}
+.tv .prox,.tv .rota{min-width:0}
+@media (max-width:800px){.tv .main{grid-template-columns:minmax(0,1fr)}}
+.tv .prox .lbl{color:var(--gold);font-family:var(--font-display);font-weight:700;letter-spacing:.14em;font-size:clamp(18px,2.4vw,30px);text-transform:uppercase}
+.tv .prox .nome{font-family:var(--font-display);font-weight:800;font-size:clamp(70px,13vw,190px);line-height:.9;text-transform:uppercase;overflow-wrap:anywhere}
+.tv .prox .nome.vazio{font-size:clamp(34px,5vw,64px);color:var(--muted)}
+.tv .seg{margin-top:3vh;display:flex;flex-direction:column;gap:1.2vh}
+.tv .seg div{font-family:var(--font-display);font-size:clamp(26px,3.6vw,52px);font-weight:700;text-transform:uppercase;color:var(--fg);display:flex;gap:16px;align-items:baseline}
+.tv .seg span{color:var(--muted);font-size:.6em;font-weight:600}
+.tv .rota h3{color:var(--accent-hi);font-size:clamp(18px,2.4vw,30px);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.5vh}
+.tv .rota div{font-family:var(--font-display);font-size:clamp(26px,3.4vw,48px);font-weight:700;text-transform:uppercase;display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding:.6vh 0}
+.tv .rota div>span:first-child{min-width:0;overflow-wrap:break-word}
+.tv .rota div>span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;flex:none}
+.tv .prox .nome,.proximo .nome{white-space:nowrap}
+.tv .prox .nome.quebra,.proximo .nome.quebra{white-space:normal;overflow-wrap:anywhere}
+.tv .sair{position:absolute;right:16px;bottom:16px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <div class="mark">T</div>
+    <div><h1 id="h-loja">Fila de Motoboys</h1><small id="h-sub">Tili Pizzaria · Expedição</small></div>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button class="tab on" data-tab="fila">Fila</button>
+    <button class="tab" data-tab="hoje">Números do dia</button>
+    <button class="tab" data-tab="hist">Histórico</button>
+    <button class="tab" data-tab="admin">Admin</button>
+  </nav>
+  <button class="btn-tv" id="btn-tv" title="Tela grande para a expedição">Modo TV</button>
+  <div class="clock num" id="clock">--:--</div>
+</header>
+
+<main class="wrap">
+  <div id="demo-bar" class="demo-bar" hidden>
+    <strong>Dados de exemplo.</strong><span class="hint">Os nomes e as viagens abaixo são fictícios, só para mostrar como o quadro funciona.</span>
+    <button class="btn btn-sm btn-ghost" id="btn-limpar-demo">Apagar o exemplo e começar do zero</button>
+  </div>
+  <section id="view-fila"></section>
+  <section id="view-hoje" hidden></section>
+  <section id="view-hist" hidden></section>
+  <section id="view-admin" hidden></section>
+</main>
+
+<div id="modal-root"></div>
+<div id="tv-root"></div>
+<div id="toast-root"></div>
+
+<script>
+/* ============================================================
+   Fila de Motoboys Tili — v2 (arquivo único, dados no navegador)
+   ============================================================ */
+const DEMO = false;                 // true = carrega um dia de exemplo na primeira abertura
+const KEY = 'tili_fila_motoboys_v2';
+const CORES = ['#d62828','#2b7de9','#1fa86b','#b84bd6','#e08a1e','#0fa3b1','#c93d7a','#6b7bd6','#8a9a1b','#d65a2b'];
+
+/* ---------- estado ---------- */
+function estadoInicial(){
+  return { v:2,
+    cfg:{ loja:'Tili Pizzaria', alertaMin:30, criticoMin:45, virada:6, som:true, pedirPedido:true, pin:'' },
+    motoboys:[], fila:[], rota:[], pausa:[], turnos:{}, turnosHist:[], viagens:[], eventos:[], seq:1 };
+}
+let S = null;
+function carregar(){
+  try{ const raw = localStorage.getItem(KEY); if(raw){ const s = JSON.parse(raw); if(s && s.v===2) return s; } }catch(e){ console.warn('storage read', e); }
+  return null;
+}
+function salvar(){
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }
+  catch(e){ console.warn('storage write', e); toast('Não consegui gravar no navegador — os dados podem se perder ao fechar', 'crit'); }
+}
+
+/* ---------- utilidades ---------- */
+const agora = () => Date.now();
+const pad = n => String(n).padStart(2,'0');
+const hm = ts => { const d = new Date(ts); return pad(d.getHours())+':'+pad(d.getMinutes()); };
+const dmy = iso => iso.slice(8,10)+'/'+iso.slice(5,7)+'/'+iso.slice(0,4);
+const minutos = (a,b) => Math.max(0, Math.round((b-a)/60000));
+const fmtMin = m => (m==null||isNaN(m)) ? '—' : (m < 60 ? m+' min' : Math.floor(m/60)+'h'+pad(m%60));
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function diaOp(ts){ const d = new Date(ts - (S.cfg.virada||0)*3600000); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+const hojeOp = () => diaOp(agora());
+const byId = id => S.motoboys.find(m => m.id===id);
+const nomeDe = (id, snap) => { const m = byId(id); return m ? m.nome : (snap || 'Motoboy removido'); };
+const corDe = id => { const m = byId(id); return (m && m.cor) || '#5f6b85'; };
+const inicial = n => (n||'?').trim().charAt(0).toUpperCase();
+function statusDe(id){
+  if(S.rota.some(r=>r.id===id)) return 'rota';
+  if(S.fila.some(f=>f.id===id)) return 'fila';
+  if(S.pausa.some(p=>p.id===id)) return 'pausa';
+  return 'fora';
+}
+const STATUS_LBL = { fila:'Na fila', rota:'Na rua', pausa:'Em pausa', fora:'Fora do turno' };
+function log(tipo, id, det){ S.eventos.push({ ts:agora(), tipo, id:id||null, det:det||'' }); }
+function limparAntigos(){
+  const lim60 = agora() - 60*86400000, lim400 = agora() - 400*86400000;
+  if(S.eventos.length > 3000 || (S.eventos[0] && S.eventos[0].ts < lim60)) S.eventos = S.eventos.filter(e => e.ts >= lim60).slice(-3000);
+  if(S.viagens[0] && S.viagens[0].saiuEm < lim400) S.viagens = S.viagens.filter(v => v.saiuEm >= lim400);
+  if(S.turnosHist[0] && S.turnosHist[0].inicio < lim400) S.turnosHist = S.turnosHist.filter(t => t.inicio >= lim400);
+}
+function commit(){ limparAntigos(); salvar(); render(); }
+
+/* ---------- som ---------- */
+let audioCtx = null;
+function armarAudio(){ try{ if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); } if(audioCtx.state==='suspended') audioCtx.resume(); }catch(e){} }
+function beep(vezes){
+  if(!S.cfg.som || !audioCtx) return;
+  try{
+    for(let i=0;i<(vezes||2);i++){
+      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+      o.type='square'; o.frequency.value = 880; g.gain.value = 0.0001;
+      o.connect(g); g.connect(audioCtx.destination);
+      const t = audioCtx.currentTime + i*0.28;
+      g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.25,t+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t+0.22);
+      o.start(t); o.stop(t+0.24);
+    }
+  }catch(e){}
+}
+document.addEventListener('pointerdown', armarAudio, { once:true });
+
+/* ---------- ações ---------- */
+function emAlgumLugar(id){ return statusDe(id)!=='fora'; }
+function ativar(id){
+  if(emAlgumLugar(id)) return;
+  S.fila.push({ id, desde:agora() });
+  S.turnos[id] = { inicio:agora() };
+  log('ATIVOU', id, 'entrou na fila');
+  commit(); toast(nomeDe(id)+' entrou na fila', 'ok');
+}
+function sair(id, d){
+  const i = S.fila.findIndex(f=>f.id===id); if(i<0) return;
+  const f = S.fila.splice(i,1)[0];
+  const pedidos = (d.pedidos||[]).slice(0,20), entregas = Math.max(1, Number(d.entregas)||pedidos.length||1);
+  S.rota.push({ id, saiuEm:agora(), entrouFila:f.desde, pedidos, bairro:(d.bairro||'').trim(), entregas, obs:(d.obs||'').trim(), alerta:0 });
+  log('SAIU', id, resumoSaida({pedidos, bairro:d.bairro, entregas}));
+  commit(); toast(nomeDe(id)+' saiu para entrega', 'ok');
+}
+function resumoSaida(r){
+  const p = r.pedidos && r.pedidos.length ? 'pedido(s) '+r.pedidos.map(x=>'#'+x).join(', ') : 'sem nº de pedido';
+  return p + (r.bairro ? ' · '+r.bairro : '') + ' · '+r.entregas+' entrega(s)';
+}
+function voltar(id, d){
+  const i = S.rota.findIndex(r=>r.id===id); if(i<0) return;
+  const r = S.rota.splice(i,1)[0];
+  const v = { vid:S.seq++, id, nome:nomeDe(id), saiuEm:r.saiuEm, voltouEm:agora(), espera:minutos(r.entrouFila||r.saiuEm, r.saiuEm),
+              pedidos:r.pedidos||[], bairro:r.bairro||'', entregas:Math.max(0, Number(d.entregas)!=null && !isNaN(Number(d.entregas)) ? Number(d.entregas) : r.entregas), obs:r.obs||'' };
+  S.viagens.push(v);
+  log('VOLTOU', id, fmtMin(minutos(r.saiuEm, v.voltouEm))+' na rua · '+v.entregas+' entrega(s)'+(d.encerrar?' · encerrou o turno':''));
+  if(d.encerrar) fecharTurno(id); else S.fila.push({ id, desde:agora() });
+  commit(); toast(nomeDe(id)+' voltou'+(d.encerrar?' e encerrou o turno':' — fim da fila'), 'ok');
+}
+function pausar(id, motivo){
+  const i = S.fila.findIndex(f=>f.id===id); if(i<0) return;
+  S.fila.splice(i,1); S.pausa.push({ id, desde:agora(), motivo:motivo||'' });
+  log('PAUSA', id, motivo||''); commit();
+}
+function retomar(id){
+  const i = S.pausa.findIndex(p=>p.id===id); if(i<0) return;
+  S.pausa.splice(i,1); S.fila.push({ id, desde:agora() });
+  log('RETOMOU', id, 'voltou da pausa para o fim da fila'); commit();
+}
+function fecharTurno(id){
+  const t = S.turnos[id]; if(t){ S.turnosHist.push({ id, nome:nomeDe(id), inicio:t.inicio, fim:agora() }); delete S.turnos[id]; }
+}
+function encerrar(id){
+  if(S.rota.some(r=>r.id===id)){ toast('Registre a volta antes de encerrar o turno', 'crit'); return; }
+  S.fila = S.fila.filter(f=>f.id!==id); S.pausa = S.pausa.filter(p=>p.id!==id);
+  fecharTurno(id); log('ENCERROU', id, 'saiu do turno'); commit(); toast(nomeDe(id)+' encerrou o turno');
+}
+function mover(id, dir){
+  const i = S.fila.findIndex(f=>f.id===id), j = i+dir; if(i<0||j<0||j>=S.fila.length) return;
+  [S.fila[i], S.fila[j]] = [S.fila[j], S.fila[i]];
+  log('REORDENOU', id, dir<0?'subiu uma posição':'desceu uma posição'); commit();
+}
+function furar(id){
+  const i = S.fila.findIndex(f=>f.id===id); if(i<=0) return;
+  const f = S.fila.splice(i,1)[0]; S.fila.unshift(f);
+  log('FUROU_FILA', id, 'passou para o 1º da fila'); commit();
+}
+function paraFim(id){
+  const i = S.fila.findIndex(f=>f.id===id); if(i<0||i===S.fila.length-1) return;
+  const f = S.fila.splice(i,1)[0]; S.fila.push(f);
+  log('REORDENOU', id, 'foi para o fim da fila'); commit();
+}
+function editarRota(id, d){
+  const r = S.rota.find(r=>r.id===id); if(!r) return;
+  r.pedidos = (d.pedidos||[]).slice(0,20); r.bairro=(d.bairro||'').trim(); r.entregas=Math.max(1,Number(d.entregas)||1); r.obs=(d.obs||'').trim();
+  log('EDITOU', id, 'saída: '+resumoSaida(r)); commit();
+}
+function editarViagem(vid, d){
+  const v = S.viagens.find(v=>v.vid===vid); if(!v) return;
+  v.pedidos=(d.pedidos||[]).slice(0,20); v.bairro=(d.bairro||'').trim(); v.entregas=Math.max(0,Number(d.entregas)||0); v.obs=(d.obs||'').trim();
+  log('EDITOU', v.id, 'viagem das '+hm(v.saiuEm)+': '+v.entregas+' entrega(s)'); commit();
+}
+function excluirViagem(vid){ const v = S.viagens.find(v=>v.vid===vid); if(!v) return; S.viagens = S.viagens.filter(x=>x.vid!==vid); log('EXCLUIU', v.id, 'viagem das '+hm(v.saiuEm)); commit(); }
+function encerrarDia(){
+  const ids = [...S.fila.map(f=>f.id), ...S.pausa.map(p=>p.id)];
+  if(S.rota.length){ toast('Ainda tem motoboy na rua — registre as voltas primeiro', 'crit'); return; }
+  ids.forEach(id => { fecharTurno(id); });
+  S.fila = []; S.pausa = [];
+  log('ENCERROU_DIA', null, ids.length+' turno(s) encerrado(s)'); commit(); toast('Dia encerrado — fila zerada', 'ok');
+}
+function fecharTurnosEsquecidos(){
+  // turno com mais de 14h aberto (alguém esqueceu de encerrar): fecha sozinho
+  let n = 0;
+  Object.keys(S.turnos).forEach(k => { const id = Number(k); const t = S.turnos[id];
+    if(agora() - t.inicio > 14*3600000 && !S.rota.some(r=>r.id===id)){ S.fila = S.fila.filter(f=>f.id!==id); S.pausa = S.pausa.filter(p=>p.id!==id); fecharTurno(id); log('ENCERROU', id, 'turno fechado automaticamente (mais de 14h aberto)'); n++; } });
+  if(n) { salvar(); }
+}
+function cadastrar(nome, tel){
+  nome = (nome||'').trim(); if(!nome) return null;
+  const id = S.seq++; S.motoboys.push({ id, nome, tel:(tel||'').trim(), cor:CORES[(S.motoboys.length)%CORES.length], arquivado:false, criadoEm:agora() });
+  log('CADASTRO', id, 'cadastrado'); commit(); return id;
+}
+function editarMotoboy(id, nome, tel, cor){ const m = byId(id); if(!m) return; m.nome=(nome||m.nome).trim(); m.tel=(tel||'').trim(); if(cor) m.cor=cor; log('CADASTRO', id, 'dados alterados'); commit(); }
+function arquivar(id, flag){ const m = byId(id); if(!m) return; if(flag && emAlgumLugar(id)){ toast('Encerre o turno antes de arquivar', 'crit'); return; } m.arquivado=!!flag; log('CADASTRO', id, flag?'arquivado':'reativado'); commit(); }
+function excluirMotoboy(id){ if(emAlgumLugar(id)){ toast('Encerre o turno antes de excluir', 'crit'); return; } const m = byId(id); S.motoboys = S.motoboys.filter(x=>x.id!==id); log('CADASTRO', null, 'excluiu '+(m?m.nome:id)); commit(); }
+
+/* ---------- cálculos ---------- */
+function diasDisponiveis(){
+  const set = new Set([hojeOp()]);
+  S.viagens.forEach(v => set.add(diaOp(v.saiuEm)));
+  S.turnosHist.forEach(t => set.add(diaOp(t.inicio)));
+  Object.values(S.turnos).forEach(t => set.add(diaOp(t.inicio)));
+  return [...set].sort().reverse();
+}
+function resumoDia(dia){
+  const viagens = S.viagens.filter(v => diaOp(v.saiuEm)===dia);
+  const turnos = [...S.turnosHist.filter(t=>diaOp(t.inicio)===dia), ...Object.entries(S.turnos).filter(([id,t])=>diaOp(t.inicio)===dia).map(([id,t])=>({id:Number(id), inicio:t.inicio, fim:null}))];
+  const ids = new Set([...viagens.map(v=>v.id), ...turnos.map(t=>t.id)]);
+  if(dia===hojeOp()) [...S.fila, ...S.rota, ...S.pausa].forEach(x => ids.add(x.id));
+  const porMotoboy = [...ids].map(id => {
+    const vs = viagens.filter(v=>v.id===id);
+    const ts = turnos.filter(t=>t.id===id);
+    const entregas = vs.reduce((a,v)=>a+(v.entregas||0),0);
+    const tempoRua = vs.reduce((a,v)=>a+minutos(v.saiuEm,v.voltouEm),0);
+    const esperas = vs.map(v=>v.espera).filter(x=>x!=null);
+    const emRota = S.rota.find(r=>r.id===id);
+    const entrou = ts.length ? Math.min(...ts.map(t=>t.inicio)) : null;
+    const saiuTurno = ts.length && ts.every(t=>t.fim) ? Math.max(...ts.map(t=>t.fim)) : null;
+    const ultima = vs.length ? Math.max(...vs.map(v=>v.voltouEm)) : null;
+    return { id, nome:nomeDe(id, vs[0]&&vs[0].nome || ts[0]&&ts[0].nome), viagens:vs.length, entregas, tempoRua,
+      medioRua: vs.length ? Math.round(tempoRua/vs.length) : null,
+      esperaMedia: esperas.length ? Math.round(esperas.reduce((a,b)=>a+b,0)/esperas.length) : null,
+      maior: vs.length ? Math.max(...vs.map(v=>minutos(v.saiuEm,v.voltouEm))) : null,
+      entrou, saiuTurno, ultima, status: dia===hojeOp() ? statusDe(id) : 'fora',
+      emRotaMin: emRota ? minutos(emRota.saiuEm, agora()) : null };
+  }).sort((a,b)=> b.entregas-a.entregas || b.viagens-a.viagens || a.nome.localeCompare(b.nome));
+  const tot = { viagens:viagens.length, entregas:viagens.reduce((a,v)=>a+(v.entregas||0),0), motoboys:porMotoboy.length,
+    medioRua: viagens.length ? Math.round(viagens.reduce((a,v)=>a+minutos(v.saiuEm,v.voltouEm),0)/viagens.length) : null,
+    maior: viagens.length ? Math.max(...viagens.map(v=>minutos(v.saiuEm,v.voltouEm))) : null,
+    esperaMedia: (()=>{ const e = viagens.map(v=>v.espera).filter(x=>x!=null); return e.length ? Math.round(e.reduce((a,b)=>a+b,0)/e.length) : null; })() };
+  return { dia, viagens, porMotoboy, tot };
+}
+function bairrosConhecidos(){
+  const c = {}; S.viagens.slice(-400).forEach(v => { if(v.bairro) c[v.bairro]=(c[v.bairro]||0)+1; }); S.rota.forEach(r=>{ if(r.bairro) c[r.bairro]=(c[r.bairro]||0)+1; });
+  return Object.entries(c).sort((a,b)=>b[1]-a[1]).map(x=>x[0]).slice(0,40);
+}
+
+/* ---------- navegação / render ---------- */
+let tab = 'fila', diaSel = null, filtroHist = 0, adminLiberado = false, menuAberto = null;
+const $ = id => document.getElementById(id);
+document.querySelectorAll('#tabs .tab').forEach(b => b.addEventListener('click', () => { tab = b.dataset.tab; menuAberto=null; render(); }));
+function render(){
+  document.querySelectorAll('#tabs .tab').forEach(b => b.classList.toggle('on', b.dataset.tab===tab));
+  ['fila','hoje','hist','admin'].forEach(t => { $('view-'+t).hidden = (t!==tab); });
+  $('h-loja').textContent = 'Fila de Motoboys';
+  $('h-sub').textContent = (S.cfg.loja||'Tili Pizzaria')+' · Expedição';
+  $('demo-bar').hidden = !S.demo;
+  if(tab==='fila') renderFila();
+  if(tab==='hoje') renderHoje();
+  if(tab==='hist') renderHist();
+  if(tab==='admin') renderAdmin();
+  if($('tv-root').firstChild) renderTV();
+}
+function classeTempo(min){ if(min >= S.cfg.criticoMin) return 'crit'; if(min >= S.cfg.alertaMin) return 'warn'; return ''; }
+function ajustarNome(el){ // encolhe o nome grande até caber na largura; se nem assim couber, deixa quebrar
+  if(!el || el.classList.contains('vazio')) return;
+  el.style.fontSize=''; el.classList.remove('quebra');
+  let s = parseFloat(getComputedStyle(el).fontSize)||48; const min = Math.max(22, s*0.45);
+  let guard = 60;
+  while(el.scrollWidth > el.clientWidth + 1 && s > min && guard--){ s = Math.floor(s*0.92); el.style.fontSize = s+'px'; }
+  if(el.scrollWidth > el.clientWidth + 1) el.classList.add('quebra');
+}
+
+function renderFila(){
+  const n = agora();
+  const prox = S.fila[0];
+  const criticos = S.rota.filter(r => minutos(r.saiuEm,n) >= S.cfg.criticoMin);
+  const avisos = S.rota.filter(r => { const m = minutos(r.saiuEm,n); return m >= S.cfg.alertaMin && m < S.cfg.criticoMin; });
+  const resumo = resumoDia(hojeOp());
+  const inativos = S.motoboys.filter(m => !m.arquivado && !emAlgumLugar(m.id));
+  let alerta = '';
+  if(criticos.length) alerta = `<div class="alerta-bar">⚠ ${criticos.map(r=>esc(nomeDe(r.id))+' há '+minutos(r.saiuEm,n)+' min na rua').join(' · ')}</div>`;
+  else if(avisos.length) alerta = `<div class="alerta-bar warn">⏱ ${avisos.map(r=>esc(nomeDe(r.id))+' há '+minutos(r.saiuEm,n)+' min na rua').join(' · ')}</div>`;
+
+  const filaHtml = S.fila.length ? `<ul class="lista">${S.fila.map((f,i)=>{
+      const st = resumo.porMotoboy.find(p=>p.id===f.id) || {viagens:0,entregas:0};
+      return `<li class="item ${i===0?'first':''}">
+        <span class="pos num">${i+1}</span>
+        <div class="info"><div class="nome">${esc(nomeDe(f.id))}</div>
+          <div class="meta"><span>na fila há <b class="num">${minutos(f.desde,n)} min</b></span><span>hoje: <b>${st.viagens}</b> viagem${st.viagens===1?'':'s'} · <b>${st.entregas}</b> entrega${st.entregas===1?'':'s'}</b></span></div></div>
+        <div class="acts">
+          <button class="btn btn-sm btn-primary" data-a="saiu" data-id="${f.id}">Saiu</button>
+          <button class="btn-icon" title="Subir" data-a="sobe" data-id="${f.id}" ${i===0?'disabled':''}>▲</button>
+          <button class="btn-icon" title="Descer" data-a="desce" data-id="${f.id}" ${i===S.fila.length-1?'disabled':''}>▼</button>
+          <div class="menu"><button class="btn-icon" title="Mais opções" data-a="menu" data-id="${f.id}">⋯</button>
+            ${menuAberto==='f'+f.id ? `<div class="menu-pop">
+              <button data-a="pausa" data-id="${f.id}">⏸ Pausa (lanche, abastecer…)</button>
+              <button data-a="fura" data-id="${f.id}" ${i===0?'disabled':''}>⤒ Passar para 1º da fila</button>
+              <button data-a="fim" data-id="${f.id}" ${i===S.fila.length-1?'disabled':''}>⤓ Mandar para o fim</button>
+              <button class="danger" data-a="encerra" data-id="${f.id}">✕ Encerrar turno</button></div>` : ''}
+          </div>
+        </div></li>`; }).join('')}</ul>`
+    : `<p class="empty">Ninguém na fila. ${S.rota.length ? 'Todos estão na rua — o próximo a voltar entra no fim da fila.' : 'Toque em “Ativar motoboy” quando alguém chegar.'}</p>`;
+
+  const rotaHtml = S.rota.length ? `<ul class="lista">${[...S.rota].sort((a,b)=>a.saiuEm-b.saiuEm).map(r=>{
+      const m = minutos(r.saiuEm,n), cls = classeTempo(m);
+      return `<li class="item ${cls}">
+        <span class="av" style="background:${corDe(r.id)}">${esc(inicial(nomeDe(r.id)))}</span>
+        <div class="info"><div class="nome">${esc(nomeDe(r.id))}</div>
+          <div class="meta"><span>saiu <b class="num">${hm(r.saiuEm)}</b></span><span class="${cls?'t-'+cls:''}">há <b class="num ${cls?'t-'+cls:''}">${m} min</b></span><span><b>${r.entregas}</b> entrega${r.entregas===1?'':'s'}</span>${r.bairro?`<span>${esc(r.bairro)}</span>`:''}</div>
+          ${r.pedidos&&r.pedidos.length||r.obs ? `<div class="chips">${(r.pedidos||[]).map(p=>`<span class="chip">#${esc(p)}</span>`).join('')}${r.obs?`<span class="chip gold">${esc(r.obs)}</span>`:''}</div>`:''}</div>
+        <div class="acts"><button class="btn btn-sm btn-ok" data-a="voltou" data-id="${r.id}">Voltou</button><button class="btn-icon" title="Corrigir pedido / bairro" data-a="edrota" data-id="${r.id}">✎</button></div></li>`; }).join('')}</ul>`
+    : `<p class="empty">Ninguém na rua agora.</p>`;
+
+  const pausaHtml = S.pausa.length ? `<ul class="lista">${S.pausa.map(p=>`<li class="item">
+        <span class="av" style="background:${corDe(p.id)}">${esc(inicial(nomeDe(p.id)))}</span>
+        <div class="info"><div class="nome">${esc(nomeDe(p.id))}</div><div class="meta"><span>desde <b class="num">${hm(p.desde)}</b> (${minutos(p.desde,n)} min)</span>${p.motivo?`<span>${esc(p.motivo)}</span>`:''}</div></div>
+        <div class="acts"><button class="btn btn-sm btn-gold" data-a="retoma" data-id="${p.id}">Voltar à fila</button><button class="btn-icon" title="Encerrar turno" data-a="encerra" data-id="${p.id}">✕</button></div></li>`).join('')}</ul>` : '';
+
+  const ranking = resumo.porMotoboy.filter(p=>p.status!=='fora' || p.viagens).slice(0,12);
+  const hojeHtml = `
+    <div class="tiles">
+      <div class="tile"><div class="v num">${resumo.tot.entregas}</div><div class="l">Entregas hoje</div></div>
+      <div class="tile"><div class="v num">${resumo.tot.viagens}</div><div class="l">Viagens</div></div>
+      <div class="tile"><div class="v num">${resumo.tot.medioRua!=null?fmtMin(resumo.tot.medioRua):'—'}</div><div class="l">Média na rua</div></div>
+      <div class="tile"><div class="v num">${S.fila.length+S.rota.length+S.pausa.length}</div><div class="l">No turno agora</div></div>
+    </div>
+    ${ranking.length ? `<ul class="rank">${ranking.map(p=>`<li><span class="av" style="background:${corDe(p.id)};width:26px;height:26px;font-size:14px">${esc(inicial(p.nome))}</span>
+        <div><div class="n">${esc(p.nome)}</div><div class="s"><span class="dot ${p.status}"></span>${STATUS_LBL[p.status]}${p.status==='rota'&&p.emRotaMin!=null?' · '+p.emRotaMin+' min':''}${p.medioRua!=null?' · média '+fmtMin(p.medioRua):''}</div></div>
+        <div class="k num" title="entregas">${p.entregas}<span class="s"> ent.</span></div><div class="k num" title="viagens" style="color:var(--muted)">${p.viagens}<span class="s"> viag.</span></div></li>`).join('')}</ul>` : `<p class="empty">Os números aparecem conforme as viagens forem registradas.</p>`}
+    <div style="margin-top:10px"><button class="btn btn-sm btn-ghost" data-a="tab-hoje">Ver tabela completa</button></div>`;
+
+  $('view-fila').innerHTML = `
+    ${alerta}
+    <div class="board" style="${alerta?'margin-top:14px':''}">
+      <div class="col">
+        <div class="proximo">
+          <div class="lbl">Próximo da fila</div>
+          ${prox ? `<div class="nome">${esc(nomeDe(prox.id))}</div><div class="sub">na fila há <b class="num">${minutos(prox.desde,n)} min</b>${S.fila[1]?` · depois: <b>${esc(nomeDe(S.fila[1].id))}</b>`:''}${S.fila.length>2?` e mais ${S.fila.length-2}`:''}</div>
+            <div class="acao"><button class="btn btn-primary btn-lg" data-a="saiu" data-id="${prox.id}">Saiu para entrega</button></div>`
+            : `<div class="nome vazio">Nenhum motoboy na fila</div><div class="sub">${S.rota.length?`${S.rota.length} na rua — o primeiro a voltar assume.`:'Ative quem chegou para começar.'}</div>`}
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Fila</h2><span class="badge num">${S.fila.length}</span><span class="sp"></span><button class="btn btn-sm btn-ghost" data-a="ativar">+ Ativar motoboy${inativos.length?` (${inativos.length})`:''}</button></div>
+          ${filaHtml}
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-head"><h2>Na rua</h2><span class="badge num">${S.rota.length}</span><span class="sp"></span><span class="hint">alerta aos ${S.cfg.alertaMin} min · crítico aos ${S.cfg.criticoMin}</span></div>
+          ${rotaHtml}
+        </div>
+        ${S.pausa.length ? `<div class="card"><div class="card-head"><h2>Em pausa</h2><span class="badge num">${S.pausa.length}</span></div>${pausaHtml}</div>` : ''}
+      </div>
+      <div class="col col-hoje">
+        <div class="card"><div class="card-head"><h2>Hoje</h2><span class="hint">${dmy(hojeOp())} · dia vira às ${pad(S.cfg.virada)}:00</span></div>${hojeHtml}</div>
+      </div>
+    </div>`;
+  ajustarNome($('view-fila').querySelector('.proximo .nome'));
+}
+
+function renderHoje(){
+  if(!diaSel) diaSel = hojeOp();
+  const dias = diasDisponiveis(); if(!dias.includes(diaSel)) diaSel = dias[0];
+  const r = resumoDia(diaSel);
+  const linhas = r.porMotoboy.map(p=>`<tr>
+      <td class="nw"><span class="av" style="background:${corDe(p.id)};width:24px;height:24px;font-size:13px;display:inline-grid;vertical-align:middle;margin-right:8px">${esc(inicial(p.nome))}</span><b>${esc(p.nome)}</b></td>
+      <td><span class="tag ${p.status}">${STATUS_LBL[p.status]}${p.status==='rota'&&p.emRotaMin!=null?' · '+p.emRotaMin+' min':''}</span></td>
+      <td class="num">${p.entrou?hm(p.entrou):'—'}${p.saiuTurno?' – '+hm(p.saiuTurno):''}</td>
+      <td class="r num"><b>${p.viagens}</b></td><td class="r num"><b>${p.entregas}</b></td>
+      <td class="r num">${fmtMin(p.medioRua)}</td><td class="r num">${fmtMin(p.maior)}</td><td class="r num">${fmtMin(p.tempoRua)}</td><td class="r num">${fmtMin(p.esperaMedia)}</td>
+      <td class="num">${p.ultima?hm(p.ultima):'—'}</td></tr>`).join('');
+  $('view-hoje').innerHTML = `
+    <div class="toolbar">
+      <div class="field"><label for="sel-dia">Dia operacional</label><select class="in" id="sel-dia" style="width:auto">${dias.map(d=>`<option value="${d}" ${d===diaSel?'selected':''}>${dmy(d)}${d===hojeOp()?' (hoje)':''}</option>`).join('')}</select></div>
+      <span class="hint">das ${pad(S.cfg.virada)}:00 às ${pad(S.cfg.virada)}:00 do dia seguinte</span>
+      <span class="sp"></span>
+      <button class="btn btn-sm btn-ghost" data-a="csv-resumo">Exportar resumo (CSV)</button>
+      <button class="btn btn-sm btn-ghost" data-a="csv-viagens">Exportar viagens (CSV)</button>
+    </div>
+    <div class="tiles" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:14px">
+      <div class="tile"><div class="v num">${r.tot.entregas}</div><div class="l">Entregas</div></div>
+      <div class="tile"><div class="v num">${r.tot.viagens}</div><div class="l">Viagens</div></div>
+      <div class="tile"><div class="v num">${r.tot.motoboys}</div><div class="l">Motoboys no dia</div></div>
+      <div class="tile"><div class="v num">${fmtMin(r.tot.medioRua)}</div><div class="l">Média na rua por viagem</div></div>
+      <div class="tile"><div class="v num">${fmtMin(r.tot.maior)}</div><div class="l">Viagem mais longa</div></div>
+      <div class="tile"><div class="v num">${fmtMin(r.tot.esperaMedia)}</div><div class="l">Espera média na fila</div></div>
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Motoboy</th><th>Agora</th><th>Turno</th><th class="r">Viagens</th><th class="r">Entregas</th><th class="r">Média na rua</th><th class="r">Mais longa</th><th class="r">Total na rua</th><th class="r">Espera média</th><th>Última volta</th></tr></thead>
+      <tbody>${linhas || `<tr><td colspan="10" class="empty">Nenhum registro neste dia.</td></tr>`}
+      ${r.porMotoboy.length?`<tr class="total"><td>Total</td><td></td><td></td><td class="r num">${r.tot.viagens}</td><td class="r num">${r.tot.entregas}</td><td class="r num">${fmtMin(r.tot.medioRua)}</td><td class="r num">${fmtMin(r.tot.maior)}</td><td class="r num">${fmtMin(r.viagens.reduce((a,v)=>a+minutos(v.saiuEm,v.voltouEm),0))}</td><td class="r num">${fmtMin(r.tot.esperaMedia)}</td><td></td></tr>`:''}</tbody>
+    </table></div>
+    <p class="hint" style="margin-top:10px">Entregas = quantidade informada na saída/volta de cada viagem. Espera = tempo entre entrar na fila e sair para a rua.</p>`;
+  $('sel-dia').addEventListener('change', e => { diaSel = e.target.value; render(); });
+}
+
+function renderHist(){
+  if(!diaSel) diaSel = hojeOp();
+  const dias = diasDisponiveis(); if(!dias.includes(diaSel)) diaSel = dias[0];
+  const r = resumoDia(diaSel);
+  const nomes = [...new Map(r.porMotoboy.map(p=>[p.id,p.nome])).entries()];
+  const viagens = r.viagens.filter(v=>!filtroHist||v.id===filtroHist).sort((a,b)=>b.saiuEm-a.saiuEm);
+  const eventos = S.eventos.filter(e=>diaOp(e.ts)===diaSel && (!filtroHist||e.id===filtroHist)).sort((a,b)=>b.ts-a.ts).slice(0,400);
+  const LBL = { ATIVOU:'Entrou na fila', SAIU:'Saiu para entrega', VOLTOU:'Voltou', PAUSA:'Pausa', RETOMOU:'Voltou da pausa', ENCERROU:'Encerrou o turno', REORDENOU:'Fila reordenada', FUROU_FILA:'Furou a fila', EDITOU:'Correção', EXCLUIU:'Viagem excluída', CADASTRO:'Cadastro', CONFIG:'Configuração', ENCERROU_DIA:'Dia encerrado', ZEROU:'Dados apagados', EXEMPLO:'Exemplo carregado', BACKUP:'Backup' };
+  $('view-hist').innerHTML = `
+    <div class="toolbar">
+      <div class="field"><label for="sel-dia2">Dia operacional</label><select class="in" id="sel-dia2" style="width:auto">${dias.map(d=>`<option value="${d}" ${d===diaSel?'selected':''}>${dmy(d)}${d===hojeOp()?' (hoje)':''}</option>`).join('')}</select></div>
+      <div class="field"><label for="sel-mb">Motoboy</label><select class="in" id="sel-mb" style="width:auto"><option value="0">Todos</option>${nomes.map(([id,n])=>`<option value="${id}" ${filtroHist===id?'selected':''}>${esc(n)}</option>`).join('')}</select></div>
+      <span class="sp"></span>
+      <button class="btn btn-sm btn-ghost" data-a="csv-viagens">Exportar viagens (CSV)</button>
+    </div>
+    <div class="grid2">
+      <div class="card"><div class="card-head"><h2>Viagens</h2><span class="badge num">${viagens.length}</span></div>
+        <div class="tbl-wrap"><table style="min-width:620px"><thead><tr><th>Motoboy</th><th>Saiu</th><th>Voltou</th><th class="r">Na rua</th><th class="r">Espera</th><th>Pedidos</th><th>Bairro</th><th class="r">Entregas</th><th></th></tr></thead>
+        <tbody>${viagens.map(v=>`<tr><td><b>${esc(nomeDe(v.id,v.nome))}</b></td><td class="num">${hm(v.saiuEm)}</td><td class="num">${hm(v.voltouEm)}</td><td class="r num">${fmtMin(minutos(v.saiuEm,v.voltouEm))}</td><td class="r num">${fmtMin(v.espera)}</td><td>${(v.pedidos||[]).map(p=>'#'+esc(p)).join(' ')||'—'}</td><td>${esc(v.bairro)||'—'}${v.obs?` <span class="hint">(${esc(v.obs)})</span>`:''}</td><td class="r num">${v.entregas}</td><td><button class="btn-icon" title="Corrigir" data-a="edviagem" data-vid="${v.vid}">✎</button></td></tr>`).join('') || `<tr><td colspan="9" class="empty">Nenhuma viagem registrada.</td></tr>`}</tbody></table></div>
+      </div>
+      <div class="card"><div class="card-head"><h2>Tudo que aconteceu</h2><span class="badge num">${eventos.length}</span></div>
+        <div class="tbl-wrap"><table style="min-width:420px"><thead><tr><th>Hora</th><th>Motoboy</th><th>Evento</th><th>Detalhe</th></tr></thead>
+        <tbody>${eventos.map(e=>`<tr><td class="num">${hm(e.ts)}</td><td>${e.id?esc(nomeDe(e.id)):'—'}</td><td><b>${LBL[e.tipo]||e.tipo}</b></td><td class="hint">${esc(e.det)}</td></tr>`).join('') || `<tr><td colspan="4" class="empty">Sem eventos neste dia.</td></tr>`}</tbody></table></div>
+      </div>
+    </div>`;
+  $('sel-dia2').addEventListener('change', e => { diaSel = e.target.value; render(); });
+  $('sel-mb').addEventListener('change', e => { filtroHist = Number(e.target.value); render(); });
+}
+
+function renderAdmin(){
+  if(S.cfg.pin && !adminLiberado){
+    $('view-admin').innerHTML = `<div class="card" style="max-width:420px;margin:30px auto;text-align:center"><h2 style="font-size:24px;margin-bottom:6px">Área do administrador</h2><p class="hint">Digite o PIN para entrar.</p>
+      <div style="display:flex;justify-content:center;margin:14px 0"><input class="in pin" id="pin-in" inputmode="numeric" maxlength="6" placeholder="••••" aria-label="PIN"></div>
+      <p class="erro" id="pin-erro" hidden>PIN incorreto.</p>
+      <button class="btn btn-gold" data-a="pin-ok">Entrar</button></div>`;
+    const inp = $('pin-in'); inp.focus(); inp.addEventListener('keydown', e => { if(e.key==='Enter') tentarPin(); });
+    return;
+  }
+  const mbs = [...S.motoboys].sort((a,b)=>a.arquivado-b.arquivado || a.nome.localeCompare(b.nome));
+  $('view-admin').innerHTML = `
+    <div class="grid2">
+      <div class="card">
+        <div class="card-head"><h2>Motoboys</h2><span class="badge num">${S.motoboys.filter(m=>!m.arquivado).length}</span><span class="sp"></span><button class="btn btn-sm btn-gold" data-a="novo-mb">+ Cadastrar</button></div>
+        <div class="tbl-wrap"><table style="min-width:420px"><thead><tr><th>Nome</th><th>Telefone</th><th>Situação</th><th></th></tr></thead><tbody>
+        ${mbs.map(m=>`<tr style="${m.arquivado?'opacity:.55':''}"><td class="nw" title="${esc(m.nomeCompleto||'')}"><span class="av" style="background:${m.cor};width:24px;height:24px;font-size:13px;display:inline-grid;vertical-align:middle;margin-right:8px">${esc(inicial(m.nome))}</span><b>${esc(m.nome)}</b>${m.tipo?` <span class="hint" style="font-size:11px;text-transform:uppercase;letter-spacing:.05em">${m.tipo==='prestador'?'prestador':'diarista'}</span>`:''}</td><td class="num">${esc(m.tel)||'—'}</td><td>${m.arquivado?'<span class="tag fora">Arquivado</span>':`<span class="tag ${statusDe(m.id)}">${STATUS_LBL[statusDe(m.id)]}</span>`}</td>
+          <td style="white-space:nowrap"><button class="btn-icon" title="Editar" data-a="ed-mb" data-id="${m.id}">✎</button> <button class="btn-icon" title="${m.arquivado?'Reativar':'Arquivar (some da lista de ativação)'}" data-a="arq-mb" data-id="${m.id}">${m.arquivado?'↺':'▣'}</button> <button class="btn-icon" title="Excluir" data-a="del-mb" data-id="${m.id}" style="color:var(--crit)">🗑</button></td></tr>`).join('') || `<tr><td colspan="4" class="empty">Nenhum motoboy cadastrado.</td></tr>`}
+        </tbody></table></div>
+        <p class="hint" style="margin-top:8px">Arquivar tira o nome da lista de ativação sem perder o histórico. Excluir apaga o cadastro (as viagens antigas continuam no histórico pelo nome).</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Configurações</h2></div>
+        <div class="row">
+          <div class="field"><label for="cfg-loja">Nome da loja</label><input class="in" id="cfg-loja" value="${esc(S.cfg.loja)}"></div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <div class="field"><label for="cfg-alerta">Avisar após (min na rua)</label><input class="in num" id="cfg-alerta" type="number" min="5" max="180" value="${S.cfg.alertaMin}"></div>
+          <div class="field"><label for="cfg-crit">Crítico após (min)</label><input class="in num" id="cfg-crit" type="number" min="5" max="240" value="${S.cfg.criticoMin}"></div>
+          <div class="field"><label for="cfg-virada">Dia vira às (hora)</label><input class="in num" id="cfg-virada" type="number" min="0" max="12" value="${S.cfg.virada}"></div>
+        </div>
+        <label class="check"><input type="checkbox" id="cfg-som" ${S.cfg.som?'checked':''}> Tocar aviso sonoro quando passar do tempo crítico</label>
+        <label class="check"><input type="checkbox" id="cfg-pedir" ${S.cfg.pedirPedido?'checked':''}> Ao sair, perguntar nº do pedido, bairro e quantas entregas</label>
+        <div class="row" style="margin-top:6px">
+          <div class="field"><label for="cfg-pin">PIN do admin (vazio = sem PIN)</label><input class="in num" id="cfg-pin" inputmode="numeric" maxlength="6" placeholder="4 a 6 dígitos" value="${esc(S.cfg.pin)}"></div>
+        </div>
+        <div class="acts" style="justify-content:flex-start;margin-top:12px"><button class="btn btn-gold" data-a="salvar-cfg">Salvar configurações</button></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Dados</h2></div>
+        <dl class="kv"><dt>Viagens guardadas</dt><dd class="num">${S.viagens.length}</dd><dt>Eventos guardados</dt><dd class="num">${S.eventos.length} (últimos 60 dias)</dd><dt>Onde ficam</dt><dd>Neste navegador, neste computador. Faça backup de vez em quando.</dd></dl>
+        <div class="acts" style="justify-content:flex-start;margin-top:12px;gap:8px">
+          <button class="btn btn-ghost" data-a="backup">Exportar backup</button>
+          <label class="btn btn-ghost" for="imp-file" style="cursor:pointer">Importar backup<input type="file" id="imp-file" accept="application/json,.json" hidden></label>
+          <button class="btn btn-ghost" data-a="encerrar-dia">Encerrar o dia (zerar fila)</button>
+        </div>
+        <div class="acts" style="justify-content:flex-start;margin-top:10px;gap:8px">
+          <button class="btn btn-sm btn-ghost" data-a="exemplo">Carregar dados de exemplo</button>
+          <button class="btn btn-sm btn-danger" data-a="apagar-tudo">Apagar tudo</button>
+        </div>
+      </div>
+    </div>`;
+  $('imp-file').addEventListener('change', importarBackup);
+}
+
+/* ---------- modo TV ---------- */
+function abrirTV(){ $('tv-root').innerHTML = '<div class="tv" id="tv"></div>'; renderTV(); try{ document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(()=>{}); }catch(e){} }
+function fecharTV(){ $('tv-root').innerHTML=''; try{ if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); }catch(e){} }
+function renderTV(){
+  const el = $('tv'); if(!el) return; const n = agora(); const prox = S.fila[0];
+  el.innerHTML = `<div class="head"><span>${esc(S.cfg.loja)} · Fila de motoboys</span><span class="num">${hm(n)}</span></div>
+    <div class="main">
+      <div class="prox"><div class="lbl">Próximo da fila</div>${prox?`<div class="nome">${esc(nomeDe(prox.id))}</div>`:`<div class="nome vazio">Ninguém na fila</div>`}
+        <div class="seg">${S.fila.slice(1,4).map((f,i)=>`<div><span>${i+2}º</span>${esc(nomeDe(f.id))}<span class="num">${minutos(f.desde,n)} min</span></div>`).join('')}${S.fila.length>4?`<div><span>+${S.fila.length-4} na fila</span></div>`:''}</div></div>
+      <div class="rota"><h3>Na rua (${S.rota.length})</h3>${[...S.rota].sort((a,b)=>a.saiuEm-b.saiuEm).map(r=>{const m=minutos(r.saiuEm,n);const c=classeTempo(m);return `<div><span>${esc(nomeDe(r.id))}${r.bairro?` <span style="color:var(--muted);font-size:.6em">${esc(r.bairro)}</span>`:''}</span><span class="num ${c?'t-'+c:''}">${m} min</span></div>`;}).join('')||'<div style="color:var(--muted)">—</div>'}</div>
+    </div><button class="btn btn-ghost sair" data-a="tv-off">Sair do modo TV (Esc)</button>`;
+  ajustarNome(el.querySelector('.prox .nome'));
+}
+window.addEventListener('resize', () => { ajustarNome(document.querySelector('#view-fila .proximo .nome')); ajustarNome(document.querySelector('#tv .prox .nome')); });
+$('btn-tv').addEventListener('click', abrirTV);
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ if($('tv-root').firstChild) fecharTV(); else fecharModal(); menuAberto=null; } });
+
+/* ---------- modais ---------- */
+function abrirModal(html){ $('modal-root').innerHTML = `<div class="ov" id="ov"><div class="modal" role="dialog" aria-modal="true">${html}</div></div>`; $('ov').addEventListener('click', e => { if(e.target.id==='ov') fecharModal(); }); const f = $('modal-root').querySelector('input,select,textarea,button.btn-primary'); if(f) setTimeout(()=>f.focus(),30); }
+function fecharModal(){ $('modal-root').innerHTML=''; }
+function chipsInput(idBase, inicial){ // campo de nº de pedidos com chips
+  return `<div class="pedidos" id="${idBase}-box">${(inicial||[]).map(p=>`<span class="chip" data-p="${esc(p)}">#${esc(p)}<button type="button" data-a="chip-x" aria-label="remover">×</button></span>`).join('')}<input id="${idBase}-in" inputmode="numeric" placeholder="nº do pedido + Enter"></div>`;
+}
+function lerChips(idBase){ const box = $(idBase+'-box'); const arr = [...box.querySelectorAll('.chip')].map(c=>c.dataset.p); const pend = $(idBase+'-in').value.trim(); if(pend) arr.push(...pend.split(/[,\s]+/).filter(Boolean)); return [...new Set(arr)]; }
+function addChip(idBase, val){ const box = $(idBase+'-box'); val.split(/[,\s]+/).filter(Boolean).forEach(v=>{ if([...box.querySelectorAll('.chip')].some(c=>c.dataset.p===v)) return; const s=document.createElement('span'); s.className='chip'; s.dataset.p=v; s.innerHTML=`#${esc(v)}<button type="button" data-a="chip-x" aria-label="remover">×</button>`; box.insertBefore(s, $(idBase+'-in')); }); $(idBase+'-in').value=''; }
+
+function modalSaiu(id){
+  if(!S.cfg.pedirPedido){ sair(id, {}); return; }
+  const bairros = bairrosConhecidos();
+  abrirModal(`<h3>Saiu para entrega</h3><p class="sub">${esc(nomeDe(id))} · ${hm(agora())}</p>
+    <div class="field"><label>Pedidos que levou</label>${chipsInput('ped')}<span class="hint">Digite o número e aperte Enter (pode mais de um). Opcional.</span></div>
+    <div class="row"><div class="field"><label for="f-bairro">Bairro / destino</label><input class="in" id="f-bairro" list="dl-bairros" placeholder="ex.: Cambolo"><datalist id="dl-bairros">${bairros.map(b=>`<option value="${esc(b)}">`).join('')}</datalist></div>
+      <div class="field" style="flex:0 1 140px"><label for="f-ent">Entregas</label><input class="in num" id="f-ent" type="number" min="1" max="20" value="1"></div></div>
+    <div class="field"><label for="f-obs">Observação</label><input class="in" id="f-obs" placeholder="opcional"></div>
+    <div class="acts"><button class="btn btn-ghost" data-a="fechar">Cancelar</button><button class="btn btn-primary" data-a="conf-saiu" data-id="${id}">Confirmar saída</button></div>`);
+  ligarChips('ped', 'f-ent');
+}
+function ligarChips(idBase, entId){
+  const inp = $(idBase+'-in');
+  inp.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===','){ e.preventDefault(); if(inp.value.trim()){ addChip(idBase, inp.value); sincEnt(); } else if(e.key==='Enter'){ const b=$('modal-root').querySelector('[data-a="conf-saiu"],[data-a="conf-edrota"],[data-a="conf-edviagem"]'); if(b) b.click(); } } });
+  inp.addEventListener('blur', () => { if(inp.value.trim()){ addChip(idBase, inp.value); sincEnt(); } });
+  function sincEnt(){ const n = $(idBase+'-box').querySelectorAll('.chip').length; const e = entId && $(entId); if(e && n>0 && (!e.dataset.touched)) e.value = n; }
+  const e = entId && $(entId); if(e) e.addEventListener('input', ()=>{ e.dataset.touched='1'; });
+}
+function modalVoltou(id){
+  const r = S.rota.find(r=>r.id===id); if(!r) return; const m = minutos(r.saiuEm, agora());
+  abrirModal(`<h3>Voltou</h3><p class="sub">${esc(nomeDe(id))} · saiu ${hm(r.saiuEm)}${r.bairro?' · '+esc(r.bairro):''}</p>
+    <div class="resumo-viagem"><div class="tile"><div class="v num ${classeTempo(m)?'t-'+classeTempo(m):''}">${fmtMin(m)}</div><div class="l">na rua</div></div><div class="tile"><div class="v num">${(r.pedidos||[]).length||'—'}</div><div class="l">pedidos</div></div><div class="tile"><div class="v num">${fmtMin(minutos(r.entrouFila||r.saiuEm, r.saiuEm))}</div><div class="l">esperou na fila</div></div></div>
+    <div class="row"><div class="field" style="flex:0 1 160px"><label for="v-ent">Entregas feitas</label><input class="in num" id="v-ent" type="number" min="0" max="20" value="${r.entregas}"></div><div class="field"><span class="hint" style="padding-top:22px">Confira se levou mais de um pedido.</span></div></div>
+    <label class="check"><input type="checkbox" id="v-enc"> Voltou e já encerrou o turno (não entra na fila)</label>
+    <div class="acts"><button class="btn btn-ghost" data-a="fechar">Cancelar</button><button class="btn btn-ok" data-a="conf-voltou" data-id="${id}">Confirmar volta</button></div>`);
+  $('v-ent').addEventListener('keydown', e => { if(e.key==='Enter') $('modal-root').querySelector('[data-a="conf-voltou"]').click(); });
+}
+function modalAtivar(){
+  const livres = S.motoboys.filter(m=>!m.arquivado && !emAlgumLugar(m.id)).sort((a,b)=>a.nome.localeCompare(b.nome));
+  abrirModal(`<h3>Ativar motoboy</h3><p class="sub">Quem chegou entra no fim da fila.</p>
+    ${livres.length>8?`<input class="in" id="busca-mb" placeholder="Buscar pelo nome…" autocomplete="off">`:''}
+    ${livres.length?`<div class="opcoes" id="opcoes-mb">${livres.map(m=>`<button class="opcao" data-a="conf-ativar" data-id="${m.id}" data-n="${esc(m.nome.toLowerCase())}"><span class="av" style="background:${m.cor}">${esc(inicial(m.nome))}</span>${esc(m.nome)}</button>`).join('')}</div>`:`<p class="hint">Todos os motoboys cadastrados já estão no turno.</p>`}
+    <div class="field" style="margin-top:4px"><label for="novo-nome">Ou cadastre um novo</label><div class="row"><input class="in" id="novo-nome" placeholder="Nome do motoboy" style="flex:1"><button class="btn btn-gold" data-a="novo-e-ativar">Cadastrar e ativar</button></div></div>
+    <div class="acts"><button class="btn btn-ghost" data-a="fechar">Fechar</button></div>`);
+  $('novo-nome').addEventListener('keydown', e => { if(e.key==='Enter') $('modal-root').querySelector('[data-a="novo-e-ativar"]').click(); });
+  const busca = $('busca-mb');
+  if(busca){ busca.focus(); busca.addEventListener('input', () => { const q = busca.value.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); $('opcoes-mb').querySelectorAll('.opcao').forEach(o => { o.hidden = q && !o.dataset.n.normalize('NFD').replace(/[̀-ͯ]/g,'').includes(q); }); });
+    busca.addEventListener('keydown', e => { if(e.key==='Enter'){ const v = [...$('opcoes-mb').querySelectorAll('.opcao')].filter(o=>!o.hidden); if(v.length===1) v[0].click(); } }); }
+}
+function modalPausa(id){
+  abrirModal(`<h3>Pausa</h3><p class="sub">${esc(nomeDe(id))} sai da fila até você clicar em “Voltar à fila”.</p>
+    <div class="opcoes">${['Lanche','Abastecer','Problema na moto','Banheiro','Outro'].map(m=>`<button class="opcao" data-a="conf-pausa" data-id="${id}" data-m="${m}" style="font-size:16px;text-transform:none">${m}</button>`).join('')}</div>
+    <div class="acts"><button class="btn btn-ghost" data-a="fechar">Cancelar</button></div>`);
+}
+function modalEdRota(id){
+  const r = S.rota.find(r=>r.id===id); if(!r) return;
+  abrirModal(`<h3>Corrigir saída</h3><p class="sub">${esc(nomeDe(id))} · saiu ${hm(r.saiuEm)}</p>
+    <div class="field"><label>Pedidos</label>${chipsInput('ped', r.pedidos)}</div>
+    <div class="row"><div class="field"><label for="f-bairro">Bairro / destino</label><input class="in" id="f-bairro" list="dl-bairros" value="${esc(r.bairro)}"><datalist id="dl-bairros">${bairrosConhecidos().map(b=>`<option value="${esc(b)}">`).join('')}</datalist></div>
+      <div class="field" style="flex:0 1 140px"><label for="f-ent">Entregas</label><input class="in num" id="f-ent" type="number" min="1" max="20" value="${r.entregas}"></div></div>
+    <div class="field"><label for="f-obs">Observação</label><input class="in" id="f-obs" value="${esc(r.obs)}"></div>
+    <div class="acts"><button class="btn btn-ghost" data-a="fechar">Cancelar</button><button class="btn btn-primary" data-a="conf-edrota" data-id="${id}">Salvar</button></div>`);
+  ligarChips('ped', null); $('f-ent').dataset.touched='1';
+}
+function modalEdViagem(vid){
+  const v = S.viagens.find(v=>v.vid===vid); if(!v) return;
+  abrirModal(`<h3>Corrigir viagem</h3><p class="sub">${esc(nomeDe(v.id,v.nome))} · ${hm(v.saiuEm)} → ${hm(v.voltouEm)} (${fmtMin(minutos(v.saiuEm,v.voltouEm))})</p>
+    <div class="field"><label>Pedidos</label>${chipsInput('ped', v.pedidos)}</div>
+    <div class="row"><div class="field"><label for="f-bairro">Bairro / destino</label><input class="in" id="f-bairro" value="${esc(v.bairro)}"></div>
+      <div class="field" style="flex:0 1 140px"><label for="f-ent">Entregas</label><input class="in num" id="f-ent" type="number" min="0" max="20" value="${v.entregas}"></div></div>
+    <div class="field"><label for="f-obs">Observação</label><input class="in" id="f-obs" value="${esc(v.obs)}"></div>
+    <div class="acts"><button class="btn btn-danger btn-sm" data-a="del-viagem" data-vid="${vid}">Excluir viagem</button><span class="sp" style="flex:1"></span><button class="btn btn-ghost" data-a="fechar">Cancelar</button><button class="btn btn-primary" data-a="conf-edviagem" data-vid="${vid}">Salvar</button></div>`);
+  ligarChips('ped', null); $('f-ent').dataset.touched='1';
+}
+function modalMotoboy(id){
+  const m = id ? byId(id) : null;
+  abrirModal(`<h3>${m?'Editar motoboy':'Cadastrar motoboy'}</h3>
+    <div class="row"><div class="field"><label for="m-nome">Nome</label><input class="in" id="m-nome" value="${esc(m?m.nome:'')}" placeholder="Como aparece na fila"></div>
+      <div class="field" style="flex:0 1 180px"><label for="m-tel">Telefone</label><input class="in num" id="m-tel" value="${esc(m?m.tel:'')}" placeholder="opcional"></div></div>
+    <div class="field"><label>Cor</label><div class="chips">${CORES.map(c=>`<button type="button" class="av cor-op ${m&&m.cor===c?'sel':''}" data-c="${c}" style="background:${c};width:32px;height:32px;${m&&m.cor===c?'outline:3px solid var(--gold)':''}" aria-label="cor"></button>`).join('')}</div></div>
+    <div class="acts"><button class="btn btn-ghost" data-a="fechar">Cancelar</button><button class="btn btn-gold" data-a="conf-mb" data-id="${id||0}">Salvar</button></div>`);
+  $('modal-root').querySelectorAll('.cor-op').forEach(b => b.addEventListener('click', () => { $('modal-root').querySelectorAll('.cor-op').forEach(x=>{x.classList.remove('sel');x.style.outline='';}); b.classList.add('sel'); b.style.outline='3px solid var(--gold)'; }));
+  $('m-nome').addEventListener('keydown', e => { if(e.key==='Enter') $('modal-root').querySelector('[data-a="conf-mb"]').click(); });
+}
+function modalConfirmar(titulo, texto, rotulo, acao, perigoso){
+  abrirModal(`<h3>${esc(titulo)}</h3><p>${esc(texto)}</p>${perigoso?`<div class="field"><label for="c-txt">Digite APAGAR para confirmar</label><input class="in" id="c-txt" autocomplete="off"></div>`:''}
+    <div class="acts"><button class="btn btn-ghost" data-a="fechar">Cancelar</button><button class="btn ${perigoso?'btn-danger':'btn-primary'}" id="c-ok">${esc(rotulo)}</button></div>`);
+  $('c-ok').addEventListener('click', () => { if(perigoso && ($('c-txt').value.trim().toUpperCase()!=='APAGAR')){ $('c-txt').focus(); return; } fecharModal(); acao(); });
+}
+function modalTexto(titulo, texto, nomeArq){
+  abrirModal(`<h3>${esc(titulo)}</h3><p class="hint">Se o download não começar, copie o conteúdo e cole num arquivo.</p>
+    <textarea class="in" id="t-txt" style="min-height:220px;font-family:ui-monospace,Consolas,monospace;font-size:12px" readonly>${esc(texto)}</textarea>
+    <div class="acts"><button class="btn btn-ghost" data-a="fechar">Fechar</button><button class="btn btn-ghost" id="t-copy">Copiar</button><button class="btn btn-gold" id="t-dl">Baixar ${esc(nomeArq)}</button></div>`);
+  $('t-copy').addEventListener('click', async () => { try{ await navigator.clipboard.writeText(texto); toast('Copiado', 'ok'); }catch(e){ $('t-txt').select(); toast('Selecionado — use Ctrl+C'); } });
+  $('t-dl').addEventListener('click', () => baixar(nomeArq, texto));
+}
+let dlCap = undefined; // capacidade de download do visualizador do claude.ai (quando a página roda como artifact)
+(async () => { try{ dlCap = (window.claude && typeof window.claude.use==='function') ? await window.claude.use('downloads') : null; }catch(e){ dlCap = null; } })();
+async function baixar(nome, conteudo){
+  if(dlCap){ try{ await dlCap.save({ filename:nome, data:'﻿'+conteudo }); toast('Arquivo salvo', 'ok'); }catch(e){ if(e && e.code==='declined') return; toast('Não deu para salvar aqui — use Copiar', 'crit'); } return; }
+  try{ const blob = new Blob(['﻿'+conteudo], {type: nome.endsWith('.json')?'application/json':'text/csv;charset=utf-8'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 2000); }catch(e){ toast('Download bloqueado aqui — use Copiar', 'crit'); }
+}
+function tentarPin(){ const v = ($('pin-in').value||'').trim(); if(v===S.cfg.pin){ adminLiberado = true; render(); } else { $('pin-erro').hidden=false; $('pin-in').value=''; $('pin-in').focus(); } }
+
+/* ---------- CSV / backup ---------- */
+function csv(rows){ return rows.map(r => r.map(c => { const s = String(c==null?'':c); return /[;"\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; }).join(';')).join('\r\n'); }
+function csvResumo(dia){ const r = resumoDia(dia); const rows = [['Dia',dmy(dia)],[],['Motoboy','Entrou','Saiu do turno','Viagens','Entregas','Media na rua (min)','Mais longa (min)','Total na rua (min)','Espera media (min)','Ultima volta']];
+  r.porMotoboy.forEach(p => rows.push([p.nome, p.entrou?hm(p.entrou):'', p.saiuTurno?hm(p.saiuTurno):'', p.viagens, p.entregas, p.medioRua??'', p.maior??'', p.tempoRua, p.esperaMedia??'', p.ultima?hm(p.ultima):'']));
+  rows.push(['TOTAL','','',r.tot.viagens,r.tot.entregas,r.tot.medioRua??'',r.tot.maior??'',r.viagens.reduce((a,v)=>a+minutos(v.saiuEm,v.voltouEm),0),r.tot.esperaMedia??'','']);
+  modalTexto('Resumo do dia '+dmy(dia), csv(rows), 'resumo_motoboys_'+dia+'.csv'); }
+function csvViagens(dia){ const r = resumoDia(dia); const rows = [['Dia','Motoboy','Saiu','Voltou','Minutos na rua','Espera na fila (min)','Pedidos','Bairro','Entregas','Observacao']];
+  [...r.viagens].sort((a,b)=>a.saiuEm-b.saiuEm).forEach(v => rows.push([dmy(dia), nomeDe(v.id,v.nome), hm(v.saiuEm), hm(v.voltouEm), minutos(v.saiuEm,v.voltouEm), v.espera??'', (v.pedidos||[]).join(' '), v.bairro, v.entregas, v.obs]));
+  modalTexto('Viagens de '+dmy(dia), csv(rows), 'viagens_motoboys_'+dia+'.csv'); }
+function exportarBackup(){ log('BACKUP', null, 'exportado'); salvar(); modalTexto('Backup completo', JSON.stringify(S), 'backup_fila_motoboys_'+hojeOp()+'.json'); }
+function importarBackup(e){
+  const f = e.target.files && e.target.files[0]; if(!f) return;
+  const rd = new FileReader(); rd.onload = () => { try{ const s = JSON.parse(rd.result); if(!s || s.v!==2 || !Array.isArray(s.motoboys)) throw new Error('formato'); modalConfirmar('Importar backup', `O arquivo tem ${s.motoboys.length} motoboy(s) e ${(s.viagens||[]).length} viagem(ns). Isso substitui TODOS os dados atuais.`, 'Importar e substituir', () => { S = Object.assign(estadoInicial(), s); S.demo=false; log('BACKUP', null, 'importado'); commit(); toast('Backup importado', 'ok'); }); }catch(err){ toast('Arquivo inválido — exporte o backup por este app', 'crit'); } e.target.value=''; };
+  rd.readAsText(f);
+}
+
+/* ---------- exemplo ---------- */
+function carregarExemplo(){
+  S = estadoInicial(); S.demo = true;
+  const nomes = ['Isaac','Josué','Camilo','Guilherme','Rodrigo','Kalyson'];
+  nomes.forEach((n,i)=>{ S.motoboys.push({ id:S.seq++, nome:n, tel:'', cor:CORES[i%CORES.length], arquivado:false, criadoEm:agora()-30*86400000 }); });
+  const [isaac, josue, camilo, gui, rod, kal] = S.motoboys.map(m=>m.id);
+  const n = agora(), h = 3600000, mi = 60000;
+  const t0 = n - 4*h; // turno começou há 4 h
+  [isaac,josue,camilo,gui,rod].forEach(id => { S.turnos[id] = { inicio: t0 + Math.floor(Math.random()*20)*mi }; S.eventos.push({ts:S.turnos[id].inicio, tipo:'ATIVOU', id, det:'entrou na fila'}); });
+  S.turnosHist.push({ id:kal, nome:'Kalyson', inicio:t0-30*mi, fim:n-50*mi }); S.eventos.push({ts:t0-30*mi, tipo:'ATIVOU', id:kal, det:'entrou na fila'});
+  const bairros = ['Cambolo','Village','Parque Ecológico','Outeiros','Frei Calixto','Vila Parracho','Mirante','Olhos d’Água','Baianão','Centro'];
+  const viagens = [
+    [isaac, 225, 32, ['412','415'], 2],[isaac, 180, 24, ['431'], 1],[isaac, 140, 38, ['448','452','453'], 3],[isaac, 90, 27, ['470'], 1],
+    [josue, 230, 41, ['411'], 1],[josue, 175, 29, ['430','433'], 2],[josue, 120, 22, ['458'], 1],[josue, 80, 35, ['472','474'], 2],
+    [camilo, 215, 26, ['416'], 1],[camilo, 170, 48, ['436','437'], 2],[camilo, 100, 31, ['463'], 1],
+    [gui, 205, 19, ['419'], 1],[gui, 160, 33, ['440','441'], 2],[gui, 110, 25, ['462'], 1],[gui, 60, 29, ['480','482'], 2],
+    [rod, 195, 36, ['423','425'], 2],[rod, 135, 28, ['451'], 1],[rod, 70, 44, ['476','477','479'], 3],
+    [kal, 220, 30, ['413'], 1],[kal, 150, 27, ['446'], 1],[kal, 95, 23, ['466'], 1]
+  ];
+  viagens.forEach(([id, saiuHa, dur, ped, ent], i) => { const saiu = n - saiuHa*mi, volt = saiu + dur*mi; const b = bairros[i%bairros.length];
+    S.viagens.push({ vid:S.seq++, id, nome:nomeDe(id), saiuEm:saiu, voltouEm:volt, espera: 6+Math.floor(Math.random()*18), pedidos:ped, bairro:b, entregas:ent, obs:'' });
+    S.eventos.push({ts:saiu, tipo:'SAIU', id, det:resumoSaida({pedidos:ped,bairro:b,entregas:ent})}); S.eventos.push({ts:volt, tipo:'VOLTOU', id, det:fmtMin(dur)+' na rua · '+ent+' entrega(s)'}); });
+  S.viagens.sort((a,b)=>a.saiuEm-b.saiuEm); S.eventos.sort((a,b)=>a.ts-b.ts);
+  S.eventos.push({ts:n-50*mi, tipo:'ENCERROU', id:kal, det:'saiu do turno'});
+  S.fila = [{ id:gui, desde:n-9*mi }, { id:isaac, desde:n-6*mi }, { id:josue, desde:n-2*mi }];
+  S.rota = [{ id:rod, saiuEm:n-52*mi, entrouFila:n-70*mi, pedidos:['488','490'], bairro:'Vila Parracho', entregas:2, obs:'', alerta:0 },
+            { id:camilo, saiuEm:n-17*mi, entrouFila:n-30*mi, pedidos:['495'], bairro:'Cambolo', entregas:1, obs:'cliente pediu troco p/ 100', alerta:0 }];
+  S.eventos.push({ts:n-52*mi, tipo:'SAIU', id:rod, det:resumoSaida(S.rota[0])}, {ts:n-17*mi, tipo:'SAIU', id:camilo, det:resumoSaida(S.rota[1])});
+  log('EXEMPLO', null, 'dados de exemplo carregados');
+  commit();
+}
+/* Motoboys do ALIV Hub (loja Tili Pizzaria, lista de 01/10/2026): [id ALIV, nome na fila, nome completo, tipo, trabalhou nos últimos 30 dias] */
+const MOTOBOYS_ALIV = [
+  [862,'Guilherme','Guilherme Silva Nascimento','prestador',1],[845,'Andre Vitor','Andre Vitor Silva dos Reis','prestador',1],[840,'Gustavo','Gustavo Cardoso Carvalho','prestador',1],
+  [855,'Rodrigo','Rodrigo Santana Massaranduba Filho','prestador',1],[850,'Kalyson','Kalyson de Oliveira Santos','prestador',1],[1132,'Josué Manoel','Josue Manoel dos Santos','prestador',1],
+  [1131,'Matheus Emilio','Matheus Emilio Ferreira','prestador',1],[835,'Claudio Nolasso','Claudio Da Costa Nolasso','prestador',1],[1012,'Ricardo Camilo','Ricardo Gomes Camilo','prestador',1],
+  [828,'Alexsandro','Alexsandro Santana de Ecio','prestador',1],[1259,'Isaac','Isaac da Silva Mota Lisboa','prestador',1],[1058,'Pablo','Pablo Deivid','diarista',1],
+  [847,'Nivaldo','Nivaldo Lima Brandao Junior','prestador',1],[831,'Breno','Breno Jesus de Souza','prestador',1],[834,'Carlos Junior','Carlos Silva Dos Santos Junior','prestador',1],
+  [1234,'Ian','Ian Mendes dos Santos','prestador',1],[866,'Claudio Oliveira','Claudio Oliveira','diarista',1],[1232,'Pedro Vinicius','Pedro Vinicius Nascimento de Jesus','diarista',1],
+  [861,'Mesaque','Mesaque','diarista',1],[901,'Ruas Josué','Ruas Josue','diarista',1],[1189,'Deivisson','Deivisson Santos','diarista',1],[1186,'Matheus Conceição','Matheus Conceição','diarista',1],
+  [1070,'Gabriel Amorin','Gabriel Amorin','diarista',1],[1546,'Adriano','Adriano Santos de Assis Junior','diarista',1],[1137,'Kauã Kevin','Kaua Kevin','diarista',1],
+  [1360,'Lohran','Lohran Alcântara Rodrigues','diarista',1],[1659,'Johnmichael','Johnmichael Teixeira dos Santos','diarista',1],[1359,'Luan Victor','Luan Victor Da Conceição','diarista',1],
+  [1262,'Jadson','Jadson Nascimento dos Santos','diarista',1],[1284,'Yago','Yago da Silva Lopes','diarista',1],[846,'Nilson Jr','Nilson JR','diarista',1],[1261,'Eduardo','Eduardo Santos Sousa','diarista',1],
+  [1551,'Emanuel','Emanuel dos Santos Guedes','diarista',1],[1237,'Icaro','Icaro Ferreira Marques','diarista',1],[1682,'Caio','Caio da Cruz Sertório Sousa','diarista',1],[848,'Thiago Camilo','Thiago Camilo','diarista',1],
+  [902,'Richard Almeida','Richard Almeida Cardoso','diarista',1],[1260,'Micael','Micael Oliveira Lima','diarista',1],[1069,'Leviton','Leviton Ferreira','diarista',1],[926,'Beatriz','Beatriz Ribeiro Serafim Gonçalves','diarista',1],
+  [1550,'Daniel','Daniel Lima de Sousa','diarista',1],
+  [833,'Carlos Bruno','Carlos Bruno Chagas','diarista',0],[849,'Nilvado Lima','Nilvado Lima (cadastro antigo)','prestador',0],[865,'George','George Gomes da Silva','prestador',0],[868,'Arthur','Arthur De Jesus','diarista',0],
+  [877,'Richard Dultra','Richard Dultra','diarista',0],[881,'Maxsuel','Maxsuel Ambrosio','diarista',0],[898,'Leonardo','Leonardo Santos','diarista',0],[927,'Uelton','Uelton Mendes Andrade','diarista',0],
+  [928,'Ronalt','Ronalt Soares dos Santos','diarista',0],[1029,'Walisson','Walisson Jesus','diarista',0],[1099,'Edson','Edson Santos','diarista',0],[1130,'Josenilton','Josenilton Santos','diarista',0],
+  [1133,'Rubens','Rubens Silva','diarista',0],[1135,'Luis Guilherme','Luis Guilherme','diarista',0],[1136,'Agnaldo','Agnaldo Lima','diarista',0],[1178,'João Vitor','João Vitor Muniz Lago','prestador',0],
+  [1183,'Gabriel Marcedo','Gabriel Marcedo','diarista',0],[1187,'Elizeu','Elizeu Santos','diarista',0],[1196,'Cauan','Cauan','diarista',0]
+];
+function semearProducao(){
+  S = estadoInicial();
+  MOTOBOYS_ALIV.forEach(([alivId, nome, completo, tipo, ativo], i) => {
+    S.motoboys.push({ id:S.seq++, nome, nomeCompleto:completo, alivId, tipo, tel:'', cor:CORES[i%CORES.length], arquivado:!ativo, criadoEm:agora() });
+  });
+  log('CADASTRO', null, S.motoboys.length+' motoboys importados do ALIV ('+S.motoboys.filter(m=>!m.arquivado).length+' ativos, o resto arquivado)');
+  salvar();
+}
+
+/* ---------- eventos de clique (delegação) ---------- */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-a]');
+  if(!b){ if(menuAberto && !e.target.closest('.menu')){ menuAberto=null; render(); } return; }
+  const a = b.dataset.a, id = Number(b.dataset.id||0), vid = Number(b.dataset.vid||0);
+  switch(a){
+    case 'tab-hoje': tab='hoje'; diaSel=hojeOp(); render(); break;
+    case 'menu': menuAberto = (menuAberto==='f'+id) ? null : 'f'+id; render(); break;
+    case 'ativar': modalAtivar(); break;
+    case 'conf-ativar': fecharModal(); ativar(id); break;
+    case 'novo-e-ativar': { const nome = $('novo-nome').value.trim(); if(!nome){ $('novo-nome').focus(); return; } const nid = cadastrar(nome,''); fecharModal(); if(nid) ativar(nid); break; }
+    case 'saiu': menuAberto=null; modalSaiu(id); break;
+    case 'conf-saiu': { const d = { pedidos:lerChips('ped'), bairro:$('f-bairro').value, entregas:$('f-ent').value, obs:$('f-obs').value }; fecharModal(); sair(id, d); break; }
+    case 'voltou': modalVoltou(id); break;
+    case 'conf-voltou': { const d = { entregas:$('v-ent').value, encerrar:$('v-enc').checked }; fecharModal(); voltar(id, d); break; }
+    case 'edrota': modalEdRota(id); break;
+    case 'conf-edrota': { const d = { pedidos:lerChips('ped'), bairro:$('f-bairro').value, entregas:$('f-ent').value, obs:$('f-obs').value }; fecharModal(); editarRota(id, d); break; }
+    case 'edviagem': modalEdViagem(vid); break;
+    case 'conf-edviagem': { const d = { pedidos:lerChips('ped'), bairro:$('f-bairro').value, entregas:$('f-ent').value, obs:$('f-obs').value }; fecharModal(); editarViagem(vid, d); break; }
+    case 'del-viagem': fecharModal(); modalConfirmar('Excluir viagem', 'A viagem sai do histórico e dos números do dia.', 'Excluir', () => excluirViagem(vid)); break;
+    case 'pausa': menuAberto=null; modalPausa(id); break;
+    case 'conf-pausa': fecharModal(); pausar(id, b.dataset.m); break;
+    case 'retoma': retomar(id); break;
+    case 'sobe': mover(id,-1); break;
+    case 'desce': mover(id,1); break;
+    case 'fura': menuAberto=null; furar(id); break;
+    case 'fim': menuAberto=null; paraFim(id); break;
+    case 'encerra': menuAberto=null; modalConfirmar('Encerrar turno', nomeDe(id)+' sai da fila e do turno de hoje. As viagens dele continuam nos números do dia.', 'Encerrar turno', () => encerrar(id)); break;
+    case 'chip-x': b.closest('.chip').remove(); break;
+    case 'fechar': fecharModal(); break;
+    case 'tv-off': fecharTV(); break;
+    case 'csv-resumo': csvResumo(diaSel||hojeOp()); break;
+    case 'csv-viagens': csvViagens(diaSel||hojeOp()); break;
+    case 'pin-ok': tentarPin(); break;
+    case 'novo-mb': modalMotoboy(0); break;
+    case 'ed-mb': modalMotoboy(id); break;
+    case 'conf-mb': { const nome=$('m-nome').value.trim(); if(!nome){ $('m-nome').focus(); return; } const cor=($('modal-root').querySelector('.cor-op.sel')||{}).dataset; fecharModal(); if(id) editarMotoboy(id, nome, $('m-tel').value, cor&&cor.c); else { const nid = cadastrar(nome, $('m-tel').value); if(cor&&cor.c) editarMotoboy(nid, nome, $('m-tel').value, cor.c); } break; }
+    case 'arq-mb': { const m = byId(id); arquivar(id, !(m&&m.arquivado)); break; }
+    case 'del-mb': modalConfirmar('Excluir motoboy', 'Apaga o cadastro de '+nomeDe(id)+'. O histórico de viagens continua com o nome.', 'Excluir', () => excluirMotoboy(id)); break;
+    case 'salvar-cfg': {
+      const c = S.cfg; c.loja=$('cfg-loja').value.trim()||'Tili Pizzaria'; c.alertaMin=Math.max(5,Number($('cfg-alerta').value)||30); c.criticoMin=Math.max(c.alertaMin,Number($('cfg-crit').value)||45); c.virada=Math.min(12,Math.max(0,Number($('cfg-virada').value)||0)); c.som=$('cfg-som').checked; c.pedirPedido=$('cfg-pedir').checked; c.pin=($('cfg-pin').value||'').replace(/\D/g,'').slice(0,6);
+      log('CONFIG', null, `alerta ${c.alertaMin}/${c.criticoMin} min · virada ${c.virada}h · som ${c.som?'on':'off'} · pedir pedido ${c.pedirPedido?'on':'off'} · PIN ${c.pin?'definido':'sem'}`); commit(); toast('Configurações salvas', 'ok'); break; }
+    case 'backup': exportarBackup(); break;
+    case 'encerrar-dia': modalConfirmar('Encerrar o dia', 'Todos saem da fila e os turnos de hoje são fechados. Os números do dia ficam guardados.', 'Encerrar o dia', encerrarDia); break;
+    case 'exemplo': modalConfirmar('Carregar dados de exemplo', 'Substitui tudo por um dia fictício, só para conhecer o quadro. Depois use “Apagar tudo” para começar de verdade.', 'Carregar exemplo', carregarExemplo); break;
+    case 'apagar-tudo': modalConfirmar('Apagar tudo', 'Apaga motoboys, fila, viagens e histórico deste navegador. Não tem volta.', 'Apagar tudo', () => { S = estadoInicial(); log('ZEROU', null, 'tudo apagado'); adminLiberado=false; commit(); toast('Tudo apagado'); }, true); break;
+  }
+});
+$('btn-limpar-demo').addEventListener('click', () => modalConfirmar('Apagar o exemplo', 'Remove os dados fictícios e deixa os motoboys do ALIV já cadastrados (quem não rodou nos últimos 30 dias fica arquivado em Admin).', 'Apagar exemplo', () => { semearProducao(); render(); toast('Pronto — motoboys do ALIV cadastrados', 'ok'); }));
+
+/* ---------- relógio, alertas ---------- */
+let toastTimer = null;
+function toast(msg, tipo){ $('toast-root').innerHTML = `<div class="toast ${tipo||''}">${esc(msg)}</div>`; clearTimeout(toastTimer); toastTimer = setTimeout(()=>{ $('toast-root').innerHTML=''; }, 2600); }
+function tick(){
+  $('clock').textContent = hm(agora());
+  let tocar = false;
+  S.rota.forEach(r => { const m = minutos(r.saiuEm, agora()); if(m >= S.cfg.criticoMin && r.alerta < 2){ r.alerta = 2; tocar = true; } else if(m >= S.cfg.alertaMin && !r.alerta){ r.alerta = 1; } });
+  if(tocar){ salvar(); beep(3); }
+  fecharTurnosEsquecidos();
+  if(tab==='fila' && !$('modal-root').firstChild && !menuAberto) renderFila();
+  if($('tv-root').firstChild) renderTV();
+}
+setInterval(tick, 20000);
+window.addEventListener('storage', e => { if(e.key===KEY){ const s = carregar(); if(s){ S = s; render(); } } });
+
+/* ---------- início ---------- */
+S = carregar();
+if(!S){ if(DEMO) carregarExemplo(); else semearProducao(); }
+fecharTurnosEsquecidos();
+$('clock').textContent = hm(agora());
+render();
+</script>
+</body>
+</html>

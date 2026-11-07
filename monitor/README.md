@@ -18,6 +18,7 @@ python3 monitor/monitor.py
   - `--agora 2026-11-06T19:27`: simula um horário (fuso America/Bahia).
   - `--sem-snapshot`: não grava o snapshot.
   - `--sem-semana`: pula a comparação com a semana passada.
+  - `--whatsapp`: envia o relatório pelo WhatsApp (ver abaixo).
   - `--raw PASTA`: salva as respostas cruas do ALIV, para conferir os campos. Não faça commit dessa pasta.
 - Códigos de saída: `0` ok, `1` erro no ALIV (o motivo sai no relatório), `2` faltam as variáveis.
 
@@ -37,31 +38,18 @@ No Claude Code na nuvem:
 3. Confira que **Network** permite o host `app.alivhub.com.br`. O ambiente Contapecas já vem com ele.
 4. Salve. As próximas sessões e a Rotina já recebem as variáveis.
 
-## Como criar a Rotina
+## Envio por WhatsApp (opção `--whatsapp`)
 
-Na sessão do Claude Code (ambiente **Contapecas**, repositório `contapecas`), peça:
+- Usa `POST /admin/api/chat/send` (campos `phone` e `message`), o mesmo do chat de atendimento do ALIV. A mensagem sai pelo **WhatsApp principal da loja** (canal Evolution `aliv_store_150_…`), não por um número separado.
+- Envia só para o número da variável `WHATSAPP_EMERSON` (com DDI e DDD, ex.: `5573…`). Sem a variável, ou se o ALIV não confirmar (`success: true`), o script sai com **código 3** e a Rotina manda o e-mail.
+- A conversa aparece no chat de atendimento da loja. Se você responder, o atendente de IA pode responder também.
+- O relatório semanal dos motoboys **não** usa WhatsApp: ele gera PDFs e grava na pasta do Drive.
 
-> Crie uma Rotina que abre uma sessão nova a cada disparo, no fuso America/Bahia, às 17:27, 18:27, 19:27, 20:27, 21:27, 22:27 e 23:27 (cron `CRON_TZ=America/Bahia 27 17-23 * * *`), com o conector Gmail, e este prompt:
+## Rotina
 
-Prompt da Rotina:
+Ativa: **Monitor da Tili (hora em hora)**, cron `CRON_TZ=America/Bahia 0 0,18-23 * * *` (18:00 a 00:00), sessão nova a cada disparo, conector Gmail. O script fica no branch `claude/zealous-bohr-ufzjww` até o merge na `main`; a Rotina usa esse branch e grava os snapshots nele.
 
-```
-Monitor da Tili (só leitura). Na pasta do repositório contapecas:
-1. git pull origin main
-2. python3 monitor/monitor.py > /tmp/relatorio.txt ; guarde o código de saída.
-3. Envie um e-mail pelo Gmail para emmersonarcanjo@gmail.com:
-   assunto = 1ª linha de /tmp/relatorio.txt; corpo = o restante, sem alterar nada.
-   Se o código de saída for 2 ou o arquivo estiver vazio, mande o assunto
-   "Tili Pizzaria — monitor com ERRO" com a mensagem de erro.
-4. git add monitor/snapshots && git commit -m "monitor: snapshot" && git push origin main
-   (se não houver mudança, siga em frente).
-Não altere nada no ALIV nem no código. Não abra pull request.
-```
-
-Notas:
-- A Rotina precisa ter permissão de push na `main` para gravar os snapshots. Se preferir não dar essa permissão, retire o passo 4: a "última hora" passa a ser calculada pela hora de criação dos pedidos.
-- Na 1ª semana, rode em paralelo com o agente do PC e compare os números.
-- **Alternativa ao e-mail: Telegram.** Troque o passo 3 por um envio para um bot do Telegram. Fica para a fase 2.
+Códigos de saída: `0` ok (WhatsApp enviado, se pedido) · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` relatório ok, WhatsApp não enviado.
 
 ## Regras usadas (resumo)
 
@@ -76,7 +64,7 @@ Notas:
   - Receita = pago + desconto do iFood − taxa de serviço.
   - Descontos: CMV 26,5% · comissão iFood 12,8% sobre (itens + entrega − desconto da loja) · imposto 9,45% · cartão 1,6% só nos canais próprios.
   - Motoboys: diária de R$ 100 (seg a sex) ou R$ 120 (sáb e dom) por motoboy online, proporcional ao turno 16:30–23:45, mais R$ 2 por entrega delivery da Pizzaria finalizada.
-- **Motoboys:** conta só quem está `Online` com `start_ts` de hoje. As entregas do `drivers-live` incluem o Sushi e aparecem só como informação.
+- **Motoboys:** conta só quem está `Online` com `start_ts` de hoje. O snapshot guarda `max_motoboys_online` do dia; se na rodada ninguém estiver online, o custo usa esse máximo. As entregas do `drivers-live` incluem o Sushi e aparecem só como informação.
 - **Semana passada:** mesmo dia da semana anterior, até o mesmo horário.
 
 Todos os parâmetros ficam no topo do `monitor.py`.
@@ -99,4 +87,10 @@ Se a sessão expirar (401 "Sessão expirada"), o script faz login de novo sozinh
   - O login é por formulário, sem captcha.
   - O ALIV tem 2FA opcional por conta: a resposta traz `twofa_required`.
   - Com senha errada a resposta é 401 "Credenciais inválidas". Sem sessão, as APIs devolvem 401 "Sessão expirada".
-- O script foi testado contra um servidor falso que imita essas respostas. **Ainda não rodou com a conta real.** Na 1ª execução, use `--raw /tmp/aliv-raw` para conferir os nomes dos campos (`discount_origins`, `columns`, `deliveries`, `created_at_fmt`). O código aceita formatos variados, mas convém confirmar.
+- **1ª execução real em 07/11/2026 (01:23)**, com a conta do ambiente. Campos confirmados e correções feitas:
+  - `discount_origins` é uma lista de `{kind, label, value}`, com `kind` = `plataforma`, `loja` ou `manual`. Antes o script não lia `kind` e jogava tudo em "loja".
+  - `operation-monitor`: `range_kind=today` é o dia do calendário (desde 00:00), então vinha vazio de madrugada. Agora usa `custom` do início do turno (16:00) até agora. `start`/`end` são em horário local.
+  - Cards das colunas: `code`, `elapsed_min`, `driver`, `neighborhood`. As colunas vêm por `label` ("Esperando preparo", "Preparo", "Finalização", "Pronto p/ despacho", "Em rota", "A finalizar", "Finalizado").
+  - `orders/audit`: lista traz `created_at` ("06/11/2026 23:42"), `wabiz_id`, `total`; o detalhe traz `total_value`, `subtotal`, `delivery_fee`, `service_fee`, `platform_slug`, `branch_label`, `created_at_fmt` ("30/10/2026 às 17:52"). O `has_more` **não é confiável** (vem `false` antes da última página), por isso a paginação segue até a página vazia.
+  - `drivers-live`: depois do turno todos ficam `Offline` (`start_ts` = 9999999999). O snapshot agora guarda os motoboys online de cada rodada, e o custo usa o máximo do turno.
+  - Os detalhes dos pedidos são buscados em paralelo (6 por vez): a rodada caiu de ~6 min para ~1,5 min.

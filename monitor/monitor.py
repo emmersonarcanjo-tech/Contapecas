@@ -10,7 +10,7 @@ seguinte calcular "última hora" por diferença. O commit do snapshot fica a
 cargo da Rotina (ver README).
 
 Somente biblioteca padrão do Python 3.9+. Nunca faz POST/PUT/DELETE no ALIV,
-exceto o POST de login.
+exceto o POST de login e, com --whatsapp, o POST /admin/api/chat/send.
 """
 
 from __future__ import annotations
@@ -26,6 +26,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -121,6 +122,23 @@ class Aliv:
             return data
         raise AlivError(f"GET {path} falhou após novas tentativas")
 
+    def enviar_whatsapp(self, telefone: str, texto: str) -> None:
+        """Único envio do monitor: POST /admin/api/chat/send (mesmo do chat do ALIV),
+        pelo WhatsApp principal da loja. Levanta AlivError se não confirmar."""
+        boundary = uuid.uuid4().hex
+        body = "".join(f'--{boundary}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'
+                       for k, v in (("phone", telefone), ("message", texto)))
+        body = (body + f"--{boundary}--\r\n").encode()
+        req = urllib.request.Request(BASE_URL + "/admin/api/chat/send", data=body, method="POST",
+                                     headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+        status, data = self._send(req)
+        if status == 401:
+            self.login()
+            status, data = self._send(req)
+        if status != 200 or not (isinstance(data, dict) and data.get("success") is True):
+            msg = data.get("message") if isinstance(data, dict) else None
+            raise AlivError(f"WhatsApp não enviado (HTTP {status}): {msg or str(data)[:200]}")
+
     def _send(self, req):
         try:
             with self.opener.open(req, timeout=self.timeout) as r:
@@ -206,7 +224,7 @@ def descontos(det: dict) -> tuple[float, float, float]:
         tmp = []
         for o in origens:
             if isinstance(o, dict):
-                chave = o.get("origin") or o.get("origem") or o.get("source") or o.get("type") or ""
+                chave = o.get("kind") or o.get("origin") or o.get("origem") or o.get("source") or o.get("type") or ""
                 valor = o.get("value", o.get("valor", o.get("amount", 0)))
                 tmp.append((chave, valor))
             elif isinstance(o, str):
@@ -248,11 +266,15 @@ def pedidos_do_turno(api: Aliv, dia: date, ate: datetime) -> list[dict]:
             for o in lote:
                 if isinstance(o, dict) and o.get("id") is not None:
                     brutos.setdefault(o["id"], o)
+            # has_more do ALIV não é confiável (vem False antes da última página).
             page += 1
+
+    with ThreadPoolExecutor(max_workers=6) as ex:
+        detalhes = dict(zip(brutos, ex.map(lambda i: api.get(f"/admin/api/orders/{i}"), brutos)))
 
     pedidos = []
     for oid, item in brutos.items():
-        det = api.get(f"/admin/api/orders/{oid}")
+        det = detalhes[oid]
         if isinstance(det, dict) and isinstance(det.get("order"), dict):
             det = det["order"]
         det = {**item, **(det if isinstance(det, dict) else {})}
@@ -352,8 +374,8 @@ def calcular(pedidos: list[dict], agora: datetime) -> dict:
     r["cancelados"] = len(cancelados)
     r["taxa_cancel"] = len(cancelados) / total if total else 0.0
     r["ticket"] = r["vendas"] / r["pedidos"] if r["pedidos"] else 0.0
-    r["pix_pendente"] = [p.get("code") or p.get("id") for p in pix_pendente]
-    r["ia_aguardando"] = [p.get("code") or p.get("id") for p in ia_aguardando]
+    r["pix_pendente"] = [p.get("wabiz_id") or p.get("code") or p.get("id") for p in pix_pendente]
+    r["ia_aguardando"] = [p.get("wabiz_id") or p.get("code") or p.get("id") for p in ia_aguardando]
     r["custo_ifood"] = ((r["comissao_ifood"] + r["desc_loja_ifood"]) / r["receita_ifood"]
                         if r["receita_ifood"] else 0.0)
     r["ultima_hora_calc"] = sum(1 for p in validos if p["_criado"] >= agora - timedelta(hours=1))
@@ -406,7 +428,8 @@ def alertas_operacao(dados: dict) -> dict:
                 continue
             el = num(c.get("elapsed_min"))
             ref = str(c.get("code") or c.get("short_code") or c.get("id") or "?")
-            info = f"{ref} {el:.0f}min" + (f" ({c['bairro']})" if c.get("bairro") else "")
+            bairro = c.get("neighborhood") or c.get("bairro")
+            info = f"{ref} {el:.0f}min" + (f" ({bairro})" if bairro else "")
             a["piores"].append((el, f"{info} [{nome}]"))
             if n == "em rota" and el > LIMITE_EM_ROTA:
                 a["em_rota"].append(info + (f" – {c['driver']}" if c.get("driver") else ""))
@@ -444,13 +467,31 @@ def ler_snapshot(dia: date) -> dict:
         return {}
 
 
-def gravar_snapshot(dia: date, agora: datetime, r: dict) -> None:
+def motoboys_do_dia(dia: date, n_agora: int, ent_agora: int) -> tuple[int, int, int]:
+    """(máximo online do dia, motoboys para o custo, entregas).
+
+    O máximo fica no snapshot (max_motoboys_online). Se nesta rodada ninguém
+    estiver online (fim do turno, todos Offline), o custo usa o máximo do dia.
+    """
+    snap = ler_snapshot(dia)
+    rodadas = snap.get("rodadas", [])
+    maximo = max([n_agora, int(num(snap.get("max_motoboys_online")))]
+                 + [int(num(r.get("motoboys_online"))) for r in rodadas])
+    entregas = max([ent_agora] + [int(num(r.get("entregas_live"))) for r in rodadas])
+    return maximo, (n_agora if n_agora > 0 else maximo), entregas
+
+
+def gravar_snapshot(dia: date, agora: datetime, r: dict, moto: dict | None = None) -> None:
+    moto = moto or {"agora": 0, "maximo": 0, "entregas": 0}
     SNAP_DIR.mkdir(parents=True, exist_ok=True)
     snap = ler_snapshot(dia)
     rodadas = snap.get("rodadas", [])
     rodadas.append({"hora": agora.isoformat(timespec="minutes"), "pedidos": r["pedidos"],
-                    "vendas": round(r["vendas"], 2), "ids": r["ids"]})
-    snap = {"turno": dia.isoformat(), "rodadas": rodadas[-48:]}
+                    "vendas": round(r["vendas"], 2), "ids": r["ids"],
+                    "motoboys_online": moto["agora"], "entregas_live": moto["entregas"]})
+    snap = {"turno": dia.isoformat(),
+            "max_motoboys_online": max(moto["maximo"], int(num(snap.get("max_motoboys_online")))),
+            "rodadas": rodadas[-48:]}
     (SNAP_DIR / f"{dia.isoformat()}.json").write_text(
         json.dumps(snap, ensure_ascii=False, indent=1), encoding="utf-8")
 
@@ -470,7 +511,7 @@ def ultima_hora(dia: date, agora: datetime, r: dict) -> tuple[int, float, str]:
 # ------------------------------------------------------------------ relatório
 def relatorio(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, moto: tuple,
               uh: tuple, l: dict, sem: dict | None) -> str:
-    n_online, entregas_live, _ = moto
+    entregas_live = moto["entregas"]
     al = alertas_operacao(ops)
     prod_d = resumo(ops, "prod_delivery")
     rua = resumo(ops, "street")
@@ -507,7 +548,8 @@ def relatorio(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, moto:
     L.append(f"• IA aguardando confirmação: {len(r['ia_aguardando'])}" + (f" — {', '.join(map(str, r['ia_aguardando'][:6]))}" if r["ia_aguardando"] else ""))
     L.append("")
     L.append("MOTOBOYS")
-    L.append(f"• Online hoje: {n_online}")
+    L.append(f"• Online agora: {moto['agora']} · máximo do dia: {moto['maximo']}"
+             + (" (custo usa o máximo: ninguém online agora)" if moto["agora"] == 0 and moto["maximo"] else ""))
     L.append(f"• Entregas: {entregas_live} no ALIV (inclui Sushi) · {r['entregas_delivery']} delivery da Pizzaria finalizados")
     L.append(f"• Custo estimado: {brl(l['motoboys'])} (diária proporcional + R$ 2/entrega)")
     L.append("")
@@ -544,6 +586,9 @@ def main() -> int:
     ap.add_argument("--sem-snapshot", action="store_true", help="não grava snapshot")
     ap.add_argument("--sem-semana", action="store_true", help="pula a comparação semanal")
     ap.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (diagnóstico)")
+    ap.add_argument("--whatsapp", action="store_true",
+                    help="envia o relatório pelo WhatsApp da loja para WHATSAPP_EMERSON "
+                         "(sai com código 3 se não enviar, para a Rotina usar o e-mail)")
     args = ap.parse_args()
 
     user, pwd = os.environ.get("ALIV_USER"), os.environ.get("ALIV_PASS")
@@ -560,10 +605,12 @@ def main() -> int:
         api.login()
         pedidos = pedidos_do_turno(api, dia, agora)
         r = calcular(pedidos, agora)
-        ops = monitor_tempos(api)
+        ops = monitor_tempos(api, janela_turno(dia)[0], agora)
         ops_h = monitor_tempos(api, agora - timedelta(hours=1), agora)
-        moto = motoboys(api, dia)
-        custo = custo_motoboys(moto[0], r["entregas_delivery"], dia, agora)
+        n_agora, ent_agora, _ = motoboys(api, dia)
+        maximo, n_custo, entregas = motoboys_do_dia(dia, n_agora, ent_agora)
+        moto = {"agora": n_agora, "maximo": maximo, "custo": n_custo, "entregas": entregas}
+        custo = custo_motoboys(n_custo, r["entregas_delivery"], dia, agora)
         l = lucro(r, custo)
         uh = ultima_hora(dia, agora, r)
         sem = None
@@ -577,9 +624,21 @@ def main() -> int:
         print(f"Tili Pizzaria — {agora:%H:%M} — ERRO no monitor\n\n{e}")
         return 1
 
-    print(relatorio(agora, dia, r, ops, ops_h, moto, uh, l, sem))
+    texto = relatorio(agora, dia, r, ops, ops_h, moto, uh, l, sem)
+    print(texto)
     if not args.sem_snapshot:
-        gravar_snapshot(dia, agora, r)
+        gravar_snapshot(dia, agora, r, moto)
+    if args.whatsapp:
+        fone = re.sub(r"\D", "", os.environ.get("WHATSAPP_EMERSON", ""))
+        if not fone:
+            print("WHATSAPP: não enviado — variável WHATSAPP_EMERSON não definida.", file=sys.stderr)
+            return 3
+        try:
+            api.enviar_whatsapp(fone, texto)
+            print("WHATSAPP: enviado.", file=sys.stderr)
+        except (AlivError, OSError) as e:
+            print(f"WHATSAPP: {e}", file=sys.stderr)
+            return 3
     return 0
 
 

@@ -218,6 +218,7 @@
     <div class="field"><label for="p_niguiri">Nigiri</label><input type="number" id="p_niguiri" step="0.01" min="0" inputmode="decimal"></div>
     <div class="field"><label for="p_joy">Joy</label><input type="number" id="p_joy" step="0.01" min="0" inputmode="decimal"></div>
     <div class="field"><label for="p_sashimi">Sashimi</label><input type="number" id="p_sashimi" step="0.01" min="0" inputmode="decimal"></div>
+    <div class="field"><label for="p_acara">Acarajapa</label><input type="number" id="p_acara" step="0.01" min="0" inputmode="decimal"></div>
     <div class="field"><label for="p_outro">Outros</label><input type="number" id="p_outro" step="0.01" min="0" inputmode="decimal"></div>
   </div>
   <div class="field"><label for="cfgSens">Modo automático: sensibilidade a mudança de prato</label>
@@ -232,7 +233,7 @@
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
-  var TIPOS = { hosso: 'Hossomaki', ura: 'Uramaki', hot: 'Hot roll', niguiri: 'Nigiri', joy: 'Joy', sashimi: 'Sashimi', outro: 'Outros' };
+  var TIPOS = { hosso: 'Hossomaki', ura: 'Uramaki', hot: 'Hot roll', niguiri: 'Nigiri', joy: 'Joy', sashimi: 'Sashimi', acara: 'Acarajapa', outro: 'Outros' };
   var MODELOS = { preciso: 'claude-sonnet-5', rapido: 'claude-haiku-4-5-20251001' };
   var PROMPT = [
     'Você é o conferente de um buffet de sushi cobrado por peça. A imagem é a foto de um prato ou bandeja de cliente, vista de cima.',
@@ -248,9 +249,10 @@
     '- "ura" = URAMAKI: rolinho com o ARROZ por fora (branco, às vezes com gergelim), alga por dentro.',
     '- "hot" = HOT ROLL: rolinho empanado e frito, casca dourada/marrom crocante.',
     '- "joy" = JOY: peça com uma fatia de salmão (ou outro peixe) ENROLADA por fora, em volta do arroz. Com ou sem cobertura por cima (cream cheese, fruta, camarão, tartar, cebolinha): enrolada em peixe é sempre joy.',
+    '- "acara" = ACARAJAPA: bolinho REDONDO empanado e frito (casca dourada de farinha panko), com finalização de cream cheese no meio ou por cima (às vezes camarão, tarê, cebolinha). Não é fatia de rolinho: é uma bola inteira.',
     '- "outro" = qualquer peça de sushi que não se encaixe acima (temaki, gunkan etc.).',
     'Na dúvida entre nigiri e sashimi: se dá para ver arroz embaixo da fatia, é "niguiri"; se não há arroz, é "sashimi".',
-    'Ordem de decisão para rolinhos: está empanado e frito? "hot". Peixe cru enrolado por fora? "joy". Arroz por fora? "ura" (MESMO com cream cheese, fruta ou outra cobertura por cima: rolinho de arroz com cobertura continua "ura"). Alga por fora? "hosso".',
+    'Bolinho frito redondo (bola inteira, não fatia de rolinho)? "acara". Ordem de decisão para rolinhos: está empanado e frito? "hot". Peixe cru enrolado por fora? "joy". Arroz por fora? "ura" (MESMO com cream cheese, fruta ou outra cobertura por cima: rolinho de arroz com cobertura continua "ura"). Alga por fora? "hosso".',
     'INCERTA: marque "incerta": true quando não tiver certeza se é uma peça (sombra, peça cortada pela borda da foto, peça escondida ou empilhada, peça colada em outra que pode ser uma só) ou quando estiver em dúvida entre dois tipos. Nesse caso escolha o tipo mais provável. Peças claras ficam "incerta": false.',
     'Peças encostadas ou parcialmente cobertas contam. Se houver peças empilhadas, conte também as de baixo que dá para perceber e marque essas como incertas.',
     'Percorra o prato de forma sistemática (de cima para baixo, da esquerda para a direita) e liste UMA entrada por peça, sem pular e sem repetir.',

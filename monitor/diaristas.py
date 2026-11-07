@@ -7,7 +7,8 @@ nome, fora os logins de gerente), com entrada/saída do turno, entregas da
 Pizzaria e do Sushi, diária gravada, fechamento do turno no ALIV e cálculo
 (diária + R$ 2 por entrega). Gera:
 
-  monitor/diaristas/AAAA-MM-DD/diaristas_DD-MM.pdf   (resumo + 1 página por motoboy com recibo)
+  monitor/diaristas/AAAA-MM-DD/diaristas_DD-MM.pdf   (resumo + 1 página por motoboy com recibo,
+  no mesmo layout do relatório semanal dos prestadores: HTML impresso pelo Chromium headless)
   lista em texto "nome — entregas — valor" (sai no stdout e vai no WhatsApp)
 
 Reaproveita o login e o envio por WhatsApp do monitor.py. O commit do PDF fica
@@ -306,159 +307,201 @@ def fmt_h(d: datetime | None) -> str:
 
 
 # ---------------------------------------------------------------- PDF
+# Mesmo layout do relatório semanal dos prestadores: HTML impresso pelo Chromium headless.
+EMPRESA = "SO DELIVERY PIZZARIA E RESTAURANTE LTDA"
+CNPJ_EMPRESA = "53.032.203/0002-07"
+LOGO = Path(__file__).resolve().parent / "assets" / "logo_tili.png"
+DIAS_CURTO = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"]
+CHROME = [os.environ.get("DIARISTAS_CHROME", ""),   # headless-shell primeiro: o Chrome completo trava no --headless
+          *sorted(map(str, Path("/opt/pw-browsers").glob("chromium_headless_shell-*/*/chrome-headless-shell")),
+                  reverse=True),
+          "chrome-headless-shell", "/opt/pw-browsers/chromium", "google-chrome", "chromium"]
+
+CSS = """
+@page { size: A4; margin: 0 }
+* { box-sizing: border-box; margin: 0; padding: 0 }
+body { font-family: "Liberation Sans", Arial, Helvetica, sans-serif; color: #1A1A1A; font-size: 9.5pt;
+       -webkit-print-color-adjust: exact; print-color-adjust: exact }
+.pagina { width: 210mm; height: 297mm; padding: 13mm 14mm 10mm; display: flex; flex-direction: column;
+          page-break-after: always; overflow: hidden }
+.pagina:last-child { page-break-after: auto }
+.pagina.mot { padding-bottom: 62mm }   /* recibo na mesma altura do relatório semanal */
+.topo { display: flex; align-items: center; gap: 3mm; padding-bottom: 3mm; border-bottom: 2px solid #C8102E }
+.topo img { width: 14mm; height: 16mm; object-fit: contain }
+.topo .marca { flex: 1; line-height: 1.25 }
+.topo .nome { color: #C8102E; font-weight: bold; font-size: 15pt; line-height: 1.05 }
+.topo .emp { font-weight: bold; font-size: 7.5pt }
+.topo .rel { font-weight: bold; font-size: 8.5pt; color: #333 }
+.topo .per { font-size: 7.5pt; color: #777 }
+.topo .dir { text-align: right; font-size: 7.5pt; color: #777; line-height: 1.35 }
+.topo .dir b { color: #1A1A1A }
+h1 { font-size: 13.5pt; margin: 4mm 0 1mm; display: flex; align-items: center; gap: 2.5mm }
+.tag { background: #1A1A1A; color: #fff; font-size: 6.8pt; font-weight: normal; letter-spacing: .6px;
+       padding: .6mm 2mm; border-radius: 1.2mm }
+.tag.ouro { background: #D4A017; color: #1A1A1A }
+.sub { font-size: 7.5pt; color: #777; margin-bottom: 2.5mm }
+.sub b { color: #333 }
+.cards { display: flex; gap: 2mm; margin: 1mm 0 3mm }
+.card { flex: 1; border: 1px solid #ddd; border-radius: 2mm; padding: 2mm 2.5mm; background: #fafafa }
+.card .r { font-size: 6.5pt; color: #777; letter-spacing: .4px }
+.card .v { font-size: 13pt; font-weight: bold; margin-top: .5mm }
+.card.total { background: #C8102E; border-color: #C8102E; color: #fff }
+.card.total .r { color: #fde }
+.sec { color: #C8102E; font-weight: bold; font-size: 7.5pt; letter-spacing: .3px; margin: 2mm 0 1mm;
+       padding-bottom: .8mm; border-bottom: 1px solid #ddd }
+table { width: 100%; border-collapse: collapse; font-size: 8pt }
+th { background: #1A1A1A; color: #fff; font-size: 7pt; letter-spacing: .4px; text-align: left; padding: 1.5mm 1.5mm }
+td { padding: 1.6mm 1.5mm; border-bottom: 1px solid #e6e6e6; vertical-align: top }
+.n { text-align: right; white-space: nowrap }
+.c { text-align: center }
+.cin { color: #888 }
+.pq { font-size: 6.5pt; color: #888 }
+tr.tot td { border-top: 2px solid #1A1A1A; border-bottom: none; font-weight: bold; background: #f3f3f3 }
+tr.tot td.ver { color: #C8102E }
+td b { font-weight: bold }
+.nota { font-size: 6.5pt; color: #888; margin-top: 2mm; line-height: 1.35 }
+.av { font-size: 7.5pt; margin: 1mm 0; padding: 1.5mm 2mm; border-left: 3px solid #D4A017; background: #fff8e5 }
+.av.f { border-color: #C8102E; background: #fdecee; color: #8a0c20; font-weight: bold }
+.cod { font-size: 7pt; line-height: 1.45; margin-bottom: 1mm }
+.cod b { font-size: 7pt }
+.cod code { font-family: "Liberation Mono", "Courier New", monospace; font-size: 6.6pt; color: #555 }
+.espaco { flex: 1 }
+.recibo { border: 1px dashed #999; border-radius: 2mm; padding: 2.5mm 3mm; font-size: 7.5pt; line-height: 1.4 }
+.recibo .t { font-weight: bold; font-size: 7.5pt; margin-bottom: .8mm }
+.recibo .g { font-weight: bold; font-size: 9.5pt }
+.recibo .linha { margin-top: 1.5mm }
+.ass { display: flex; gap: 6mm; margin-top: 9mm }
+.ass div { flex: 1; border-top: 1px solid #1A1A1A; text-align: center; font-size: 7pt; color: #555; padding-top: 1mm }
+.rod { font-size: 6pt; color: #888; margin-top: 2mm; line-height: 1.4 }
+"""
+
+
+def _esc(s) -> str:
+    import html
+    return html.escape(str(s))
+
+
+def _logo_src() -> str:
+    import base64
+    return "data:image/png;base64," + base64.b64encode(LOGO.read_bytes()).decode() if LOGO.exists() else ""
+
+
+def _ordem(p: dict) -> str:
+    return p["hora"] if p["hora"] >= "06:00" else "z" + p["hora"]    # virada vai para o fim
+
+
+def _turno_txt(x: Diarista) -> str:
+    return "<br>".join(f"{t.inicio:%H:%M} – {t.fim:%H:%M}" if t.fim else f"{t.inicio:%H:%M} – em aberto"
+                       for t in x.turnos) or "—"
+
+
+def html_relatorio(dia: date, ds: list[Diarista], gerado: datetime) -> str:
+    logo = _logo_src()
+    dia_txt = f"{dia:%d/%m/%Y} ({DIAS_CURTO[dia.weekday()]})"
+
+    def topo(relatorio: str) -> str:
+        return f"""<div class="topo">{f'<img src="{logo}">' if logo else ''}
+<div class="marca"><div class="nome">TILI PIZZARIA</div>
+<div class="emp">{EMPRESA} · CNPJ {CNPJ_EMPRESA} · Porto Seguro-BA</div>
+<div class="rel">{relatorio}</div><div class="per">Dia operacional: {dia_txt}</div></div>
+<div class="dir">Fechamento: <b>{DIAS_SEMANA[(dia + timedelta(days=1)).weekday()]}-feira {dia + timedelta(days=1):%d/%m/%Y}</b><br>
+Gerado em {gerado:%d/%m/%Y %H:%M}<br>Fonte: ALIV Hub · Turno Motoboys</div></div>""".replace(
+            "sábado-feira", "sábado").replace("domingo-feira", "domingo")
+
+    rodape = (f"Diária: {brl(DIARIA_SEMANA)} (seg–sex) e {brl(DIARIA_FDS)} (sáb/dom) · Taxas: "
+              f"{brl(POR_ENTREGA_PIZZARIA)} por entrega da Tili Pizzaria · Entregas Sushi: entregas feitas para a "
+              f"Tili Sushi &amp; Poke ({brl(POR_ENTREGA_SUSHI)} cada), pagas junto no fechamento do turno · "
+              "Virada 00h: entregas concluídas depois da meia-noite contam no dia operacional anterior. "
+              "Total a pagar = fechamento do turno no ALIV Hub. Conferência de divergências em até 48 h após o recebimento.")
+
+    # ---- página 1: resumo
+    linhas = []
+    for i, x in enumerate(ds, 1):
+        marca = (' <span class="pq">(corrigida)</span>' if x.corrigida else "")
+        aviso = ' <span class="pq" style="color:#C8102E">divergência</span>' if x.divergente else ""
+        linhas.append(f"""<tr><td class="cin">{i}</td><td><b>{_esc(x.nome)}</b><div class="pq">Motoboy diarista</div></td>
+<td class="cin">{_turno_txt(x)}</td><td class="n">{len(x.pizzaria)}</td>
+<td class="n">{len(x.sushi) or '—'}</td><td class="n">{brl(x.diaria)}{marca}</td>
+<td class="n"><b>{brl(x.total)}</b>{aviso}</td><td class="c cin">( ) Pix &nbsp;( ) Din.</td></tr>""")
+    tot = sum(x.total for x in ds)
+    linhas.append(f"""<tr class="tot"><td></td><td>TOTAL</td><td></td><td class="n">{sum(len(x.pizzaria) for x in ds)}</td>
+<td class="n">{sum(len(x.sushi) for x in ds)}</td><td class="n">{brl(sum(x.diaria for x in ds))}</td>
+<td class="n ver">{brl(tot)}</td><td></td></tr>""")
+    avisos = "".join(f'<div class="av{" f" if a.startswith(("CORRIGIDO", "DIVERG")) else ""}"><b>{_esc(x.nome)}</b>: {_esc(a)}</div>'
+                     for x in ds for a in x.avisos)
+    paginas = [f"""<div class="pagina">{topo("Resumo · Motoboys diaristas (entregas)")}
+<h1>Resumo para pagamento <span class="tag">{len(ds)} DIARISTA{'S' if len(ds) != 1 else ''}</span></h1>
+<div class="cards"><div class="card"><div class="r">DIARISTAS</div><div class="v">{len(ds)}</div></div>
+<div class="card"><div class="r">ENTREGAS PIZZARIA</div><div class="v">{sum(len(x.pizzaria) for x in ds)}</div></div>
+<div class="card"><div class="r">ENTREGAS SUSHI</div><div class="v">{sum(len(x.sushi) for x in ds)}</div></div>
+<div class="card total"><div class="r">TOTAL A PAGAR</div><div class="v">{brl(tot)}</div></div></div>
+<table><tr><th>#</th><th>MOTOBOY DIARISTA</th><th>TURNO</th><th class="n">PIZZARIA</th><th class="n">SUSHI</th>
+<th class="n">DIÁRIA</th><th class="n">A PAGAR</th><th class="c">PAGO ✓</th></tr>{''.join(linhas)}</table>
+<div class="nota">Valores = fechamento do turno registrado no ALIV Hub (diária + {brl(POR_ENTREGA_PIZZARIA)} por entrega da pizzaria
++ {brl(POR_ENTREGA_SUSHI)} por entrega do sushi). Diaristas = motoboys sem CNPJ; prestadores com CNPJ ficam no relatório semanal.
+Motoboys sem turno no dia não aparecem.</div>
+{('<div class="sec" style="margin-top:4mm">ATENÇÃO</div>' + avisos) if avisos else ''}</div>"""]
+
+    # ---- uma página por diarista
+    for x in ds:
+        turno = "; ".join(f"{fmt_h(t.inicio)} – {fmt_h(t.fim) if t.fim else 'em aberto'}" for t in x.turnos) or "não encontrado"
+        sushi_txt = f"{len(x.sushi)} <span class='cin'>({brl(len(x.sushi) * POR_ENTREGA_SUSHI)})</span>" if x.sushi else "—"
+        diaria_txt = brl(x.diaria) + (f"<div class='pq'>corrigida · ALIV gravou {brl(x.diaria_gravada)}</div>" if x.corrigida else "")
+        linhas = f"""<tr><td><b>{dia:%d/%m}</b> <span class="cin">{DIAS_CURTO[dia.weekday()]}</span></td>
+<td class="cin">{_turno_txt(x)}</td><td class="n">{len(x.pizzaria)}</td><td class="n">{diaria_txt}</td>
+<td class="n">{brl(len(x.pizzaria) * POR_ENTREGA_PIZZARIA)}</td><td class="n">{sushi_txt}</td>
+<td class="n"><b>{brl(x.calculado)}</b></td></tr>"""
+        if x.fechamento is not None:
+            linhas += f"""<tr><td colspan="6" class="cin">Fechamento do turno no ALIV Hub</td>
+<td class="n"><b>{brl(x.fechamento)}</b></td></tr>"""
+        linhas += f"""<tr class="tot"><td>TOTAL A PAGAR</td><td></td><td class="n">{len(x.pizzaria)}</td><td class="n">{brl(x.diaria)}</td>
+<td class="n">{brl(len(x.pizzaria) * POR_ENTREGA_PIZZARIA)}</td><td class="n">{len(x.sushi)} <span class="cin">({brl(len(x.sushi) * POR_ENTREGA_SUSHI)})</span></td>
+<td class="n ver">{brl(x.total)}</td></tr>"""
+        avisos = "".join(f'<div class="av{" f" if a.startswith(("CORRIGIDO", "DIVERG")) else ""}">{_esc(a)}</div>' for a in x.avisos)
+        codigos = ""
+        for rotulo, peds in (("Pizzaria", x.pizzaria), ("Sushi", x.sushi)):
+            cods = ", ".join(_esc(p["codigo"]) for p in sorted(peds, key=_ordem)) or "—"
+            codigos += f'<div class="cod"><b>{dia:%d/%m} ({DIAS_CURTO[dia.weekday()]}) · {rotulo} · {len(peds)} entregas:</b> <code>{cods}</code></div>'
+        paginas.append(f"""<div class="pagina mot">{topo("Relatório diário de entregas · Motoboy diarista")}
+<h1>{_esc(x.nome)} <span class="tag">DIARISTA</span>{' <span class="tag ouro">DIVERGÊNCIA</span>' if x.divergente else ''}</h1>
+<div class="sub">Dia {dia_txt} · Turno: <b>{turno}</b></div>
+<div class="cards"><div class="card"><div class="r">ENTREGAS PIZZARIA</div><div class="v">{len(x.pizzaria)}</div></div>
+<div class="card"><div class="r">ENTREGAS SUSHI</div><div class="v">{len(x.sushi)}</div></div>
+<div class="card"><div class="r">DIÁRIA</div><div class="v">{brl(x.diaria)}</div></div>
+<div class="card total"><div class="r">TOTAL A PAGAR</div><div class="v">{brl(x.total)}</div></div></div>
+<div class="sec">TURNO DO DIA</div>
+<table><tr><th>DATA</th><th>TURNO</th><th class="n">ENTREGAS</th><th class="n">DIÁRIA</th><th class="n">TAXAS R$ 2</th>
+<th class="n">ENTREGAS SUSHI</th><th class="n">TOTAL DO DIA</th></tr>{linhas}</table>
+{avisos}
+<div class="sec" style="margin-top:3mm">ENTREGAS REALIZADAS (CÓDIGO DO PEDIDO)</div>{codigos}
+<div class="espaco"></div>
+<div class="recibo"><div class="t">RECIBO DE DIÁRIA E ENTREGAS</div>
+<span class="g">{_esc(x.nome)}</span> declara ter recebido de <span class="g">{EMPRESA}</span> (Tili Pizzaria), CNPJ
+<span class="g">{CNPJ_EMPRESA}</span> a importância de <span class="g">{brl(x.total)}</span> referente à diária e às
+entregas do dia {dia_txt} ({x.entregas} entregas), conforme discriminado acima.
+<div class="linha">Pagamento via &nbsp;( &nbsp;&nbsp;) <b>Pix</b> &nbsp;&nbsp;( &nbsp;&nbsp;) <b>Dinheiro</b> &nbsp;·&nbsp; Pago em ____/____/______</div></div>
+<div class="ass"><div>Assinatura do motoboy — {_esc(x.nome)}</div><div>Tili Pizzaria — responsável</div></div>
+<div class="rod">{rodape}</div></div>""")
+
+    return f"""<!doctype html><html lang="pt-br"><head><meta charset="utf-8">
+<title>Diaristas {dia:%d-%m-%Y}</title><style>{CSS}</style></head><body>{''.join(paginas)}</body></html>"""
+
+
 def gerar_pdf(dia: date, ds: list[Diarista], destino: Path, gerado: datetime) -> Path:
-    from reportlab.lib import colors
-    from reportlab.lib.enums import TA_CENTER
-    from reportlab.lib.pagesizes import A4
-    from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-    from reportlab.lib.units import mm
-    from reportlab.platypus import (KeepTogether, PageBreak, Paragraph, SimpleDocTemplate, Spacer,
-                                    Table, TableStyle)
-
-    verm, dour, preto = (colors.HexColor(c) for c in (VERMELHO, DOURADO, PRETO))
-    cinza = colors.HexColor("#F4F1EA")
-    ss = getSampleStyleSheet()
-    st = {
-        "h1": ParagraphStyle("h1", parent=ss["Title"], fontName="Helvetica-Bold", fontSize=18,
-                             textColor=preto, spaceAfter=2, alignment=0),
-        "h2": ParagraphStyle("h2", parent=ss["Heading2"], fontName="Helvetica-Bold", fontSize=13,
-                             textColor=verm, spaceBefore=6, spaceAfter=4),
-        "p": ParagraphStyle("p", parent=ss["Normal"], fontName="Helvetica", fontSize=9.5,
-                            textColor=preto, leading=13),
-        "sm": ParagraphStyle("sm", parent=ss["Normal"], fontName="Helvetica", fontSize=8,
-                             textColor=colors.HexColor("#555555"), leading=10),
-        "av": ParagraphStyle("av", parent=ss["Normal"], fontName="Helvetica-Bold", fontSize=9,
-                             textColor=verm, leading=12),
-        "c": ParagraphStyle("c", parent=ss["Normal"], fontName="Helvetica", fontSize=8.5,
-                            alignment=TA_CENTER, leading=10),
-    }
-    titulo = f"Diaristas — {dia:%d/%m/%Y} ({DIAS_SEMANA[dia.weekday()]})"
-
-    def cabecalho(canvas, doc):
-        w, h = A4
-        canvas.saveState()
-        canvas.setFillColor(verm)
-        canvas.rect(0, h - 22 * mm, w, 22 * mm, stroke=0, fill=1)
-        canvas.setFillColor(dour)
-        canvas.rect(0, h - 23.5 * mm, w, 1.5 * mm, stroke=0, fill=1)
-        # marca: círculo dourado com "T" (logo) + nome
-        canvas.setFillColor(dour)
-        canvas.circle(20 * mm, h - 11 * mm, 7 * mm, stroke=0, fill=1)
-        canvas.setFillColor(preto)
-        canvas.setFont("Helvetica-Bold", 16)
-        canvas.drawCentredString(20 * mm, h - 13.5 * mm, "T")
-        canvas.setFillColor(colors.white)
-        canvas.setFont("Helvetica-Bold", 15)
-        canvas.drawString(30 * mm, h - 10 * mm, "TILI PIZZARIA")
-        canvas.setFont("Helvetica", 9)
-        canvas.drawString(30 * mm, h - 15.5 * mm, "Pizzaria + Sushi & Poke · Porto Seguro-BA · WhatsApp (73) 99917-9941")
-        canvas.setFont("Helvetica-Bold", 10)
-        canvas.drawRightString(w - 12 * mm, h - 12.5 * mm, f"Diaristas {dia:%d/%m/%Y}")
-        canvas.setFillColor(preto)
-        canvas.setFont("Helvetica", 7.5)
-        canvas.drawString(12 * mm, 8 * mm, f"Gerado em {gerado:%d/%m/%Y %H:%M} a partir do ALIV (só leitura)")
-        canvas.drawRightString(w - 12 * mm, 8 * mm, f"Página {doc.page}")
-        canvas.restoreState()
-
-    doc = SimpleDocTemplate(str(destino), pagesize=A4, title=titulo, author="Tili Pizzaria",
-                            leftMargin=14 * mm, rightMargin=14 * mm, topMargin=30 * mm, bottomMargin=16 * mm)
-    base = [("FONTNAME", (0, 0), (-1, -1), "Helvetica"), ("FONTSIZE", (0, 0), (-1, -1), 9.5),
-            ("TEXTCOLOR", (0, 0), (-1, -1), preto), ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-            ("TOPPADDING", (0, 0), (-1, -1), 4), ("BOTTOMPADDING", (0, 0), (-1, -1), 4)]
-    head = [("BACKGROUND", (0, 0), (-1, 0), preto), ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
-            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold")]
-
-    el = [Paragraph(titulo, st["h1"]),
-          Paragraph(f"Resumo para pagar · diária {brl(diaria_padrao(dia))} · "
-                    f"R$ 2,00 por entrega da Pizzaria + R$ 2,00 por entrega do Sushi", st["p"]),
-          Spacer(1, 5 * mm)]
-    linhas = [["Motoboy", "Pizzaria", "Sushi", "Diária", "Total a pagar"]]
-    for x in ds:
-        marca = " *" if x.divergente or x.corrigida else ""
-        linhas.append([Paragraph(x.nome, st["p"]), str(len(x.pizzaria)), str(len(x.sushi)),
-                       brl(x.diaria) + (" (corr.)" if x.corrigida else ""), brl(x.total) + marca])
-    linhas.append(["TOTAL", str(sum(len(x.pizzaria) for x in ds)), str(sum(len(x.sushi) for x in ds)),
-                   brl(sum(x.diaria for x in ds)), brl(sum(x.total for x in ds))])
-    t = Table(linhas, colWidths=[72 * mm, 22 * mm, 20 * mm, 30 * mm, 38 * mm], repeatRows=1)
-    zebra = [("BACKGROUND", (0, i), (-1, i), cinza) for i in range(2, len(linhas) - 1, 2)]
-    t.setStyle(TableStyle(base + head + zebra + [
-        ("ALIGN", (1, 0), (-1, -1), "CENTER"), ("ALIGN", (-1, 1), (-1, -1), "RIGHT"),
-        ("BACKGROUND", (0, -1), (-1, -1), dour), ("FONTNAME", (0, -1), (-1, -1), "Helvetica-Bold"),
-        ("LINEBELOW", (0, 0), (-1, -2), 0.3, colors.HexColor("#CCCCCC")),
-        ("BOX", (0, 0), (-1, -1), 0.8, preto)]))
-    el.append(t)
-    avisos = [(x.nome, a) for x in ds for a in x.avisos]
-    if avisos:
-        el += [Spacer(1, 5 * mm), Paragraph("Atenção", st["h2"])]
-        el += [Paragraph(f"• <b>{n}</b>: {a}", st["av" if a.startswith(("CORRIGIDO", "DIVERG")) else "p"])
-               for n, a in avisos]
-    el += [Spacer(1, 4 * mm), Paragraph(
-        "* Total a pagar = fechamento do turno no ALIV (com a correção da diária de fim de semana, "
-        "se houver). Divergência = fechamento diferente de diária + entregas × R$ 2,00.", st["sm"])]
-
-    for x in ds:
-        el.append(PageBreak())
-        el += [Paragraph(x.nome, st["h1"]), Paragraph(titulo, st["p"]), Spacer(1, 3 * mm)]
-        turnos = "<br/>".join(f"Entrada {fmt_h(t.inicio)} · Saída {fmt_h(t.fim) if t.fim else 'em aberto'}"
-                              for t in x.turnos) or "não encontrado no ALIV"
-        info = [
-            ["Turno", Paragraph(turnos, st["p"])],
-            ["Diária", Paragraph(
-                f"{brl(x.diaria)}" + (f" — <font color='{VERMELHO}'><b>corrigida</b></font> "
-                                      f"(ALIV gravou {brl(x.diaria_gravada)})" if x.corrigida else "")
-                + ("" if x.diaria_gravada is not None or x.corrigida else " (padrão — não gravada no ALIV)"),
-                st["p"])],
-            ["Entregas Pizzaria", f"{len(x.pizzaria)} × {brl(POR_ENTREGA_PIZZARIA)} = "
-                                  f"{brl(len(x.pizzaria) * POR_ENTREGA_PIZZARIA)}"],
-            ["Entregas Sushi", f"{len(x.sushi)} × {brl(POR_ENTREGA_SUSHI)} = {brl(len(x.sushi) * POR_ENTREGA_SUSHI)}"],
-            ["Cálculo", f"{brl(x.diaria)} + {brl(x.taxas)} = {brl(x.calculado)}"],
-            ["Fechamento ALIV", brl(x.fechamento) if x.fechamento is not None else "sem fechamento"],
-            ["TOTAL A PAGAR", brl(x.total) + ("  (DIVERGÊNCIA)" if x.divergente else "")],
-        ]
-        ti = Table(info, colWidths=[42 * mm, 140 * mm])
-        ti.setStyle(TableStyle(base + [
-            ("FONTNAME", (0, 0), (0, -1), "Helvetica-Bold"), ("BACKGROUND", (0, 0), (0, -2), cinza),
-            ("BACKGROUND", (0, -1), (-1, -1), verm), ("TEXTCOLOR", (0, -1), (-1, -1), colors.white),
-            ("FONTNAME", (0, -1), (-1, -1), "Helvetica-Bold"), ("FONTSIZE", (0, -1), (-1, -1), 11),
-            ("LINEBELOW", (0, 0), (-1, -2), 0.3, colors.HexColor("#CCCCCC")),
-            ("BOX", (0, 0), (-1, -1), 0.8, preto)]))
-        el.append(ti)
-        for a in x.avisos:
-            el.append(Paragraph(f"! {a}", st["av"]))
-
-        for nome, peds in (("Pedidos entregues — Pizzaria", x.pizzaria), ("Pedidos entregues — Sushi", x.sushi)):
-            el.append(Paragraph(f"{nome} ({len(peds)})", st["h2"]))
-            if not peds:
-                el.append(Paragraph("nenhum", st["p"]))
-                continue
-            cel = [Paragraph(f"<b>{p['codigo']}</b><br/><font size=7>{p['hora']}</font>", st["c"])
-                   for p in sorted(peds, key=lambda p: p["hora"] if p["hora"] >= "06:00" else "z" + p["hora"])]
-            ncol = 6
-            cel += [""] * (-len(cel) % ncol)
-            grade = Table([cel[i:i + ncol] for i in range(0, len(cel), ncol)], colWidths=[30.3 * mm] * ncol)
-            grade.setStyle(TableStyle([("GRID", (0, 0), (-1, -1), 0.3, colors.HexColor("#BBBBBB")),
-                                       ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-                                       ("TOPPADDING", (0, 0), (-1, -1), 3), ("BOTTOMPADDING", (0, 0), (-1, -1), 3)]))
-            el.append(grade)
-
-        recibo = Table([
-            [Paragraph("<b>RECIBO</b>", ParagraphStyle("r", parent=st["p"], fontSize=12, textColor=verm))],
-            [Paragraph(f"Recebi da <b>Tili Pizzaria</b> (SO DELIVERY PIZZARIA E RESTAURANTE LTDA) a quantia de "
-                       f"<b>{brl(x.total)}</b>, referente à diária e às entregas do dia "
-                       f"<b>{dia:%d/%m/%Y}</b> ({x.entregas} entregas).", st["p"])],
-            [Paragraph("Forma de pagamento:&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;) Pix"
-                       "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;) Dinheiro", st["p"])],
-            [Paragraph("Data: ____/____/________", st["p"])],
-            [Spacer(1, 8 * mm)],
-            [Paragraph("_____________________________________________<br/>"
-                       f"Assinatura — {x.nome}", st["p"])],
-        ], colWidths=[182 * mm])
-        recibo.setStyle(TableStyle([("BOX", (0, 0), (-1, -1), 1.2, dour),
-                                    ("BACKGROUND", (0, 0), (-1, 0), cinza),
-                                    ("LEFTPADDING", (0, 0), (-1, -1), 8), ("TOPPADDING", (0, 0), (-1, -1), 5)]))
-        el += [Spacer(1, 6 * mm), KeepTogether(recibo)]
-
-    doc.build(el, onFirstPage=cabecalho, onLaterPages=cabecalho)
+    import shutil
+    import subprocess
+    import tempfile
+    chrome = next((c for c in (shutil.which(c) or (c if c and Path(c).exists() else None) for c in CHROME) if c), None)
+    if not chrome:
+        raise RuntimeError("Chromium não encontrado (defina DIARISTAS_CHROME)")
+    with tempfile.TemporaryDirectory() as tmp:
+        html_path = Path(tmp) / "diaristas.html"
+        html_path.write_text(html_relatorio(dia, ds, gerado), encoding="utf-8")
+        subprocess.run([chrome, "--headless", "--no-sandbox", "--disable-gpu", "--no-pdf-header-footer",
+                        f"--user-data-dir={tmp}/perfil", f"--print-to-pdf={destino}", html_path.as_uri()],
+                       check=False, capture_output=True, timeout=90)
+    if not destino.exists() or destino.stat().st_size < 1000:
+        raise RuntimeError("Chromium não gerou o PDF")
     return destino
 
 

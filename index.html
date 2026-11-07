@@ -237,7 +237,7 @@
   var PROMPT = [
     'Você é o conferente de um buffet de sushi cobrado por peça. A imagem é a foto de um prato ou bandeja de cliente, vista de cima.',
     'Tarefa: contar TODAS as peças de sushi que estão DENTRO do prato ou da bandeja.',
-    'ÁREA VÁLIDA: só a superfície interna do prato/bandeja. Ignore TUDO que estiver fora dela: mesa, toalha, guardanapo, outra louça, embalagem, tampa, sacola, mãos, peças em outro prato ao fundo.',
+    'ÁREA VÁLIDA: só a superfície interna do prato/bandeja. Se as peças estiverem direto numa tábua ou balcão, sem prato, conte só o grupo principal de peças no centro da foto. Ignore TUDO que estiver fora dela: mesa, toalha, guardanapo, outra louça, embalagem, tampa, sacola, mãos, peças em outro prato ao fundo.',
     'NUNCA marque a borda do prato ou da bandeja, a mesa, a embalagem, desenhos ou relevos da louça, nem reflexos. Todo ponto marcado tem que cair em cima de uma peça de comida.',
     'Conta como 1 peça: cada fatia de rolinho (hossomaki, uramaki, hot roll), cada joy, cada nigiri, cada sashimi, cada temaki, cada gunkan.',
     'NÃO conte: gengibre, wasabi, shoyu, molhos, saladinha, folhas, decoração, hashi, talheres.',
@@ -247,17 +247,17 @@
     '- "hosso" = HOSSOMAKI: rolinho fino com a alga (nori, verde-escura/preta) por fora, recheio no meio.',
     '- "ura" = URAMAKI: rolinho com o ARROZ por fora (branco, às vezes com gergelim), alga por dentro.',
     '- "hot" = HOT ROLL: rolinho empanado e frito, casca dourada/marrom crocante.',
-    '- "joy" = JOY: peça com cobertura de cream cheese ou de fruta (morango, manga, kiwi etc.) por cima.',
+    '- "joy" = JOY: peça com uma fatia de salmão (ou outro peixe) ENROLADA por fora, em volta do arroz. Com ou sem cobertura por cima (cream cheese, fruta, camarão, tartar, cebolinha): enrolada em peixe é sempre joy.',
     '- "outro" = qualquer peça de sushi que não se encaixe acima (temaki, gunkan etc.).',
     'Na dúvida entre nigiri e sashimi: se dá para ver arroz embaixo da fatia, é "niguiri"; se não há arroz, é "sashimi".',
-    'Ordem de decisão para rolinhos: está empanado e frito? "hot". Tem cobertura de cream cheese ou fruta por cima? "joy". Arroz por fora? "ura". Alga por fora? "hosso".',
+    'Ordem de decisão para rolinhos: está empanado e frito? "hot". Peixe cru enrolado por fora? "joy". Arroz por fora? "ura" (MESMO com cream cheese, fruta ou outra cobertura por cima: rolinho de arroz com cobertura continua "ura"). Alga por fora? "hosso".',
     'INCERTA: marque "incerta": true quando não tiver certeza se é uma peça (sombra, peça cortada pela borda da foto, peça escondida ou empilhada, peça colada em outra que pode ser uma só) ou quando estiver em dúvida entre dois tipos. Nesse caso escolha o tipo mais provável. Peças claras ficam "incerta": false.',
     'Peças encostadas ou parcialmente cobertas contam. Se houver peças empilhadas, conte também as de baixo que dá para perceber e marque essas como incertas.',
     'Percorra o prato de forma sistemática (de cima para baixo, da esquerda para a direita) e liste UMA entrada por peça, sem pular e sem repetir.',
     'Para cada peça informe o centro da peça em porcentagem da LARGURA (x) e da ALTURA (y) da imagem (0 a 100).',
     'Responda SOMENTE com JSON, sem texto antes ou depois, neste formato: {"pecas":[{"x":12.5,"y":40.1,"tipo":"hosso","incerta":false}],"total":0,"obs":""}',
     '"total" tem que ser exatamente o número de itens em "pecas". Em "obs" escreva uma frase curta só se algo atrapalhou (peças empilhadas, foto escura, prato cortado); senão deixe "".',
-    'Se não houver prato com peças na foto, responda {"pecas":[],"total":0,"obs":"não vi peças de sushi na foto"}.'
+    'Se não houver nenhuma peça de sushi na foto, responda {"pecas":[],"total":0,"obs":"não vi peças de sushi na foto"}.'
   ].join('\n');
 
   var cfg = { key: '', modo: 'preciso', aparelho: '', preco: 0, porTipo: false, tipos: {}, sens: 'normal', fotos: true };

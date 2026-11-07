@@ -13,7 +13,8 @@ cargo da Rotina (ver README).
 
 Somente biblioteca padrão do Python 3.9+. Nunca faz POST/PUT/DELETE no ALIV,
 exceto o POST de login e, com --whatsapp, o POST /admin/api/chat/send
-(também usado por diaristas.py, com o PDF anexado).
+(também usado por diaristas.py, com o PDF anexado). Com --whatsapp manda também
+o painel em PNG (painel.py, desenhado pelo Chromium headless) logo depois do texto.
 """
 
 from __future__ import annotations
@@ -24,6 +25,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.parse
@@ -140,7 +142,8 @@ class Aliv:
         body = "".join(f'--{boundary}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'
                        for k, v in (("phone", telefone), ("message", texto))).encode()
         if arquivo is not None:
-            tipo = "application/pdf" if arquivo.suffix.lower() == ".pdf" else "application/octet-stream"
+            tipo = {".pdf": "application/pdf", ".png": "image/png", ".jpg": "image/jpeg",
+                    ".jpeg": "image/jpeg"}.get(arquivo.suffix.lower(), "application/octet-stream")
             body += (f'--{boundary}\r\nContent-Disposition: form-data; name="file"; '
                      f'filename="{arquivo.name}"\r\nContent-Type: {tipo}\r\n\r\n').encode()
             body += arquivo.read_bytes() + b"\r\n"
@@ -730,6 +733,8 @@ def main() -> int:
     ap.add_argument("--sem-snapshot", action="store_true", help="não grava snapshot")
     ap.add_argument("--sem-semana", action="store_true", help="pula a comparação semanal")
     ap.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (diagnóstico)")
+    ap.add_argument("--painel", metavar="ARQ.png", help="salva o painel em PNG neste arquivo")
+    ap.add_argument("--sem-painel", action="store_true", help="não gera nem envia o painel em PNG")
     ap.add_argument("--whatsapp", action="store_true",
                     help="envia o relatório pelo WhatsApp da loja para WHATSAPP_EMERSON "
                          "(sai com código 3 se não enviar, para a Rotina usar o e-mail)")
@@ -773,6 +778,15 @@ def main() -> int:
     print(texto)
     if not args.sem_snapshot:
         gravar_snapshot(dia, agora, r, moto, sushi["r"] if sushi and not sushi.get("erro") else None)
+    painel = None
+    if not args.sem_painel and (args.painel or args.whatsapp):
+        destino = Path(args.painel) if args.painel else Path(tempfile.mkdtemp()) / f"painel_{agora:%d-%m_%H%M}.png"
+        try:
+            from painel import gerar_painel
+            painel = gerar_painel(destino, agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi)
+            print(f"PAINEL: {painel}", file=sys.stderr)
+        except Exception as e:      # o painel nunca derruba o relatório em texto
+            print(f"PAINEL: não gerado — {e}", file=sys.stderr)
     if args.whatsapp:
         fone = re.sub(r"\D", "", os.environ.get("WHATSAPP_EMERSON", ""))
         if not fone:
@@ -784,6 +798,13 @@ def main() -> int:
         except (AlivError, OSError) as e:
             print(f"WHATSAPP: {e}", file=sys.stderr)
             return 3
+        if painel is not None:
+            # Falha no painel não muda o código de saída: o texto já chegou.
+            try:
+                api.enviar_whatsapp(fone, f"Painel Tili — {agora:%d/%m %H:%M}", arquivo=painel)
+                print("WHATSAPP: painel enviado.", file=sys.stderr)
+            except (AlivError, OSError) as e:
+                print(f"WHATSAPP: painel não enviado — {e}", file=sys.stderr)
     return 0
 
 

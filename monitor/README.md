@@ -134,19 +134,20 @@ python3 monitor/diaristas.py                                # rodada normal: dia
 - Variáveis: `ALIV_USER`, `ALIV_PASS`, `WHATSAPP_EMERSON`, `WHATSAPP_ADMIN`.
 - Saída: `monitor/diaristas/AAAA-MM-DD/diaristas_DD-MM.pdf`. O commit fica com a Rotina.
 - PDF no mesmo layout do relatório semanal dos prestadores: o script monta um HTML e imprime com o `chrome-headless-shell` de `/opt/pw-browsers`, que já vem no ambiente. O Chrome completo (`/usr/bin/google-chrome`, da variável `CHROME_PATH`) trava no modo headless, por isso o script não usa ele. Para usar outro, defina `DIARISTAS_CHROME`.
-- Logo: `monitor/assets/logo_tili.png`. Para trocar, basta substituir o arquivo.
+- Papel timbrado:
+  - A logo aparece no cabeçalho e como marca d'água no centro de cada página.
+  - No rodapé há uma faixa vermelha, dourada e preta com a razão social, o CNPJ, a cidade e o WhatsApp (73) 99917-9941.
+- Logo (Tili Pizza · Burguer · Sushi): `monitor/assets/logo_tili.png`. Para trocar, basta substituir o arquivo.
 - Códigos de saída: `0` ok, ou dry-run, ou dia sem diarista com aviso enviado · `1` erro de login ou do ALIV · `2` faltam variáveis · `3` relatório gerado, mas o WhatsApp não aceitou a lista ou o PDF. Nesse caso a Rotina manda por e-mail.
 
-## Regras
+## Regras (combinadas em 07/11/2026)
 
-- **Dia operacional D:** turnos iniciados entre 10:00 de D e 10:00 de D+1, ou até a hora da rodada se for antes. Pedidos criados entre 10:00 de D e 06:00 de D+1. A entrega feita depois da meia-noite conta no dia D.
+- **Dia operacional D:** turnos iniciados entre 10:00 de D e 10:00 de D+1. Os pedidos contam de 10:00 de D até **08:00 de D+1**, o que na prática é o turno das 16h às 08h. A entrega feita depois da meia-noite conta no dia D. O ALIV aceita hora na consulta, mas ignora, então o corte pela hora exata é feito no script.
 - **Quem entra:** motoboy sem "CNPJ" no nome. Os prestadores com CNPJ ficam no relatório semanal. **Thiago Camilo** e **Josué Ruas**, que são logins de gerente, nunca entram.
-- **Diária:** R$ 100 de segunda a sexta e R$ 120 no sábado e no domingo, pelo dia operacional.
-  - Se o ALIV gravou R$ 100 no fim de semana, o script corrige para R$ 120 e marca **CORRIGIDO**.
-  - Sem diária gravada, usa a padrão e avisa.
-- **Taxa por entrega:** R$ 2,00 na Pizzaria e R$ 2,00 no Sushi.
-- **Total a pagar:** é o fechamento do turno no ALIV, mais a diferença da diária quando ela foi corrigida. Sem fechamento, vale o cálculo (diária + entregas × R$ 2).
-  - Se o fechamento for diferente do cálculo, os dois aparecem e o motoboy é marcado com **DIVERGÊNCIA**.
+- **Diária:** vale a que foi **gravada no ALIV**, como está. Exemplo: R$ 50 combinado com quem chegou atrasado. Só quando a diária vem **zerada ou não gravada** e o motoboy fez entregas, o script usa a padrão (R$ 100 de segunda a sexta, R$ 120 no sábado e no domingo).
+- **Entrega:** sempre **R$ 2,00**, da Pizzaria ou do Sushi, seja qual for a taxa gravada. A taxa variável é do cliente. As exceções de bairro distante são pagas na hora e não entram aqui.
+- **Total a pagar:** diária + R$ 2 × entregas. O fechamento do ALIV serve só para conferência.
+- **Página do motoboy:** não mostra correção, divergência nem aviso. Isso aparece só na mensagem e no terminal.
 - **Pizzaria ou Sushi:** o pedido é da Pizzaria quando está nas entregas do turno (`payouts`) ou quando `GET /admin/api/orders/{id}` responde no login da Pizzaria. Quando esse GET dá 404, o pedido é do Sushi.
 - **Dia sem diarista:** não gera PDF. Só manda o aviso.
 
@@ -174,7 +175,71 @@ python3 monitor/diaristas.py                                # rodada normal: dia
   - 06/11 (sexta): 1 diarista, Crisley, com 10 entregas na Pizzaria + 6 no Sushi, diária de R$ 100 e fechamento de R$ 132. Bateu.
   - 01/11 (domingo): 5 diaristas, todos com diária de R$ 120. Os 5 bateram com o fechamento.
 
-## Rotina das 00:15
+## Rotina das 00:45
 
-- Cron `CRON_TZ=America/Bahia 15 0 * * *`, sessão nova a cada disparo, conector Gmail.
-- Se a Rotina rodar antes de o ALIV fechar o turno, o motoboy sai com "turno ainda aberto" e o total vem do cálculo.
+- Ativa: **Tili — Diaristas (00:45)**, cron `CRON_TZ=America/Bahia 45 0 * * *`, sessão nova a cada disparo.
+- O horário passou de 00:15 para 00:45 porque, em 06/11, o ALIV só fechou o turno às 00:37. Às 00:45 o total já vem do fechamento.
+- Se o turno ainda estiver aberto, o motoboy sai com "turno ainda aberto" e o total vem do cálculo.
+- A Rotina usa a `main` se o `diaristas.py` já estiver lá. Se não estiver, usa o branch `claude/serene-dirac-9hyjzd`. O PDF do dia é gravado nesse mesmo branch.
+- O e-mail de reserva (códigos 1, 2 e 3) precisa do conector **Gmail** na Rotina.
+
+---
+
+# Prestadores MEI — relatório semanal (`prestadores.py`)
+
+Gera o pagamento semanal dos **prestadores MEI**, os motoboys com CNPJ no nome. A semana vai de segunda a domingo. Só lê o ALIV. Reaproveita do `diaristas.py` o login, o WhatsApp, o layout com papel timbrado e o gerador de PDF.
+
+## Como rodar
+
+```bash
+python3 monitor/prestadores.py --semana 2026-10-27 --dry-run   # semana que contém a data; gera e mostra, não envia
+python3 monitor/prestadores.py                                  # rodada normal: semana seg–dom que fechou, envia
+```
+
+- `--semana AAAA-MM-DD`: qualquer data da semana. O script usa a segunda e o domingo dessa semana. Sem a opção, pega a última semana completa.
+- `--dry-run`: gera os PDFs e a mensagem, sem enviar nada.
+- `--sem-espera`: não espera os 10 minutos quando o turno de domingo estiver aberto.
+- `--raw PASTA`: salva as respostas cruas do ALIV.
+- Saída:
+  - `monitor/prestadores/AAAA-MM-DD/Prestadores_semana_DD-MM_a_DD-MM_COMPLETO.pdf`, com resumo, correções e alertas e uma página por prestador.
+  - `monitor/prestadores/AAAA-MM-DD/individuais/<Nome>_DD-MM_a_DD-MM.pdf`, um PDF por prestador. O commit fica com a Rotina.
+- Chave Pix: por padrão é o CNPJ. As exceções ficam em `monitor/assets/pix_prestadores.json` (`{"CNPJ só dígitos": "chave"}`). Hoje só o Gustavo, que recebe no e-mail.
+- Códigos de saída: `0` ok · `1` erro de login ou do ALIV · `2` faltam variáveis · `3` WhatsApp falhou. Nesse caso a Rotina manda por e-mail.
+
+## Regras (combinadas em 07/11/2026)
+
+- **Quem entra:** motoboy com "CNPJ" no nome. Thiago Camilo e Josué Ruas nunca entram.
+- **Cadastro duplicado:** quando o mesmo CNPJ ou o mesmo nome aparece em mais de um id, cada cadastro entra separado e gera alerta.
+- **Dia operacional:** das **08:00 de D às 08:00 de D+1**, o que na prática é o turno das 16h às 08h. O que passa da meia-noite conta no dia D.
+  - O turno conta pelo horário de início.
+  - A entrega da Pizzaria conta no turno em que o ALIV a registrou, inclusive a da madrugada do domingo anterior, que fica fora da semana.
+  - A entrega do Sushi conta pelo horário de criação. Pedido agendado, que vem com hora "00:00", conta pelo dia em que foi entregue.
+- **Diária:** vale a que foi **gravada no ALIV**, como está (R$ 50, R$ 80…). Só quando vem **zerada ou não gravada** e o motoboy fez entregas, o script usa a padrão (R$ 100 de segunda a sexta, R$ 120 no sábado e no domingo). Esse é o único caso listado como correção.
+- **Entrega:** sempre **R$ 2,00**, da Pizzaria ou do Sushi, seja qual for a taxa gravada (0; 6,99; 7; 30; 40). A taxa variável é do cliente.
+- **Sushi:** conta as entregas do Sushi registradas para o motoboy no ALIV (`drivers-report/orders` + 404 no login da Pizzaria). O Sushi não tem motoboy próprio e usa os da Pizzaria.
+  - Antes o Sushi saía da diferença do fechamento, mas isso dava erro de R$ 1. Exemplo: Guilherme e Ricardo em 01/11, com uma entrega do Sushi gravada a R$ 7.
+- **Total do dia:** diária + R$ 2 × entregas + ajustes manuais lançados no ALIV.
+- **PDF completo e PDFs individuais:** só resumo, turnos, códigos e recibo. **Nenhuma correção, divergência ou aviso aparece para o motoboy.**
+- **Folha de conferência (uso interno):** fica em `Conferencia_interna_semana_DD-MM_a_DD-MM.pdf`, à parte. Mostra, por prestador, o fechamento do ALIV × o valor pago e o motivo de cada dia diferente: taxa gravada ≠ R$ 2, ou o fechamento pagou Sushi a mais ou a menos do que foi entregue. Também traz os alertas e as correções.
+- **Turno de domingo aberto:** o script espera 10 minutos e lê de novo. Se continuar aberto, gera alerta e o dia é pago pelo cálculo.
+- **Mensagem final** (WhatsApp para `WHATSAPP_EMERSON` e `WHATSAPP_ADMIN`, com o PDF completo e a folha de conferência): total da semana, valor de cada prestador, correções, alertas (turno aberto, cadastro duplicado, ajuste manual) e quantos turnos ficaram diferentes do ALIV.
+
+## Endpoints (além dos do diaristas)
+
+| Uso | Endpoint | Observação |
+|---|---|---|
+| Turnos da semana | `GET /admin/api/finance/driver/{id}/payouts?start=SEG&end=DOM+1` | `end` inclui o dia. Os grupos trazem `session_start`/`session_end` ("dd/mm HH:MM"), `total_paid` e `deliveries` (só Pizzaria, `fee`). Às vezes o grupo vem sem `deliveries`, como Adriano em 01/11: por isso as entregas saem de `drivers-report/orders` |
+| Diária e ajustes | `GET /admin/api/finance/driver/{id}/history-audit?start=SEG&end=DOM+1` | `type "DIÁRIA/VALE"`: "Diária/Taxa Extra Manual" (gravada no fechamento do turno; a de domingo fica às 00:0x de segunda) ou ajuste manual |
+| Pedidos e taxa | `GET /admin/api/finance/drivers-report/orders?driver_id=&start=SEG&end=DOM+2&date_basis=delivery` | `taxa` = taxa gravada (0; 2; 6,99; 7; 40…) |
+
+## Conferência (semana 26/10 a 01/11/2026)
+
+- Total a pagar: **R$ 9.296,99**. O relatório antigo deu R$ 9.286,00. Os fechamentos gravados no ALIV somam R$ 9.378,96.
+- 11 dos 17 prestadores bateram com o relatório antigo.
+- 16 turnos ficaram diferentes do fechamento do ALIV. Todos estão explicados na folha de conferência:
+  - 10 por taxa gravada diferente de R$ 2: R$ 40, R$ 30, R$ 7 (×3), R$ 6,99 (×3) e R$ 0 (×2).
+  - 6 porque o fechamento pagou Sushi a mais ou a menos do que o ALIV registra como entregue.
+
+## Rotina de segunda às 10:00
+
+- Cron `CRON_TZ=America/Bahia 0 10 * * 1`, sessão nova a cada disparo, conector Gmail para o e-mail de reserva.

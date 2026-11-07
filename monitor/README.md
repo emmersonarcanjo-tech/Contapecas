@@ -301,3 +301,27 @@ python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdad
 
 - Cron `CRON_TZ=America/Bahia 50 23 * * *`, sessão nova a cada disparo, conector Gmail para o e-mail de reserva. Só `listar`.
 - Pedidos criados depois das 23:50 ou ainda abertos nessa hora não entram na lista daquele dia.
+
+## Despesas pelo WhatsApp da loja (`despesas.py`)
+
+Lê as despesas que a equipe manda **no privado do número da loja** (73) 9917-9941 e baixa as fotos. **Só leitura**: não envia mensagem, não marca como atendido e não mexe na IA.
+
+**Grupo não funciona.** Testado em 07/11/2026: o grupo "Tili — Despesas" não aparece no chat do ALIV, que só guarda conversas individuais.
+
+Como a equipe manda:
+- Foto do comprovante com a legenda `DESPESA gás 120,50`, ou
+- Texto `DESPESA limpeza 85,00` e as fotos logo em seguida (até 10 min, sem legenda).
+
+```bash
+export DESPESAS_REMETENTES='5573XXXXXXXXX,5573YYYYYYYYY'   # quem manda despesa (lidos sempre)
+python3 monitor/despesas.py              # últimas 26h; grava monitor/despesas/AAAA-MM-DD.json
+```
+
+- Lê as conversas dos `DESPESAS_REMETENTES` e as 25 conversas mais recentes do chat. O ALIV só lista 25 conversas, por isso cadastre os remetentes.
+- As fotos vão para `monitor/despesas/fotos/AAAA-MM-DD/`, que fica fora do git. A Rotina deve subir essas fotos para o Drive.
+- O JSON do dia guarda: data, hora, remetente, os 4 últimos dígitos do telefone, texto, descrição, valor (1º valor da legenda), fotos e total. Não guarda o telefone completo.
+- **O ALIV apaga a mídia em 24h.** Rode pelo menos 1 vez por dia; de hora em hora é melhor.
+- Opções: `--horas N`, `--sem-baixar`, `--sem-gravar`, `--fotos PASTA`, `--agora AAAA-MM-DDTHH:MM`.
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` alguma foto não baixou.
+- Cuidado: a IA de atendimento pode responder a quem manda a despesa. Desligue a IA na conversa desses números, no chat do ALIV.
+- As fotos ficam em `objectstorage.sa-vinhedo-1.oraclecloud.com`. Esse servidor precisa estar liberado na rede do ambiente da Rotina.

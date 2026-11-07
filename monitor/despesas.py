@@ -254,7 +254,7 @@ def main() -> int:
     sem_foto = sum(1 for x in todas if not x["fotos"])
     sem_valor = sum(1 for x in todas if x["valor"] is None)
     if sem_foto:
-        L.append(f"⚠️ {sem_foto} despesa(s) sem foto.")
+        L.append(f"ℹ️ {sem_foto} despesa(s) só em texto (sem foto).")
     if sem_valor:
         L.append(f"⚠️ {sem_valor} despesa(s) sem valor na legenda.")
     if falhas:

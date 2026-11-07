@@ -326,10 +326,21 @@ python3 monitor/despesas.py              # últimas 26h; grava monitor/despesas/
 - Cuidado: a IA de atendimento pode responder a quem manda a despesa. Desligue a IA na conversa desses números, no chat do ALIV.
 - As fotos ficam em `objectstorage.sa-vinhedo-1.oraclecloud.com`. Esse servidor precisa estar liberado na rede do ambiente da Rotina.
 
+### Lançamento no ALIV: conta paga + estoque (`despesas_lancar.py`)
+
+- Usa a entrada de nota manual do ALIV (tela "Conferência da Nota"): `POST /admin/inventory/process-invoice-items-financial`. Numa chamada só, cria a conta **paga** (`payment_origin=none`, sem mexer em caixa ou banco) e dá **entrada no estoque com custo**, o que atualiza o custo médio e as fichas técnicas.
+- **Pizzaria ou Sushi:** se a legenda tiver "SUSHI", vai para o Sushi (loja 155, `ALIV_USER_SUSHI`). Senão, vai para a Pizzaria.
+- **Despesa só em texto** (`DESPESA coentro 5 un 10,00`) é lançada do mesmo jeito, com o fornecedor "Sem nota (WhatsApp)".
+- **Tabela de-para** (`monitor/despesas/depara.json`): o item só entra no estoque se o nome dele no cupom estiver ligado a um insumo. O item sem ligação entra **só como despesa** e vai para o WhatsApp com sugestões. O script **nunca cria insumo novo**.
+- Para aprovar uma ligação, o Emerson responde no WhatsApp da loja `INSUMO coentro = 6788`, ou `INSUMO sushi coentro = ID`. O número opcional no fim é o **multiplicador**: qtd do cupom × fator = qtd que entra no estoque (ex.: `INSUMO morango 1kg = 6564 1000` se o estoque é em gramas). A rotina aplica essas respostas com `--ler-insumos`.
+- Também dá para aprovar pelo terminal: `python3 monitor/despesas_lancar.py --depara pizzaria "COENTRO" 6788 [fator]` · ver candidatos: `--sugerir pizzaria coentro`.
+- Proteções: confere duplicata nas contas da loja (mesmo valor e dia, mesmo nº de nota ou fornecedor) e respeita o aviso `POSSIBLE_DUPLICATE` do ALIV, sem forçar. A soma dos itens precisa bater com o total. Preço fora do padrão que pede senha de gerente **não** é forçado: volta como erro no WhatsApp.
+- Sem `--confirmar`, só mostra o que faria. Códigos de saída: `0` ok · `1` algum erro · `4` WhatsApp não enviado.
+- A conta criada fica com a descrição que o ALIV gera para entrada de nota, não no formato `WPP | …` da rotina antiga.
+
 ### Rotina "Tili Despesas"
 
-- Roda 2x por dia, às 12:00 e à 00:00 (fuso America/Bahia), numa sessão nova. A janela de 26h cobre as 24h que o ALIV guarda a mídia. Usa o branch `claude/focused-babbage-fjiomt`.
-- Roda `python3 monitor/despesas.py --whatsapp --drive <link>`, sobe as fotos baixadas para a pasta **Despesas** do Drive (id `1aX9b7wy-GiHzopynuyQvQOwnYQr6Bxjz`) e faz commit do JSON do dia.
-- `--whatsapp`: manda o resumo para `WHATSAPP_EMERSON` **só** quando tem despesa nova ou foto que não baixou. Sem novidade, não manda nada. Não usa e-mail.
-- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` foto não baixada · `4` WhatsApp não enviado.
+- Roda 2x por dia, às 12:00 e à 00:00 (America/Bahia), numa sessão nova, com o conector Google Drive e o repositório. Usa o branch `claude/focused-babbage-fjiomt`.
+- Ordem: `--ler-insumos` → `despesas.py` (coleta e baixa as fotos) → a IA da rotina lê cada foto ou texto e monta a lista de itens → `despesas_lancar.py --confirmar --whatsapp` → sobe as fotos para a pasta **Despesas** do Drive (id `1aX9b7wy-GiHzopynuyQvQOwnYQr6Bxjz`) → commit dos JSON.
+- O WhatsApp para o Emerson só sai quando há despesa nova ou problema. Não usa e-mail e não manda foto.
 - A IA de atendimento foi pausada (`ai_paused`) nas 4 conversas em 07/11/2026.

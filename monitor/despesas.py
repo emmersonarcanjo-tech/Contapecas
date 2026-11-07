@@ -204,6 +204,7 @@ def main() -> int:
         return 1
 
     falhas = 0
+    novas_n = 0
     por_dia: dict[str, dict] = {}
     for d in sorted(novas, key=lambda x: x["_dt"]):
         doc = por_dia.setdefault(d["data"], carregar(d["data"]))
@@ -214,6 +215,7 @@ def main() -> int:
             velha["fotos"] += [f for f in d["fotos"] if f["wamid"] not in conhecidas]
         else:
             doc["despesas"].append(d)
+            novas_n += 1
         for i, f in enumerate(alvo["fotos"], 1):
             if f.get("arquivo") or a.sem_baixar:
                 continue
@@ -239,7 +241,7 @@ def main() -> int:
     # ---- relatório (1ª linha = assunto)
     todas = [x for doc in por_dia.values() for x in doc["despesas"]]
     total = sum(x["valor"] or 0 for x in todas)
-    print(f"Tili Despesas — {agora:%d/%m %H:%M} — {len(todas)} despesa(s) / {brl(total)}")
+    print(f"Tili Despesas — {agora:%d/%m %H:%M} — {novas_n} nova(s) · {len(todas)} despesa(s) / {brl(total)}")
     print(f"Conversas lidas: {len(conversas)} (autorizados: {len(remetentes)}) · janela: últimas {a.horas:g}h")
     for x in sorted(todas, key=lambda x: (x["data"], x["hora"])):
         fotos = len(x["fotos"])
@@ -252,6 +254,8 @@ def main() -> int:
         print(f"ATENÇÃO: {len(avisos)} despesa(s) sem foto.")
     if sem_valor:
         print(f"ATENÇÃO: {len(sem_valor)} despesa(s) sem valor na legenda.")
+    if novas_n == 0 and not falhas:
+        print("SEM NOVIDADE")
     if falhas:
         print(f"ATENÇÃO: {falhas} foto(s) não baixada(s). A mídia some do ALIV em 24h.")
         return 3

@@ -313,7 +313,7 @@ Como a equipe manda:
 - Texto `DESPESA limpeza 85,00` e as fotos logo em seguida (até 10 min, sem legenda).
 
 ```bash
-export DESPESAS_REMETENTES='5573XXXXXXXXX,5573YYYYYYYYY'   # quem manda despesa (lidos sempre)
+export DESPESAS_REMETENTES='5573XXXXXXXXX=Nome,5573YYYYYYYYY=Outro'   # quem manda despesa; o nome aparece no relatório
 python3 monitor/despesas.py              # últimas 26h; grava monitor/despesas/AAAA-MM-DD.json
 ```
 

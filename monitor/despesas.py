@@ -87,13 +87,31 @@ def slug(s: str) -> str:
 
 
 # ------------------------------------------------------------------ coleta
-def contatos(api: Aliv, remetentes: list[str]) -> dict[str, str]:
-    """phone → nome. Números autorizados + as 25 conversas mais recentes."""
-    out = {p: "" for p in remetentes}
+def contatos(api: Aliv, remetentes: dict[str, str]) -> dict[str, str]:
+    """phone → nome. Números autorizados + as 25 conversas mais recentes.
+    O nome de DESPESAS_REMETENTES tem prioridade sobre o nome salvo no ALIV."""
+    out = dict(remetentes)
     for c in api.get("/admin/api/chat/contacts", {"include_transactional": "true"}) or []:
         p = str(c.get("phone") or "")
         if p.isdigit() and len(p) <= 13:          # só conversas individuais
-            out[p] = c.get("name") or out.get(p, "")
+            out[p] = out.get(p) or c.get("name") or ""
+    return out
+
+
+def ler_remetentes(texto: str) -> dict[str, str]:
+    """'5573999943046=Josué Ruas,73988190252=Thiago' → {'557399943046': 'Josué Ruas', ...}.
+    Aceita com ou sem 55 e com ou sem o 9 (o ALIV guarda sem o 9)."""
+    out: dict[str, str] = {}
+    for item in texto.split(","):
+        num, _, nome = item.partition("=")
+        p = re.sub(r"\D", "", num)
+        if not p:
+            continue
+        if len(p) in (10, 11):
+            p = "55" + p
+        if len(p) == 13 and p.startswith("55") and p[4] == "9":
+            p = p[:4] + p[5:]
+        out[p] = nome.strip()
     return out
 
 
@@ -170,11 +188,7 @@ def main() -> int:
     if not user or not pwd:
         print("Faltam ALIV_USER/ALIV_PASS", file=sys.stderr)
         return 2
-    remetentes = [re.sub(r"\D", "", p) for p in os.environ.get("DESPESAS_REMETENTES", "").split(",")]
-    remetentes = ["55" + p if len(p) in (10, 11) else p for p in remetentes if p]
-    # ALIV guarda celular sem o 9: 55 73 9XXXXXXXX → 55 73 XXXXXXXX
-    remetentes = [p[:4] + p[5:] if len(p) == 13 and p.startswith("55") and p[4] == "9" else p
-                  for p in remetentes]
+    remetentes = ler_remetentes(os.environ.get("DESPESAS_REMETENTES", ""))
 
     agora = datetime.fromisoformat(a.agora).replace(tzinfo=TZ) if a.agora else datetime.now(TZ)
     desde = agora - timedelta(hours=a.horas)

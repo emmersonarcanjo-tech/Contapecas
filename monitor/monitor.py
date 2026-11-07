@@ -63,8 +63,9 @@ STATUS_FINALIZADO = {"ENTREGUE", "CONCLUIDO"}
 
 # Sushi: peças por unidade vendida (ver pecas_por_unidade)
 SUSHI_PECA_AVULSA = {"peça sushi", "peca sushi", "sashimi"}
-SUSHI_PROMO_CATEGORIA = "promoção do dia"
-SUSHI_PROMO_PRECO_MAX = 5.0  # peça avulsa da promoção (R$ 2,99 / 4,99), mesmo com outro nome
+# Enquanto o produto PEÇA SUSHI esteve sumido, as peças foram lançadas como "Sunomono"
+# (também R$ 2,99). Sunomono só conta como peça no turno sem nenhuma PEÇA SUSHI vendida.
+SUSHI_SUBSTITUTO_PECA = "sunomono"
 SUSHI_ROLO_SEM_NUMERO = 10   # Hot/Ura/Hosso sem "(N Un)" no nome (iFood) = 10 peças
 RE_PECAS = re.compile(r"(\d+)\s*(?:peças|pecas|pçs|pcs|un\b|unid)", re.I)
 COLUNAS_ESPERA = {"esperando preparo", "finalização", "finalizacao", "expedição",
@@ -403,19 +404,22 @@ def itens_do_pedido(p: dict) -> list:
     return [i for i in it if isinstance(i, dict)] if isinstance(it, list) else []
 
 
-def pecas_por_unidade(titulo: str, categoria: str = "", preco: float = 0.0) -> tuple[int, int]:
+def normaliza(titulo) -> str:
+    return " ".join(str(titulo or "").lower().split())
+
+
+def pecas_por_unidade(titulo: str, sunomono_e_peca: bool = False) -> tuple[int, int]:
     """(peças de sushi, temakis) por unidade do item, pelo nome do produto.
 
-    PEÇA SUSHI / Sashimi / "(unidade)" = 1 · item da "Promoção do Dia" até R$ 5 = 1
-    (em 30/10 a peça de R$ 2,99 foi lançada como "Sunomono") · "( 10 Un )", "15 Peças",
-    "(48 peças)" = N (vale o último número) · Hot/Ura/Hosso sem número = 10 ·
-    Temaki conta à parte. Bebidas, poke, yakisoba, ceviche etc. = 0.
+    PEÇA SUSHI / Sashimi / "(unidade)" = 1 · Sunomono = 1 só se sunomono_e_peca
+    (turno sem PEÇA SUSHI) · "( 10 Un )", "15 Peças", "(48 peças)" = N (vale o último
+    número) · Hot/Ura/Hosso sem número = 10 · Temaki conta à parte.
+    Bebidas, poke, yakisoba, ceviche, sunomono de verdade etc. = 0.
     """
-    t = " ".join(str(titulo or "").lower().split())
+    t = normaliza(titulo)
     if "temaki" in t:
         return 0, 1
-    promo = str(categoria or "").strip().lower() == SUSHI_PROMO_CATEGORIA
-    if t in SUSHI_PECA_AVULSA or "(unidade)" in t or (promo and 0 < preco <= SUSHI_PROMO_PRECO_MAX):
+    if t in SUSHI_PECA_AVULSA or "(unidade)" in t or (sunomono_e_peca and t == SUSHI_SUBSTITUTO_PECA):
         return 1, 0
     m = RE_PECAS.findall(t)
     if m:
@@ -435,6 +439,9 @@ def canal_sushi(p: dict) -> str:
 def calcular_sushi(pedidos: list[dict], agora: datetime) -> dict:
     r = calcular(pedidos, agora)
     r["pecas"], r["temakis"], r["por_canal_sushi"] = 0, 0, {}
+    tem_peca = any(normaliza(i.get("title") or i.get("name")) in ("peça sushi", "peca sushi")
+                   for p in pedidos for i in itens_do_pedido(p))
+    r["sunomono_e_peca"] = not tem_peca
     for p in pedidos:
         st = status_de(p)
         if st.startswith("CANCELADO") or st == "AGUARDANDO_PAGAMENTO":
@@ -442,8 +449,7 @@ def calcular_sushi(pedidos: list[dict], agora: datetime) -> dict:
         pecas = tem = 0.0
         for i in itens_do_pedido(p):
             q = num(i.get("quantity") or 1)
-            pp, tt = pecas_por_unidade(i.get("title") or i.get("name"), i.get("category_name"),
-                                       num(i.get("price")))
+            pp, tt = pecas_por_unidade(i.get("title") or i.get("name"), r["sunomono_e_peca"])
             pecas += pp * q
             tem += tt * q
         c = r["por_canal_sushi"].setdefault(canal_sushi(p), [0, 0.0, 0])

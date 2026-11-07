@@ -63,7 +63,7 @@ Códigos de saída: `0` ok (WhatsApp enviado, se pedido) · `1` erro no ALIV · 
 - **Canais:** Salão = `pdv` não delivery · App = `app` (delivery e retirada) · iFood = `ifood` · PDV delivery = `pdv` com entrega (só aparece se houver).
 - **Peças vendidas** (por item do pedido × quantidade, pelo nome do produto):
   - `PEÇA SUSHI`, `Sashimi`, itens "(unidade)" = 1 peça.
-  - Item da categoria "Promoção do Dia" com preço até R$ 5 = 1 peça. Enquanto o produto PEÇA SUSHI esteve sumido do cardápio, a equipe lançou as peças como "Sunomono" (também R$ 2,99). Confirmado pelo Emerson em 07/11/2026.
+  - Sunomono (R$ 2,99) é vendido de verdade, mas, enquanto o produto PEÇA SUSHI esteve sumido do cardápio, a equipe lançou as peças como Sunomono. Por isso o Sunomono conta como 1 peça **só no turno em que não houve nenhuma PEÇA SUSHI vendida**. Nos outros turnos ele é Sunomono e conta 0. Confirmado pelo Emerson em 07/11/2026.
   - "( 10 Un )", "15 Peças", "(48 peças)" = o número do nome (vale o último).
   - Hot/Ura/Hosso sem número no nome (vem assim do iFood) = 10 peças.
   - Temaki conta à parte ("+ N temakis"). Bebidas, poke, yakisoba, ceviche e sobremesas = 0.
@@ -113,4 +113,4 @@ Se a sessão expirar (401 "Sessão expirada"), o script faz login de novo sozinh
   - `orders/audit`: lista traz `created_at` ("06/11/2026 23:42"), `wabiz_id`, `total`; o detalhe traz `total_value`, `subtotal`, `delivery_fee`, `service_fee`, `platform_slug`, `branch_label`, `created_at_fmt` ("30/10/2026 às 17:52"). O `has_more` **não é confiável** (vem `false` antes da última página), por isso a paginação segue até a página vazia.
   - `drivers-live`: depois do turno todos ficam `Offline` (`start_ts` = 9999999999). O snapshot agora guarda os motoboys online de cada rodada, e o custo usa o máximo do turno.
   - Os detalhes dos pedidos são buscados em paralelo (6 por vez): a rodada caiu de ~6 min para ~1,5 min.
-- **Sushi testado no ALIV real em 07/11/2026 (02:13)**, turno 06/11: 224 pedidos · R$ 14.565,10 · 2.810 peças + 164 temakis (Salão 157 · App 51 · iFood 14 · PDV delivery 2). A conta do Sushi usa os mesmos endpoints; os itens vêm em `items_json` (`title`, `quantity`, `price`, `category_name`). A rodada completa (Pizzaria + Sushi + semana passada) levou ~2,5 min.
+- **Sushi testado no ALIV real em 07/11/2026 (02:13)**, turno 06/11: 224 pedidos · R$ 14.565,10 · 2.800 peças + 164 temakis (Salão 157 · App 51 · iFood 14 · PDV delivery 2); semana passada 2.090 peças, com o Sunomono contando como peça. A conta do Sushi usa os mesmos endpoints; os itens vêm em `items_json` (`title`, `quantity`, `price`, `category_name`). A rodada completa (Pizzaria + Sushi + semana passada) levou ~2,5 min.

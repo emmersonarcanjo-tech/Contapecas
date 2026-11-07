@@ -256,8 +256,8 @@
     'INCERTA: marque "incerta": true quando não tiver certeza se é uma peça (sombra, peça cortada pela borda da foto, peça escondida ou empilhada, peça colada em outra que pode ser uma só) ou quando estiver em dúvida entre dois tipos. Nesse caso escolha o tipo mais provável. Peças claras ficam "incerta": false.',
     'Peças encostadas ou parcialmente cobertas contam. Se houver peças empilhadas, conte também as de baixo que dá para perceber e marque essas como incertas.',
     'Percorra o prato de forma sistemática (de cima para baixo, da esquerda para a direita) e liste UMA entrada por peça, sem pular e sem repetir.',
-    'Para cada peça informe o centro da peça em porcentagem da LARGURA (x) e da ALTURA (y) da imagem (0 a 100).',
-    'Responda SOMENTE com JSON, sem texto antes ou depois, neste formato: {"pecas":[{"x":12.5,"y":40.1,"tipo":"hosso","incerta":false}],"total":0,"obs":""}',
+    'Para cada peça informe o CENTRO da peça em PIXELS da imagem: x = pixels a partir da borda esquerda, y = pixels a partir do topo. O tamanho exato da imagem vem no fim destas instruções. Confira: cada ponto tem que cair em cima da peça, não entre peças nem na borda.',
+    'Responda SOMENTE com JSON, sem texto antes ou depois, neste formato: {"pecas":[{"x":412,"y":288,"tipo":"hosso","incerta":false}],"total":0,"obs":""}',
     '"total" tem que ser exatamente o número de itens em "pecas". Em "obs" escreva uma frase curta só se algo atrapalhou (peças empilhadas, foto escura, prato cortado); senão deixe "".',
     'Se não houver nenhuma peça de sushi na foto, responda {"pecas":[],"total":0,"obs":"não vi peças de sushi na foto"}.'
   ].join('\n');
@@ -325,7 +325,7 @@
     var r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST', signal: signal,
       headers: { 'content-type': 'application/json', 'x-api-key': cfg.key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({ model: modelo, max_tokens: 16000, messages: [{ role: 'user', content: [{ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: b64 } }, { type: 'text', text: PROMPT }] }] })
+      body: JSON.stringify({ model: modelo, max_tokens: 16000, messages: [{ role: 'user', content: [{ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: b64 } }, { type: 'text', text: PROMPT + '\nTamanho da imagem: ' + st.w + ' x ' + st.h + ' pixels (largura x altura).' }] }] })
     });
     var j = null; try { j = await r.json(); } catch (e) { }
     if (!r.ok) { var err = new Error((j && j.error && j.error.message) || ('HTTP ' + r.status)); err.status = r.status; err.tipo = j && j.error && j.error.type; throw err; }
@@ -482,7 +482,8 @@
       var r = await chamarClaude(b64, MODELOS[cfg.modo] || MODELOS.preciso, st.ctl.signal);
       var j = extrairJson(r.txt);
       var lista = Array.isArray(j && j.pecas) ? j.pecas : [];
-      st.pecas = lista.map(function (p) { var x = Number(p.x), y = Number(p.y); return { x: isFinite(x) ? Math.min(100, Math.max(0, x)) : 50, y: isFinite(y) ? Math.min(100, Math.max(0, y)) : 50, tipo: TIPOS[p.tipo] ? String(p.tipo) : 'outro', incerta: !!p.incerta, manual: false }; });
+      var emPx = lista.some(function (p) { return Number(p.x) > 100 || Number(p.y) > 100; });
+      st.pecas = lista.map(function (p) { var x = Number(p.x), y = Number(p.y); if (emPx) { x = x / st.w * 100; y = y / st.h * 100; } return { x: isFinite(x) ? Math.min(100, Math.max(0, x)) : 50, y: isFinite(y) ? Math.min(100, Math.max(0, y)) : 50, tipo: TIPOS[p.tipo] ? String(p.tipo) : 'outro', incerta: !!p.incerta, manual: false }; });
       st.ia = st.pecas.length; st.obs = j && j.obs ? String(j.obs).slice(0, 160) : '';
       if (j && isFinite(Number(j.total)) && Number(j.total) !== st.pecas.length) st.obs = (st.obs ? st.obs + ' · ' : '') + 'total informado ' + Number(j.total) + ', marcadas ' + st.pecas.length;
       testeOk = true; renderStatus();

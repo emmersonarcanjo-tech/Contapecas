@@ -300,10 +300,11 @@ python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdad
 - 197 pedidos: 134 EMITIR (R$ 10.234,41), 52 NÃO EMITIR (10 dinheiro, 42 online iFood Tili Pizzaria), 1 ATENÇÃO (Conta Func.), 10 cancelados.
 - `emitir --dry-run`: 120 notas no CNPJ principal e 14 no perfil Tili Pizzaria 2.0. Nenhum POST feito.
 
-## Rotina das 23:50
+## Rotinas
 
-- Cron `CRON_TZ=America/Bahia 50 23 * * *`, sessão nova a cada disparo, conector Gmail para o e-mail de reserva. Só `listar`.
-- Pedidos criados depois das 23:50 ou ainda abertos nessa hora não entram na lista daquele dia.
+- **Tili — NFC-e lista do dia anterior (02:00)**: cron `CRON_TZ=America/Bahia 0 2 * * *`, sessão nova a cada disparo. Roda `listar --data <ontem>`. No dia 01 não faz nada, porque o último dia do mês já foi listado às 23:50.
+- **Tili — NFC-e último dia do mês (23:50)**: cron `CRON_TZ=America/Bahia 50 23 28-31 * *`. Só age quando amanhã é dia 01. Roda `listar --data <hoje>`, para a emissão sair antes da virada do mês. Pedidos criados depois das 23:50 desse dia ficam fora da lista.
+- As duas só rodam `listar`, nunca `emitir`. O e-mail de reserva (códigos 1, 2 e 3) precisa do conector **Gmail** nas Rotinas.
 
 ## Despesas pelo WhatsApp da loja (`despesas.py`)
 

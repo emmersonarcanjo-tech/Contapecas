@@ -63,7 +63,7 @@ Códigos de saída: `0` ok (WhatsApp enviado, se pedido) · `1` erro no ALIV · 
 - **Canais:** Salão = `pdv` não delivery · App = `app` (delivery e retirada) · iFood = `ifood` · PDV delivery = `pdv` com entrega (só aparece se houver).
 - **Peças vendidas** (por item do pedido × quantidade, pelo nome do produto):
   - `PEÇA SUSHI`, `Sashimi`, itens "(unidade)" = 1 peça.
-  - Item da categoria "Promoção do Dia" com preço até R$ 5 = 1 peça. Em 30/10 a peça de R$ 2,99 foi lançada como "Sunomono".
+  - Item da categoria "Promoção do Dia" com preço até R$ 5 = 1 peça. Enquanto o produto PEÇA SUSHI esteve sumido do cardápio, a equipe lançou as peças como "Sunomono" (também R$ 2,99). Confirmado pelo Emerson em 07/11/2026.
   - "( 10 Un )", "15 Peças", "(48 peças)" = o número do nome (vale o último).
   - Hot/Ura/Hosso sem número no nome (vem assim do iFood) = 10 peças.
   - Temaki conta à parte ("+ N temakis"). Bebidas, poke, yakisoba, ceviche e sobremesas = 0.

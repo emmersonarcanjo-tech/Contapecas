@@ -171,7 +171,10 @@ def main() -> int:
         print("Faltam ALIV_USER/ALIV_PASS", file=sys.stderr)
         return 2
     remetentes = [re.sub(r"\D", "", p) for p in os.environ.get("DESPESAS_REMETENTES", "").split(",")]
-    remetentes = [p for p in remetentes if p]
+    remetentes = ["55" + p if len(p) in (10, 11) else p for p in remetentes if p]
+    # ALIV guarda celular sem o 9: 55 73 9XXXXXXXX → 55 73 XXXXXXXX
+    remetentes = [p[:4] + p[5:] if len(p) == 13 and p.startswith("55") and p[4] == "9" else p
+                  for p in remetentes]
 
     agora = datetime.fromisoformat(a.agora).replace(tzinfo=TZ) if a.agora else datetime.now(TZ)
     desde = agora - timedelta(hours=a.horas)

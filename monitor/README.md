@@ -317,7 +317,7 @@ export DESPESAS_REMETENTES='5573XXXXXXXXX,5573YYYYYYYYY'   # quem manda despesa 
 python3 monitor/despesas.py              # últimas 26h; grava monitor/despesas/AAAA-MM-DD.json
 ```
 
-- Lê as conversas dos `DESPESAS_REMETENTES` e as 25 conversas mais recentes do chat. O ALIV só lista 25 conversas, por isso cadastre os remetentes.
+- Números aceitos com ou sem DDI e com ou sem o 9 (o ALIV guarda sem o 9). Lê as conversas dos `DESPESAS_REMETENTES` e as 25 conversas mais recentes do chat. O ALIV só lista 25 conversas, por isso cadastre os remetentes.
 - As fotos vão para `monitor/despesas/fotos/AAAA-MM-DD/`, que fica fora do git. A Rotina deve subir essas fotos para o Drive.
 - O JSON do dia guarda: data, hora, remetente, os 4 últimos dígitos do telefone, texto, descrição, valor (1º valor da legenda), fotos e total. Não guarda o telefone completo.
 - **O ALIV apaga a mídia em 24h.** Rode pelo menos 1 vez por dia; de hora em hora é melhor.

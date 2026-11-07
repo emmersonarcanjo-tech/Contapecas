@@ -12,7 +12,9 @@ Fora da conta: motoboys (driver) e donos (owner).
 
 Só leitura no ALIV. Com --whatsapp manda UMA mensagem para WHATSAPP_EMERSON e
 WHATSAPP_ADMIN pelo WhatsApp da loja, e só se alguém estiver perto ou estourado.
-Sem --whatsapp só imprime (dry-run).
+Sem --whatsapp só imprime (dry-run). Rodando de madrugada (antes das 08:00),
+considera a noite anterior como "hoje" — assim a rodada das 02:20 do dia 26
+ainda fecha o ciclo que terminou no dia 25.
 
 Códigos de saída: 0 ok · 1 erro no ALIV · 2 faltam ALIV_USER/ALIV_PASS · 3 WhatsApp falhou.
 """
@@ -24,7 +26,7 @@ import os
 import re
 import sys
 import unicodedata
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from monitor import TZ, Aliv, AlivError, brl
 
@@ -129,7 +131,11 @@ def main() -> int:
     if not user or not pwd:
         print("ERRO: faltam ALIV_USER/ALIV_PASS.", file=sys.stderr)
         return 2
-    hoje = date.fromisoformat(a.hoje) if a.hoje else datetime.now(TZ).date()
+    if a.hoje:
+        hoje = date.fromisoformat(a.hoje)
+    else:  # madrugada (antes das 08:00) ainda conta como a noite anterior
+        agora = datetime.now(TZ)
+        hoje = (agora - timedelta(hours=8)).date()
     api = Aliv(user, pwd)
     try:
         r = calcular(api, hoje)

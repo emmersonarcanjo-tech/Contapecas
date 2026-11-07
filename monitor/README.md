@@ -360,4 +360,6 @@ python3 monitor/consumo.py --whatsapp      # envia para WHATSAPP_EMERSON e WHATS
 python3 monitor/consumo.py --hoje 2026-11-20
 ```
 
+Rotina: **Tili — Limite de consumo (02:20)**, todo dia. Antes das 08:00 o script considera a noite anterior como "hoje".
+
 Só manda mensagem se alguém estiver perto ou estourado. Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` WhatsApp falhou.

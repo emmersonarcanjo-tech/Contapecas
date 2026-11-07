@@ -16,7 +16,7 @@ Tudo roda como **Rotinas do Claude Code na nuvem**, ambiente **Contapecas**. As 
 | `monitor/prestadores.py` | Segunda às 08:30 | Relatório semanal dos prestadores MEI. Mesmo corte de dia (16:00–08:00). |
 | `monitor/nfce.py` | Às 02:00 (na última noite do mês, às 23:50) | Lista as notas pendentes. **Só emite com o comando do Emerson.** |
 | `monitor/despesas.py` / `monitor/despesas_lancar.py` | 00:00 e 12:00 | Lê o grupo **Tili Despesas** pelo ALIV e lança conta e estoque. |
-| `monitor/consumo.py` | (ainda sem Rotina — hoje o alerta roda dentro da Conferência de notas 23:45) | Limite de consumo dos funcionários: R$ 200 por ciclo (26 a 25), avisa a partir de R$ 160. |
+| `monitor/consumo.py` | Todo dia às 02:20 | Limite de consumo dos funcionários: R$ 200 por ciclo (26 a 25), avisa a partir de R$ 160. |
 
 Horários no fuso da Bahia, conferidos na página de Rotinas em 07/11/2026.
 

@@ -325,17 +325,23 @@
     var r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST', signal: signal,
       headers: { 'content-type': 'application/json', 'x-api-key': cfg.key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({ model: modelo, max_tokens: 2000, messages: [{ role: 'user', content: [{ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: b64 } }, { type: 'text', text: PROMPT }] }] })
+      body: JSON.stringify({ model: modelo, max_tokens: 16000, messages: [{ role: 'user', content: [{ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: b64 } }, { type: 'text', text: PROMPT }] }] })
     });
     var j = null; try { j = await r.json(); } catch (e) { }
     if (!r.ok) { var err = new Error((j && j.error && j.error.message) || ('HTTP ' + r.status)); err.status = r.status; err.tipo = j && j.error && j.error.type; throw err; }
     var txt = (j.content || []).filter(function (c) { return c.type === 'text'; }).map(function (c) { return c.text; }).join('\n');
-    return { txt: txt, uso: j.usage };
+    return { txt: txt, uso: j.usage, corte: j.stop_reason === 'max_tokens' };
   }
   function extrairJson(txt) {
     var s = txt.trim(); var m = s.match(/```(?:json)?\s*([\s\S]*?)```/); if (m) s = m[1];
     var a = s.indexOf('{'), b = s.lastIndexOf('}'); if (a >= 0 && b > a) s = s.slice(a, b + 1);
-    return JSON.parse(s);
+    try { return JSON.parse(s); } catch (e) {
+      // resposta cortada no meio: aproveita as peças completas que chegaram
+      var pecas = [], re = /\{[^{}]*"x"\s*:[^{}]*\}/g, mm;
+      while ((mm = re.exec(s))) { try { pecas.push(JSON.parse(mm[0])); } catch (e2) { } }
+      if (!pecas.length) throw e;
+      return { pecas: pecas, total: pecas.length, obs: 'resposta veio cortada; confira se faltou alguma peça', cortada: true };
+    }
   }
   function mapaErro(e) {
     if (e && e.name === 'AbortError') return '';

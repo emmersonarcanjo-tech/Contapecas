@@ -301,3 +301,46 @@ python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdad
 
 - Cron `CRON_TZ=America/Bahia 50 23 * * *`, sessão nova a cada disparo, conector Gmail para o e-mail de reserva. Só `listar`.
 - Pedidos criados depois das 23:50 ou ainda abertos nessa hora não entram na lista daquele dia.
+
+## Despesas pelo WhatsApp da loja (`despesas.py`)
+
+Lê as despesas que a equipe manda **no privado do número da loja** (73) 9917-9941 e baixa as fotos. **Só leitura**: não envia mensagem, não marca como atendido e não mexe na IA.
+
+**Grupo não funciona.** Testado em 07/11/2026: o grupo "Tili — Despesas" não aparece no chat do ALIV, que só guarda conversas individuais.
+
+Como a equipe manda:
+- Foto do comprovante com a legenda `DESPESA gás 120,50`, ou
+- Texto `DESPESA limpeza 85,00` e as fotos logo em seguida (até 10 min, sem legenda).
+
+```bash
+export DESPESAS_REMETENTES='5573XXXXXXXXX=Nome,5573YYYYYYYYY=Outro'   # quem manda despesa; o nome aparece no relatório
+python3 monitor/despesas.py              # últimas 26h; grava monitor/despesas/AAAA-MM-DD.json
+```
+
+- Números aceitos com ou sem DDI e com ou sem o 9 (o ALIV guarda sem o 9). Lê as conversas dos `DESPESAS_REMETENTES` e as 25 conversas mais recentes do chat. O ALIV só lista 25 conversas, por isso cadastre os remetentes.
+- As fotos vão para `monitor/despesas/fotos/AAAA-MM-DD/`, que fica fora do git. A Rotina deve subir essas fotos para o Drive.
+- O JSON do dia guarda: data, hora, remetente, os 4 últimos dígitos do telefone, texto, descrição, valor (1º valor da legenda), fotos e total. Não guarda o telefone completo.
+- **O ALIV apaga a mídia em 24h.** Rode pelo menos 1 vez por dia; de hora em hora é melhor.
+- Opções: `--horas N`, `--sem-baixar`, `--sem-gravar`, `--fotos PASTA`, `--agora AAAA-MM-DDTHH:MM`.
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` alguma foto não baixou.
+- Cuidado: a IA de atendimento pode responder a quem manda a despesa. Desligue a IA na conversa desses números, no chat do ALIV.
+- As fotos ficam em `objectstorage.sa-vinhedo-1.oraclecloud.com`. Esse servidor precisa estar liberado na rede do ambiente da Rotina.
+
+### Lançamento no ALIV: conta paga + estoque (`despesas_lancar.py`)
+
+- Usa a entrada de nota manual do ALIV (tela "Conferência da Nota"): `POST /admin/inventory/process-invoice-items-financial`. Numa chamada só, cria a conta **paga** (`payment_origin=none`, sem mexer em caixa ou banco) e dá **entrada no estoque com custo**, o que atualiza o custo médio e as fichas técnicas.
+- **Pizzaria ou Sushi:** se a legenda tiver "SUSHI", vai para o Sushi (loja 155, `ALIV_USER_SUSHI`). Senão, vai para a Pizzaria.
+- **Despesa só em texto** (`DESPESA coentro 5 un 10,00`) é lançada do mesmo jeito, com o fornecedor "Sem nota (WhatsApp)".
+- **Tabela de-para** (`monitor/despesas/depara.json`): o item só entra no estoque se o nome dele no cupom estiver ligado a um insumo. O item sem ligação entra **só como despesa** e vai para o WhatsApp com sugestões. O script **nunca cria insumo novo**.
+- Para aprovar uma ligação, o Emerson responde no WhatsApp da loja `INSUMO coentro = 6788`, ou `INSUMO sushi coentro = ID`. O número opcional no fim é o **multiplicador**: qtd do cupom × fator = qtd que entra no estoque (ex.: `INSUMO morango 1kg = 6564 1000` se o estoque é em gramas). A rotina aplica essas respostas com `--ler-insumos`.
+- Também dá para aprovar pelo terminal: `python3 monitor/despesas_lancar.py --depara pizzaria "COENTRO" 6788 [fator]` · ver candidatos: `--sugerir pizzaria coentro`.
+- Proteções: confere duplicata nas contas da loja (mesmo valor e dia, mesmo nº de nota ou fornecedor) e respeita o aviso `POSSIBLE_DUPLICATE` do ALIV, sem forçar. A soma dos itens precisa bater com o total. Preço fora do padrão que pede senha de gerente **não** é forçado: volta como erro no WhatsApp.
+- Sem `--confirmar`, só mostra o que faria. Códigos de saída: `0` ok · `1` algum erro · `4` WhatsApp não enviado.
+- A conta criada fica com a descrição que o ALIV gera para entrada de nota, não no formato `WPP | …` da rotina antiga.
+
+### Rotina "Tili Despesas"
+
+- Roda 2x por dia, às 12:00 e à 00:00 (America/Bahia), numa sessão nova, com o conector Google Drive e o repositório. Usa o branch `claude/focused-babbage-fjiomt`.
+- Ordem: `--ler-insumos` → `despesas.py` (coleta e baixa as fotos) → a IA da rotina lê cada foto ou texto e monta a lista de itens → `despesas_lancar.py --confirmar --whatsapp` → sobe as fotos para a pasta **Despesas** do Drive (id `1aX9b7wy-GiHzopynuyQvQOwnYQr6Bxjz`) → commit dos JSON.
+- O WhatsApp para o Emerson só sai quando há despesa nova ou problema. Não usa e-mail e não manda foto.
+- A IA de atendimento foi pausada (`ai_paused`) nas 4 conversas em 07/11/2026.

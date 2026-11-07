@@ -46,14 +46,14 @@
 
   .stage { position: relative; background: var(--photo-bg); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); width: 100%; aspect-ratio: 4 / 3; max-height: 62vh; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .stage video, .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; background: var(--photo-bg); }
-  .layer { position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: crosshair; }
+  .layer { position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: crosshair; z-index: 2; }
   .m { position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: var(--yellow); color: #1A1A1A; font-weight: 700; font-size: 12px; display: grid; place-items: center; border: 2px solid #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,.5); font-variant-numeric: tabular-nums; padding: 0; }
-  .m.incerta { background: #FFFFFF; border-color: var(--red); border-style: dashed; }
+  .m.incerta { background: #FF7A00; color: #FFFFFF; border-color: #FFFFFF; box-shadow: 0 0 0 3px rgba(255,122,0,.45), 0 1px 4px rgba(0,0,0,.5); }
   .m.manual { background: #FFFFFF; border-color: var(--ok); }
   .placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #F5F0EE; text-align: center; padding: 20px; }
   .placeholder p { margin: 0; font-size: 15px; max-width: 30ch; color: #E9E2DF; }
   .placeholder p strong { color: var(--yellow); }
-  .overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: rgba(20,17,18,.62); color: #FFF; text-align: center; padding: 20px; }
+  .overlay { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: rgba(20,17,18,.62); color: #FFF; text-align: center; padding: 20px; }
   .overlay .txt { font-size: 18px; font-weight: 600; }
   .overlay .sm { font-size: 13px; color: #D9D2CF; }
   .spinner { width: 44px; height: 44px; border-radius: 50%; border: 4px solid rgba(255,255,255,.25); border-top-color: var(--yellow); animation: spin 1s linear infinite; }
@@ -151,7 +151,7 @@
     <div class="overlay" id="overlay" hidden><div class="spinner" aria-hidden="true"></div><div class="txt" id="ovTxt">Contando as peças…</div><div class="sm" id="ovSub">leva de 3 a 10 segundos</div><button class="btn sm" id="btnParar" type="button">Parar</button></div>
     <button class="auto" id="autoBtn" type="button" hidden aria-pressed="false"><span class="pill"></span><span>Automático</span></button>
     <div class="autoTxt" id="autoTxt" hidden></div>
-    <div class="hint" id="hintFoto" hidden>Toque numa peça sem marca para somar 1 · toque numa marca para tirar</div>
+    <div class="hint" id="hintFoto" hidden>Laranja = incerta: toque para confirmar · toque numa marca amarela para tirar · toque numa peça sem marca para somar 1</div>
   </section>
 
   <section class="resultado" aria-live="polite">
@@ -187,7 +187,7 @@
       <li><b>Suporte fixo</b> com a câmera olhando o prato de cima (90°). Fundo liso, luz boa e sem sombra forte.</li>
       <li>Ligue a câmera e o modo <b>Automático</b>: quando um prato parado aparece na frente da câmera, ele conta sozinho; tire o prato e coloque o próximo.</li>
       <li>Peças <b>espalhadas, sem empilhar</b>. Peça empilhada é o principal erro.</li>
-      <li>Confira os marcadores. Errou? Toque na foto para corrigir e depois <b>Registrar prato</b>.</li>
+      <li>Confira os marcadores. <b>Laranja</b> = peça incerta: toque nela para confirmar (fica amarela). Marca errada? Toque para tirar. Faltou peça? Toque nela. Depois, <b>Registrar prato</b>.</li>
       <li>No fim do dia, <b>Exportar dia (CSV)</b> para conferência e <b>Exportar fotos</b> para treinar o contador próprio.</li>
     </ol>
   </details>
@@ -215,9 +215,10 @@
     <div class="field"><label for="p_hosso">Hossomaki</label><input type="number" id="p_hosso" step="0.01" min="0" inputmode="decimal"></div>
     <div class="field"><label for="p_ura">Uramaki</label><input type="number" id="p_ura" step="0.01" min="0" inputmode="decimal"></div>
     <div class="field"><label for="p_hot">Hot roll</label><input type="number" id="p_hot" step="0.01" min="0" inputmode="decimal"></div>
-    <div class="field"><label for="p_niguiri">Niguiri</label><input type="number" id="p_niguiri" step="0.01" min="0" inputmode="decimal"></div>
+    <div class="field"><label for="p_niguiri">Nigiri</label><input type="number" id="p_niguiri" step="0.01" min="0" inputmode="decimal"></div>
     <div class="field"><label for="p_joy">Joy</label><input type="number" id="p_joy" step="0.01" min="0" inputmode="decimal"></div>
     <div class="field"><label for="p_sashimi">Sashimi</label><input type="number" id="p_sashimi" step="0.01" min="0" inputmode="decimal"></div>
+    <div class="field"><label for="p_acara">Acarajapa</label><input type="number" id="p_acara" step="0.01" min="0" inputmode="decimal"></div>
     <div class="field"><label for="p_outro">Outros</label><input type="number" id="p_outro" step="0.01" min="0" inputmode="decimal"></div>
   </div>
   <div class="field"><label for="cfgSens">Modo automático: sensibilidade a mudança de prato</label>
@@ -232,20 +233,33 @@
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
-  var TIPOS = { hosso: 'Hossomaki', ura: 'Uramaki', hot: 'Hot roll', niguiri: 'Niguiri', joy: 'Joy', sashimi: 'Sashimi', outro: 'Outros' };
+  var TIPOS = { hosso: 'Hossomaki', ura: 'Uramaki', hot: 'Hot roll', niguiri: 'Nigiri', joy: 'Joy', sashimi: 'Sashimi', acara: 'Acarajapa', outro: 'Outros' };
   var MODELOS = { preciso: 'claude-sonnet-5', rapido: 'claude-haiku-4-5-20251001' };
   var PROMPT = [
-    'Você é o conferente de um buffet de sushi cobrado por peça. A imagem é a foto de um prato de cliente, vista de cima.',
-    'Tarefa: contar TODAS as peças de sushi que estão no prato.',
-    'Conta como 1 peça: cada fatia de roll (hossomaki, uramaki, hot roll, joy), cada niguiri, cada sashimi, cada temaki, cada gunkan.',
-    'NÃO conte: gengibre, wasabi, shoyu, molhos, saladinha, decoração, hashi, talheres, o prato em si.',
+    'Você é o conferente de um buffet de sushi cobrado por peça. A imagem é a foto de um prato ou bandeja de cliente, vista de cima.',
+    'Tarefa: contar TODAS as peças de sushi que estão DENTRO do prato ou da bandeja.',
+    'ÁREA VÁLIDA: só a superfície interna do prato/bandeja. Se as peças estiverem direto numa tábua ou balcão, sem prato, conte só o grupo principal de peças no centro da foto. Ignore TUDO que estiver fora dela: mesa, toalha, guardanapo, outra louça, embalagem, tampa, sacola, mãos, peças em outro prato ao fundo.',
+    'NUNCA marque a borda do prato ou da bandeja, a mesa, a embalagem, desenhos ou relevos da louça, nem reflexos. Todo ponto marcado tem que cair em cima de uma peça de comida.',
+    'Conta como 1 peça: cada fatia de rolinho (hossomaki, uramaki, hot roll), cada joy, cada nigiri, cada sashimi, cada temaki, cada gunkan.',
+    'NÃO conte: gengibre, wasabi, shoyu, molhos, saladinha, folhas, decoração, hashi, talheres.',
+    'COMO CLASSIFICAR (campo "tipo"):',
+    '- "niguiri" = NIGIRI: fatia de peixe (ou outro recheio) por cima de um bolinho de arroz. Tem arroz embaixo.',
+    '- "sashimi" = SASHIMI: só a fatia de peixe, SEM arroz nenhum.',
+    '- "hosso" = HOSSOMAKI: rolinho fino com a alga (nori, verde-escura/preta) por fora, recheio no meio.',
+    '- "ura" = URAMAKI: rolinho com o ARROZ por fora (branco, às vezes com gergelim), alga por dentro.',
+    '- "hot" = HOT ROLL: rolinho empanado e frito, casca dourada/marrom crocante.',
+    '- "joy" = JOY: peça com uma fatia de salmão (ou outro peixe) ENROLADA por fora, em volta do arroz. Com ou sem cobertura por cima (cream cheese, fruta, camarão, tartar, cebolinha): enrolada em peixe é sempre joy.',
+    '- "acara" = ACARAJAPA: bolinho REDONDO empanado e frito (casca dourada de farinha panko), com finalização de cream cheese no meio ou por cima (às vezes camarão, tarê, cebolinha). Não é fatia de rolinho: é uma bola inteira.',
+    '- "outro" = qualquer peça de sushi que não se encaixe acima (temaki, gunkan etc.).',
+    'Na dúvida entre nigiri e sashimi: se dá para ver arroz embaixo da fatia, é "niguiri"; se não há arroz, é "sashimi".',
+    'Bolinho frito redondo (bola inteira, não fatia de rolinho)? "acara". Ordem de decisão para rolinhos: está empanado e frito? "hot". Peixe cru enrolado por fora? "joy". Arroz por fora? "ura" (MESMO com cream cheese, fruta ou outra cobertura por cima: rolinho de arroz com cobertura continua "ura"). Alga por fora? "hosso".',
+    'INCERTA: marque "incerta": true quando não tiver certeza se é uma peça (sombra, peça cortada pela borda da foto, peça escondida ou empilhada, peça colada em outra que pode ser uma só) ou quando estiver em dúvida entre dois tipos. Nesse caso escolha o tipo mais provável. Peças claras ficam "incerta": false.',
     'Peças encostadas ou parcialmente cobertas contam. Se houver peças empilhadas, conte também as de baixo que dá para perceber e marque essas como incertas.',
     'Percorra o prato de forma sistemática (de cima para baixo, da esquerda para a direita) e liste UMA entrada por peça, sem pular e sem repetir.',
-    'Para cada peça informe o centro em porcentagem da LARGURA (x) e da ALTURA (y) da imagem (0 a 100).',
-    'tipo: "hosso" (roll pequeno com alga por fora), "ura" (roll com arroz por fora), "hot" (roll empanado/frito, dourado), "niguiri" (bolinho de arroz com fatia por cima), "joy" (roll grande com cream cheese, fatia larga), "sashimi" (só a fatia de peixe), "outro".',
+    'Para cada peça informe o centro da peça em porcentagem da LARGURA (x) e da ALTURA (y) da imagem (0 a 100).',
     'Responda SOMENTE com JSON, sem texto antes ou depois, neste formato: {"pecas":[{"x":12.5,"y":40.1,"tipo":"hosso","incerta":false}],"total":0,"obs":""}',
     '"total" tem que ser exatamente o número de itens em "pecas". Em "obs" escreva uma frase curta só se algo atrapalhou (peças empilhadas, foto escura, prato cortado); senão deixe "".',
-    'Se não houver prato com peças na foto, responda {"pecas":[],"total":0,"obs":"não vi peças de sushi na foto"}.'
+    'Se não houver nenhuma peça de sushi na foto, responda {"pecas":[],"total":0,"obs":"não vi peças de sushi na foto"}.'
   ].join('\n');
 
   var cfg = { key: '', modo: 'preciso', aparelho: '', preco: 0, porTipo: false, tipos: {}, sens: 'normal', fotos: true };
@@ -479,7 +493,7 @@
   }
   $('layer').addEventListener('click', function (ev) {
     if (st.contando || !st.w) return; cancelarAutoRegistro(); $('autoTxt').textContent = 'corrigindo — depois toque em Registrar'; var alvo = ev.target.closest('.m');
-    if (alvo) st.pecas.splice(Number(alvo.dataset.i), 1);
+    if (alvo) { var pi = st.pecas[Number(alvo.dataset.i)]; if (pi && pi.incerta) pi.incerta = false; else st.pecas.splice(Number(alvo.dataset.i), 1); }
     else { var r = $('layer').getBoundingClientRect(); var x = (ev.clientX - r.left) / r.width * 100, y = (ev.clientY - r.top) / r.height * 100; if (x < 0 || x > 100 || y < 0 || y > 100) return; st.pecas.push({ x: x, y: y, tipo: 'outro', incerta: false, manual: true }); }
     st.registrado = false; renderMarcas(); renderResultado();
   });
@@ -494,7 +508,7 @@
     var chips = $('chips'); chips.innerHTML = ''; var t = contarTipos(st.pecas);
     Object.keys(TIPOS).forEach(function (k) { if (!t[k]) return; var c = document.createElement('span'); c.className = 'chip'; c.innerHTML = '<b>' + t[k] + '</b> ' + TIPOS[k] + (cfg.porTipo && precoDe(k) ? ' · ' + brl(precoDe(k)) : ''); chips.appendChild(c); });
     var inc = st.pecas.filter(function (p) { return p.incerta; }).length;
-    if (inc) { var c2 = document.createElement('span'); c2.className = 'chip warn'; c2.textContent = inc + ' incerta' + (inc > 1 ? 's' : '') + ' (tracejadas) — confira'; chips.appendChild(c2); }
+    if (inc) { var c2 = document.createElement('span'); c2.className = 'chip warn'; c2.textContent = inc + ' incerta' + (inc > 1 ? 's' : '') + ' (laranja) — toque para confirmar'; chips.appendChild(c2); }
     $('obs').hidden = !st.obs; $('obs').textContent = st.obs ? 'Observação: ' + st.obs : '';
     $('btnMais').disabled = !temFoto || st.contando; $('btnMenos').disabled = !temFoto || st.contando || !n;
     $('btnRegistrar').disabled = !temFoto || st.contando || st.registrado || !n; $('btnRegistrar').textContent = st.registrado ? 'Registrado ✓' : 'Registrar prato';

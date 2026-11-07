@@ -12,7 +12,7 @@ Tudo roda como **Rotinas do Claude Code na nuvem**, ambiente **Contapecas**. As 
 | Script | Quando | O que faz |
 |---|---|---|
 | `monitor/monitor.py` | De hora em hora, das 18h às 00h | Monitora Pizzaria e Sushi e avisa pelo WhatsApp do ALIV. |
-| `monitor/diaristas.py` | Todo dia às 00:45 | PDF diário dos diaristas. Dia operacional: 16:00 até 08:00 do dia seguinte. |
+| `monitor/diaristas.py` | Todo dia às 08:00 | PDF diário dos diaristas. Dia operacional: 16:00 até 08:00 do dia seguinte. |
 | `monitor/prestadores.py` | Segunda às 08:30 | Relatório semanal dos prestadores MEI. Mesmo corte de dia (16:00–08:00). |
 | `monitor/nfce.py` | Às 02:00 (na última noite do mês, às 23:50) | Lista as notas pendentes. **Só emite com o comando do Emerson.** |
 | `monitor/despesas.py` / `monitor/despesas_lancar.py` | 00:00 e 12:00 | Lê o grupo **Tili Despesas** pelo ALIV e lança conta e estoque. |

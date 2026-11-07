@@ -26,6 +26,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -206,7 +207,7 @@ def descontos(det: dict) -> tuple[float, float, float]:
         tmp = []
         for o in origens:
             if isinstance(o, dict):
-                chave = o.get("origin") or o.get("origem") or o.get("source") or o.get("type") or ""
+                chave = o.get("kind") or o.get("origin") or o.get("origem") or o.get("source") or o.get("type") or ""
                 valor = o.get("value", o.get("valor", o.get("amount", 0)))
                 tmp.append((chave, valor))
             elif isinstance(o, str):
@@ -248,11 +249,15 @@ def pedidos_do_turno(api: Aliv, dia: date, ate: datetime) -> list[dict]:
             for o in lote:
                 if isinstance(o, dict) and o.get("id") is not None:
                     brutos.setdefault(o["id"], o)
+            # has_more do ALIV não é confiável (vem False antes da última página).
             page += 1
+
+    with ThreadPoolExecutor(max_workers=6) as ex:
+        detalhes = dict(zip(brutos, ex.map(lambda i: api.get(f"/admin/api/orders/{i}"), brutos)))
 
     pedidos = []
     for oid, item in brutos.items():
-        det = api.get(f"/admin/api/orders/{oid}")
+        det = detalhes[oid]
         if isinstance(det, dict) and isinstance(det.get("order"), dict):
             det = det["order"]
         det = {**item, **(det if isinstance(det, dict) else {})}
@@ -352,8 +357,8 @@ def calcular(pedidos: list[dict], agora: datetime) -> dict:
     r["cancelados"] = len(cancelados)
     r["taxa_cancel"] = len(cancelados) / total if total else 0.0
     r["ticket"] = r["vendas"] / r["pedidos"] if r["pedidos"] else 0.0
-    r["pix_pendente"] = [p.get("code") or p.get("id") for p in pix_pendente]
-    r["ia_aguardando"] = [p.get("code") or p.get("id") for p in ia_aguardando]
+    r["pix_pendente"] = [p.get("wabiz_id") or p.get("code") or p.get("id") for p in pix_pendente]
+    r["ia_aguardando"] = [p.get("wabiz_id") or p.get("code") or p.get("id") for p in ia_aguardando]
     r["custo_ifood"] = ((r["comissao_ifood"] + r["desc_loja_ifood"]) / r["receita_ifood"]
                         if r["receita_ifood"] else 0.0)
     r["ultima_hora_calc"] = sum(1 for p in validos if p["_criado"] >= agora - timedelta(hours=1))
@@ -406,7 +411,8 @@ def alertas_operacao(dados: dict) -> dict:
                 continue
             el = num(c.get("elapsed_min"))
             ref = str(c.get("code") or c.get("short_code") or c.get("id") or "?")
-            info = f"{ref} {el:.0f}min" + (f" ({c['bairro']})" if c.get("bairro") else "")
+            bairro = c.get("neighborhood") or c.get("bairro")
+            info = f"{ref} {el:.0f}min" + (f" ({bairro})" if bairro else "")
             a["piores"].append((el, f"{info} [{nome}]"))
             if n == "em rota" and el > LIMITE_EM_ROTA:
                 a["em_rota"].append(info + (f" – {c['driver']}" if c.get("driver") else ""))
@@ -444,12 +450,22 @@ def ler_snapshot(dia: date) -> dict:
         return {}
 
 
-def gravar_snapshot(dia: date, agora: datetime, r: dict) -> None:
+def motoboys_do_dia(dia: date, moto: tuple) -> tuple[int, int]:
+    """Máximo de online/entregas do turno (depois do turno todos ficam Offline)."""
+    n, e = moto[0], moto[1]
+    for rod in ler_snapshot(dia).get("rodadas", []):
+        n = max(n, int(num(rod.get("motoboys_online"))))
+        e = max(e, int(num(rod.get("entregas_live"))))
+    return n, e
+
+
+def gravar_snapshot(dia: date, agora: datetime, r: dict, moto: tuple = (0, 0)) -> None:
     SNAP_DIR.mkdir(parents=True, exist_ok=True)
     snap = ler_snapshot(dia)
     rodadas = snap.get("rodadas", [])
     rodadas.append({"hora": agora.isoformat(timespec="minutes"), "pedidos": r["pedidos"],
-                    "vendas": round(r["vendas"], 2), "ids": r["ids"]})
+                    "vendas": round(r["vendas"], 2), "ids": r["ids"],
+                    "motoboys_online": moto[0], "entregas_live": moto[1]})
     snap = {"turno": dia.isoformat(), "rodadas": rodadas[-48:]}
     (SNAP_DIR / f"{dia.isoformat()}.json").write_text(
         json.dumps(snap, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -470,7 +486,7 @@ def ultima_hora(dia: date, agora: datetime, r: dict) -> tuple[int, float, str]:
 # ------------------------------------------------------------------ relatório
 def relatorio(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, moto: tuple,
               uh: tuple, l: dict, sem: dict | None) -> str:
-    n_online, entregas_live, _ = moto
+    n_online, entregas_live = moto[0], moto[1]
     al = alertas_operacao(ops)
     prod_d = resumo(ops, "prod_delivery")
     rua = resumo(ops, "street")
@@ -507,7 +523,7 @@ def relatorio(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, moto:
     L.append(f"• IA aguardando confirmação: {len(r['ia_aguardando'])}" + (f" — {', '.join(map(str, r['ia_aguardando'][:6]))}" if r["ia_aguardando"] else ""))
     L.append("")
     L.append("MOTOBOYS")
-    L.append(f"• Online hoje: {n_online}")
+    L.append(f"• Online agora: {moto[2]} · no turno (máx. das rodadas): {n_online}")
     L.append(f"• Entregas: {entregas_live} no ALIV (inclui Sushi) · {r['entregas_delivery']} delivery da Pizzaria finalizados")
     L.append(f"• Custo estimado: {brl(l['motoboys'])} (diária proporcional + R$ 2/entrega)")
     L.append("")
@@ -560,9 +576,10 @@ def main() -> int:
         api.login()
         pedidos = pedidos_do_turno(api, dia, agora)
         r = calcular(pedidos, agora)
-        ops = monitor_tempos(api)
+        ops = monitor_tempos(api, janela_turno(dia)[0], agora)
         ops_h = monitor_tempos(api, agora - timedelta(hours=1), agora)
-        moto = motoboys(api, dia)
+        n_agora, ent_agora, _ = motoboys(api, dia)
+        moto = (*motoboys_do_dia(dia, (n_agora, ent_agora)), n_agora)
         custo = custo_motoboys(moto[0], r["entregas_delivery"], dia, agora)
         l = lucro(r, custo)
         uh = ultima_hora(dia, agora, r)
@@ -579,7 +596,7 @@ def main() -> int:
 
     print(relatorio(agora, dia, r, ops, ops_h, moto, uh, l, sem))
     if not args.sem_snapshot:
-        gravar_snapshot(dia, agora, r)
+        gravar_snapshot(dia, agora, r, moto)
     return 0
 
 

@@ -1,6 +1,6 @@
 # Monitor de Operação da Tili (fase 1)
 
-Script `monitor.py` que lê o ALIV Hub (Tili Pizzaria, loja 150) e imprime o relatório da operação. Ele **não usa navegador** e **só lê dados**: nunca altera nada no ALIV. A Rotina do Claude Code roda o script de hora em hora e manda o resultado por e-mail.
+Script `monitor.py` que lê o ALIV Hub (Tili Pizzaria, loja 150, e Tili Sushi & Poke, loja 155) e imprime o relatório da operação. Ele **não usa navegador** e **só lê dados**: nunca altera nada no ALIV. A Rotina do Claude Code roda o script de hora em hora e manda o resultado por e-mail.
 
 Ele usa só a biblioteca padrão do Python 3.9 ou mais novo, então não precisa instalar nada.
 
@@ -9,10 +9,12 @@ Ele usa só a biblioteca padrão do Python 3.9 ou mais novo, então não precisa
 ```bash
 export ALIV_USER='seu-usuario'      # e-mail/usuário do ALIV
 export ALIV_PASS='sua-senha'
+export ALIV_USER_SUSHI='usuario-do-sushi'   # opcional: inclui a Tili Sushi (loja 155)
+export ALIV_PASS_SUSHI='senha-do-sushi'
 python3 monitor/monitor.py
 ```
 
-- A 1ª linha da saída é o **assunto** do e-mail (`Tili Pizzaria — HH:27 — N pedidos / R$ X`). O resto é o corpo.
+- A 1ª linha da saída é o **assunto** do e-mail (`Tili Pizzaria — HH:27 — N pedidos / R$ X · Sushi N / R$ Y`). O resto é o corpo.
 - A cada rodada ele grava `monitor/snapshots/AAAA-MM-DD.json`. A rodada seguinte usa esse arquivo para calcular a última hora por diferença. Se não houver snapshot de 45 a 90 min atrás, ele calcula pela hora de criação dos pedidos.
 - Opções:
   - `--agora 2026-11-06T19:27`: simula um horário (fuso America/Bahia).
@@ -34,6 +36,8 @@ No Claude Code na nuvem:
    ```
    ALIV_USER=...
    ALIV_PASS=...
+   ALIV_USER_SUSHI=...
+   ALIV_PASS_SUSHI=...
    ```
 3. Confira que **Network** permite o host `app.alivhub.com.br`. O ambiente Contapecas já vem com ele.
 4. Salve. As próximas sessões e a Rotina já recebem as variáveis.
@@ -50,6 +54,21 @@ No Claude Code na nuvem:
 Ativa: **Monitor da Tili (hora em hora)**, cron `CRON_TZ=America/Bahia 0 0,18-23 * * *` (18:00 a 00:00), sessão nova a cada disparo, conector Gmail. O script fica no branch `claude/zealous-bohr-ufzjww` até o merge na `main`; a Rotina usa esse branch e grava os snapshots nele.
 
 Códigos de saída: `0` ok (WhatsApp enviado, se pedido) · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` relatório ok, WhatsApp não enviado.
+
+## Tili Sushi (loja 155)
+
+- Login separado com `ALIV_USER_SUSHI` / `ALIV_PASS_SUSHI`. Sem essas variáveis, o relatório sai só com a Pizzaria. Se o ALIV do Sushi der erro, o bloco do Sushi mostra "indisponível — motivo" e a Pizzaria sai normal (código 0).
+- Bloco **TILI SUSHI & POKE**: pedidos, vendas, peças vendidas (+ temakis), última hora, ticket, cancelados e canais. Também entra na comparação com a semana passada e no assunto do e-mail.
+- Mesmas regras de turno e status da Pizzaria.
+- **Canais:** Salão = `pdv` não delivery · App = `app` (delivery e retirada) · iFood = `ifood` · PDV delivery = `pdv` com entrega (só aparece se houver).
+- **Peças vendidas** (por item do pedido × quantidade, pelo nome do produto):
+  - `PEÇA SUSHI`, `Sashimi`, itens "(unidade)" = 1 peça.
+  - Item da categoria "Promoção do Dia" com preço até R$ 5 = 1 peça. Em 30/10 a peça de R$ 2,99 foi lançada como "Sunomono".
+  - "( 10 Un )", "15 Peças", "(48 peças)" = o número do nome (vale o último).
+  - Hot/Ura/Hosso sem número no nome (vem assim do iFood) = 10 peças.
+  - Temaki conta à parte ("+ N temakis"). Bebidas, poke, yakisoba, ceviche e sobremesas = 0.
+- Tempos, alertas de colunas, motoboys, descontos e lucro continuam só da Pizzaria.
+- O snapshot guarda `sushi_pedidos`, `sushi_vendas` e `sushi_pecas` em cada rodada, para a última hora do Sushi.
 
 ## Regras usadas (resumo)
 
@@ -94,3 +113,4 @@ Se a sessão expirar (401 "Sessão expirada"), o script faz login de novo sozinh
   - `orders/audit`: lista traz `created_at` ("06/11/2026 23:42"), `wabiz_id`, `total`; o detalhe traz `total_value`, `subtotal`, `delivery_fee`, `service_fee`, `platform_slug`, `branch_label`, `created_at_fmt` ("30/10/2026 às 17:52"). O `has_more` **não é confiável** (vem `false` antes da última página), por isso a paginação segue até a página vazia.
   - `drivers-live`: depois do turno todos ficam `Offline` (`start_ts` = 9999999999). O snapshot agora guarda os motoboys online de cada rodada, e o custo usa o máximo do turno.
   - Os detalhes dos pedidos são buscados em paralelo (6 por vez): a rodada caiu de ~6 min para ~1,5 min.
+- **Sushi testado no ALIV real em 07/11/2026 (02:13)**, turno 06/11: 224 pedidos · R$ 14.565,10 · 2.810 peças + 164 temakis (Salão 157 · App 51 · iFood 14 · PDV delivery 2). A conta do Sushi usa os mesmos endpoints; os itens vêm em `items_json` (`title`, `quantity`, `price`, `category_name`). A rodada completa (Pizzaria + Sushi + semana passada) levou ~2,5 min.

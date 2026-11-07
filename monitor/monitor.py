@@ -4,6 +4,8 @@
 Faz login no ALIV Hub (app.alivhub.com.br) com ALIV_USER / ALIV_PASS
 (variáveis de ambiente), consulta pedidos, tempos e motoboys, calcula os
 indicadores e imprime o relatório em texto (1ª linha = assunto do e-mail).
+Com ALIV_USER_SUSHI / ALIV_PASS_SUSHI inclui também a Tili Sushi (loja 155):
+pedidos, vendas, peças vendidas e canais (salão, app, iFood).
 
 Grava um snapshot diário em monitor/snapshots/AAAA-MM-DD.json para a rodada
 seguinte calcular "última hora" por diferença. O commit do snapshot fica a
@@ -58,6 +60,13 @@ LIMITE_EM_ROTA = 45.0
 LIMITE_PARADO = 15.0
 
 STATUS_FINALIZADO = {"ENTREGUE", "CONCLUIDO"}
+
+# Sushi: peças por unidade vendida (ver pecas_por_unidade)
+SUSHI_PECA_AVULSA = {"peça sushi", "peca sushi", "sashimi"}
+SUSHI_PROMO_CATEGORIA = "promoção do dia"
+SUSHI_PROMO_PRECO_MAX = 5.0  # peça avulsa da promoção (R$ 2,99 / 4,99), mesmo com outro nome
+SUSHI_ROLO_SEM_NUMERO = 10   # Hot/Ura/Hosso sem "(N Un)" no nome (iFood) = 10 peças
+RE_PECAS = re.compile(r"(\d+)\s*(?:peças|pecas|pçs|pcs|un\b|unid)", re.I)
 COLUNAS_ESPERA = {"esperando preparo", "finalização", "finalizacao", "expedição",
                   "expedicao", "pronto p/ despacho", "a finalizar"}
 
@@ -384,6 +393,68 @@ def calcular(pedidos: list[dict], agora: datetime) -> dict:
     return r
 
 
+def itens_do_pedido(p: dict) -> list:
+    it = p.get("items_json") or p.get("items") or []
+    if isinstance(it, str):
+        try:
+            it = json.loads(it)
+        except ValueError:
+            return []
+    return [i for i in it if isinstance(i, dict)] if isinstance(it, list) else []
+
+
+def pecas_por_unidade(titulo: str, categoria: str = "", preco: float = 0.0) -> tuple[int, int]:
+    """(peças de sushi, temakis) por unidade do item, pelo nome do produto.
+
+    PEÇA SUSHI / Sashimi / "(unidade)" = 1 · item da "Promoção do Dia" até R$ 5 = 1
+    (em 30/10 a peça de R$ 2,99 foi lançada como "Sunomono") · "( 10 Un )", "15 Peças",
+    "(48 peças)" = N (vale o último número) · Hot/Ura/Hosso sem número = 10 ·
+    Temaki conta à parte. Bebidas, poke, yakisoba, ceviche etc. = 0.
+    """
+    t = " ".join(str(titulo or "").lower().split())
+    if "temaki" in t:
+        return 0, 1
+    promo = str(categoria or "").strip().lower() == SUSHI_PROMO_CATEGORIA
+    if t in SUSHI_PECA_AVULSA or "(unidade)" in t or (promo and 0 < preco <= SUSHI_PROMO_PRECO_MAX):
+        return 1, 0
+    m = RE_PECAS.findall(t)
+    if m:
+        return int(m[-1]), 0
+    if re.match(r"(hot|ura|hosso)\b", t):
+        return SUSHI_ROLO_SEM_NUMERO, 0
+    return 0, 0
+
+
+def canal_sushi(p: dict) -> str:
+    slug = str(p.get("platform_slug") or "?").lower()
+    if slug == "pdv":
+        return "PDV delivery" if str(p.get("delivery_type") or "").lower() == "delivery" else "Salão"
+    return {"app": "App", "ifood": "iFood"}.get(slug, slug.upper())
+
+
+def calcular_sushi(pedidos: list[dict], agora: datetime) -> dict:
+    r = calcular(pedidos, agora)
+    r["pecas"], r["temakis"], r["por_canal_sushi"] = 0, 0, {}
+    for p in pedidos:
+        st = status_de(p)
+        if st.startswith("CANCELADO") or st == "AGUARDANDO_PAGAMENTO":
+            continue
+        pecas = tem = 0.0
+        for i in itens_do_pedido(p):
+            q = num(i.get("quantity") or 1)
+            pp, tt = pecas_por_unidade(i.get("title") or i.get("name"), i.get("category_name"),
+                                       num(i.get("price")))
+            pecas += pp * q
+            tem += tt * q
+        c = r["por_canal_sushi"].setdefault(canal_sushi(p), [0, 0.0, 0])
+        c[0] += 1
+        c[1] += num(p.get("total_value"))
+        c[2] += int(round(pecas))
+        r["pecas"] += int(round(pecas))
+        r["temakis"] += int(round(tem))
+    return r
+
+
 def custo_motoboys(n_online: int, entregas: int, dia: date, agora: datetime) -> float:
     diaria = DIARIA_FDS if dia.weekday() >= 5 else DIARIA_SEMANA
     (h1, m1), (h2, m2) = TURNO_MOTOBOY
@@ -481,7 +552,8 @@ def motoboys_do_dia(dia: date, n_agora: int, ent_agora: int) -> tuple[int, int, 
     return maximo, (n_agora if n_agora > 0 else maximo), entregas
 
 
-def gravar_snapshot(dia: date, agora: datetime, r: dict, moto: dict | None = None) -> None:
+def gravar_snapshot(dia: date, agora: datetime, r: dict, moto: dict | None = None,
+                    sushi: dict | None = None) -> None:
     moto = moto or {"agora": 0, "maximo": 0, "entregas": 0}
     SNAP_DIR.mkdir(parents=True, exist_ok=True)
     snap = ler_snapshot(dia)
@@ -489,6 +561,9 @@ def gravar_snapshot(dia: date, agora: datetime, r: dict, moto: dict | None = Non
     rodadas.append({"hora": agora.isoformat(timespec="minutes"), "pedidos": r["pedidos"],
                     "vendas": round(r["vendas"], 2), "ids": r["ids"],
                     "motoboys_online": moto["agora"], "entregas_live": moto["entregas"]})
+    if sushi is not None:
+        rodadas[-1].update({"sushi_pedidos": sushi["pedidos"], "sushi_vendas": round(sushi["vendas"], 2),
+                            "sushi_pecas": sushi["pecas"]})
     snap = {"turno": dia.isoformat(),
             "max_motoboys_online": max(moto["maximo"], int(num(snap.get("max_motoboys_online")))),
             "rodadas": rodadas[-48:]}
@@ -496,27 +571,59 @@ def gravar_snapshot(dia: date, agora: datetime, r: dict, moto: dict | None = Non
         json.dumps(snap, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-def ultima_hora(dia: date, agora: datetime, r: dict) -> tuple[int, float, str]:
-    """Diferença contra a rodada anterior (45–90 min atrás); senão, pela hora de criação."""
+def ultima_hora(dia: date, agora: datetime, r: dict, prefixo: str = "") -> tuple[int, float, str]:
+    """Diferença contra a rodada anterior (45–90 min atrás); senão, pela hora de criação.
+    prefixo "sushi_" usa os campos da Tili Sushi no snapshot."""
     for rod in reversed(ler_snapshot(dia).get("rodadas", [])):
         try:
             h = datetime.fromisoformat(rod["hora"])
+            ped, ven = int(rod[prefixo + "pedidos"]), num(rod[prefixo + "vendas"])
         except (KeyError, ValueError):
             continue
         if timedelta(minutes=45) <= agora - h <= timedelta(minutes=90):
-            return r["pedidos"] - int(rod["pedidos"]), r["vendas"] - num(rod["vendas"]), "snapshot"
+            return r["pedidos"] - ped, r["vendas"] - ven, "snapshot"
     return r["ultima_hora_calc"], r["ultima_hora_valor_calc"], "hora de criação"
 
 
 # ------------------------------------------------------------------ relatório
+def var(a, b) -> str:
+    return f"{'+' if a >= b else ''}{pct((a - b) / b)}" if b else "—"
+
+
+def bloco_sushi(sushi: dict) -> list[str]:
+    L = ["TILI SUSHI & POKE (loja 155)"]
+    if sushi.get("erro"):
+        return L + [f"• indisponível — {sushi['erro']}"]
+    s, uh = sushi["r"], sushi["uh"]
+    L.append(f"• Dia: {s['pedidos']} pedidos · {brl(s['vendas'])} · {s['pecas']} peças"
+             + (f" + {s['temakis']} temakis" if s["temakis"] else ""))
+    L.append(f"• Última hora: {uh[0]} pedidos · {brl(uh[1])} (por {uh[2]})")
+    ordem = {"Salão": 0, "App": 1, "iFood": 2}
+    canais = dict(s["por_canal_sushi"])
+    for nome in ("Salão", "App", "iFood"):
+        canais.setdefault(nome, [0, 0.0, 0])
+    for nome, (n, v, pc) in sorted(canais.items(), key=lambda x: (ordem.get(x[0], 9), -x[1][1])):
+        L.append(f"• {nome}: {n} · {brl(v)} · {pc} peças")
+    L.append(f"• Ticket médio: {brl(s['ticket'])}")
+    L.append(f"• Cancelados: {s['cancelados']} ({pct(s['taxa_cancel'])}) {ok(s['taxa_cancel'] <= META_CANCEL)} (meta até 2%)")
+    if s["pix_pendente"]:
+        L.append(f"• Pix pendente: {len(s['pix_pendente'])} — {', '.join(map(str, s['pix_pendente'][:6]))}")
+    if s["ia_aguardando"]:
+        L.append(f"• IA aguardando confirmação: {len(s['ia_aguardando'])} — {', '.join(map(str, s['ia_aguardando'][:6]))}")
+    return L
+
+
 def relatorio(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, moto: tuple,
-              uh: tuple, l: dict, sem: dict | None) -> str:
+              uh: tuple, l: dict, sem: dict | None, sushi: dict | None = None) -> str:
     entregas_live = moto["entregas"]
     al = alertas_operacao(ops)
     prod_d = resumo(ops, "prod_delivery")
     rua = resumo(ops, "street")
     L = []
-    L.append(f"Tili Pizzaria — {agora:%H:%M} — {r['pedidos']} pedidos / {brl(r['vendas'])}")
+    assunto = f"Tili Pizzaria — {agora:%H:%M} — {r['pedidos']} pedidos / {brl(r['vendas'])}"
+    if sushi and not sushi.get("erro"):
+        assunto += f" · Sushi {sushi['r']['pedidos']} / {brl(sushi['r']['vendas'])}"
+    L.append(assunto)
     L.append("")
     L.append(f"Turno {dia:%d/%m} (16h–04h) · atualizado {agora:%d/%m %H:%M} (America/Bahia)")
     L.append("")
@@ -530,7 +637,10 @@ def relatorio(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, moto:
     L.append(f"• Ticket médio: {brl(r['ticket'])} {ok(r['ticket'] >= META_TICKET)} (meta {brl(META_TICKET)})")
     L.append(f"• Cancelados: {r['cancelados']} ({pct(r['taxa_cancel'])}) {ok(r['taxa_cancel'] <= META_CANCEL)} (meta até 2%)")
     L.append("")
-    L.append("TEMPOS")
+    if sushi is not None:
+        L.extend(bloco_sushi(sushi))
+        L.append("")
+    L.append("TEMPOS (Pizzaria)")
     L.append(f"• Preparo delivery: {fmt_tempo(prod_d)} {ok(num(prod_d.get('avg_min')) <= META_PREPARO) if prod_d.get('n') else ''}")
     L.append(f"• Preparo balcão: {fmt_tempo(resumo(ops, 'prod_balcao'))}")
     L.append(f"• Rua: {fmt_tempo(rua)}")
@@ -568,18 +678,45 @@ def relatorio(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, moto:
     if sem is None:
         L.append("• indisponível")
     else:
-        def var(a, b):
-            return f"{'+' if a >= b else ''}{pct((a - b) / b)}" if b else "—"
         L.append(f"• Pedidos: {r['pedidos']} vs {sem['pedidos']} ({var(r['pedidos'], sem['pedidos'])})")
         L.append(f"• Vendas: {brl(r['vendas'])} vs {brl(sem['vendas'])} ({var(r['vendas'], sem['vendas'])})")
         L.append(f"• Ticket: {brl(r['ticket'])} vs {brl(sem['ticket'])}")
         L.append(f"• Cancelamento: {pct(r['taxa_cancel'])} vs {pct(sem['taxa_cancel'])}")
+    if sushi is not None and not sushi.get("erro") and sushi.get("sem"):
+        s, w = sushi["r"], sushi["sem"]
+        L.append(f"• Sushi — pedidos: {s['pedidos']} vs {w['pedidos']} ({var(s['pedidos'], w['pedidos'])}) · "
+                 f"vendas: {brl(s['vendas'])} vs {brl(w['vendas'])} ({var(s['vendas'], w['vendas'])}) · "
+                 f"peças: {s['pecas']} vs {w['pecas']} ({var(s['pecas'], w['pecas'])})")
     L.append("")
-    L.append("Só leitura no ALIV. Fase 1: Tili Pizzaria (loja 150).")
+    L.append("Só leitura no ALIV. Tili Pizzaria (loja 150)"
+             + (" + Tili Sushi & Poke (loja 155)." if sushi is not None else "."))
     return "\n".join(L)
 
 
 # ----------------------------------------------------------------------- main
+def coletar_sushi(raw_dir: Path | None, dia: date, agora: datetime, com_semana: bool) -> dict | None:
+    """Tili Sushi (loja 155) com ALIV_USER_SUSHI / ALIV_PASS_SUSHI. None se não configurado;
+    erro no ALIV vira {"erro": ...} e não derruba o relatório da Pizzaria."""
+    user, pwd = os.environ.get("ALIV_USER_SUSHI"), os.environ.get("ALIV_PASS_SUSHI")
+    if not user or not pwd:
+        return None
+    api = Aliv(user, pwd, raw_dir=raw_dir / "sushi" if raw_dir else None)
+    try:
+        api.login()
+        r = calcular_sushi(pedidos_do_turno(api, dia, agora), agora)
+        out = {"r": r, "uh": ultima_hora(dia, agora, r, "sushi_"), "sem": None}
+        if com_semana:
+            try:
+                d7, a7 = dia - timedelta(days=7), agora - timedelta(days=7)
+                out["sem"] = calcular_sushi(pedidos_do_turno(api, d7, a7), a7)
+            except AlivError as e:
+                print(f"aviso: comparação semanal do Sushi falhou: {e}", file=sys.stderr)
+        return out
+    except (AlivError, OSError) as e:
+        print(f"aviso: Sushi falhou: {e}", file=sys.stderr)
+        return {"erro": str(e)}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Monitor de Operação da Tili (ALIV, só leitura)")
     ap.add_argument("--agora", help="simula o horário (AAAA-MM-DDTHH:MM), fuso America/Bahia")
@@ -624,10 +761,11 @@ def main() -> int:
         print(f"Tili Pizzaria — {agora:%H:%M} — ERRO no monitor\n\n{e}")
         return 1
 
-    texto = relatorio(agora, dia, r, ops, ops_h, moto, uh, l, sem)
+    sushi = coletar_sushi(Path(args.raw) if args.raw else None, dia, agora, not args.sem_semana)
+    texto = relatorio(agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi)
     print(texto)
     if not args.sem_snapshot:
-        gravar_snapshot(dia, agora, r, moto)
+        gravar_snapshot(dia, agora, r, moto, sushi["r"] if sushi and not sushi.get("erro") else None)
     if args.whatsapp:
         fone = re.sub(r"\D", "", os.environ.get("WHATSAPP_EMERSON", ""))
         if not fone:

@@ -114,3 +114,66 @@ Se a sessão expirar (401 "Sessão expirada"), o script faz login de novo sozinh
   - `drivers-live`: depois do turno todos ficam `Offline` (`start_ts` = 9999999999). O snapshot agora guarda os motoboys online de cada rodada, e o custo usa o máximo do turno.
   - Os detalhes dos pedidos são buscados em paralelo (6 por vez): a rodada caiu de ~6 min para ~1,5 min.
 - **Sushi testado no ALIV real em 07/11/2026 (02:13)**, turno 06/11: 224 pedidos · R$ 14.565,10 · 2.810 peças + 164 temakis (Salão 157 · App 51 · iFood 14 · PDV delivery 2). A conta do Sushi usa os mesmos endpoints; os itens vêm em `items_json` (`title`, `quantity`, `price`, `category_name`). A rodada completa (Pizzaria + Sushi + semana passada) levou ~2,5 min.
+
+---
+
+# Diaristas — relatório diário dos motoboys (`diaristas.py`)
+
+Gera o pagamento do dia dos **motoboys diaristas**: PDF A4 completo e uma lista em texto para o WhatsApp. Só lê o ALIV. Reaproveita o login e o envio por WhatsApp do `monitor.py`.
+
+## Como rodar
+
+```bash
+pip install reportlab   # única dependência fora da biblioteca padrão (já vem no ambiente)
+python3 monitor/diaristas.py --data 2026-11-06 --dry-run   # gera e mostra, não envia
+python3 monitor/diaristas.py                                # rodada normal: dia que acabou de fechar, envia
+```
+
+- `--data AAAA-MM-DD`: dia operacional. Sem ela, antes das 10:00 vale o dia anterior; por isso a rodada das 00:15, ou uma atrasada, sai sempre para o dia certo.
+- `--dry-run`: gera o PDF e imprime a lista, sem enviar nada.
+- `--agora AAAA-MM-DDTHH:MM` simula a hora da rodada. `--raw PASTA` salva as respostas cruas do ALIV.
+- Variáveis: `ALIV_USER`, `ALIV_PASS`, `WHATSAPP_EMERSON`, `WHATSAPP_ADMIN`.
+- Saída: `monitor/diaristas/AAAA-MM-DD/diaristas_DD-MM.pdf`. O commit fica com a Rotina.
+- Códigos de saída: `0` ok, ou dry-run, ou dia sem diarista com aviso enviado · `1` erro de login ou do ALIV · `2` faltam variáveis · `3` relatório gerado, mas o WhatsApp não aceitou a lista ou o PDF. Nesse caso a Rotina manda por e-mail.
+
+## Regras
+
+- **Dia operacional D:** turnos iniciados entre 10:00 de D e 10:00 de D+1, ou até a hora da rodada se for antes. Pedidos criados entre 10:00 de D e 06:00 de D+1. A entrega feita depois da meia-noite conta no dia D.
+- **Quem entra:** motoboy sem "CNPJ" no nome. Os prestadores com CNPJ ficam no relatório semanal. **Thiago Camilo** e **Josué Ruas**, que são logins de gerente, nunca entram.
+- **Diária:** R$ 100 de segunda a sexta e R$ 120 no sábado e no domingo, pelo dia operacional.
+  - Se o ALIV gravou R$ 100 no fim de semana, o script corrige para R$ 120 e marca **CORRIGIDO**.
+  - Sem diária gravada, usa a padrão e avisa.
+- **Taxa por entrega:** R$ 2,00 na Pizzaria e R$ 2,00 no Sushi.
+- **Total a pagar:** é o fechamento do turno no ALIV, mais a diferença da diária quando ela foi corrigida. Sem fechamento, vale o cálculo (diária + entregas × R$ 2).
+  - Se o fechamento for diferente do cálculo, os dois aparecem e o motoboy é marcado com **DIVERGÊNCIA**.
+- **Pizzaria ou Sushi:** o pedido é da Pizzaria quando está nas entregas do turno (`payouts`) ou quando `GET /admin/api/orders/{id}` responde no login da Pizzaria. Quando esse GET dá 404, o pedido é do Sushi.
+- **Dia sem diarista:** não gera PDF. Só manda o aviso.
+
+## Envio
+
+- O envio usa `POST /admin/api/chat/send`, o mesmo do monitor. Vai para `WHATSAPP_EMERSON` e `WHATSAPP_ADMIN`: primeiro a lista e depois o PDF.
+- O PDF vai no campo `file` (multipart), o mesmo que o chat do ALIV usa para anexos.
+- Se o ALIV não confirmar (`success: true`), o script sai com código 3. Aí a Rotina manda a lista e o PDF pelo Gmail para emmersonarcanjo@gmail.com.
+
+## Endpoints e campos reais (conferido em 07/11/2026)
+
+| Uso | Endpoint | Campos usados |
+|---|---|---|
+| Motoboys (todos, status) | `GET /admin/api/finance/drivers-live` | lista de `{id, name, status ("Online"/"Offline"), start_ts (unix s; 9999999999 = offline), deliveries (inclui Sushi), final_pay}` |
+| Quem trabalhou no dia | `GET /admin/api/finance/drivers-report?start=D&end=D+1&tipo=entrega,financeiro&date_basis=delivery` | `rows[]: {id, name, entregas, soma_taxas, dias_trabalhados}`. **`end` é exclusivo**: `start=end=D` volta vazio. Os números incluem as entregas do Sushi |
+| Pedidos entregues | `GET /admin/api/finance/drivers-report/orders?driver_id=&start=&end=&date_basis=delivery` | `orders[]: {id, wabiz_id, date ("06/11/2026 23:53" = criação), status, taxa}`. Pizzaria e Sushi juntos |
+| Turno e fechamento | `GET /admin/api/finance/driver/{id}/payouts?start=D&end=D+1` | `groups[]: {session_start "06/11 18:07", session_end "07/11 00:37", total_paid, total_fees, payments[]{method ("FOLHA"…), value, desc}, deliveries[]{order_id, wabiz_id, fee}}`. As `deliveries` são **só as da Pizzaria** |
+| Diária gravada | `GET /admin/api/finance/driver/{id}/history-audit?start=D&end=D+1` | `history[]: {type "DIÁRIA/VALE", desc "Diária/Taxa Extra Manual", value, sort_date (ISO UTC), is_credit}`. O fechamento aparece como `type "BONUS"` |
+| Código / loja do pedido | `GET /admin/api/orders/{id}` | `wabiz_id`, `branch_label`. Dá 404 quando o pedido é da outra loja |
+
+- O login do Sushi (`ALIV_USER_SUSHI`) devolve o mesmo `drivers-report`. Por isso o script usa só o login da Pizzaria.
+- O fechamento do ALIV ("Fechamento do turno adiado para a folha — R$ X (diária/entregas do dia)") já soma a diária e todas as entregas, das duas lojas.
+- A diária manual aparece no histórico na hora em que o turno fecha.
+- Conferido com o ALIV real:
+  - 06/11 (sexta): 1 diarista, Crisley, com 10 entregas na Pizzaria + 6 no Sushi, diária de R$ 100 e fechamento de R$ 132. Bateu.
+  - 01/11 (domingo): 5 diaristas, todos com diária de R$ 120. Os 5 bateram com o fechamento.
+
+## Rotina das 00:15
+
+- Cron `CRON_TZ=America/Bahia 15 0 * * *`, sessão nova a cada disparo, conector Gmail.
+- Se a Rotina rodar antes de o ALIV fechar o turno, o motoboy sai com "turno ainda aberto" e o total vem do cálculo.

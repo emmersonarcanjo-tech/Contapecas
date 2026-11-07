@@ -12,7 +12,8 @@ seguinte calcular "última hora" por diferença. O commit do snapshot fica a
 cargo da Rotina (ver README).
 
 Somente biblioteca padrão do Python 3.9+. Nunca faz POST/PUT/DELETE no ALIV,
-exceto o POST de login e, com --whatsapp, o POST /admin/api/chat/send.
+exceto o POST de login e, com --whatsapp, o POST /admin/api/chat/send
+(também usado por diaristas.py, com o PDF anexado).
 """
 
 from __future__ import annotations
@@ -131,13 +132,19 @@ class Aliv:
             return data
         raise AlivError(f"GET {path} falhou após novas tentativas")
 
-    def enviar_whatsapp(self, telefone: str, texto: str) -> None:
+    def enviar_whatsapp(self, telefone: str, texto: str, arquivo: Path | None = None) -> None:
         """Único envio do monitor: POST /admin/api/chat/send (mesmo do chat do ALIV),
-        pelo WhatsApp principal da loja. Levanta AlivError se não confirmar."""
+        pelo WhatsApp principal da loja. Com `arquivo`, anexa no campo `file` (o mesmo
+        que o chat do ALIV usa). Levanta AlivError se não confirmar."""
         boundary = uuid.uuid4().hex
         body = "".join(f'--{boundary}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'
-                       for k, v in (("phone", telefone), ("message", texto)))
-        body = (body + f"--{boundary}--\r\n").encode()
+                       for k, v in (("phone", telefone), ("message", texto))).encode()
+        if arquivo is not None:
+            tipo = "application/pdf" if arquivo.suffix.lower() == ".pdf" else "application/octet-stream"
+            body += (f'--{boundary}\r\nContent-Disposition: form-data; name="file"; '
+                     f'filename="{arquivo.name}"\r\nContent-Type: {tipo}\r\n\r\n').encode()
+            body += arquivo.read_bytes() + b"\r\n"
+        body += f"--{boundary}--\r\n".encode()
         req = urllib.request.Request(BASE_URL + "/admin/api/chat/send", data=body, method="POST",
                                      headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
         status, data = self._send(req)

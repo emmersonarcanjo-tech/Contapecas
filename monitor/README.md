@@ -134,7 +134,10 @@ python3 monitor/diaristas.py                                # rodada normal: dia
 - Variáveis: `ALIV_USER`, `ALIV_PASS`, `WHATSAPP_EMERSON`, `WHATSAPP_ADMIN`.
 - Saída: `monitor/diaristas/AAAA-MM-DD/diaristas_DD-MM.pdf`. O commit fica com a Rotina.
 - PDF no mesmo layout do relatório semanal dos prestadores: o script monta um HTML e imprime com o `chrome-headless-shell` de `/opt/pw-browsers`, que já vem no ambiente. O Chrome completo (`/usr/bin/google-chrome`, da variável `CHROME_PATH`) trava no modo headless, por isso o script não usa ele. Para usar outro, defina `DIARISTAS_CHROME`.
-- Logo: `monitor/assets/logo_tili.png`. Para trocar, basta substituir o arquivo.
+- Papel timbrado:
+  - A logo aparece no cabeçalho e como marca d'água no centro de cada página.
+  - No rodapé há uma faixa vermelha, dourada e preta com a razão social, o CNPJ, a cidade e o WhatsApp (73) 99917-9941.
+- Logo (Tili Pizza · Burguer · Sushi): `monitor/assets/logo_tili.png`. Para trocar, basta substituir o arquivo.
 - Códigos de saída: `0` ok, ou dry-run, ou dia sem diarista com aviso enviado · `1` erro de login ou do ALIV · `2` faltam variáveis · `3` relatório gerado, mas o WhatsApp não aceitou a lista ou o PDF. Nesse caso a Rotina manda por e-mail.
 
 ## Regras

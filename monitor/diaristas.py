@@ -325,9 +325,21 @@ body { font-family: "Liberation Sans", Arial, Helvetica, sans-serif; color: #1A1
 .pagina { width: 210mm; height: 297mm; padding: 13mm 14mm 10mm; display: flex; flex-direction: column;
           page-break-after: always; overflow: hidden }
 .pagina:last-child { page-break-after: auto }
-.pagina.mot { padding-bottom: 62mm }   /* recibo na mesma altura do relatório semanal */
+.pagina { padding-bottom: 14mm }
+.pagina.mot { padding-bottom: 62mm }
+/* papel timbrado: marca d'água + faixa da marca no rodapé de todas as páginas */
+.pagina { position: relative }
+.pagina > * { position: relative; z-index: 1 }
+.pagina > .dagua { position: absolute; z-index: 0; left: 50%; top: 52%; width: 120mm; height: 120mm;
+                   transform: translate(-50%, -50%); object-fit: contain; opacity: .06 }
+.pagina > .timbre { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 9mm; background: #1A1A1A;
+                    color: #fff; font-size: 6.8pt; display: flex; align-items: center; justify-content: center;
+                    gap: 3mm; letter-spacing: .3px; border-top: 1.4mm solid #C8102E }
+.pagina > .timbre::before { content: ""; position: absolute; left: 0; right: 0; top: -2.2mm; height: .8mm; background: #D4A017 }
+.pagina > .timbre b { color: #D4A017 }
+   /* recibo na mesma altura do relatório semanal */
 .topo { display: flex; align-items: center; gap: 3mm; padding-bottom: 3mm; border-bottom: 2px solid #C8102E }
-.topo img { width: 14mm; height: 16mm; object-fit: contain }
+.topo img { width: 16mm; height: 16mm; object-fit: contain; mix-blend-mode: multiply }
 .topo .marca { flex: 1; line-height: 1.25 }
 .topo .nome { color: #C8102E; font-weight: bold; font-size: 15pt; line-height: 1.05 }
 .topo .emp { font-weight: bold; font-size: 7.5pt }
@@ -399,8 +411,12 @@ def html_relatorio(dia: date, ds: list[Diarista], gerado: datetime) -> str:
     logo = _logo_src()
     dia_txt = f"{dia:%d/%m/%Y} ({DIAS_CURTO[dia.weekday()]})"
 
+    timbre = (f'<img class="dagua" src="{logo}">' if logo else '') + (
+        f'<div class="timbre"><b>TILI</b>&nbsp;Pizza · Burguer · Sushi &nbsp;·&nbsp; {EMPRESA} · CNPJ {CNPJ_EMPRESA}'
+        f' &nbsp;·&nbsp; Porto Seguro-BA &nbsp;·&nbsp; WhatsApp&nbsp;<b>(73) 99917-9941</b></div>')
+
     def topo(relatorio: str) -> str:
-        return f"""<div class="topo">{f'<img src="{logo}">' if logo else ''}
+        return timbre + f"""<div class="topo">{f'<img src="{logo}">' if logo else ''}
 <div class="marca"><div class="nome">TILI PIZZARIA</div>
 <div class="emp">{EMPRESA} · CNPJ {CNPJ_EMPRESA} · Porto Seguro-BA</div>
 <div class="rel">{relatorio}</div><div class="per">Dia operacional: {dia_txt}</div></div>

@@ -1,0 +1,41 @@
+{
+ "dia": "2026-11-07",
+ "despesas": [
+  {
+   "wamid": "3ACF04BF9FAE13C0CB48",
+   "id": 1137916,
+   "data": "2026-11-07",
+   "hora": "10:58",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria\n[comprovante_pagamento do cliente]: Cupom fiscal do Cambuí Supermercados de 07/11/2026, pago no cartão de crédito por R$ 167,31, com morango, banana, alface, manjericão e cenoura.",
+   "descricao": "pizzaria [comprovante_pagamento do cliente]: Cupom fiscal do Cambuí Supermercados de 07/11/2026, pago no cartão de crédito por R$ 167,31, com morango, banana, alface, manjericão e cenoura.",
+   "valor": 7.0,
+   "fotos": [
+    {
+     "wamid": "3ACF04BF9FAE13C0CB48",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/dd2696bf58f54422ba3404e1c7dc1d49.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-07/2026-11-07_1058_josue-ruas_C0CB48_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 167.31,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "Morango Bd",
+     "Banana Prata Kg",
+     "Alface Americano U",
+     "Manjericao Un",
+     "Cenoura Kg"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2085 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  }
+ ],
+ "total": 7.0,
+ "atualizado": "2026-11-07T12:03-03:00"
+}

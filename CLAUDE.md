@@ -1,0 +1,30 @@
+# Tili — automação da operação
+
+Este repositório automatiza a operação da Tili, de Emerson, dono da **Tili Pizzaria** e **Tili Sushi** em Porto Seguro, Bahia.
+Tudo roda como **Rotinas do Claude Code na nuvem**, ambiente **Contapecas**. As credenciais do ALIV e os números de WhatsApp ficam nas **variáveis de ambiente**.
+
+## Como falar com o Emerson
+- Sempre em português, curto e objetivo.
+- Emerson não é programador: explique em linguagem simples.
+- Nunca peça para ele editar código.
+
+## Rotinas
+| Script | Quando | O que faz |
+|---|---|---|
+| `monitor/monitor.py` | De hora em hora, das 18h às 00h | Monitora Pizzaria e Sushi e avisa pelo WhatsApp do ALIV. |
+| `monitor/diaristas.py` | Todo dia às 08:00 | PDF diário dos diaristas. Dia operacional: 16:00 até 08:00 do dia seguinte. |
+| `monitor/prestadores.py` | Segunda às 08:00 | Relatório semanal dos prestadores MEI. Mesmo corte de dia (16:00–08:00). |
+| `monitor/nfce.py` | Às 02:00 (na última noite do mês, às 23:50) | Lista as notas pendentes. **Só emite com o comando do Emerson.** |
+| `monitor/despesas.py` / `monitor/despesas_lancar.py` | Ao meio-dia e à meia-noite | Lê o grupo **Tili Despesas** pelo ALIV e lança conta e estoque. |
+
+Se os horários na página de Rotinas divergirem deste arquivo, **os da página valem** — atualize este arquivo.
+
+## Regras de segurança
+- ALIV: **só leitura**, exceto o que o script já faz.
+- **Nunca** emitir nota fiscal, lançar despesa ou enviar WhatsApp sem o Emerson pedir na sessão.
+- **Nunca** gravar credenciais, CPF, CNPJ, chave de nota ou senha em código, log ou commit.
+- Antes de alterar qualquer rotina, **resumir o que vai mudar e esperar o ok**.
+
+## Como agir
+- **Pedido de mudança:** localize o script e a Rotina, faça a alteração, teste em dry-run contra o ALIV real quando possível, abra um pull request e explique o resultado em até cinco linhas.
+- **"Algo não chegou":** confira primeiro os registros da última execução da Rotina.

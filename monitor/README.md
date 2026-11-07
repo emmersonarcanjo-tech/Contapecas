@@ -347,3 +347,17 @@ python3 monitor/despesas.py              # últimas 26h; grava monitor/despesas/
 - Ordem: `--ler-insumos` → `despesas.py` (coleta e baixa as fotos) → a IA da rotina lê cada foto ou texto e monta a lista de itens → `despesas_lancar.py --confirmar --whatsapp` → sobe as fotos para a pasta **Despesas** do Drive (id `1aX9b7wy-GiHzopynuyQvQOwnYQr6Bxjz`) → commit dos JSON.
 - O WhatsApp para o Emerson só sai quando há despesa nova ou problema. Não usa e-mail e não manda foto.
 - A IA de atendimento foi pausada (`ai_paused`) nas 4 conversas em 07/11/2026.
+
+## Alerta de limite de consumo (`consumo.py`)
+
+Regra do Emerson (26/10/2026): **R$ 200 por funcionário por ciclo**. O ciclo vai do dia 26 até o dia 25 do mês seguinte. Avisa "perto" a partir de R$ 160 e "estourou" a partir de R$ 200. Motoboys e donos ficam de fora.
+
+Consumo = lançamentos CONSUMO na carteira + pedidos pagos como "Fiado / Carteira" no nome do funcionário. Um pedido que já virou CONSUMO na carteira não é contado de novo.
+
+```bash
+python3 monitor/consumo.py                 # só mostra (dry-run)
+python3 monitor/consumo.py --whatsapp      # envia para WHATSAPP_EMERSON e WHATSAPP_ADMIN
+python3 monitor/consumo.py --hoje 2026-11-20
+```
+
+Só manda mensagem se alguém estiver perto ou estourado. Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` WhatsApp falhou.

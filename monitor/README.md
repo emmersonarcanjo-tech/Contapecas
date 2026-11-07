@@ -140,16 +140,14 @@ python3 monitor/diaristas.py                                # rodada normal: dia
 - Logo (Tili Pizza · Burguer · Sushi): `monitor/assets/logo_tili.png`. Para trocar, basta substituir o arquivo.
 - Códigos de saída: `0` ok, ou dry-run, ou dia sem diarista com aviso enviado · `1` erro de login ou do ALIV · `2` faltam variáveis · `3` relatório gerado, mas o WhatsApp não aceitou a lista ou o PDF. Nesse caso a Rotina manda por e-mail.
 
-## Regras
+## Regras (combinadas em 07/11/2026)
 
-- **Dia operacional D:** turnos iniciados entre 10:00 de D e 10:00 de D+1, ou até a hora da rodada se for antes. Pedidos criados entre 10:00 de D e 06:00 de D+1. A entrega feita depois da meia-noite conta no dia D.
+- **Dia operacional D:** turnos iniciados entre 10:00 de D e 10:00 de D+1. Os pedidos contam de 10:00 de D até **08:00 de D+1**, o que na prática é o turno das 16h às 08h. A entrega feita depois da meia-noite conta no dia D. O ALIV aceita hora na consulta, mas ignora, então o corte pela hora exata é feito no script.
 - **Quem entra:** motoboy sem "CNPJ" no nome. Os prestadores com CNPJ ficam no relatório semanal. **Thiago Camilo** e **Josué Ruas**, que são logins de gerente, nunca entram.
-- **Diária:** R$ 100 de segunda a sexta e R$ 120 no sábado e no domingo, pelo dia operacional.
-  - Se o ALIV gravou R$ 100 no fim de semana, o script corrige para R$ 120 e marca **CORRIGIDO**.
-  - Sem diária gravada, usa a padrão e avisa.
-- **Taxa por entrega:** R$ 2,00 na Pizzaria e R$ 2,00 no Sushi.
-- **Total a pagar:** é o fechamento do turno no ALIV, mais a diferença da diária quando ela foi corrigida. Sem fechamento, vale o cálculo (diária + entregas × R$ 2).
-  - Se o fechamento for diferente do cálculo, os dois aparecem e o motoboy é marcado com **DIVERGÊNCIA**.
+- **Diária:** vale a que foi **gravada no ALIV**, como está. Exemplo: R$ 50 combinado com quem chegou atrasado. Só quando a diária vem **zerada ou não gravada** e o motoboy fez entregas, o script usa a padrão (R$ 100 de segunda a sexta, R$ 120 no sábado e no domingo).
+- **Entrega:** sempre **R$ 2,00**, da Pizzaria ou do Sushi, seja qual for a taxa gravada. A taxa variável é do cliente. As exceções de bairro distante são pagas na hora e não entram aqui.
+- **Total a pagar:** diária + R$ 2 × entregas. O fechamento do ALIV serve só para conferência.
+- **Página do motoboy:** não mostra correção, divergência nem aviso. Isso aparece só na mensagem e no terminal.
 - **Pizzaria ou Sushi:** o pedido é da Pizzaria quando está nas entregas do turno (`payouts`) ou quando `GET /admin/api/orders/{id}` responde no login da Pizzaria. Quando esse GET dá 404, o pedido é do Sushi.
 - **Dia sem diarista:** não gera PDF. Só manda o aviso.
 
@@ -208,21 +206,23 @@ python3 monitor/prestadores.py                                  # rodada normal:
 - Chave Pix: por padrão é o CNPJ. As exceções ficam em `monitor/assets/pix_prestadores.json` (`{"CNPJ só dígitos": "chave"}`). Hoje só o Gustavo, que recebe no e-mail.
 - Códigos de saída: `0` ok · `1` erro de login ou do ALIV · `2` faltam variáveis · `3` WhatsApp falhou. Nesse caso a Rotina manda por e-mail.
 
-## Regras
+## Regras (combinadas em 07/11/2026)
 
 - **Quem entra:** motoboy com "CNPJ" no nome. Thiago Camilo e Josué Ruas nunca entram.
 - **Cadastro duplicado:** quando o mesmo CNPJ ou o mesmo nome aparece em mais de um id, cada cadastro entra separado e gera alerta.
-- **Dia operacional:** hora − 6h. O que passa da meia-noite conta no dia anterior. O turno conta pelo horário de início; o pedido, pelo horário de criação.
-- **Por dia:** o script lê o fechamento gravado (`payouts.total_paid`), a diária gravada ("Diária/Taxa Extra Manual" no `history-audit`), os ajustes manuais e as entregas da Pizzaria com a taxa gravada (`drivers-report/orders`).
-- **Correções** (todas listadas no PDF e na mensagem):
-  - Diária: R$ 100 de segunda a sexta e R$ 120 no sábado e no domingo. Inclui a meia diária de R$ 50, que é corrigida e gera alerta para confirmar.
-  - Entrega: sempre R$ 2,00. Corrige taxas gravadas de 0; 6,99; 7; 30; 40 etc.
-  - Fechamento abaixo de diária + R$ 2 por entrega: completa a diferença. Fechamento acima por causa de taxa errada: ajusta para baixo.
-  - Nome colado: separa ("AdrianoSantos" → "Adriano Santos").
-- **Entregas do Sushi:** (fechamento − diária gravada − taxas gravadas da Pizzaria − ajustes) ÷ R$ 2. Quando não bate com os pedidos do Sushi achados no ALIV, a diferença vai para o detalhe.
-- **Ajustes manuais** (ex.: "Ajuste taxa iFood -> R$ 2,00 … semana 19-25/10"): continuam somados ao total e geram alerta.
-- **Turno de domingo aberto:** o script espera 10 minutos e lê de novo. Se continuar aberto, gera alerta e o dia é calculado pelos pedidos.
-- **Mensagem final** (WhatsApp para `WHATSAPP_EMERSON` e `WHATSAPP_ADMIN`, com o PDF completo): total da semana, valor de cada prestador, total dos fechamentos no ALIV × correções, lista de correções e alertas (turno aberto, cadastro duplicado, entrega a R$ 0, meia diária, ajuste manual).
+- **Dia operacional:** das **08:00 de D às 08:00 de D+1**, o que na prática é o turno das 16h às 08h. O que passa da meia-noite conta no dia D.
+  - O turno conta pelo horário de início.
+  - A entrega da Pizzaria conta no turno em que o ALIV a registrou, inclusive a da madrugada do domingo anterior, que fica fora da semana.
+  - A entrega do Sushi conta pelo horário de criação. Pedido agendado, que vem com hora "00:00", conta pelo dia em que foi entregue.
+- **Diária:** vale a que foi **gravada no ALIV**, como está (R$ 50, R$ 80…). Só quando vem **zerada ou não gravada** e o motoboy fez entregas, o script usa a padrão (R$ 100 de segunda a sexta, R$ 120 no sábado e no domingo). Esse é o único caso listado como correção.
+- **Entrega:** sempre **R$ 2,00**, da Pizzaria ou do Sushi, seja qual for a taxa gravada (0; 6,99; 7; 30; 40). A taxa variável é do cliente.
+- **Sushi:** conta as entregas do Sushi registradas para o motoboy no ALIV (`drivers-report/orders` + 404 no login da Pizzaria). O Sushi não tem motoboy próprio e usa os da Pizzaria.
+  - Antes o Sushi saía da diferença do fechamento, mas isso dava erro de R$ 1. Exemplo: Guilherme e Ricardo em 01/11, com uma entrega do Sushi gravada a R$ 7.
+- **Total do dia:** diária + R$ 2 × entregas + ajustes manuais lançados no ALIV.
+- **PDF completo e PDFs individuais:** só resumo, turnos, códigos e recibo. **Nenhuma correção, divergência ou aviso aparece para o motoboy.**
+- **Folha de conferência (uso interno):** fica em `Conferencia_interna_semana_DD-MM_a_DD-MM.pdf`, à parte. Mostra, por prestador, o fechamento do ALIV × o valor pago e o motivo de cada dia diferente: taxa gravada ≠ R$ 2, ou o fechamento pagou Sushi a mais ou a menos do que foi entregue. Também traz os alertas e as correções.
+- **Turno de domingo aberto:** o script espera 10 minutos e lê de novo. Se continuar aberto, gera alerta e o dia é pago pelo cálculo.
+- **Mensagem final** (WhatsApp para `WHATSAPP_EMERSON` e `WHATSAPP_ADMIN`, com o PDF completo e a folha de conferência): total da semana, valor de cada prestador, correções, alertas (turno aberto, cadastro duplicado, ajuste manual) e quantos turnos ficaram diferentes do ALIV.
 
 ## Endpoints (além dos do diaristas)
 
@@ -234,15 +234,11 @@ python3 monitor/prestadores.py                                  # rodada normal:
 
 ## Conferência (semana 26/10 a 01/11/2026)
 
-- Fechamentos no ALIV: R$ 9.378,96. Total a pagar com as correções: **R$ 9.350,99**. O relatório antigo feito à mão deu R$ 9.286,00.
-- 11 dos 17 prestadores bateram centavo por centavo com o relatório antigo.
-- As 6 diferenças somam +R$ 64,99 e vêm das regras novas:
-  - Emanuel: +R$ 50 (meia diária de 29/10 corrigida para R$ 100; gera alerta para confirmar).
-  - Guilherme: +R$ 3 (entrega a R$ 0 e fechamento ímpar de R$ 167 em 01/11).
-  - Kalyson: +R$ 2 (entrega a R$ 0).
-  - Ricardo: +R$ 1 (fechamento ímpar de R$ 163 em 01/11).
-  - Claudio: +R$ 10,99. O ajuste manual de R$ 14,99 foi mantido e o sábado foi completado em +R$ 2. O relatório antigo usou outra conta para ele.
-  - Breno: −R$ 2 (a taxa de R$ 7 virou R$ 2).
+- Total a pagar: **R$ 9.296,99**. O relatório antigo deu R$ 9.286,00. Os fechamentos gravados no ALIV somam R$ 9.378,96.
+- 11 dos 17 prestadores bateram com o relatório antigo.
+- 16 turnos ficaram diferentes do fechamento do ALIV. Todos estão explicados na folha de conferência:
+  - 10 por taxa gravada diferente de R$ 2: R$ 40, R$ 30, R$ 7 (×3), R$ 6,99 (×3) e R$ 0 (×2).
+  - 6 porque o fechamento pagou Sushi a mais ou a menos do que o ALIV registra como entregue.
 
 ## Rotina de segunda às 10:00
 

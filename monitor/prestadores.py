@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Relatório SEMANAL dos prestadores MEI (motoboys com CNPJ) da Tili — só leitura no ALIV.
 
-Semana de segunda a domingo (dia operacional = hora − 6h: o que passa da meia-noite
+Semana de segunda a domingo (dia operacional = hora − 8h, turno das 16h de D às 08h de D+1: o que passa da meia-noite
 conta no dia anterior). Reaproveita login, WhatsApp, layout e PDF do diaristas.py.
 
 Para cada prestador e cada dia: turno, fechamento gravado no ALIV, diária, entregas da
@@ -50,7 +50,7 @@ PASTA = BASE / "prestadores"
 PIX_ARQ = BASE / "assets" / "pix_prestadores.json"   # {"<CNPJ só dígitos>": "chave"}; sem entrada = CNPJ
 
 # ---------------------------------------------------------------- parâmetros
-VIRADA_H = 6                 # dia operacional = hora − 6h
+VIRADA_H = 8                 # dia operacional = hora − 8h (turno 16h de D até 08h de D+1)
 POR_ENTREGA = 2.0            # Pizzaria e Sushi
 GERENTES = [{"thiago", "camilo"}, {"josue", "ruas"}]   # logins de gerente: nunca entram
 RE_CNPJ = re.compile(r"\bCNPJ\b\.?", re.I)
@@ -177,7 +177,8 @@ def dm(d: date) -> str:
 def coletar(api: Aliv, seg: date, agora: datetime) -> list[Prestador]:
     dom = seg + timedelta(days=6)
     semana = {seg + timedelta(days=i) for i in range(7)}
-    p_sem = {"start": f"{seg}", "end": f"{dom + timedelta(days=1)}"}          # payouts / history
+    p_sem = {"start": f"{seg}", "end": f"{dom + timedelta(days=1)}"}          # history
+    p_pay = {"start": f"{seg - timedelta(days=1)}", "end": f"{dom + timedelta(days=2)}"}   # turnos vizinhos também
     p_ped = {"start": f"{seg}", "end": f"{dom + timedelta(days=2)}"}          # pedidos (end exclusivo)
 
     live = {int(d["id"]): d for d in lista(api.get("/admin/api/finance/drivers-live"), "drivers", "data")
@@ -206,10 +207,17 @@ def coletar(api: Aliv, seg: date, agora: datetime) -> list[Prestador]:
             return p.dias.setdefault(d, Dia(d))
 
         # Turnos e fechamentos (payouts). As deliveries do grupo são só da Pizzaria.
-        fee_ids = set()
-        for g in lista(api.get(f"/admin/api/finance/driver/{p.id}/payouts", p_sem), "groups"):
+        # turno_do_pedido: entrega da Pizzaria → dia do turno em que o ALIV a registrou (inclui os turnos
+        # vizinhos, para a entrega da madrugada de domingo anterior não entrar nesta semana).
+        turno_do_pedido: dict = {}
+        for g in lista(api.get(f"/admin/api/finance/driver/{p.id}/payouts", p_pay), "groups"):
             ini = parse_dt(g.get("session_start"), seg.year)
-            if ini is None or dia_op(ini) not in semana:
+            if ini is None:
+                continue
+            for e in lista(g, "deliveries"):
+                if e.get("order_id") is not None:
+                    turno_do_pedido[int(e["order_id"])] = dia_op(ini)
+            if dia_op(ini) not in semana:
                 continue
             fim = parse_dt(g.get("session_end"), seg.year)
             x = dia(dia_op(ini))
@@ -217,7 +225,6 @@ def coletar(api: Aliv, seg: date, agora: datetime) -> list[Prestador]:
             if lista(g, "payments"):
                 x.fechamento += num(g.get("total_paid"))
                 x.tem_fechamento = True
-            fee_ids |= {int(e["order_id"]) for e in lista(g, "deliveries") if e.get("order_id") is not None}
         d_live = live.get(p.id, {})
         ts = num(d_live.get("start_ts"))
         if str(d_live.get("status", "")).lower() == "online" and 0 < ts < 9e9:
@@ -239,14 +246,33 @@ def coletar(api: Aliv, seg: date, agora: datetime) -> list[Prestador]:
                 x.extras.append((h.get("desc", "ajuste"), num(h.get("value"))))
 
         # Pedidos entregues: Pizzaria (está no payouts ou abre no login da Pizzaria) × Sushi (404).
+        # Toda entrega vale R$ 2 para o motoboy, seja qual for a taxa gravada (a taxa variável é do cliente).
         resp = api.get("/admin/api/finance/drivers-report/orders",
                        {"driver_id": p.id, **p_ped, "date_basis": "delivery"})
-        for o in lista(resp, "orders"):
+        pedidos = [o for o in lista(resp, "orders") if not str(o.get("status", "")).upper().startswith("CANCEL")]
+        # Pedido agendado vem com hora "00:00" (sem hora real): vale o dia em que foi entregue.
+        entregue_em: dict = {}
+        if any(str(o.get("date", "")).endswith(" 00:00") for o in pedidos):
+            for i in range(8):
+                d = seg + timedelta(days=i)
+                r = api.get("/admin/api/finance/drivers-report/orders",
+                            {"driver_id": p.id, "start": f"{d}", "end": f"{d + timedelta(days=1)}",
+                             "date_basis": "delivery"})
+                for o in lista(r, "orders"):
+                    entregue_em.setdefault(int(o["id"]), d)
+        for o in pedidos:
             criado = parse_dt(o.get("date"), seg.year)
-            if criado is None or dia_op(criado) not in semana or str(o.get("status", "")).upper().startswith("CANCEL"):
+            if criado is None:
                 continue
             oid = int(o["id"])
-            loja = "pizzaria" if oid in fee_ids else None
+            od = turno_do_pedido.get(oid) or dia_op(criado)
+            if oid not in turno_do_pedido and str(o.get("date", "")).endswith(" 00:00") and oid in entregue_em:
+                od = entregue_em[oid]
+                if not (od in p.dias and p.dias[od].turnos) and (od - timedelta(days=1)) in p.dias:
+                    od -= timedelta(days=1)          # entregue depois da meia-noite: turno da véspera
+            if od not in semana:
+                continue
+            loja = "pizzaria" if oid in turno_do_pedido else None
             if loja is None:
                 try:
                     api.get(f"/admin/api/orders/{oid}")
@@ -257,7 +283,7 @@ def coletar(api: Aliv, seg: date, agora: datetime) -> list[Prestador]:
                     loja = "sushi"
             item = {"id": oid, "codigo": o.get("wabiz_id") or f"#{oid}", "hora": criado.strftime("%H:%M"),
                     "ordem": criado, "taxa": num(o.get("taxa"))}
-            x = dia(dia_op(criado))
+            x = dia(od)
             (x.pizzaria if loja == "pizzaria" else x.sushi_pedidos).append(item)
         for x in p.dias.values():
             x.pizzaria.sort(key=lambda i: i["ordem"])
@@ -291,45 +317,50 @@ def marca_duplicados(prest: list[Prestador]) -> None:
 
 
 def calcula_dia(x: Dia) -> None:
-    """Aplica as regras de pagamento do dia e registra as correções."""
+    """Regras do dia (combinadas com o Emerson em 07/11/2026):
+    - entrega = R$ 2 cada, Pizzaria ou Sushi, qualquer que seja a taxa gravada (a variável é do cliente);
+      o Sushi conta pelos pedidos do Sushi entregues pelo motoboy;
+    - diária = a gravada no ALIV, acatada como está (50, 80, 100…); só se estiver zerada/ausente e o
+      motoboy tiver feito entregas, usa a padrão (R$ 100 seg–sex, R$ 120 sáb–dom);
+    - total do dia = diária + R$ 2 × entregas + ajustes manuais lançados no ALIV.
+    O que não bater com o fechamento do ALIV vai só para a folha de conferência, nunca para a página do motoboy."""
     padrao = diaria_padrao(x.data)
-    x.diaria = padrao
     d = f"{dm(x.data)} ({DIAS_CURTO[x.data.weekday()]})"
-    taxas_grav = sum(i["taxa"] for i in x.pizzaria)
-    dg = x.diaria_gravada if x.diaria_gravada is not None else padrao
-
-    # Entregas do Sushi = diferença do fechamento ÷ R$ 2.
-    if x.tem_fechamento and not x.aberto:
-        bruto = (x.fechamento - dg - taxas_grav - x.extra) / POR_ENTREGA
-        x.sushi = max(0, math.floor(bruto + 0.5))
-        if bruto > 0 and abs(bruto - math.floor(bruto + 0.5)) > 0.01:
-            x.avisos.append(f"{d}: R$ {abs(bruto - math.floor(bruto + 0.5)) * POR_ENTREGA:.2f} do fechamento sem explicação "
-                            "(não fecha com entregas de R$ 2)".replace(".", ","))
-        if x.sushi != len(x.sushi_pedidos):
-            x.avisos.append(f"{d}: Sushi pelo fechamento = {x.sushi}; pedidos do Sushi achados no ALIV = "
-                            f"{len(x.sushi_pedidos)}")
+    x.sushi = len(x.sushi_pedidos)
+    entregas = len(x.pizzaria) + x.sushi
+    gravada = x.diaria_gravada or 0.0
+    if gravada > 0.009:
+        x.diaria = gravada
+    elif entregas:
+        x.diaria = padrao
+        x.correcoes.append((f"{d}: diária {'zerada' if x.diaria_gravada is not None else 'não gravada'} no ALIV "
+                            f"com {entregas} entregas → {brl(padrao)}", padrao))
     else:
-        x.sushi = len(x.sushi_pedidos)
-        x.avisos.append(f"{d}: turno sem fechamento no ALIV — Sushi pelos pedidos ({x.sushi}) e total calculado")
+        x.diaria = 0.0
+    x.correto = round(x.diaria + POR_ENTREGA * entregas + x.extra, 2)
 
-    for i in x.pizzaria:
-        if abs(i["taxa"] - POR_ENTREGA) > 0.009:
-            x.correcoes.append((f"{d} {i['codigo']}: entrega gravada {brl(i['taxa'])} → {brl(POR_ENTREGA)}",
-                                POR_ENTREGA - i["taxa"]))
-    if x.diaria_gravada is not None and abs(x.diaria_gravada - padrao) > 0.009:
-        x.correcoes.append((f"{d}: diária gravada {brl(x.diaria_gravada)} → {brl(padrao)}", padrao - x.diaria_gravada))
-    elif x.diaria_gravada is None and x.turnos:
-        x.avisos.append(f"{d}: diária não achada no histórico — usada a padrão {brl(padrao)}")
-
-    x.correto = round(padrao + POR_ENTREGA * (len(x.pizzaria) + x.sushi) + x.extra, 2)
-    if x.tem_fechamento:
-        explicado = sum(v for _, v in x.correcoes)
-        resto = round(x.correto - x.fechamento - explicado, 2)
-        if resto > 0.009:
-            x.correcoes.append((f"{d}: fechamento {brl(x.fechamento)} abaixo de diária + R$ 2/entrega — "
-                                f"completada a diferença", resto))
-        elif resto < -0.009:
-            x.correcoes.append((f"{d}: fechamento {brl(x.fechamento)} acima do devido — ajustado", resto))
+    # Conferência com o ALIV (folha à parte).
+    if x.aberto or not x.tem_fechamento:
+        x.avisos.append(f"{d}: turno sem fechamento no ALIV — pago pelo cálculo")
+    elif abs(x.correto - x.fechamento) > 0.009:
+        motivos = []
+        fora = [i for i in x.pizzaria + x.sushi_pedidos if abs(i["taxa"] - POR_ENTREGA) > 0.009]
+        if fora:
+            motivos.append("taxa gravada diferente de R$ 2 em " +
+                           ", ".join(f"{i['codigo']} ({brl(i['taxa'])})" for i in fora))
+        sushi_fech = (x.fechamento - (x.diaria_gravada or 0.0) - sum(i["taxa"] for i in x.pizzaria) - x.extra)
+        sushi_ped = sum(i["taxa"] for i in x.sushi_pedidos)
+        if abs(sushi_fech - sushi_ped) > 0.009:
+            n_fech = sushi_fech / POR_ENTREGA
+            if sushi_fech < -0.009:
+                motivos.append(f"o fechamento ficou {brl(-sushi_fech)} abaixo de diária + entregas da Pizzaria")
+            else:
+                motivos.append(f"o fechamento pagou {n_fech:g} entrega(s) do Sushi e o ALIV registra {x.sushi} "
+                               f"entregue(s) por ele — pago o que foi entregue".replace(".", ","))
+        if x.correcoes:
+            motivos.append("diária zerada no ALIV")
+        x.avisos.append(f"{d}: fechamento ALIV {brl(x.fechamento)} → pago {brl(x.correto)} "
+                        f"({sinal(x.correto - x.fechamento)})" + (f" — {'; '.join(motivos)}" if motivos else ""))
 
 
 # ---------------------------------------------------------------- texto
@@ -343,12 +374,6 @@ def alertas(ps: list[Prestador]) -> list[str]:
         for x in p.dias_trab():
             if x.aberto:
                 out.append(f"Turno ABERTO: {p.nome} — {dm(x.data)} ({DIAS_CURTO[x.data.weekday()]})")
-            for i in x.pizzaria:
-                if i["taxa"] < 0.009:
-                    out.append(f"Entrega a R$ 0: {p.nome} — {dm(x.data)} {i['codigo']}")
-            if x.diaria_gravada is not None and x.diaria_gravada < x.diaria - 0.009:
-                out.append(f"Diária gravada {brl(x.diaria_gravada)} (menor que a padrão) corrigida para {brl(x.diaria)}: "
-                           f"{p.nome} — {dm(x.data)} — confirmar")
             for desc, v in x.extras:
                 out.append(f"Ajuste manual somado ao fechamento (mantido): {p.nome} — {dm(x.data)} {brl(v)} — {desc[:70]}")
         for a in p.avisos:
@@ -361,22 +386,24 @@ def alertas(ps: list[Prestador]) -> list[str]:
 
 def mensagem(seg: date, ps: list[Prestador]) -> str:
     dom = seg + timedelta(days=6)
-    tot, tot_aliv = sum(p.total for p in ps), sum(p.total_aliv for p in ps)
+    tot = sum(p.total for p in ps)
     linhas = [f"*Tili — Prestadores (MEI) semana {dm(seg)} a {dm(dom)}*", ""]
     for p in ps:
         marca = " ⚠️" if any(a.startswith("CADASTRO") for a in p.avisos) else ""
         n = len(p.dias)
         linhas.append(f"{p.nome} — {n} dia{'s' if n != 1 else ''} — {p.pizzaria + p.sushi} entregas — {brl(p.total)}{marca}")
     linhas += ["", f"*Total da semana: {brl(tot)}* ({len(ps)} prestadores, "
-                   f"{sum(len(p.dias) for p in ps)} turnos, {sum(p.pizzaria + p.sushi for p in ps)} entregas)",
-               f"Fechamentos no ALIV: {brl(tot_aliv)} · correções: {sinal(tot - tot_aliv)}"]
-    corr = [(p, t, v) for p in ps for t, v in p.todas_correcoes]
+                   f"{sum(len(p.dias) for p in ps)} turnos, {sum(p.pizzaria + p.sushi for p in ps)} entregas)"]
+    corr = [(p, t) for p in ps for t, _ in p.todas_correcoes]
     if corr:
-        linhas += ["", f"*Correções ({len(corr)})*"]
-        linhas += [f"• {p.nome.split()[0]}: {t}" + (f" ({sinal(v)})" if abs(v) > 0.009 else "") for p, t, v in corr]
+        linhas += ["", f"*Correções ({len(corr)})*", *[f"• {p.nome.split()[0]}: {t}" for p, t in corr]]
     al = alertas(ps)
     if al:
         linhas += ["", "*Alertas*", *[f"• {a}" for a in al]]
+    conf = sum(1 for p in ps for x in p.dias_trab() for a in x.avisos if "fechamento ALIV" in a)
+    if conf:
+        linhas += ["", f"Conferência: {conf} turno(s) com fechamento do ALIV diferente do valor pago "
+                       "(taxa gravada ≠ R$ 2 ou Sushi) — detalhe no PDF de conferência."]
     return "\n".join(linhas)
 
 
@@ -424,53 +451,59 @@ def _rodape() -> str:
     return (f"Diária: {brl(DIARIA_SEMANA)} (seg–sex) e {brl(DIARIA_FDS)} (sáb/dom) · Taxas: {brl(POR_ENTREGA)} por "
             f"entrega da Tili Pizzaria · Entregas Sushi: entregas feitas para a Tili Sushi &amp; Poke ({brl(POR_ENTREGA)} "
             "cada), pagas junto no fechamento do turno · Virada 00h: entregas concluídas depois da meia-noite contam no "
-            "dia anterior. Total = fechamento do turno no ALIV Hub com as correções listadas. Conferência de divergências "
+            "dia anterior. Total = diária + R$ 2,00 por entrega. Conferência de divergências "
             "em até 48 h após o recebimento. Prestador de serviço autônomo (MEI) — sem vínculo empregatício.")
 
 
 def pagina_resumo(seg: date, ps: list[Prestador], gerado: datetime, logo: str) -> str:
     tot = sum(p.total for p in ps)
-    tot_aliv = sum(p.total_aliv for p in ps)
     linhas = []
     for i, p in enumerate(ps, 1):
         dias = " ".join(DIAS_CURTO[d.weekday()] for d in sorted(p.dias))
-        dup = ' <span class="pq" style="color:#C8102E">duplicado</span>' if any(
-            a.startswith("CADASTRO") for a in p.avisos) else ""
+        dup = ""
         linhas.append(f"""<tr><td class="cin">{i}</td><td><b>{_esc(p.nome)}</b>{dup}<div class="pq">CNPJ {fmt_cnpj(p.cnpj)}</div></td>
 <td class="c">{len(p.dias)}</td><td class="cin">{dias}</td><td class="n">{p.pizzaria}</td><td class="n">{p.sushi or '—'}</td>
 <td class="n"><b>{brl(p.total)}</b></td><td style="font-size:7pt">{_esc(p.pix)}</td><td class="c cin">☐</td></tr>""")
     linhas.append(f"""<tr class="tot"><td></td><td>TOTAL</td><td class="c">{sum(len(p.dias) for p in ps)}</td><td></td>
 <td class="n">{sum(p.pizzaria for p in ps)}</td><td class="n">{sum(p.sushi for p in ps)}</td>
 <td class="n ver">{brl(tot)}</td><td></td><td></td></tr>""")
-    n_al, n_corr = len(alertas(ps)), sum(len(p.todas_correcoes) for p in ps)
-    al_html = (f'<div class="av f">{n_corr} correções e {n_al} alertas nesta semana — ver a página seguinte.</div>'
-               if n_al or n_corr else "")
+    al_html = ""
     return f"""<div class="pagina">{_topo(seg, gerado, "Resumo · Prestadores de serviço (entregas)", logo)}
 <h1>Resumo para pagamento <span class="tag">{len(ps)} PRESTADORES</span></h1>
 <div class="cards"><div class="card"><div class="r">TURNOS</div><div class="v">{sum(len(p.dias) for p in ps)}</div></div>
 <div class="card"><div class="r">ENTREGAS (PIZZARIA + SUSHI)</div><div class="v">{sum(p.pizzaria + p.sushi for p in ps)}</div></div>
-<div class="card"><div class="r">CORREÇÕES × ALIV</div><div class="v">{sinal(tot - tot_aliv)}</div></div>
+<div class="card"><div class="r">PRESTADORES</div><div class="v">{len(ps)}</div></div>
 <div class="card total"><div class="r">TOTAL A PAGAR</div><div class="v">{brl(tot)}</div></div></div>
 <table class="res"><tr><th>#</th><th>PRESTADOR DE SERVIÇO</th><th class="c">DIAS</th><th>DIAS TRABALHADOS</th><th class="n">ENTREGAS</th>
 <th class="n">SUSHI</th><th class="n">A PAGAR</th><th>CHAVE PIX</th><th class="c">PAGO ✓</th></tr>{''.join(linhas)}</table>
-<div class="nota">Valores = fechamentos de turno registrados no ALIV Hub ({brl(tot_aliv)}) com as correções da semana
-(diária {brl(DIARIA_SEMANA)}/{brl(DIARIA_FDS)}, entrega sempre {brl(POR_ENTREGA)}, complemento quando o fechamento ficou abaixo).
-Entregas = Pizzaria; Sushi pela diferença no fechamento. Motoboys sem turno no período não aparecem.</div>
+<div class="nota">Valores = diária do turno + {brl(POR_ENTREGA)} por entrega (Tili Pizzaria e Tili Sushi &amp; Poke).
+Entregas = Pizzaria; Sushi = entregas feitas para a Tili Sushi &amp; Poke. Motoboys sem turno no período não aparecem.</div>
 {al_html}</div>"""
 
 
-def pagina_correcoes(seg: date, ps: list[Prestador], gerado: datetime, logo: str) -> str:
-    corr = [(p, t, v) for p in ps for t, v in p.todas_correcoes]
-    al = alertas(ps)
+def pagina_conferencia(seg: date, ps: list[Prestador], gerado: datetime, logo: str) -> str:
+    """Folha à parte, só para o Emerson: ALIV × pago, correções e alertas. Não vai para o motoboy."""
     tot, tot_aliv = sum(p.total for p in ps), sum(p.total_aliv for p in ps)
-    linhas = "".join(f"<tr><td><b>{_esc(p.nome)}</b></td><td>{_esc(t)}</td><td class='n'>"
-                     f"{sinal(v) if abs(v) > 0.009 else '—'}</td></tr>" for p, t, v in corr)
-    return f"""<div class="pagina">{_topo(seg, gerado, "Correções e alertas · Prestadores de serviço", logo)}
-<h1>Correções e alertas da semana</h1>
-<div class="sub">Fechamentos no ALIV <b>{brl(tot_aliv)}</b> → total a pagar <b>{brl(tot)}</b> ({sinal(tot - tot_aliv)})</div>
+    al = alertas(ps)
+    corr = [(p, t) for p in ps for t, _ in p.todas_correcoes]
+    linhas = ""
+    for p in ps:
+        dif = p.total - p.total_aliv
+        dias = [a for x in p.dias_trab() for a in x.avisos if "fechamento" in a]
+        det = "".join(f"<div class='pq' style='color:#555'>{_esc(a)}</div>" for a in dias)
+        linhas += (f"<tr><td><b>{_esc(p.nome)}</b>{det}</td><td class='n'>{brl(p.total_aliv)}</td>"
+                   f"<td class='n'><b>{brl(p.total)}</b></td><td class='n'>{sinal(dif) if abs(dif) > 0.009 else '—'}</td></tr>")
+    linhas += (f"<tr class='tot'><td>TOTAL</td><td class='n'>{brl(tot_aliv)}</td><td class='n ver'>{brl(tot)}</td>"
+               f"<td class='n'>{sinal(tot - tot_aliv)}</td></tr>")
+    return f"""<div class="pagina">{_topo(seg, gerado, "Conferência interna · Prestadores de serviço (não entregar ao motoboy)", logo)}
+<h1>Conferência da semana <span class="tag ouro">USO INTERNO</span></h1>
+<div class="sub">Fechamentos gravados no ALIV <b>{brl(tot_aliv)}</b> × total pago <b>{brl(tot)}</b>. Regra: diária gravada
+(zerada com entregas = padrão) + {brl(POR_ENTREGA)} por entrega, qualquer que seja a taxa gravada.</div>
 <div class="sec">ALERTAS ({len(al)})</div>{''.join(f'<div class="av f">{_esc(a)}</div>' for a in al) or '<div class="cin">nenhum</div>'}
-<div class="sec" style="margin-top:3mm">CORREÇÕES ({len(corr)})</div>
-<table class="res"><tr><th>PRESTADOR</th><th>CORREÇÃO</th><th class="n">VALOR</th></tr>{linhas}</table></div>"""
+<div class="sec" style="margin-top:2mm">CORREÇÕES ({len(corr)})</div>{''.join(f'<div class="corr">• <b>{_esc(p.nome)}</b>: {_esc(t)}</div>' for p, t in corr) or '<div class="cin">nenhuma</div>'}
+<div class="sec" style="margin-top:2mm">ALIV × PAGO POR PRESTADOR</div>
+<table class="res"><tr><th>PRESTADOR (dias diferentes do ALIV)</th><th class="n">FECHAMENTO ALIV</th><th class="n">PAGO</th>
+<th class="n">DIFERENÇA</th></tr>{linhas}</table></div>"""
 
 
 def pagina_prestador(seg: date, p: Prestador, gerado: datetime, logo: str) -> str:
@@ -486,15 +519,6 @@ def pagina_prestador(seg: date, p: Prestador, gerado: datetime, logo: str) -> st
     linhas += f"""<tr class="tot"><td>TOTAL</td><td></td><td class="n">{p.pizzaria}</td>
 <td class="n">{brl(sum(x.diaria for x in p.dias.values()))}</td><td class="n">{brl(p.pizzaria * POR_ENTREGA)}</td>
 <td class="n">{p.sushi} <span class="cin">({brl(p.sushi * POR_ENTREGA)})</span></td><td class="n ver">{brl(p.total)}</td></tr>"""
-    corr = p.todas_correcoes
-    corr_html = ""
-    if corr:
-        corr_html = (f'<div class="sec" style="margin-top:3mm">CORREÇÕES (ALIV {brl(p.total_aliv)} → {brl(p.total)})</div>' +
-                     "".join(f'<div class="corr">• {_esc(t)}' + (f' <span class="v">{sinal(v)}</span>' if abs(v) > 0.009 else "")
-                             + "</div>" for t, v in corr))
-    avisos = "".join(f'<div class="av{" f" if a.startswith("CADASTRO") else ""}">{_esc(a)}</div>'
-                     for a in p.avisos + [a for x in p.dias_trab() for a in x.avisos if "turno sem fechamento" in a
-                                          or "sem explicação" in a])
     codigos = ""
     for x in p.dias_trab():
         cods = ", ".join(_esc(i["codigo"]) for i in x.pizzaria) or "—"
@@ -513,7 +537,6 @@ def pagina_prestador(seg: date, p: Prestador, gerado: datetime, logo: str) -> st
 <div class="sec">TURNOS DO PERÍODO</div>
 <table><tr><th>DATA</th><th>TURNO</th><th class="n">ENTREGAS</th><th class="n">DIÁRIA</th><th class="n">TAXAS R$ 2</th>
 <th class="n">ENTREGAS SUSHI</th><th class="n">TOTAL DO DIA</th></tr>{linhas}</table>
-{avisos}{corr_html}
 <div class="sec" style="margin-top:3mm">ENTREGAS REALIZADAS (CÓDIGO DO PEDIDO)</div>{codigos}
 <div class="espaco"></div>
 <div class="recibo"><div class="t">RECIBO DE PRESTAÇÃO DE SERVIÇOS DE ENTREGA</div>
@@ -536,9 +559,10 @@ def gerar_pdfs(seg: date, ps: list[Prestador], pasta: Path, gerado: datetime) ->
     dom = seg + timedelta(days=6)
     nome = f"Prestadores_semana_{seg:%d-%m}_a_{dom:%d-%m}"
     paginas = {p.id: pagina_prestador(seg, p, gerado, logo) for p in ps}
-    completo = html_para_pdf(_doc(nome, [pagina_resumo(seg, ps, gerado, logo), pagina_correcoes(seg, ps, gerado, logo),
-                                         *paginas.values()]),
+    completo = html_para_pdf(_doc(nome, [pagina_resumo(seg, ps, gerado, logo), *paginas.values()]),
                              pasta / f"{nome}_COMPLETO.pdf")
+    html_para_pdf(_doc(f"Conferência {nome}", [pagina_conferencia(seg, ps, gerado, logo)]),
+                  pasta / f"Conferencia_interna_semana_{seg:%d-%m}_a_{dom:%d-%m}.pdf")
     ind_dir = pasta / "individuais"
     ind_dir.mkdir(parents=True, exist_ok=True)
     for f in ind_dir.glob("*.pdf"):
@@ -596,11 +620,14 @@ def main() -> int:
     print(texto)
     print("\nDETALHE\n" + detalhe(ps))
     print(f"\nPDF: {completo.relative_to(BASE.parent)}")
+    conf = pasta / f"Conferencia_interna_semana_{seg:%d-%m}_a_{dom:%d-%m}.pdf"
+    print(f"PDF conferência: {conf.relative_to(BASE.parent)}")
     print(f"PDFs individuais: {len(indiv)} em {(pasta / 'individuais').relative_to(BASE.parent)}")
     if args.dry_run:
         print("\nDRY-RUN: nada enviado.", file=sys.stderr)
         return 0
-    falhas = enviar(api, texto, completo, legenda=f"Prestadores semana {dm(seg)} a {dm(dom)} — PDF completo")
+    falhas = enviar(api, texto, completo, legenda=f"Prestadores semana {dm(seg)} a {dm(dom)} — PDF completo",
+                    extras=[(conf, f"Conferência interna semana {dm(seg)} a {dm(dom)} (uso interno)")])
     for f in falhas:
         print(f"WHATSAPP: {f}", file=sys.stderr)
     return 3 if falhas else 0

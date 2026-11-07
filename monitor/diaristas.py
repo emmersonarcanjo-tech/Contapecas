@@ -47,7 +47,7 @@ PASTA = Path(__file__).resolve().parent / "diaristas"
 # ---------------------------------------------------------------- parâmetros
 INICIO_DIA_H = 10            # dia operacional D: turnos iniciados de 10:00 de D...
 FIM_DIA_H = 10               # ...até 10:00 de D+1 (ou a hora da rodada, se antes)
-PEDIDO_ATE_H = 6             # pedidos criados até 06:00 de D+1 ainda são do dia D
+PEDIDO_ATE_H = 8             # pedidos criados até 08:00 de D+1 ainda são do dia D (turno 16h–08h)
 DIARIA_SEMANA = 100.0        # seg a sex
 DIARIA_FDS = 120.0           # sáb e dom
 POR_ENTREGA_PIZZARIA = 2.0
@@ -96,16 +96,12 @@ class Diarista:
 
     @property
     def total(self) -> float:
-        """Total a pagar = fechamento do ALIV (+ a correção da diária, se houve).
-        Sem fechamento, vale o cálculo."""
-        if self.fechamento is None:
-            return self.calculado
-        extra = self.diaria - (self.diaria_gravada or 0.0) if self.corrigida else 0.0
-        return self.fechamento + extra
+        """Total a pagar = diária + R$ 2 por entrega (Pizzaria e Sushi). O fechamento do ALIV é só conferência."""
+        return self.calculado
 
     @property
     def divergente(self) -> bool:
-        return self.fechamento is not None and abs(self.total - self.calculado) > 0.009
+        return self.fechamento is not None and abs(self.fechamento - self.calculado) > 0.009
 
 
 # ---------------------------------------------------------------- utilidades
@@ -252,27 +248,26 @@ def coletar(api: Aliv, dia: date, agora: datetime) -> list[Diarista]:
 
 
 def aplicar_regras(x: Diarista, dia: date) -> None:
+    """Diária = a gravada no ALIV, acatada como está (ex.: R$ 50 combinado por atraso). Só quando vier zerada
+    ou não gravada e o motoboy tiver feito entregas, usa a padrão (R$ 100 seg–sex, R$ 120 sáb–dom).
+    Entrega = R$ 2 cada. Os avisos ficam só na conferência (mensagem/terminal), nunca no PDF do motoboy."""
     padrao = diaria_padrao(dia)
-    if x.diaria_gravada is None:
-        x.diaria = padrao
-        x.avisos.append(f"diária não gravada no ALIV — usada a padrão {brl(padrao)}")
-    elif dia.weekday() >= 5 and abs(x.diaria_gravada - DIARIA_SEMANA) < 0.01:
-        x.diaria, x.corrigida = DIARIA_FDS, True
-        x.avisos.append(f"CORRIGIDO: ALIV gravou {brl(x.diaria_gravada)} no fim de semana → {brl(DIARIA_FDS)}")
-    else:
+    if (x.diaria_gravada or 0.0) > 0.009:
         x.diaria = x.diaria_gravada
-        if abs(x.diaria_gravada - padrao) > 0.009:
-            x.avisos.append(f"diária gravada {brl(x.diaria_gravada)} diferente da padrão {brl(padrao)}")
+    elif x.entregas:
+        x.diaria, x.corrigida = padrao, True
+        x.avisos.append(f"CORRIGIDO: diária {'zerada' if x.diaria_gravada is not None else 'não gravada'} no ALIV "
+                        f"com {x.entregas} entregas → {brl(padrao)}")
+    else:
+        x.diaria = 0.0
     fech = [t.fechamento for t in x.turnos if t.fechamento is not None]
     x.fechamento = sum(fech) if fech else None
     if any(t.aberto for t in x.turnos):
-        x.avisos.append("turno ainda aberto no ALIV na hora da rodada")
-    if x.fechamento is None:
-        x.avisos.append("sem fechamento do turno no ALIV — total pelo cálculo")
+        x.avisos.append("turno ainda aberto no ALIV na hora da rodada — pago pelo cálculo")
     if not x.turnos:
         x.avisos.append("turno não encontrado no ALIV (só entregas)")
     if x.divergente:
-        x.avisos.append(f"DIVERGÊNCIA: fechamento ALIV {brl(x.total)} × cálculo {brl(x.calculado)}")
+        x.avisos.append(f"DIVERGÊNCIA: fechamento ALIV {brl(x.fechamento)} × pago {brl(x.total)}")
 
 
 # ---------------------------------------------------------------- saída texto
@@ -431,13 +426,12 @@ Gerado em {gerado:%d/%m/%Y %H:%M}<br>Fonte: ALIV Hub · Turno Motoboys</div></di
               f"{brl(POR_ENTREGA_PIZZARIA)} por entrega da Tili Pizzaria · Entregas Sushi: entregas feitas para a "
               f"Tili Sushi &amp; Poke ({brl(POR_ENTREGA_SUSHI)} cada), pagas junto no fechamento do turno · "
               "Virada 00h: entregas concluídas depois da meia-noite contam no dia operacional anterior. "
-              "Total a pagar = fechamento do turno no ALIV Hub. Conferência de divergências em até 48 h após o recebimento.")
+              "Total = diária + R$ 2,00 por entrega. Conferência de divergências em até 48 h após o recebimento.")
 
     # ---- página 1: resumo
     linhas = []
     for i, x in enumerate(ds, 1):
-        marca = (' <span class="pq">(corrigida)</span>' if x.corrigida else "")
-        aviso = ' <span class="pq" style="color:#C8102E">divergência</span>' if x.divergente else ""
+        marca = aviso = ""
         linhas.append(f"""<tr><td class="cin">{i}</td><td><b>{_esc(x.nome)}</b><div class="pq">Motoboy diarista</div></td>
 <td class="cin">{_turno_txt(x)}</td><td class="n">{len(x.pizzaria)}</td>
 <td class="n">{len(x.sushi) or '—'}</td><td class="n">{brl(x.diaria)}{marca}</td>
@@ -456,23 +450,20 @@ Gerado em {gerado:%d/%m/%Y %H:%M}<br>Fonte: ALIV Hub · Turno Motoboys</div></di
 <div class="card total"><div class="r">TOTAL A PAGAR</div><div class="v">{brl(tot)}</div></div></div>
 <table><tr><th>#</th><th>MOTOBOY DIARISTA</th><th>TURNO</th><th class="n">PIZZARIA</th><th class="n">SUSHI</th>
 <th class="n">DIÁRIA</th><th class="n">A PAGAR</th><th class="c">PAGO ✓</th></tr>{''.join(linhas)}</table>
-<div class="nota">Valores = fechamento do turno registrado no ALIV Hub (diária + {brl(POR_ENTREGA_PIZZARIA)} por entrega da pizzaria
-+ {brl(POR_ENTREGA_SUSHI)} por entrega do sushi). Diaristas = motoboys sem CNPJ; prestadores com CNPJ ficam no relatório semanal.
+<div class="nota">Valores = diária do turno + {brl(POR_ENTREGA_PIZZARIA)} por entrega da pizzaria
++ {brl(POR_ENTREGA_SUSHI)} por entrega do sushi. Diaristas = motoboys sem CNPJ; prestadores com CNPJ ficam no relatório semanal.
 Motoboys sem turno no dia não aparecem.</div>
-{('<div class="sec" style="margin-top:4mm">ATENÇÃO</div>' + avisos) if avisos else ''}</div>"""]
+</div>"""]
 
     # ---- uma página por diarista
     for x in ds:
         turno = "; ".join(f"{fmt_h(t.inicio)} – {fmt_h(t.fim) if t.fim else 'em aberto'}" for t in x.turnos) or "não encontrado"
         sushi_txt = f"{len(x.sushi)} <span class='cin'>({brl(len(x.sushi) * POR_ENTREGA_SUSHI)})</span>" if x.sushi else "—"
-        diaria_txt = brl(x.diaria) + (f"<div class='pq'>corrigida · ALIV gravou {brl(x.diaria_gravada)}</div>" if x.corrigida else "")
+        diaria_txt = brl(x.diaria)
         linhas = f"""<tr><td><b>{dia:%d/%m}</b> <span class="cin">{DIAS_CURTO[dia.weekday()]}</span></td>
 <td class="cin">{_turno_txt(x)}</td><td class="n">{len(x.pizzaria)}</td><td class="n">{diaria_txt}</td>
 <td class="n">{brl(len(x.pizzaria) * POR_ENTREGA_PIZZARIA)}</td><td class="n">{sushi_txt}</td>
 <td class="n"><b>{brl(x.calculado)}</b></td></tr>"""
-        if x.fechamento is not None:
-            linhas += f"""<tr><td colspan="6" class="cin">Fechamento do turno no ALIV Hub</td>
-<td class="n"><b>{brl(x.fechamento)}</b></td></tr>"""
         linhas += f"""<tr class="tot"><td>TOTAL A PAGAR</td><td></td><td class="n">{len(x.pizzaria)}</td><td class="n">{brl(x.diaria)}</td>
 <td class="n">{brl(len(x.pizzaria) * POR_ENTREGA_PIZZARIA)}</td><td class="n">{len(x.sushi)} <span class="cin">({brl(len(x.sushi) * POR_ENTREGA_SUSHI)})</span></td>
 <td class="n ver">{brl(x.total)}</td></tr>"""
@@ -482,7 +473,7 @@ Motoboys sem turno no dia não aparecem.</div>
             cods = ", ".join(_esc(p["codigo"]) for p in sorted(peds, key=_ordem)) or "—"
             codigos += f'<div class="cod"><b>{dia:%d/%m} ({DIAS_CURTO[dia.weekday()]}) · {rotulo} · {len(peds)} entregas:</b> <code>{cods}</code></div>'
         paginas.append(f"""<div class="pagina mot">{topo("Relatório diário de entregas · Motoboy diarista")}
-<h1>{_esc(x.nome)} <span class="tag">DIARISTA</span>{' <span class="tag ouro">DIVERGÊNCIA</span>' if x.divergente else ''}</h1>
+<h1>{_esc(x.nome)} <span class="tag">DIARISTA</span></h1>
 <div class="sub">Dia {dia_txt} · Turno: <b>{turno}</b></div>
 <div class="cards"><div class="card"><div class="r">ENTREGAS PIZZARIA</div><div class="v">{len(x.pizzaria)}</div></div>
 <div class="card"><div class="r">ENTREGAS SUSHI</div><div class="v">{len(x.sushi)}</div></div>
@@ -491,7 +482,6 @@ Motoboys sem turno no dia não aparecem.</div>
 <div class="sec">TURNO DO DIA</div>
 <table><tr><th>DATA</th><th>TURNO</th><th class="n">ENTREGAS</th><th class="n">DIÁRIA</th><th class="n">TAXAS R$ 2</th>
 <th class="n">ENTREGAS SUSHI</th><th class="n">TOTAL DO DIA</th></tr>{linhas}</table>
-{avisos}
 <div class="sec" style="margin-top:3mm">ENTREGAS REALIZADAS (CÓDIGO DO PEDIDO)</div>{codigos}
 <div class="espaco"></div>
 <div class="recibo"><div class="t">RECIBO DE DIÁRIA E ENTREGAS</div>
@@ -531,7 +521,8 @@ def gerar_pdf(dia: date, ds: list[Diarista], destino: Path, gerado: datetime) ->
 
 
 # ---------------------------------------------------------------- envio
-def enviar(api: Aliv, texto: str, pdf: Path | None, legenda: str | None = None) -> list[str]:
+def enviar(api: Aliv, texto: str, pdf: Path | None, legenda: str | None = None,
+           extras: list | tuple = ()) -> list[str]:
     """Envia lista (+PDF) para WHATSAPP_EMERSON e WHATSAPP_ADMIN. Devolve as falhas."""
     falhas = []
     fones = [(v, re.sub(r"\D", "", os.environ.get(v, ""))) for v in ("WHATSAPP_EMERSON", "WHATSAPP_ADMIN")]
@@ -547,11 +538,12 @@ def enviar(api: Aliv, texto: str, pdf: Path | None, legenda: str | None = None) 
             continue
         if pdf is None:
             continue
-        try:
-            api.enviar_whatsapp(fone, legenda or f"Relatório diaristas {pdf.stem.split('_')[-1]}", arquivo=pdf)
-            print(f"WHATSAPP {var}: PDF enviado.", file=sys.stderr)
-        except (AlivError, OSError) as e:
-            falhas.append(f"{var}: PDF não enviado — {e}")
+        for arq, leg in [(pdf, legenda or f"Relatório diaristas {pdf.stem.split('_')[-1]}"), *extras]:
+            try:
+                api.enviar_whatsapp(fone, leg, arquivo=arq)
+                print(f"WHATSAPP {var}: {arq.name} enviado.", file=sys.stderr)
+            except (AlivError, OSError) as e:
+                falhas.append(f"{var}: {arq.name} não enviado — {e}")
     return falhas
 
 

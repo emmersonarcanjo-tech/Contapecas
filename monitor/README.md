@@ -328,7 +328,8 @@ python3 monitor/despesas.py              # últimas 26h; grava monitor/despesas/
 
 ### Rotina "Tili Despesas"
 
-- Roda a cada 2h, das 08:47 às 22:47 (fuso America/Bahia), numa sessão nova, com os conectores Gmail e Google Drive. Usa o branch `claude/focused-babbage-fjiomt`.
-- Roda `python3 monitor/despesas.py`, sobe as fotos baixadas para a pasta **Despesas** do Drive (id `1aX9b7wy-GiHzopynuyQvQOwnYQr6Bxjz`) e faz commit do JSON do dia.
-- Só manda e-mail quando há despesa nova ou quando uma foto não baixa (código 3), ou quando dá erro.
+- Roda a cada 2h, das 08:47 às 22:47 (fuso America/Bahia), numa sessão nova. Usa o branch `claude/focused-babbage-fjiomt`.
+- Roda `python3 monitor/despesas.py --whatsapp --drive <link>`, sobe as fotos baixadas para a pasta **Despesas** do Drive (id `1aX9b7wy-GiHzopynuyQvQOwnYQr6Bxjz`) e faz commit do JSON do dia.
+- `--whatsapp`: manda o resumo para `WHATSAPP_EMERSON` **só** quando tem despesa nova ou foto que não baixou. Sem novidade, não manda nada. Não usa e-mail.
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` foto não baixada · `4` WhatsApp não enviado.
 - A IA de atendimento foi pausada (`ai_paused`) nas 4 conversas em 07/11/2026.

@@ -6,8 +6,9 @@ DESPESA na legenda (ou manda "DESPESA ..." em texto e as fotos logo depois).
 O script lê o chat de atendimento do ALIV, separa essas mensagens, baixa as fotos
 e grava monitor/despesas/AAAA-MM-DD.json.
 
-Só faz GET no ALIV (login à parte). Não envia mensagem, não marca como atendido,
-não liga/desliga a IA. Grupo de WhatsApp NÃO funciona: o ALIV não guarda
+Só faz GET no ALIV (login à parte). Com --whatsapp, manda só o resumo para
+WHATSAPP_EMERSON (POST /admin/api/chat/send). Não responde ninguém, não marca
+como atendido e não liga/desliga a IA. Grupo de WhatsApp NÃO funciona: o ALIV não guarda
 mensagens de grupo.
 
 O ALIV guarda a mídia só por 24h: rode pelo menos uma vez por dia.
@@ -181,6 +182,9 @@ def main() -> int:
     ap.add_argument("--fotos", type=Path, default=PASTA / "fotos", help="pasta das fotos (fora do git)")
     ap.add_argument("--sem-baixar", action="store_true", help="não baixa as fotos")
     ap.add_argument("--sem-gravar", action="store_true", help="não grava o JSON")
+    ap.add_argument("--whatsapp", action="store_true",
+                    help="manda o resumo para WHATSAPP_EMERSON (só se houver despesa nova ou foto não baixada)")
+    ap.add_argument("--drive", default="", help="link da pasta do Drive, citado no resumo")
     ap.add_argument("--agora", help="simula o horário (AAAA-MM-DDTHH:MM, fuso America/Bahia)")
     a = ap.parse_args()
 
@@ -241,25 +245,39 @@ def main() -> int:
     # ---- relatório (1ª linha = assunto)
     todas = [x for doc in por_dia.values() for x in doc["despesas"]]
     total = sum(x["valor"] or 0 for x in todas)
-    print(f"Tili Despesas — {agora:%d/%m %H:%M} — {novas_n} nova(s) · {len(todas)} despesa(s) / {brl(total)}")
-    print(f"Conversas lidas: {len(conversas)} (autorizados: {len(remetentes)}) · janela: últimas {a.horas:g}h")
+    L = [f"*Tili Despesas — {agora:%d/%m %H:%M}* — {novas_n} nova(s) · {len(todas)} despesa(s) / {brl(total)}"]
     for x in sorted(todas, key=lambda x: (x["data"], x["hora"])):
         fotos = len(x["fotos"])
         ok = sum(1 for f in x["fotos"] if f.get("arquivo"))
-        print(f"- {x['data'][8:]}/{x['data'][5:7]} {x['hora']} · {x['remetente']} · {brl(x['valor'])} · "
-              f"{x['descricao'] or '(sem descrição)'} · fotos {ok}/{fotos}")
-    avisos = [x for x in todas if not x["fotos"]]
-    sem_valor = [x for x in todas if x["valor"] is None]
-    if avisos:
-        print(f"ATENÇÃO: {len(avisos)} despesa(s) sem foto.")
+        L.append(f"- {x['data'][8:]}/{x['data'][5:7]} {x['hora']} · {x['remetente']} · {brl(x['valor'])} · "
+                 f"{x['descricao'] or '(sem descrição)'} · fotos {ok}/{fotos}")
+    sem_foto = sum(1 for x in todas if not x["fotos"])
+    sem_valor = sum(1 for x in todas if x["valor"] is None)
+    if sem_foto:
+        L.append(f"⚠️ {sem_foto} despesa(s) sem foto.")
     if sem_valor:
-        print(f"ATENÇÃO: {len(sem_valor)} despesa(s) sem valor na legenda.")
-    if novas_n == 0 and not falhas:
-        print("SEM NOVIDADE")
+        L.append(f"⚠️ {sem_valor} despesa(s) sem valor na legenda.")
     if falhas:
-        print(f"ATENÇÃO: {falhas} foto(s) não baixada(s). A mídia some do ALIV em 24h.")
-        return 3
-    return 0
+        L.append(f"⚠️ {falhas} foto(s) não baixada(s). A mídia some do ALIV em 24h.")
+    if a.drive:
+        L.append(f"Fotos: {a.drive}")
+    print("\n".join(L))
+    print(f"Conversas lidas: {len(conversas)} (autorizados: {len(remetentes)}) · janela: últimas {a.horas:g}h")
+    novidade = novas_n > 0 or falhas > 0
+    if not novidade:
+        print("SEM NOVIDADE")
+    if a.whatsapp and novidade:
+        fone = re.sub(r"\D", "", os.environ.get("WHATSAPP_EMERSON", ""))
+        if not fone:
+            print("WhatsApp não enviado: falta WHATSAPP_EMERSON")
+            return 4
+        try:
+            api.enviar_whatsapp(fone, "\n".join(L))
+            print("WhatsApp enviado.")
+        except AlivError as e:
+            print(f"WhatsApp não enviado: {e}")
+            return 4
+    return 3 if falhas else 0
 
 
 if __name__ == "__main__":

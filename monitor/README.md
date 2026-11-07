@@ -177,7 +177,10 @@ python3 monitor/diaristas.py                                # rodada normal: dia
   - 06/11 (sexta): 1 diarista, Crisley, com 10 entregas na Pizzaria + 6 no Sushi, diária de R$ 100 e fechamento de R$ 132. Bateu.
   - 01/11 (domingo): 5 diaristas, todos com diária de R$ 120. Os 5 bateram com o fechamento.
 
-## Rotina das 00:15
+## Rotina das 00:45
 
-- Cron `CRON_TZ=America/Bahia 15 0 * * *`, sessão nova a cada disparo, conector Gmail.
-- Se a Rotina rodar antes de o ALIV fechar o turno, o motoboy sai com "turno ainda aberto" e o total vem do cálculo.
+- Ativa: **Tili — Diaristas (00:45)**, cron `CRON_TZ=America/Bahia 45 0 * * *`, sessão nova a cada disparo.
+- O horário passou de 00:15 para 00:45 porque, em 06/11, o ALIV só fechou o turno às 00:37. Às 00:45 o total já vem do fechamento.
+- Se o turno ainda estiver aberto, o motoboy sai com "turno ainda aberto" e o total vem do cálculo.
+- A Rotina usa a `main` se o `diaristas.py` já estiver lá. Se não estiver, usa o branch `claude/serene-dirac-9hyjzd`. O PDF do dia é gravado nesse mesmo branch.
+- O e-mail de reserva (códigos 1, 2 e 3) precisa do conector **Gmail** na Rotina.

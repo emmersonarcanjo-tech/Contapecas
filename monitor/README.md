@@ -184,3 +184,66 @@ python3 monitor/diaristas.py                                # rodada normal: dia
 - Se o turno ainda estiver aberto, o motoboy sai com "turno ainda aberto" e o total vem do cálculo.
 - A Rotina usa a `main` se o `diaristas.py` já estiver lá. Se não estiver, usa o branch `claude/serene-dirac-9hyjzd`. O PDF do dia é gravado nesse mesmo branch.
 - O e-mail de reserva (códigos 1, 2 e 3) precisa do conector **Gmail** na Rotina.
+
+---
+
+# Prestadores MEI — relatório semanal (`prestadores.py`)
+
+Gera o pagamento semanal dos **prestadores MEI**, os motoboys com CNPJ no nome. A semana vai de segunda a domingo. Só lê o ALIV. Reaproveita do `diaristas.py` o login, o WhatsApp, o layout com papel timbrado e o gerador de PDF.
+
+## Como rodar
+
+```bash
+python3 monitor/prestadores.py --semana 2026-10-27 --dry-run   # semana que contém a data; gera e mostra, não envia
+python3 monitor/prestadores.py                                  # rodada normal: semana seg–dom que fechou, envia
+```
+
+- `--semana AAAA-MM-DD`: qualquer data da semana. O script usa a segunda e o domingo dessa semana. Sem a opção, pega a última semana completa.
+- `--dry-run`: gera os PDFs e a mensagem, sem enviar nada.
+- `--sem-espera`: não espera os 10 minutos quando o turno de domingo estiver aberto.
+- `--raw PASTA`: salva as respostas cruas do ALIV.
+- Saída:
+  - `monitor/prestadores/AAAA-MM-DD/Prestadores_semana_DD-MM_a_DD-MM_COMPLETO.pdf`, com resumo, correções e alertas e uma página por prestador.
+  - `monitor/prestadores/AAAA-MM-DD/individuais/<Nome>_DD-MM_a_DD-MM.pdf`, um PDF por prestador. O commit fica com a Rotina.
+- Chave Pix: por padrão é o CNPJ. As exceções ficam em `monitor/assets/pix_prestadores.json` (`{"CNPJ só dígitos": "chave"}`). Hoje só o Gustavo, que recebe no e-mail.
+- Códigos de saída: `0` ok · `1` erro de login ou do ALIV · `2` faltam variáveis · `3` WhatsApp falhou. Nesse caso a Rotina manda por e-mail.
+
+## Regras
+
+- **Quem entra:** motoboy com "CNPJ" no nome. Thiago Camilo e Josué Ruas nunca entram.
+- **Cadastro duplicado:** quando o mesmo CNPJ ou o mesmo nome aparece em mais de um id, cada cadastro entra separado e gera alerta.
+- **Dia operacional:** hora − 6h. O que passa da meia-noite conta no dia anterior. O turno conta pelo horário de início; o pedido, pelo horário de criação.
+- **Por dia:** o script lê o fechamento gravado (`payouts.total_paid`), a diária gravada ("Diária/Taxa Extra Manual" no `history-audit`), os ajustes manuais e as entregas da Pizzaria com a taxa gravada (`drivers-report/orders`).
+- **Correções** (todas listadas no PDF e na mensagem):
+  - Diária: R$ 100 de segunda a sexta e R$ 120 no sábado e no domingo. Inclui a meia diária de R$ 50, que é corrigida e gera alerta para confirmar.
+  - Entrega: sempre R$ 2,00. Corrige taxas gravadas de 0; 6,99; 7; 30; 40 etc.
+  - Fechamento abaixo de diária + R$ 2 por entrega: completa a diferença. Fechamento acima por causa de taxa errada: ajusta para baixo.
+  - Nome colado: separa ("AdrianoSantos" → "Adriano Santos").
+- **Entregas do Sushi:** (fechamento − diária gravada − taxas gravadas da Pizzaria − ajustes) ÷ R$ 2. Quando não bate com os pedidos do Sushi achados no ALIV, a diferença vai para o detalhe.
+- **Ajustes manuais** (ex.: "Ajuste taxa iFood -> R$ 2,00 … semana 19-25/10"): continuam somados ao total e geram alerta.
+- **Turno de domingo aberto:** o script espera 10 minutos e lê de novo. Se continuar aberto, gera alerta e o dia é calculado pelos pedidos.
+- **Mensagem final** (WhatsApp para `WHATSAPP_EMERSON` e `WHATSAPP_ADMIN`, com o PDF completo): total da semana, valor de cada prestador, total dos fechamentos no ALIV × correções, lista de correções e alertas (turno aberto, cadastro duplicado, entrega a R$ 0, meia diária, ajuste manual).
+
+## Endpoints (além dos do diaristas)
+
+| Uso | Endpoint | Observação |
+|---|---|---|
+| Turnos da semana | `GET /admin/api/finance/driver/{id}/payouts?start=SEG&end=DOM+1` | `end` inclui o dia. Os grupos trazem `session_start`/`session_end` ("dd/mm HH:MM"), `total_paid` e `deliveries` (só Pizzaria, `fee`). Às vezes o grupo vem sem `deliveries`, como Adriano em 01/11: por isso as entregas saem de `drivers-report/orders` |
+| Diária e ajustes | `GET /admin/api/finance/driver/{id}/history-audit?start=SEG&end=DOM+1` | `type "DIÁRIA/VALE"`: "Diária/Taxa Extra Manual" (gravada no fechamento do turno; a de domingo fica às 00:0x de segunda) ou ajuste manual |
+| Pedidos e taxa | `GET /admin/api/finance/drivers-report/orders?driver_id=&start=SEG&end=DOM+2&date_basis=delivery` | `taxa` = taxa gravada (0; 2; 6,99; 7; 40…) |
+
+## Conferência (semana 26/10 a 01/11/2026)
+
+- Fechamentos no ALIV: R$ 9.378,96. Total a pagar com as correções: **R$ 9.350,99**. O relatório antigo feito à mão deu R$ 9.286,00.
+- 11 dos 17 prestadores bateram centavo por centavo com o relatório antigo.
+- As 6 diferenças somam +R$ 64,99 e vêm das regras novas:
+  - Emanuel: +R$ 50 (meia diária de 29/10 corrigida para R$ 100; gera alerta para confirmar).
+  - Guilherme: +R$ 3 (entrega a R$ 0 e fechamento ímpar de R$ 167 em 01/11).
+  - Kalyson: +R$ 2 (entrega a R$ 0).
+  - Ricardo: +R$ 1 (fechamento ímpar de R$ 163 em 01/11).
+  - Claudio: +R$ 10,99. O ajuste manual de R$ 14,99 foi mantido e o sábado foi completado em +R$ 2. O relatório antigo usou outra conta para ele.
+  - Breno: −R$ 2 (a taxa de R$ 7 virou R$ 2).
+
+## Rotina de segunda às 10:00
+
+- Cron `CRON_TZ=America/Bahia 0 10 * * 1`, sessão nova a cada disparo, conector Gmail para o e-mail de reserva.

@@ -395,6 +395,9 @@ def _esc(s) -> str:
 
 def _logo_src() -> str:
     import base64
+    leve = LOGO.with_suffix(".jpg")          # versão JPEG leve para o PDF (a PNG fica como original)
+    if leve.exists():
+        return "data:image/jpeg;base64," + base64.b64encode(leve.read_bytes()).decode()
     return "data:image/png;base64," + base64.b64encode(LOGO.read_bytes()).decode() if LOGO.exists() else ""
 
 
@@ -503,16 +506,18 @@ entregas do dia {dia_txt} ({x.entregas} entregas), conforme discriminado acima.
 <title>Diaristas {dia:%d-%m-%Y}</title><style>{CSS}</style></head><body>{''.join(paginas)}</body></html>"""
 
 
-def gerar_pdf(dia: date, ds: list[Diarista], destino: Path, gerado: datetime) -> Path:
+def html_para_pdf(html: str, destino: Path) -> Path:
+    """Imprime o HTML em PDF A4 com o Chromium headless (também usado por prestadores.py)."""
     import shutil
     import subprocess
     import tempfile
     chrome = next((c for c in (shutil.which(c) or (c if c and Path(c).exists() else None) for c in CHROME) if c), None)
     if not chrome:
         raise RuntimeError("Chromium não encontrado (defina DIARISTAS_CHROME)")
+    destino.unlink(missing_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
-        html_path = Path(tmp) / "diaristas.html"
-        html_path.write_text(html_relatorio(dia, ds, gerado), encoding="utf-8")
+        html_path = Path(tmp) / "relatorio.html"
+        html_path.write_text(html, encoding="utf-8")
         subprocess.run([chrome, "--headless", "--no-sandbox", "--disable-gpu", "--no-pdf-header-footer",
                         f"--user-data-dir={tmp}/perfil", f"--print-to-pdf={destino}", html_path.as_uri()],
                        check=False, capture_output=True, timeout=90)
@@ -521,8 +526,12 @@ def gerar_pdf(dia: date, ds: list[Diarista], destino: Path, gerado: datetime) ->
     return destino
 
 
+def gerar_pdf(dia: date, ds: list[Diarista], destino: Path, gerado: datetime) -> Path:
+    return html_para_pdf(html_relatorio(dia, ds, gerado), destino)
+
+
 # ---------------------------------------------------------------- envio
-def enviar(api: Aliv, texto: str, pdf: Path | None) -> list[str]:
+def enviar(api: Aliv, texto: str, pdf: Path | None, legenda: str | None = None) -> list[str]:
     """Envia lista (+PDF) para WHATSAPP_EMERSON e WHATSAPP_ADMIN. Devolve as falhas."""
     falhas = []
     fones = [(v, re.sub(r"\D", "", os.environ.get(v, ""))) for v in ("WHATSAPP_EMERSON", "WHATSAPP_ADMIN")]
@@ -539,7 +548,7 @@ def enviar(api: Aliv, texto: str, pdf: Path | None) -> list[str]:
         if pdf is None:
             continue
         try:
-            api.enviar_whatsapp(fone, f"Relatório diaristas {pdf.stem.split('_')[-1]}", arquivo=pdf)
+            api.enviar_whatsapp(fone, legenda or f"Relatório diaristas {pdf.stem.split('_')[-1]}", arquivo=pdf)
             print(f"WHATSAPP {var}: PDF enviado.", file=sys.stderr)
         except (AlivError, OSError) as e:
             falhas.append(f"{var}: PDF não enviado — {e}")

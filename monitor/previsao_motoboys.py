@@ -23,7 +23,8 @@ dia do mês passado), janela 16:00–00:00 de cada dia:
   • Ajustes: feriado/data forte (+20%), véspera (+15%), promoção (+10%,
     monitor/assets/promocoes.json). Dias da base que eram feriado/véspera/promo
     são descontados do ajuste antes de entrar na média.
-  • Chuva (Open-Meteo: ECMWF, GFS, ICON + reserva MET Norway; 17h–00h): a recomendação principal fica
+  • Chuva (17h–00h): Open-Meteo (ECMWF, GFS, ICON), MET Norway e a previsão oficial do aeroporto de
+    Porto Seguro (TAF SBPS); tempo agora pelo METAR SBPS: a recomendação principal fica
     normal; se 2 ou mais modelos preveem chuva, mostra à parte "+2 a 3 motoboys". Só 1 modelo
     ou chance ≥40% = "se chover, +2 a 3".
   • Alerta se algum dia dos últimos 7 teve atraso.
@@ -159,7 +160,7 @@ def contexto(d: date, forcar_promo: bool) -> tuple[float, list[str]]:
     return fator, motivos
 
 
-def _get_json(url: str, tentativas=(0, 10, 30)) -> tuple[dict | None, str]:
+def _get_json(url: str, tentativas=(0, 10, 30)) -> tuple[dict | list | None, str]:
     erro = ""
     for espera in tentativas:                   # serviços gratuitos às vezes respondem 429 (muitos pedidos)
         time.sleep(espera)
@@ -192,7 +193,7 @@ def previsao_chuva(hoje: date) -> dict:
         "latitude": CHUVA_LAT, "longitude": CHUVA_LON, "hourly": "precipitation_probability,precipitation",
         "models": ",".join(CHUVA_MODELOS), "timezone": "America/Bahia",
         "start_date": hoje.isoformat(), "end_date": hoje.isoformat()})
-    j, e = _get_json("https://api.open-meteo.com/v1/forecast?" + q)
+    j, e = _get_json("https://api.open-meteo.com/v1/forecast?" + q, tentativas=(0, 15, 45, 90))
     if j and "hourly" in j:
         h = j["hourly"]
         hs = [int(t[11:13]) for t in h["time"]]
@@ -216,11 +217,16 @@ def previsao_chuva(hoje: date) -> dict:
             modelos["Norueguês (MET)"] = _modelo("Norueguês (MET)", {}, mm)
     else:
         erros.append(f"MET: {e}")
+    taf = taf_aeroporto(hoje)
+    if taf is not None:
+        modelos["Aeroporto (oficial)"] = taf
+    agora = metar_aeroporto()
     if not modelos:
-        return {"status": "indisponível", "extra": 0, "erro": "; ".join(erros), "modelos": {}, "horas": {}}
+        return {"status": "indisponível", "extra": 0, "erro": "; ".join(erros), "modelos": {}, "horas": {},
+                "agora": agora}
 
     sim = [v for v in modelos.values() if v["ve_chuva"]]
-    mms = sorted(v["mm"] for v in modelos.values())
+    mms = sorted(v["mm"] for v in modelos.values() if v["mm"] is not None) or [0.0]
     mediana = mms[len(mms) // 2]
     com_prob = [v["prob"] for v in modelos.values() if v["prob"]]
     prob_h = {x: sum(p.get(x, 0) for p in com_prob) / len(com_prob) for x in CHUVA_HORAS} if com_prob else {}
@@ -233,10 +239,67 @@ def previsao_chuva(hoje: date) -> dict:
         status = "seco"
     extra = {"forte": EXTRA_CHUVA_FORTE, "chuva": EXTRA_CHUVA}.get(status, 0)
     return {"status": status, "extra": extra, "modelos": modelos, "horas": prob_h, "quando": quando,
-            "mm": mediana, "concordam": len(sim), "total": len(modelos), "erro": "; ".join(erros)}
+            "mm": mediana, "concordam": len(sim), "total": len(modelos), "erro": "; ".join(erros),
+            "agora": agora}
+
+
+CHUVA_CODIGOS = ("RA", "SH", "TS", "DZ")          # chuva, pancada, trovoada, garoa (códigos de aviação)
+
+
+def taf_aeroporto(hoje: date) -> dict | None:
+    """Previsão oficial do aeroporto de Porto Seguro (TAF SBPS, feita por meteorologista). Vê chuva se algum
+    trecho que cobre 17h–00h traz RA/SH/TS/DZ (PROB30 sozinho não conta)."""
+    j, _ = _get_json("https://aviationweather.gov/api/data/taf?ids=SBPS&format=json", tentativas=(0, 10))
+    if not j or not isinstance(j, list):
+        return None
+    ini = datetime(hoje.year, hoje.month, hoje.day, CHUVA_HORAS.start, tzinfo=TZ)
+    fim = datetime(hoje.year, hoje.month, hoje.day, tzinfo=TZ) + timedelta(hours=CHUVA_HORAS.stop)
+    validade = num(j[0].get("validTimeTo"))
+    horas, textos = [], []
+    for f in j[0].get("fcsts") or []:
+        a = datetime.fromtimestamp(num(f.get("timeFrom")), TZ)
+        b = datetime.fromtimestamp(num(f.get("timeTo")), TZ)
+        wx = str(f.get("wxString") or "")
+        if b <= ini or a >= fim or not any(c in wx for c in CHUVA_CODIGOS):
+            continue
+        if f.get("probability") and num(f.get("probability")) < 40:
+            continue
+        textos.append(wx)
+        horas += [h for h in CHUVA_HORAS if a <= ini.replace(hour=h) < b]
+    if validade and datetime.fromtimestamp(validade, TZ) < fim:
+        cobre = f"cobre até {datetime.fromtimestamp(validade, TZ):%H}h"
+    else:
+        cobre = ""
+    return {"ve_chuva": bool(horas), "mm": None, "prob_max": None, "horas": sorted(set(horas)), "prob": {},
+            "texto": " ".join(textos), "cobre": cobre}
+
+
+def metar_aeroporto() -> str:
+    """Tempo agora no aeroporto de Porto Seguro (METAR SBPS): ex. '32°C, sem chuva' ou '24°C, chovendo'."""
+    j, _ = _get_json("https://aviationweather.gov/api/data/metar?ids=SBPS&format=json", tentativas=(0, 10))
+    if not j or not isinstance(j, list):
+        return ""
+    m = j[0]
+    wx = str(m.get("wxString") or "")
+    hora = datetime.fromisoformat(str(m.get("reportTime", "")).replace("Z", "+00:00")).astimezone(TZ) \
+        if m.get("reportTime") else None
+    if any(c in wx for c in ("TS",)):
+        cond = "trovoada"
+    elif "VC" in wx and any(c in wx for c in CHUVA_CODIGOS):
+        cond = "pancada por perto"
+    elif any(c in wx for c in CHUVA_CODIGOS):
+        cond = "chovendo"
+    else:
+        cond = "sem chuva"
+    return f"{num(m.get('temp')):.0f}°C, {cond}" + (f" (às {hora:%H:%M})" if hora else "")
 
 
 def texto_chuva(c: dict) -> str:
+    agora = f" · aeroporto agora: {c['agora']}" if c.get("agora") else ""
+    return _texto_chuva(c) + agora
+
+
+def _texto_chuva(c: dict) -> str:
     if c["status"] == "indisponível":
         return "previsão do tempo indisponível"
     faixa = (f" ({c['quando'][0]:02d}h–{(c['quando'][-1] + 1) % 24:02d}h)" if c.get("quando") else "")

@@ -77,6 +77,18 @@ def _horas(rec: dict, titulo: bool = True, minimo: float = 0) -> str:
             + "".join(linhas) + "</div>")
 
 
+def _det_tempo(c: dict, faixa: str) -> str:
+    """'23h–00h · 1 de 5 fontes veem chuva · aeroporto: sem chuva · agora 32°C, sem chuva'."""
+    partes = [f"{faixa}{c['concordam']} de {c['total']} fontes veem chuva" if c["total"] > 1
+              else f"só 1 fonte respondeu ({next(iter(c['modelos'])).split(' ')[0]})"]
+    taf = c["modelos"].get("Aeroporto (oficial)")
+    if taf is not None:
+        partes.append("previsão oficial do aeroporto: " + ("chuva" if taf["ve_chuva"] else "sem chuva"))
+    if c.get("agora"):
+        partes.append(f"agora {c['agora'].split(' (')[0]}")
+    return " · ".join(partes)
+
+
 def _tempo_hoje(rec: dict) -> str:
     """Faixa do tempo logo abaixo da recomendação: condição + quantos a mais se chover."""
     c = rec.get("chuva")
@@ -93,10 +105,7 @@ def _tempo_hoje(rec: dict) -> str:
     det = ""
     if c["status"] != "indisponível":
         faixa = f"{c['quando'][0]:02d}h–{(c['quando'][-1] + 1) % 24:02d}h · " if c.get("quando") else ""
-        fontes = (f"{c['concordam']} de {c['total']} modelos" if c["total"] > 1
-                  else f"só 1 fonte respondeu ({next(iter(c['modelos'])).split(' ')[0]})")
-        det = f"{faixa}{fontes} · ~{_f1(c['mm'])} mm" + (
-            f" · chance máx. {max(c['horas'].values()):.0f}%" if c["horas"] else "")
+        det = _det_tempo(c, faixa)
     return (f'<div class="tempo" style="background:{cor}"><div class="ic">{ic}</div>'
             f'<div><div class="cond">{_e(cond)}</div><div class="det">{_e(det)}</div></div>'
             f'<div class="acao">{_e(acao)}</div></div>')
@@ -120,7 +129,8 @@ def _chuva(c: dict | None) -> str:
         f'<div class="m">{"chuva" if v >= 60 else ""}</div></div>'
         for h, v in sorted(c["horas"].items()))
     mods = " · ".join(f"{n.split(' ')[0]}: {'chuva' if m['ve_chuva'] else 'seco'} ("
-                      + (f"{m['prob_max']:.0f}%, " if m["prob_max"] is not None else "") + f"{_f1(m['mm'])} mm)"
+                      + (f"{m['prob_max']:.0f}%, " if m["prob_max"] is not None else "")
+                      + (f"{_f1(m['mm'])} mm)" if m["mm"] is not None else "oficial)")
                       for n, m in c["modelos"].items())
     if not c["horas"]:
         linhas = '<div class="det">Sem chance por hora nesta fonte.</div>'
@@ -411,8 +421,7 @@ def html_ipad(hoje: date, base: list, rec: dict, motivos: list[str], semana: lis
         det = ""
         if c["status"] != "indisponível":
             faixa = f"{c['quando'][0]:02d}h–{(c['quando'][-1] + 1) % 24:02d}h · " if c.get("quando") else ""
-            fontes = (f"{c['concordam']} de {c['total']} modelos" if c["total"] > 1 else "só 1 fonte respondeu")
-            det = f"{faixa}{fontes} · ~{_f1(c['mm'])} mm"
+            det = _det_tempo(c, faixa)
         P.append(f'<div class="box tempo" style="background:{cor}"><div class="ic">{ic}</div>'
                  f'<div class="cond">{_e(cond)}</div><div class="det">{_e(det)}</div>'
                  f'<div class="acao">{_e(acao)}</div></div>')

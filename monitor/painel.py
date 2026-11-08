@@ -1,4 +1,4 @@
-"""Painel em PDF (ou PNG) (estilo BI) com os números do monitor.py — para mandar no WhatsApp.
+"""Painel em PNG (estilo BI) com os números do monitor.py — para mandar no WhatsApp.
 
 Monta um HTML com as cores da Tili (vermelho #C8102E, dourado #D4A017, fundo
 #1A1A1A, texto branco) e fotografa com o Chromium headless, o mesmo que já gera
@@ -310,24 +310,20 @@ def _chrome() -> str:
     raise RuntimeError("Chromium não encontrado (defina DIARISTAS_CHROME)")
 
 
-def _medir_altura(chrome: str, base: list, arq: Path, pagina: str) -> int:
-    medir = '<script>document.title="ALTURA="+document.documentElement.scrollHeight</script>'
-    arq.write_text(pagina.replace("</body>", medir + "</body>"), encoding="utf-8")
-    out = subprocess.run(base + [f"--window-size={LARGURA},1000", "--dump-dom", arq.as_uri()],
-                         capture_output=True, text=True, timeout=90).stdout
-    m = re.search(r"ALTURA=(\d+)", out)
-    return min(int(m.group(1)), 8000) if m else 3600
-
-
 def html_para_png(pagina: str, destino: Path) -> Path:
     """Fotografa o HTML na largura LARGURA. 1ª passada mede a altura, 2ª tira a foto."""
     chrome = _chrome()
     destino.unlink(missing_ok=True)
+    medir = '<script>document.title="ALTURA="+document.documentElement.scrollHeight</script>'
     with tempfile.TemporaryDirectory() as tmp:
         arq = Path(tmp) / "painel.html"
         base = [chrome, "--headless", "--no-sandbox", "--disable-gpu", "--hide-scrollbars",
                 f"--user-data-dir={tmp}/perfil"]
-        altura = _medir_altura(chrome, base, arq, pagina)
+        arq.write_text(pagina.replace("</body>", medir + "</body>"), encoding="utf-8")
+        out = subprocess.run(base + [f"--window-size={LARGURA},1000", "--dump-dom", arq.as_uri()],
+                             capture_output=True, text=True, timeout=90).stdout
+        m = re.search(r"ALTURA=(\d+)", out)
+        altura = min(int(m.group(1)), 8000) if m else 3600
         arq.write_text(pagina, encoding="utf-8")
         subprocess.run(base + [f"--window-size={LARGURA},{altura}", f"--screenshot={destino}", arq.as_uri()],
                        capture_output=True, timeout=90)
@@ -336,33 +332,6 @@ def html_para_png(pagina: str, destino: Path) -> Path:
     return destino
 
 
-def html_para_pdf(pagina: str, destino: Path) -> Path:
-    """PDF de 1 página do tamanho exato do painel. No WhatsApp vai como arquivo, sem a
-    compressão das fotos: as letras ficam nítidas mesmo com zoom."""
-    chrome = _chrome()
-    destino.unlink(missing_ok=True)
-    with tempfile.TemporaryDirectory() as tmp:
-        arq = Path(tmp) / "painel.html"
-        base = [chrome, "--headless", "--no-sandbox", "--disable-gpu", "--hide-scrollbars",
-                f"--user-data-dir={tmp}/perfil"]
-        altura = _medir_altura(chrome, base, arq, pagina)
-        # Folga de 2% na página: a impressão arredonda diferente da tela e jogaria
-        # a última linha para uma 2ª página. O fundo escuro cobre a sobra.
-        pag = (f"<style>@page {{ size: {LARGURA}px {int(altura * 1.02)}px; margin: 0 }} "
-               f"html {{ background: {FUNDO}; -webkit-print-color-adjust: exact; "
-               f"print-color-adjust: exact }}</style>")
-        arq.write_text(pagina.replace("</head>", pag + "</head>"), encoding="utf-8")
-        subprocess.run(base + ["--no-pdf-header-footer", f"--print-to-pdf={destino}", arq.as_uri()],
-                       capture_output=True, timeout=90)
-    if not destino.exists() or destino.stat().st_size < 1000:
-        raise RuntimeError("Chromium não gerou o PDF do painel")
-    return destino
-
-
 def gerar_painel(destino: Path, *dados) -> Path:
-    """dados = (agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi), os mesmos do relatorio().
-    Destino .png gera imagem; qualquer outro (padrão .pdf) gera PDF."""
-    pagina = html_painel(*dados)
-    if destino.suffix.lower() == ".png":
-        return html_para_png(pagina, destino)
-    return html_para_pdf(pagina, destino)
+    """dados = (agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi), os mesmos do relatorio()."""
+    return html_para_png(html_painel(*dados), destino)

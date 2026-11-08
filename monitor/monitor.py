@@ -14,7 +14,7 @@ cargo da Rotina (ver README).
 Somente biblioteca padrão do Python 3.9+. Nunca faz POST/PUT/DELETE no ALIV,
 exceto o POST de login e, com --whatsapp, o POST /admin/api/chat/send
 (também usado por diaristas.py, com o PDF anexado). Com --whatsapp manda também
-o painel em PDF (painel.py, desenhado pelo Chromium headless) logo depois do texto.
+o painel em PNG (painel.py, desenhado pelo Chromium headless) logo depois do texto.
 """
 
 from __future__ import annotations
@@ -733,8 +733,8 @@ def main() -> int:
     ap.add_argument("--sem-snapshot", action="store_true", help="não grava snapshot")
     ap.add_argument("--sem-semana", action="store_true", help="pula a comparação semanal")
     ap.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (diagnóstico)")
-    ap.add_argument("--painel", metavar="ARQ.pdf", help="salva o painel neste arquivo (.pdf; ou .png para imagem)")
-    ap.add_argument("--sem-painel", action="store_true", help="não gera nem envia o painel")
+    ap.add_argument("--painel", metavar="ARQ.png", help="salva o painel em PNG neste arquivo")
+    ap.add_argument("--sem-painel", action="store_true", help="não gera nem envia o painel em PNG")
     ap.add_argument("--whatsapp", action="store_true",
                     help="envia o relatório pelo WhatsApp da loja para WHATSAPP_EMERSON "
                          "(sai com código 3 se não enviar, para a Rotina usar o e-mail)")
@@ -780,7 +780,7 @@ def main() -> int:
         gravar_snapshot(dia, agora, r, moto, sushi["r"] if sushi and not sushi.get("erro") else None)
     painel = None
     if not args.sem_painel and (args.painel or args.whatsapp):
-        destino = Path(args.painel) if args.painel else Path(tempfile.mkdtemp()) / f"Painel_Tili_{agora:%d-%m_%H%M}.pdf"
+        destino = Path(args.painel) if args.painel else Path(tempfile.mkdtemp()) / f"painel_{agora:%d-%m_%H%M}.png"
         try:
             from painel import gerar_painel
             painel = gerar_painel(destino, agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi)

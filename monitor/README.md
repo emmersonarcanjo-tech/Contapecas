@@ -361,3 +361,27 @@ python3 monitor/consumo.py --hoje 2026-11-20
 ```
 
 Só manda mensagem se alguém estiver perto ou estourado. Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` WhatsApp falhou.
+
+# Previsão de motoboys do dia (`previsao_motoboys.py`)
+
+Todo dia às 08:00 (Bahia) recomenda quantos motoboys chamar **hoje**, com faixa (ex.: 9 a 10), o porquê em duas linhas, o histórico das últimas 4 semanas (uma linha por dia) e alerta se a semana passada teve entrega acima de 45 min. Só leitura no ALIV; reaproveita login, consultas e envio por WhatsApp do `monitor.py`.
+
+```bash
+python3 monitor/previsao_motoboys.py                  # só mostra (não envia)
+python3 monitor/previsao_motoboys.py --data 2026-11-15
+python3 monitor/previsao_motoboys.py --promo          # considera promoção hoje
+python3 monitor/previsao_motoboys.py --whatsapp       # envia para WHATSAPP_EMERSON, WHATSAPP_JOSUE e WHATSAPP_CAMILO
+```
+
+Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` nenhum WhatsApp enviado. Destino sem variável é pulado com aviso.
+
+**Método** (janela 16:00–00:00 de cada dia):
+- Base: mesmo dia da semana nas últimas 4 semanas (pesos 35/25/15/10%) + mesmo dia do mês passado (15%).
+- Entregas por hora: audit da Pizzaria (delivery, sem cancelado/Pix pendente) + audit do Sushi (mesmos motoboys).
+- Motoboys do dia: drivers-report, 3+ entregas, gerentes (Josué, Camilo) fora. Motoboys por hora: quem levou pedido criado naquela hora (campo motoboy do audit, Pizzaria + Sushi).
+- Tempos (Pizzaria, operation-monitor): rua média, vida média e quantas entregas passaram de 45 min (a janela é dividida até isolar cada pedido).
+- Pico = hora com mais entregas. Ritmo = entregas do pico ÷ motoboys no pico.
+- Dia **estourado** = mais de 10% das entregas acima de 45 min, ou vida média acima de 45.
+- Capacidade = melhor ritmo de um dia que não estourou. Recomendação = pico previsto ÷ capacidade. Se um dia com pico parecido (±10%) estourou com ritmo acima da capacidade, recomenda pelo menos 1 motoboy a mais que ele teve. Dia que estourou com ritmo baixo = gargalo na cozinha/expedição, não conta.
+- Ajustes: feriado nacional/Bahia ou data forte (Mães, Pais, Namorados) +20% · véspera (inclui 24 e 31/12) +15% · promoção +10%. Os dias da base que eram feriado/véspera/promoção são descontados antes da média.
+- Promoções e feriados municipais: `monitor/assets/promocoes.json` (`dias_semana`, `datas`, `feriados_extra`). Hoje está vazio — é só pedir ao Claude para incluir.

@@ -1,0 +1,6 @@
+{
+ "_leia": "Promoções e feriados locais usados por previsao_motoboys.py. dias_semana: promoção fixa toda semana (ex.: \"quarta\", \"sábado\", \"domingo\"). datas: promoção em um dia específico (AAAA-MM-DD). feriados_extra: feriado municipal ou data forte que não está na lista nacional/Bahia.",
+ "dias_semana": [],
+ "datas": [],
+ "feriados_extra": []
+}

@@ -273,17 +273,17 @@ def imagem(arq: str, tinta) -> tuple[str, float]:
     k = (arq, tinta)
     if k not in _CACHE_IMG:
         from PIL import Image
+        import tempfile
         im = Image.open(PASTA_ING / f"{arq}.png").convert("RGBA")
-        caminho = str(PASTA_ING / f"{arq}.png")
+        im.thumbnail((360, 360))                 # suficiente para impressão e deixa o PDF leve
         if tinta:
-            import tempfile
             r, g, b, a = im.split()
             lum = Image.merge("RGB", (r, g, b)).convert("L")
             cor = Image.merge("RGB", [lum.point(lambda v, c=c: int(v * c / 255)) for c in tinta])
             im = Image.merge("RGBA", (*cor.split(), a))
-            fd, caminho = tempfile.mkstemp(suffix=".png")
-            os.close(fd)
-            im.save(caminho)
+        fd, caminho = tempfile.mkstemp(suffix=".png")
+        os.close(fd)
+        im.save(caminho, optimize=True)
         _CACHE_IMG[k] = (caminho, im.size[1] / im.size[0])
     return _CACHE_IMG[k]
 
@@ -544,8 +544,8 @@ def main():
     ap.add_argument("--paginas", type=int, default=0, help="só as N primeiras pizzas (prévia)")
     ap.add_argument("--so", help="só as pizzas com estes nomes (separados por vírgula)")
     ap.add_argument("--cache", type=Path)
-    ap.add_argument("--forno", default="Forno ______ °C · Tempo ______ min. "
-                    "Pronta quando a borda estiver dourada e o queijo borbulhando.")
+    ap.add_argument("--forno", default="Forno a 320 °C · 2 min 20 s. "
+                    "Pronta quando a borda estiver dourada e a cobertura derretida.")
     a = ap.parse_args()
     _, rec = carregar(a.cache)
     pizzas, pend = montar(rec)

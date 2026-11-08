@@ -87,8 +87,9 @@ def ingrediente(i: dict, lanches: int = 1) -> dict:
              "Carne de sol": "carne_sol", "Catupiry": "cremoso", "Tomate": "tomate", "Presunto": "presunto"}
     nomes = {"Frango": "Filé de frango", "Catupiry": "Catupiry original", "Mussarela": "Muçarela"}
     gramas = q * 1000 if u == "KG" else q
-    if n == "Mussarela" and gramas < 10:
-        alerta = f"Muçarela: ficha diz só {gramas:g} g — provável erro de digitação."
+    if n == "Mussarela" and gramas < 10:   # padrão da casa: 30 g por lanche (Emerson, 08/11/2026)
+        alerta = f"Muçarela: ficha do ALIV diz {gramas:g} g; o padrão é 30 g (manual usa 30 g) — corrigir no ALIV."
+        gramas = 30
     return dict(nome=nomes.get(n, n), qtd=g(gramas), tipo=tipos.get(n, "outro"), alerta=alerta)
 
 

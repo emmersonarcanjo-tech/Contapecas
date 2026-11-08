@@ -60,6 +60,7 @@ GRAMAS_POR_UNIDADE = {
     ("azeitona", "BD"): 1800,          # balde 1,8 kg
     ("milho", "UN"): 170,              # sachê 170 g
     ("cream cheese", "UN"): 1500,      # bisnaga 1,5 kg
+    ("manjericão", "UN"): 1,           # ficha diz "1 un"; na praça = 1 g (Emerson, 08/11/2026)
 }
 
 # Etapa de montagem de cada ingrediente (ordem na praça).

@@ -26,7 +26,8 @@ dia do mês passado), janela 16:00–00:00 de cada dia:
 Uso:
   python3 monitor/previsao_motoboys.py                  # hoje, imprime e NÃO envia
   python3 monitor/previsao_motoboys.py --data 2026-11-08
-  python3 monitor/previsao_motoboys.py --whatsapp       # envia para EMERSON, JOSUE e CAMILO
+  python3 monitor/previsao_motoboys.py --painel p.png   # gera o painel em PNG, sem enviar
+  python3 monitor/previsao_motoboys.py --whatsapp       # envia o painel para EMERSON, JOSUE e CAMILO
   python3 monitor/previsao_motoboys.py --promo          # força "tem promoção hoje"
 
 Códigos de saída: 0 ok · 1 erro no ALIV · 2 faltam ALIV_USER/ALIV_PASS ·
@@ -42,9 +43,10 @@ import math
 import os
 import re
 import sys
+import tempfile
 import unicodedata
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -306,6 +308,8 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
     tot = sum(p for p, _ in usados) or 1.0
     pico_prev = sum(p * x.entregas_pico / x.fator for p, x in usados) / tot * fator
     dia_prev = sum(p * sum(x.total_h.values()) / x.fator for p, x in usados) / tot * fator
+    horas_prev = {h: sum(p * x.total_h[h] / x.fator for p, x in usados) / tot * fator
+                  for h in range(HORA_INI, HORA_FIM)}
 
     bons = [x for _, x in base if not x.estourou and x.eph > 0]
     ruins = [x for _, x in base if x.estourou and x.eph > 0]
@@ -317,7 +321,8 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
         cap = CAPACIDADE_PADRAO
     cap = max(cap, 1.0)
     if pico_prev <= 0:
-        return {"pico_prev": 0.0, "dia_prev": 0.0, "cap": cap, "lo": 1, "hi": 2, "base_cap": None, "ruins": ruins}
+        return {"pico_prev": 0.0, "dia_prev": 0.0, "cap": cap, "lo": 1, "hi": 2, "base_cap": None,
+                "ruins": ruins, "horas_prev": horas_prev}
     alvo = pico_prev / cap
     lo = max(1, math.floor(alvo))
     hi = max(lo + 1, math.ceil(alvo)) if alvo - lo > 0.15 or alvo == lo else lo + 1
@@ -331,7 +336,8 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
     if hi - lo > 1:
         lo = hi - 1
     return {"pico_prev": pico_prev, "dia_prev": dia_prev, "cap": cap, "lo": lo, "hi": hi,
-            "base_cap": bons and max(bons, key=lambda x: x.eph) or None, "ruins": ruins}
+            "base_cap": bons and max(bons, key=lambda x: x.eph) or None, "ruins": ruins,
+            "horas_prev": horas_prev}
 
 
 # ---------------------------------------------------------------- texto
@@ -378,6 +384,27 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
     return "\n".join(L)
 
 
+# ---------------------------------------------------------------- cache de teste
+def gravar_dados(arq: Path, base: list, semana: list) -> None:
+    def dia(x: Dia) -> dict:
+        d = asdict(x)
+        d["dia"] = x.dia.isoformat()
+        return d
+    arq.write_text(json.dumps({"base": [[k, dia(x)] for k, x in base],
+                               "semana": [[d.isoformat(), a, n, v] for d, a, n, v in semana]}), encoding="utf-8")
+
+
+def ler_dados(arq: Path) -> tuple[list, list]:
+    j = json.loads(arq.read_text(encoding="utf-8"))
+    base = []
+    for k, d in j["base"]:
+        d["dia"] = date.fromisoformat(d["dia"])
+        for c in ("piz_h", "sushi_h", "moto_h"):
+            d[c] = {int(h): v for h, v in d[c].items()}
+        base.append((k, Dia(**d)))
+    return base, [(date.fromisoformat(d), a, n, v) for d, a, n, v in j["semana"]]
+
+
 # ---------------------------------------------------------------- main
 def fone_remetente(var: str) -> str:
     """Sem WHATSAPP_JOSUE / WHATSAPP_CAMILO, usa o número do mesmo nome em DESPESAS_REMETENTES
@@ -398,6 +425,10 @@ def main() -> int:
     ap.add_argument("--whatsapp", action="store_true",
                     help="envia para WHATSAPP_EMERSON, WHATSAPP_JOSUE e WHATSAPP_CAMILO")
     ap.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (diagnóstico, não commitar)")
+    ap.add_argument("--painel", metavar="ARQ.png", help="salva o painel em PNG neste arquivo")
+    ap.add_argument("--sem-painel", action="store_true", help="não gera o painel (manda só o texto)")
+    ap.add_argument("--salvar-dados", metavar="ARQ.json", help="guarda os números coletados (para testar o painel)")
+    ap.add_argument("--usar-dados", metavar="ARQ.json", help="usa números já coletados, sem consultar o ALIV")
     args = ap.parse_args()
 
     user, pwd = os.environ.get("ALIV_USER"), os.environ.get("ALIV_PASS")
@@ -419,10 +450,15 @@ def main() -> int:
 
     try:
         api.login()
-        dias = dias_base(hoje)
-        with ThreadPoolExecutor(3) as ex:
-            base = list(zip([k for k, _ in dias], ex.map(lambda kd: coletar_dia(api, api_sushi, kd[1]), dias)))
-        semana = atraso_semana(api, hoje)
+        if args.usar_dados:
+            base, semana = ler_dados(Path(args.usar_dados))
+        else:
+            dias = dias_base(hoje)
+            with ThreadPoolExecutor(3) as ex:
+                base = list(zip([k for k, _ in dias], ex.map(lambda kd: coletar_dia(api, api_sushi, kd[1]), dias)))
+            semana = atraso_semana(api, hoje)
+            if args.salvar_dados:
+                gravar_dados(Path(args.salvar_dados), base, semana)
     except AlivError as e:
         print(f"Tili — Motoboys {hoje:%d/%m} — ERRO no ALIV\n\n{e}")
         return 1
@@ -439,19 +475,39 @@ def main() -> int:
     print(f"capacidade {rec['cap']:.2f}/moto/h · pico previsto {rec['pico_prev']:.1f} · "
           f"dia previsto {rec['dia_prev']:.0f} · fator {fator:.2f}", file=sys.stderr)
 
+    painel = None
+    if not args.sem_painel and (args.painel or args.whatsapp):
+        destino = Path(args.painel) if args.painel else Path(tempfile.mkdtemp()) / f"motoboys_{hoje:%d-%m}.png"
+        try:
+            from painel_motoboys import gerar_painel
+            painel = gerar_painel(destino, hoje, base, rec, motivos, semana)
+            print(f"PAINEL: {painel}", file=sys.stderr)
+        except Exception as e:      # o painel nunca derruba a previsão em texto
+            print(f"PAINEL: não gerado — {e}", file=sys.stderr)
+
     if not args.whatsapp:
         print("\nWHATSAPP: não enviado (sem --whatsapp).", file=sys.stderr)
         return 0
+    # Como o painel de vendas: vai só a imagem (legenda curta); o texto só se a imagem falhar.
+    legenda = f"Motoboys hoje {hoje:%d/%m}: chamar {rec['lo']} a {rec['hi']}"
     enviados = 0
     for var in DESTINOS:
         fone = re.sub(r"\D", "", os.environ.get(var, "")) or fone_remetente(var)
         if not fone:
             print(f"WHATSAPP: {var} não definida — pulado.", file=sys.stderr)
             continue
+        if painel is not None:
+            try:
+                api.enviar_whatsapp(fone, legenda, arquivo=painel)
+                enviados += 1
+                print(f"WHATSAPP: painel enviado para {var}.", file=sys.stderr)
+                continue
+            except (AlivError, OSError) as e:
+                print(f"WHATSAPP: painel não enviado para {var} — {e}; mandando o texto", file=sys.stderr)
         try:
             api.enviar_whatsapp(fone, texto)
             enviados += 1
-            print(f"WHATSAPP: enviado para {var}.", file=sys.stderr)
+            print(f"WHATSAPP: texto enviado para {var}.", file=sys.stderr)
         except (AlivError, OSError) as e:
             print(f"WHATSAPP: {var} falhou — {e}", file=sys.stderr)
     return 0 if enviados else 3

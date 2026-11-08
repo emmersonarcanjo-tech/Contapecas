@@ -21,6 +21,8 @@ dia do mês passado), janela 16:00–00:00 de cada dia:
   • Ajustes: feriado/data forte (+20%), véspera (+15%), promoção (+10%,
     monitor/assets/promocoes.json). Dias da base que eram feriado/véspera/promo
     são descontados do ajuste antes de entrar na média.
+  • Chuva (Open-Meteo, 3 modelos: ECMWF, GFS, ICON, 17h–00h): se 2 ou mais modelos
+    preveem chuva, soma +2 motoboys (+3 se for forte, ≥5 mm). Só 1 modelo = "fique de olho".
   • Alerta se algum dia dos últimos 7 teve atraso.
 
 Uso:
@@ -44,6 +46,9 @@ import os
 import re
 import sys
 import tempfile
+import time
+import urllib.parse
+import urllib.request
 import unicodedata
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, field
@@ -65,6 +70,14 @@ CAPACIDADE_PADRAO = 4.0              # entregas/motoboy/hora, se nenhum dia serv
 GERENTES = [{"thiago", "camilo"}, {"josue", "ruas"}]   # logins de gerente no ALIV (qualquer ordem)
 MIN_ENTREGAS = 3                     # menos que isso no dia = não conta como motoboy do dia
 DESTINOS = ("WHATSAPP_EMERSON", "WHATSAPP_JOSUE", "WHATSAPP_CAMILO")
+# Chuva (Open-Meteo, sem chave): 3 modelos independentes; só conta como chuva "certa" se 2 concordarem.
+CHUVA_LAT, CHUVA_LON = -16.4497, -39.0647          # Porto Seguro
+CHUVA_MODELOS = {"ecmwf_ifs025": "Europeu (ECMWF)", "gfs_seamless": "Americano (GFS)",
+                 "icon_seamless": "Alemão (ICON)"}
+CHUVA_HORAS = range(17, 24)                        # horário que importa para a entrega
+CHUVA_PROB, CHUVA_MM_HORA, CHUVA_MM_TOTAL = 60, 0.5, 2.0   # modelo "vê chuva": hora com ≥60% e ≥0,5 mm, ou ≥2 mm no total
+CHUVA_FORTE_MM = 5.0                               # chuva forte: mediana dos modelos ≥5 mm na noite
+EXTRA_CHUVA, EXTRA_CHUVA_FORTE = 2, 3              # motoboys a mais (Emerson, 08/11/2026)
 PROMO_ARQ = Path(__file__).resolve().parent / "assets" / "promocoes.json"
 DIAS = ["segunda", "terça", "quarta", "quinta", "sexta", "sábado", "domingo"]
 DIAS_CURTO = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"]
@@ -137,6 +150,67 @@ def contexto(d: date, forcar_promo: bool) -> tuple[float, list[str]]:
         fator *= AJ_PROMO
         motivos.append(f"promoção hoje (+{round((AJ_PROMO - 1) * 100)}%)")
     return fator, motivos
+
+
+def previsao_chuva(hoje: date) -> dict:
+    """Previsão de chuva para 17h–00h em Porto Seguro, em 3 modelos. status: forte · chuva ·
+    possível · seco · indisponível. extra = motoboys a somar (só com 2+ modelos de acordo)."""
+    q = urllib.parse.urlencode({
+        "latitude": CHUVA_LAT, "longitude": CHUVA_LON, "hourly": "precipitation_probability,precipitation",
+        "models": ",".join(CHUVA_MODELOS), "timezone": "America/Bahia",
+        "start_date": hoje.isoformat(), "end_date": hoje.isoformat()})
+    h, erro = None, ""
+    for espera in (0, 10, 30, 60):              # o serviço gratuito às vezes responde 429 (muitos pedidos)
+        time.sleep(espera)
+        try:
+            req = urllib.request.Request("https://api.open-meteo.com/v1/forecast?" + q,
+                                         headers={"User-Agent": "tili-previsao/1.0"})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                h = json.loads(r.read().decode())["hourly"]
+            break
+        except Exception as e:
+            erro = str(e)[:120]
+    if h is None:                               # sem previsão, a recomendação segue sem chuva
+        return {"status": "indisponível", "extra": 0, "erro": erro, "modelos": {}, "horas": {}}
+    idx = [i for i, t in enumerate(h["time"]) if int(t[11:13]) in CHUVA_HORAS]
+    modelos, horas = {}, {int(h["time"][i][11:13]): [] for i in idx}
+    for m, nome in CHUVA_MODELOS.items():
+        prob = [num(h.get(f"precipitation_probability_{m}", [None] * len(h["time"]))[i]) for i in idx]
+        mm = [num(h.get(f"precipitation_{m}", [None] * len(h["time"]))[i]) for i in idx]
+        if not any(prob) and not any(mm) and h.get(f"precipitation_{m}") is None:
+            continue
+        chuvosas = [int(h["time"][i][11:13]) for i, p, x in zip(idx, prob, mm) if p >= CHUVA_PROB and x >= CHUVA_MM_HORA]
+        modelos[nome] = {"ve_chuva": bool(chuvosas) or sum(mm) >= CHUVA_MM_TOTAL, "mm": sum(mm),
+                         "prob_max": max(prob or [0]), "horas": chuvosas}
+        for i, p in zip(idx, prob):
+            horas[int(h["time"][i][11:13])].append(p)
+    if not modelos:
+        return {"status": "indisponível", "extra": 0, "erro": "sem dados", "modelos": {}, "horas": {}}
+    sim = [v for v in modelos.values() if v["ve_chuva"]]
+    mms = sorted(v["mm"] for v in modelos.values())
+    mediana = mms[len(mms) // 2]
+    prob_h = {k: (sum(v) / len(v) if v else 0.0) for k, v in horas.items()}
+    quando = sorted({x for v in sim for x in v["horas"]})
+    if len(sim) >= 2:
+        status = "forte" if mediana >= CHUVA_FORTE_MM else "chuva"
+    elif sim or max(prob_h.values() or [0]) >= 40:
+        status = "possível"
+    else:
+        status = "seco"
+    extra = {"forte": EXTRA_CHUVA_FORTE, "chuva": EXTRA_CHUVA}.get(status, 0)
+    return {"status": status, "extra": extra, "modelos": modelos, "horas": prob_h, "quando": quando,
+            "mm": mediana, "concordam": len(sim), "total": len(modelos)}
+
+
+def texto_chuva(c: dict) -> str:
+    if c["status"] == "indisponível":
+        return "previsão do tempo indisponível"
+    faixa = (f" ({c['quando'][0]:02d}h–{(c['quando'][-1] + 1) % 24:02d}h)" if c.get("quando") else "")
+    base = f"{c['concordam']} de {c['total']} modelos"
+    return {"forte": f"🌧️ chuva forte prevista{faixa}, ~{f1(c['mm'])} mm · {base}",
+            "chuva": f"🌧️ chuva prevista{faixa}, ~{f1(c['mm'])} mm · {base}",
+            "possível": f"🌦️ chance de chuva{faixa} sem consenso ({base}) · fique de olho",
+            "seco": "☀️ sem chuva prevista à noite"}[c["status"]]
 
 
 def dias_base(hoje: date) -> list[tuple[str, date]]:
@@ -371,7 +445,11 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
         porque2 += (f" Em {r.dia:%d/%m} estourou com {r.motos_pico} no pico ({f1(r.eph)}/moto/h).")
     elif rec["ruins"]:
         porque2 += " Os dias que estouraram não tinham falta de motoboy: o atraso veio da cozinha/expedição."
-    L += [porque1, porque2, "", "*Últimas 4 semanas*"]
+    c = rec.get("chuva")
+    L += [porque1, porque2]
+    if c:
+        L.append(texto_chuva(c) + (f" → já somei +{c['extra']}" if c["extra"] else ""))
+    L += ["", "*Últimas 4 semanas*"]
     L += [linha_hist(k, x) for k, x in base if k != "mês"]
     mes = [x for k, x in base if k == "mês"]
     if mes:
@@ -465,6 +543,12 @@ def main() -> int:
 
     fator, motivos = contexto(hoje, args.promo)
     rec = recomendar(base, fator)
+    chuva = previsao_chuva(hoje)
+    rec["chuva"] = chuva
+    if chuva["extra"]:
+        rec["lo"] += chuva["extra"]
+        rec["hi"] += chuva["extra"]
+        motivos.append(f"chuva (+{chuva['extra']} motoboys)")
     texto = mensagem(hoje, base, rec, motivos, semana)
     print(texto)
 

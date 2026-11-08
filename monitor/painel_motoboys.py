@@ -70,6 +70,31 @@ def _horas(rec: dict) -> str:
             + "".join(linhas) + "</div>")
 
 
+def _chuva(c: dict | None) -> str:
+    if not c:
+        return ""
+    if c["status"] == "indisponível":
+        return ('<div class="sec">CHUVA HOJE (17h–00h)</div><div class="grade">'
+                + _card("Previsão do tempo", "indisponível", "a recomendação saiu sem considerar chuva") + "</div>")
+    titulo = {"forte": "CHUVA FORTE", "chuva": "VAI CHOVER", "possível": "PODE CHOVER", "seco": "SEM CHUVA"}[c["status"]]
+    cls = {"forte": "ruim", "chuva": "ruim", "possível": "d", "seco": "bom"}[c["status"]]
+    det = (f"{c['concordam']} de {c['total']} modelos preveem chuva · ~{_f1(c['mm'])} mm")
+    meta = (f"+{c['extra']} motoboys já somados na recomendação" if c["extra"]
+            else "sem consenso: não somei; se começar a chover, chame +2" if c["status"] == "possível"
+            else "nenhum motoboy a mais")
+    linhas = "".join(
+        f'<div class="hora"><div class="h">{_h(h)}</div><div class="trilho"><i style="width:{max(v, 1.5):.0f}%;'
+        f'background:{"#3b82f6" if v >= 60 else "#64748b"}"></i></div><div class="e">{v:.0f}%</div>'
+        f'<div class="m">{"chuva" if v >= 60 else ""}</div></div>'
+        for h, v in sorted(c["horas"].items()))
+    mods = " · ".join(f"{n.split(' ')[0]}: {'chuva' if m['ve_chuva'] else 'seco'} ({m['prob_max']:.0f}%, {_f1(m['mm'])} mm)"
+                      for n, m in c["modelos"].items())
+    return (f'<div class="sec">CHUVA HOJE (17h–00h)</div><div class="grade">'
+            f'{_card("Previsão do tempo · Porto Seguro", titulo, det, meta, cls)}'
+            f'<div class="barras"><div class="t">Chance de chuva por hora (média dos modelos)</div>{linhas}'
+            f'<div class="meta" style="margin-top:10px">{_e(mods)}</div></div></div>')
+
+
 def _dia_card(x, titulo: str) -> str:
     tag = '<span class="tag no">ESTOUROU</span>' if x.estourou else '<span class="tag ok">NO TEMPO</span>'
     sushi = "" if x.sushi_ok else " (sem Sushi)"
@@ -129,6 +154,7 @@ def html_painel(hoje: date, base: list, rec: dict, motivos: list[str], semana: l
     P.append('</div><div class="sec">QUANDO CHAMAR</div><div class="grade">')
     P.append(_horas(rec))
     P.append('</div>')
+    P.append(_chuva(rec.get("chuva")))
 
     # Coluna 2: histórico
     P.append('</div><div><div class="sec">ÚLTIMAS 4 SEMANAS (MESMO DIA)</div><div class="grade dias">')

@@ -35,7 +35,7 @@ FORMATOS = {
 CSS_IPHONE = """
 .colunas { display: block; padding: 0 }
 .colunas .sec, .colunas .grade, .colunas .lucro, .colunas .comp { margin-left: 40px; margin-right: 40px }
-.colunas .g3 .val { font-size: 52px }
+.colunas .g3 .val { font-size: 44px }
 """
 
 VERMELHO, DOURADO, FUNDO = "#C8102E", "#D4A017", "#1A1A1A"
@@ -57,8 +57,8 @@ body {{ font-family: "Inter", "Liberation Sans", "DejaVu Sans", Arial, sans-seri
         color: {DOURADO}; display: flex; align-items: center; gap: 14px }}
 .sec::after {{ content: ""; flex: 1; height: 3px; background: #333 }}
 .grade {{ display: grid; gap: 18px; margin: 0 40px }}
-.g2 {{ grid-template-columns: 1fr 1fr }}
-.g3 {{ grid-template-columns: 1fr 1fr 1fr }}
+.g2 {{ grid-template-columns: repeat(2, minmax(0, 1fr)) }}
+.g3 {{ grid-template-columns: repeat(3, minmax(0, 1fr)) }}
 .card {{ background: #262626; border-radius: 20px; padding: 22px 24px; border-top: 6px solid #3a3a3a }}
 .card.v {{ border-top-color: {VERMELHO} }}
 .card.d {{ border-top-color: {DOURADO} }}

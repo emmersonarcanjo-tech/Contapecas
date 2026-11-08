@@ -21,7 +21,7 @@ python3 monitor/monitor.py
   - `--sem-snapshot`: não grava o snapshot.
   - `--sem-semana`: pula a comparação com a semana passada.
   - `--whatsapp`: envia só o painel em imagem pelo WhatsApp (o texto vai apenas se o painel falhar).
-  - `--painel ARQ.png`: salva o painel em PNG nesse arquivo (para conferir sem enviar).
+  - `--painel ARQ.png`: salva os painéis em `ARQ_ipad.png` e `ARQ_iphone.png` (para conferir sem enviar).
   - `--sem-painel`: não gera nem envia o painel.
   - `--raw PASTA`: salva as respostas cruas do ALIV, para conferir os campos. Não faça commit dessa pasta.
 - Códigos de saída: `0` ok, `1` erro no ALIV (o motivo sai no relatório), `2` faltam as variáveis.
@@ -49,7 +49,7 @@ No Claude Code na nuvem:
 - Usa `POST /admin/api/chat/send` (campos `phone` e `message`), o mesmo do chat de atendimento do ALIV. A mensagem sai pelo **WhatsApp principal da loja** (canal Evolution `aliv_store_150_…`), não por um número separado.
 - Envia só para o número da variável `WHATSAPP_EMERSON` (com DDI e DDD, ex.: `5573…`). Sem a variável, ou se o ALIV não confirmar (`success: true`), o script sai com **código 3** e a Rotina manda o e-mail.
 - A conversa aparece no chat de atendimento da loja. Se você responder, o atendente de IA pode responder também.
-- No WhatsApp vai **só o painel em imagem** (`painel.py`, pedido do Emerson em 08/11/2026): 2880 px de largura em 3 colunas (formato do iPad deitado), fundo escuro, vermelho e dourado da Tili, com alertas no topo, vendas e última hora por loja, canais, ticket, cancelamento, tempos, motoboys, descontos, lucro estimado e comparação com a semana passada. É desenhado em HTML e fotografado pelo Chromium headless. Se o painel falhar (não gerado ou não aceito), vai o relatório em texto no lugar; o motivo aparece no log como `PAINEL:` ou `WHATSAPP: painel não enviado`. Código `3` só se nada for enviado.
+- No WhatsApp vai **só o painel em imagem** (`painel.py`, pedido do Emerson em 08/11/2026), em **dois formatos**, um depois do outro: **iPad** (2880 px de largura, 3 colunas, iPad deitado) e **iPhone 14 Pro Max** (1290 px de largura, 1 coluna). Os dois têm fundo escuro, vermelho e dourado da Tili, com alertas no topo, vendas e última hora por loja, canais, ticket, cancelamento, tempos, motoboys, descontos, lucro estimado e comparação com a semana passada. É desenhado em HTML e fotografado pelo Chromium headless. Se o painel falhar (não gerado ou não aceito), vai o relatório em texto no lugar; o motivo aparece no log como `PAINEL:` ou `WHATSAPP: painel não enviado`. Código `3` só se nada for enviado.
 - O relatório semanal dos motoboys **não** usa WhatsApp: ele gera PDFs e grava na pasta do Drive.
 
 ## Rotina

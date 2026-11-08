@@ -4,7 +4,12 @@ Monta um HTML com as cores da Tili (vermelho #C8102E, dourado #D4A017, fundo
 #1A1A1A, texto branco) e fotografa com o Chromium headless, o mesmo que já gera
 os PDFs dos diaristas e prestadores. Não precisa instalar nada além disso.
 
-Uso pelo monitor.py: gerar_painel(destino, agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi).
+Dois formatos (pedido do Emerson, 08/11/2026), mandados um depois do outro:
+  ipad   — 3 colunas, iPad deitado, 2880 px de largura
+  iphone — 1 coluna, tela do iPhone 14 Pro Max, 1290 px de largura (desenhado em
+           1080 px e fotografado com escala 1290/1080 para sair nítido)
+
+Uso pelo monitor.py: gerar_paineis(base, agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi).
 """
 
 from __future__ import annotations
@@ -21,13 +26,23 @@ from diaristas import CHROME, _logo_src
 from monitor import (META_CANCEL, META_CUSTO_IFOOD, META_ENTREGA, META_PREPARO, META_TICKET,
                      alertas_operacao, brl, num, pct, resumo)
 
-LARGURA = 2880   # px — 3 colunas, formato do iPad deitado (~3:2) para a imagem ocupar a tela toda
+# largura do desenho (px CSS) e escala da foto: largura final = largura × escala
+FORMATOS = {
+    "ipad": {"largura": 2880, "escala": 1.0, "rotulo": "iPad"},        # 3 colunas, iPad deitado
+    "iphone": {"largura": 1080, "escala": 1290 / 1080, "rotulo": "iPhone"},  # 1 coluna, 1290 px
+}
+# No iPhone as três colunas viram uma só, na mesma ordem.
+CSS_IPHONE = """
+.colunas { display: block; padding: 0 }
+.colunas .sec, .colunas .grade, .colunas .lucro, .colunas .comp { margin-left: 40px; margin-right: 40px }
+.colunas .g3 .val { font-size: 52px }
+"""
 
 VERMELHO, DOURADO, FUNDO = "#C8102E", "#D4A017", "#1A1A1A"
 
 CSS = f"""
 * {{ box-sizing: border-box; margin: 0; padding: 0 }}
-html, body {{ background: {FUNDO}; width: {LARGURA}px }}
+html, body {{ background: {FUNDO} }}
 body {{ font-family: "Inter", "Liberation Sans", "DejaVu Sans", Arial, sans-serif; color: #fff;
        font-size: 30px; line-height: 1.2; padding: 0 0 28px }}
 .faixa {{ height: 14px; background: linear-gradient(90deg, {VERMELHO} 0 62%, {DOURADO} 62% 100%) }}
@@ -176,7 +191,7 @@ def lista_alertas(r: dict, ops: dict, sushi: dict | None) -> list[str]:
 
 
 def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, moto: dict, uh: tuple,
-                l: dict, sem: dict | None, sushi: dict | None) -> str:
+                l: dict, sem: dict | None, sushi: dict | None, formato: str = "ipad") -> str:
     s = sushi["r"] if sushi and not sushi.get("erro") else None
     P = []
     P.append(f'<div class="faixa"></div><div class="topo"><div class="logo"><img src="{_logo_src()}"></div>'
@@ -298,7 +313,8 @@ def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, mot
     P.append('<div class="rodape">Dados do ALIV (só leitura) · lucro é estimativa</div>'
              '<div class="faixa" style="margin-top:22px"></div>')
 
-    return (f'<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><style>{CSS}</style></head>'
+    css = CSS + f"html, body {{ width: {FORMATOS[formato]['largura']}px }}" + (CSS_IPHONE if formato == "iphone" else "")
+    return (f'<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><style>{css}</style></head>'
             f'<body>{"".join(P)}</body></html>')
 
 
@@ -310,28 +326,41 @@ def _chrome() -> str:
     raise RuntimeError("Chromium não encontrado (defina DIARISTAS_CHROME)")
 
 
-def html_para_png(pagina: str, destino: Path) -> Path:
-    """Fotografa o HTML na largura LARGURA. 1ª passada mede a altura, 2ª tira a foto."""
+def html_para_png(pagina: str, destino: Path, largura: int = 2880, escala: float = 1.0) -> Path:
+    """Fotografa o HTML com `largura` px CSS e a escala dada. 1ª passada mede a altura, 2ª tira a foto."""
     chrome = _chrome()
     destino.unlink(missing_ok=True)
     medir = '<script>document.title="ALTURA="+document.documentElement.scrollHeight</script>'
     with tempfile.TemporaryDirectory() as tmp:
         arq = Path(tmp) / "painel.html"
         base = [chrome, "--headless", "--no-sandbox", "--disable-gpu", "--hide-scrollbars",
-                f"--user-data-dir={tmp}/perfil"]
+                f"--force-device-scale-factor={escala:.4f}", f"--user-data-dir={tmp}/perfil"]
         arq.write_text(pagina.replace("</body>", medir + "</body>"), encoding="utf-8")
-        out = subprocess.run(base + [f"--window-size={LARGURA},1000", "--dump-dom", arq.as_uri()],
+        out = subprocess.run(base + [f"--window-size={largura},1000", "--dump-dom", arq.as_uri()],
                              capture_output=True, text=True, timeout=90).stdout
         m = re.search(r"ALTURA=(\d+)", out)
         altura = min(int(m.group(1)), 8000) if m else 3600
         arq.write_text(pagina, encoding="utf-8")
-        subprocess.run(base + [f"--window-size={LARGURA},{altura}", f"--screenshot={destino}", arq.as_uri()],
+        subprocess.run(base + [f"--window-size={largura},{altura}", f"--screenshot={destino}", arq.as_uri()],
                        capture_output=True, timeout=90)
     if not destino.exists() or destino.stat().st_size < 1000:
         raise RuntimeError("Chromium não gerou o PNG do painel")
     return destino
 
 
-def gerar_painel(destino: Path, *dados) -> Path:
+def gerar_painel(destino: Path, *dados, formato: str = "ipad") -> Path:
     """dados = (agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi), os mesmos do relatorio()."""
-    return html_para_png(html_painel(*dados), destino)
+    f = FORMATOS[formato]
+    return html_para_png(html_painel(*dados, formato=formato), destino, f["largura"], f["escala"])
+
+
+def gerar_paineis(base: Path, *dados) -> dict[str, Path | Exception]:
+    """Gera os dois formatos: base_ipad.png e base_iphone.png. Um formato que falhar
+    vem como a exceção, sem impedir o outro."""
+    out: dict[str, Path | Exception] = {}
+    for formato in FORMATOS:
+        try:
+            out[formato] = gerar_painel(base.with_name(f"{base.stem}_{formato}.png"), *dados, formato=formato)
+        except Exception as e:
+            out[formato] = e
+    return out

@@ -733,7 +733,8 @@ def main() -> int:
     ap.add_argument("--sem-snapshot", action="store_true", help="não grava snapshot")
     ap.add_argument("--sem-semana", action="store_true", help="pula a comparação semanal")
     ap.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (diagnóstico)")
-    ap.add_argument("--painel", metavar="ARQ.png", help="salva o painel em PNG neste arquivo")
+    ap.add_argument("--painel", metavar="ARQ.png",
+                    help="salva os painéis em PNG: ARQ_ipad.png e ARQ_iphone.png")
     ap.add_argument("--sem-painel", action="store_true", help="não gera nem envia o painel em PNG")
     ap.add_argument("--whatsapp", action="store_true",
                     help="envia o relatório pelo WhatsApp da loja para WHATSAPP_EMERSON "
@@ -778,13 +779,17 @@ def main() -> int:
     print(texto)
     if not args.sem_snapshot:
         gravar_snapshot(dia, agora, r, moto, sushi["r"] if sushi and not sushi.get("erro") else None)
-    painel = None
+    paineis: list = []      # [(rótulo, arquivo)] — iPad e iPhone 14 Pro Max
     if not args.sem_painel and (args.painel or args.whatsapp):
-        destino = Path(args.painel) if args.painel else Path(tempfile.mkdtemp()) / f"painel_{agora:%d-%m_%H%M}.png"
+        base = Path(args.painel) if args.painel else Path(tempfile.mkdtemp()) / f"painel_{agora:%d-%m_%H%M}.png"
         try:
-            from painel import gerar_painel
-            painel = gerar_painel(destino, agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi)
-            print(f"PAINEL: {painel}", file=sys.stderr)
+            from painel import FORMATOS, gerar_paineis
+            for formato, res in gerar_paineis(base, agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi).items():
+                if isinstance(res, Exception):
+                    print(f"PAINEL {formato}: não gerado — {res}", file=sys.stderr)
+                else:
+                    paineis.append((FORMATOS[formato]["rotulo"], res))
+                    print(f"PAINEL {formato}: {res}", file=sys.stderr)
         except Exception as e:      # o painel nunca derruba o relatório em texto
             print(f"PAINEL: não gerado — {e}", file=sys.stderr)
     if args.whatsapp:
@@ -792,15 +797,20 @@ def main() -> int:
         if not fone:
             print("WHATSAPP: não enviado — variável WHATSAPP_EMERSON não definida.", file=sys.stderr)
             return 3
-        # Emerson (08/11/2026): só o painel em imagem, sem o texto. O texto vai apenas
-        # se o painel não for gerado ou não for aceito, para o relatório não se perder.
-        if painel is not None:
+        # Emerson (08/11/2026): só o painel em imagem, sem o texto, em dois formatos
+        # (iPad e iPhone 14 Pro Max). O texto vai apenas se nenhum painel for aceito.
+        enviados = 0
+        for rotulo, arq in paineis:
             try:
-                api.enviar_whatsapp(fone, f"Painel Tili — {agora:%d/%m %H:%M}", arquivo=painel)
-                print("WHATSAPP: painel enviado.", file=sys.stderr)
-                return 0
+                api.enviar_whatsapp(fone, f"Painel Tili ({rotulo}) — {agora:%d/%m %H:%M}", arquivo=arq)
+                print(f"WHATSAPP: painel {rotulo} enviado.", file=sys.stderr)
+                enviados += 1
             except (AlivError, OSError) as e:
-                print(f"WHATSAPP: painel não enviado — {e}; mandando o texto", file=sys.stderr)
+                print(f"WHATSAPP: painel {rotulo} não enviado — {e}", file=sys.stderr)
+        if enviados:
+            return 0
+        if paineis:
+            print("WHATSAPP: nenhum painel aceito; mandando o texto", file=sys.stderr)
         try:
             api.enviar_whatsapp(fone, texto)
             print("WHATSAPP: texto enviado (sem painel).", file=sys.stderr)

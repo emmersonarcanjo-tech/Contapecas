@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Manual de Montagem — Tili Pizzaria (PDF A4, uma página por pizza).
+"""Manual de Montagem — Tili Pizzaria (PDF A4 deitado, uma página por pizza).
+
+Layout no estilo do "Manual Pizza Ilustrado": pizza em camadas à esquerda
+(massa embaixo, cobertura em cima) e ingredientes alinhados à direita, com
+gramatura P / M / G. Imagens dos ingredientes em manuais/ingredientes/.
 
 Lê do ALIV (SÓ LEITURA, loja 150):
   GET /admin/api/menu/full_data                         → pizzas ativas (categoria 798)
@@ -22,7 +26,7 @@ import unicodedata
 from pathlib import Path
 
 from reportlab.lib.colors import HexColor, white
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -225,46 +229,98 @@ def montar(rec: dict) -> tuple[list[dict], list[dict]]:
     return pizzas, pend
 
 
-def passos(p: dict) -> list[str]:
-    """Ordem de montagem na praça, a partir da ficha."""
-    por = {}
-    for l in p["linhas"]:
-        por.setdefault(l["classe"], []).append(l["nome"])
-    out = []
-    if p["doce"]:
-        out.append("Abra o disco na pá e espalhe o creme de leite até 1 dedo da borda.")
-        if "queijo" in por:
-            out.append("Distribua a " + ", ".join(por["queijo"]).lower() + " por toda a pizza.")
-        out.append("Leve ao forno até a massa dourar.")
-        cob = [n for n in por.get("cremoso", [])]
-        if cob:
-            out.append("Ao sair do forno, cubra com " + " e ".join(n.lower() for n in cob) + " sem deixar falhas.")
-        out.append("Corte, confira a borda limpa e feche a caixa.")
-        return out
-    out.append("Abra o disco na pá e espalhe o molho em espiral, deixando 1 dedo de borda.")
-    if "queijo" in por:
-        out.append("Cubra com " + " e ".join(n.lower() for n in por["queijo"]) + " de ponta a ponta.")
-    rech = por.get("proteina", []) + por.get("vegetal", [])
-    if rech:
-        out.append("Distribua por igual: " + ", ".join(n.lower() for n in rech) + ".")
-    if "cremoso" in por:
-        out.append("Finalize com " + " e ".join(por["cremoso"]) + " em espiral, do centro para fora.")
-    fin = por.get("final", [])
-    if fin:
-        out.append("Salpique " + ", ".join(n.lower() for n in fin) + ".")
-    out.append("Forno. Na saída" + (f", coloque {', '.join(n.lower() for n in por['pos'])}," if "pos" in por else "")
-               + " corte e feche a caixa.")
-    return out
+
+
+# ---------------------------------------------------------------- imagens
+PASTA_ING = Path(__file__).resolve().parent / "ingredientes"
+_CACHE_IMG: dict = {}
+
+# chave da ficha → (arquivo, tinta RGB ou None, largura em pt, cópias)
+IMAGENS = {
+    "massa": ("massa", None, 300, 1),
+    "molho de tomate": ("molho", None, 255, 1),
+    "creme de leite": ("cream_cheese", None, 190, 1),
+    "mussarela": ("queijo", None, 215, 1),
+    "provolone": ("queijo", (250, 235, 190), 180, 1),
+    "parmesão": ("queijo", (250, 245, 220), 150, 1),
+    "presunto": ("presunto_ralado", None, 200, 1),
+    "frango": ("frango", None, 190, 1),
+    "calabresa": ("calabresa", None, 120, 2),
+    "bacon": ("bacon", None, 190, 1),
+    "lombinho canadense": ("presunto_fatia", (245, 170, 160), 110, 2),
+    "carne de sol": ("carne", None, 185, 1),
+    "camarão": ("camarao", None, 85, 3),
+    "tomate": ("tomate", None, 85, 4),
+    "cebola": ("cebola", None, 120, 2),
+    "pimentão": ("pimentao", None, 105, 2),
+    "milho": ("milho", None, 150, 1),
+    "ervilha": ("ervilha", None, 32, 5),
+    "ovo": ("ovo", None, 110, 2),
+    "pimenta calabresa": ("oregano", (200, 40, 20), 140, 1),
+    "catupiry": ("catupiry", None, 190, 1),
+    "cheddar cremoso": ("cheddar", None, 190, 1),
+    "cream cheese": ("cream_cheese", None, 170, 1),
+    "chocolate ao leite": ("catupiry", (75, 40, 22), 200, 1),
+    "nutella": ("catupiry", (95, 50, 30), 200, 1),
+    "orégano": ("oregano", None, 150, 1),
+    "azeitona": ("azeitona", None, 24, 7),
+    "manjericão": ("manjericao", None, 190, 1),
+}
+
+
+def imagem(arq: str, tinta) -> tuple[str, float]:
+    """Caminho do PNG (tingido se preciso) e proporção altura/largura."""
+    k = (arq, tinta)
+    if k not in _CACHE_IMG:
+        from PIL import Image
+        im = Image.open(PASTA_ING / f"{arq}.png").convert("RGBA")
+        caminho = str(PASTA_ING / f"{arq}.png")
+        if tinta:
+            import tempfile
+            r, g, b, a = im.split()
+            lum = Image.merge("RGB", (r, g, b)).convert("L")
+            cor = Image.merge("RGB", [lum.point(lambda v, c=c: int(v * c / 255)) for c in tinta])
+            im = Image.merge("RGBA", (*cor.split(), a))
+            fd, caminho = tempfile.mkstemp(suffix=".png")
+            os.close(fd)
+            im.save(caminho)
+        _CACHE_IMG[k] = (caminho, im.size[1] / im.size[0])
+    return _CACHE_IMG[k]
 
 
 # ---------------------------------------------------------------- desenho
-W, H = A4
-M = 15 * mm
+PW, PH = landscape(A4)
+BORDA = 12
+
+
+def moldura(c):
+    c.setStrokeColor(DOURADO)
+    c.setLineWidth(3)
+    c.rect(BORDA, BORDA, PW - 2 * BORDA, PH - 2 * BORDA, stroke=1, fill=0)
+
+
+def titulo(c, txt, num=None, cor=VERMELHO):
+    tam = 44
+    while c.stringWidth(txt, "Sans-B", tam) > PW - 260 and tam > 24:
+        tam -= 1
+    c.setFillColor(cor)
+    c.setFont("Sans-B", tam)
+    c.drawCentredString(PW / 2 - 20, PH - 72, txt)
+    c.setFillColor(DOURADO)
+    c.rect(PW / 2 - 20 - 60, PH - 86, 120, 4, stroke=0, fill=1)
+    if LOGO.exists():
+        c.drawImage(str(LOGO), PW - BORDA - 82, PH - BORDA - 74, 68, 68, mask="auto", preserveAspectRatio=True)
+    if num is not None:
+        c.setFillColor(PRETO)
+        c.circle(BORDA + 40, PH - BORDA - 38, 20, stroke=0, fill=1)
+        c.setFillColor(DOURADO)
+        c.setFont("Sans-B", 16)
+        c.drawCentredString(BORDA + 40, PH - BORDA - 44, f"{num:02d}")
 
 
 def quebra(c, txt, fonte, tam, larg):
-    palavras, linhas, atual = txt.split(), [], ""
-    for w in palavras:
+    linhas, atual = [], ""
+    for w in txt.split():
         t = (atual + " " + w).strip()
         if c.stringWidth(t, fonte, tam) <= larg:
             atual = t
@@ -276,334 +332,243 @@ def quebra(c, txt, fonte, tam, larg):
     return linhas
 
 
-def topo(c, titulo, sub=None, num=None):
-    c.setFillColor(VERMELHO)
-    c.rect(0, H - 42 * mm, W, 42 * mm, stroke=0, fill=1)
-    c.setFillColor(DOURADO)
-    c.rect(0, H - 44.5 * mm, W, 2.5 * mm, stroke=0, fill=1)
-    c.setFillColor(white)
-    c.setFont("Sans", 10)
-    c.drawString(M, H - 11 * mm, "MANUAL DE MONTAGEM — TILI PIZZARIA")
-    tam = 34
-    while c.stringWidth(titulo.upper(), "Sans-B", tam) > W - 2 * M - 30 * mm and tam > 20:
-        tam -= 1
-    c.setFont("Sans-B", tam)
-    c.drawString(M, H - 28 * mm, titulo.upper())
-    if sub:
-        c.setFont("Sans", 11)
-        c.drawString(M, H - 37 * mm, sub)
-    if num is not None:
-        c.setFillColor(DOURADO)
-        c.circle(W - M - 11 * mm, H - 22 * mm, 11 * mm, stroke=0, fill=1)
-        c.setFillColor(PRETO)
-        c.setFont("Sans-B", 20)
-        c.drawCentredString(W - M - 11 * mm, H - 25 * mm, f"{num:02d}")
+def depois_do_forno(p, l) -> bool:
+    n = l["nome"].lower()
+    return l["classe"] == "pos" or (p["doce"] and ("chocolate" in n or "nutella" in n))
 
 
-def rodape(c, pag):
-    c.setStrokeColor(DOURADO)
-    c.setLineWidth(1)
-    c.line(M, 12 * mm, W - M, 12 * mm)
-    c.setFillColor(CINZA_ESC)
-    c.setFont("Sans", 8.5)
-    c.drawString(M, 7.5 * mm, "Fonte: ficha técnica do ALIV (loja 150). Gramaturas arredondadas de 5 em 5 g.")
-    c.drawRightString(W - M, 7.5 * mm, f"pág. {pag}")
-
-
-def secao(c, y, titulo):
-    c.setFillColor(PRETO)
-    c.rect(M, y - 8.5 * mm, 3 * mm, 8.5 * mm, stroke=0, fill=1)
-    c.setFont("Sans-B", 15)
-    c.drawString(M + 5.5 * mm, y - 6.5 * mm, titulo.upper())
-    return y - 11 * mm
-
-
-CORES_TOP = {
-    "proteina": HexColor("#A8322D"), "vegetal": HexColor("#3E8E41"), "cremoso": HexColor("#F2E8C9"),
-    "final": HexColor("#2F4F2F"), "queijo": HexColor("#F7D774"), "pos": HexColor("#2E7D32"),
-}
-
-
-def ilustracao(c, cx, cy, r, p, seed):
-    """Pizza vista de cima, com os recheios da ficha."""
+def desenha_camada(c, chave_ing, cx, cy, altura_max, seed):
     import random
+    arq, tinta, larg, copias = IMAGENS.get(chave_ing, ("queijo", (230, 200, 160), 150, 1))
+    caminho, prop = imagem(arq, tinta)
     rnd = random.Random(seed)
-    c.setFillColor(HexColor("#E2B169"))
-    c.circle(cx, cy, r, stroke=0, fill=1)
-    base = HexColor("#5A2E1B") if p["doce"] else HexColor("#C0392B")
-    c.setFillColor(base)
-    c.circle(cx, cy, r * 0.86, stroke=0, fill=1)
-    classes = [l["classe"] for l in p["linhas"]]
-    if "queijo" in classes:
-        c.setFillColor(HexColor("#F7D774"))
-        for _ in range(26):
-            a, d = rnd.uniform(0, 2 * math.pi), rnd.uniform(0, r * 0.7)
-            c.circle(cx + d * math.cos(a), cy + d * math.sin(a), r * rnd.uniform(.12, .2), stroke=0, fill=1)
-    for l in p["linhas"]:
-        cl = l["classe"]
-        if cl in ("massa", "base", "queijo"):
-            continue
-        n = l["nome"].lower()
-        cor = CORES_TOP.get(cl, PRETO)
-        if "azeitona" in n:
-            cor, qt, tam = HexColor("#556B2F"), 7, .05
-        elif "orégano" in n:
-            cor, qt, tam = HexColor("#4B6B2A"), 40, .012
-        elif "catupiry" in n or "cream" in n:
-            cor, qt, tam = HexColor("#FFF8E7"), 10, .07
-        elif "cheddar" in n:
-            cor, qt, tam = HexColor("#F39C12"), 10, .07
-        elif "chocolate" in n or "nutella" in n:
-            cor, qt, tam = HexColor("#3B1F12"), 30, .1
-        elif "milho" in n or "ovo" in n:
-            cor, qt, tam = HexColor("#F4D03F"), 14, .035
-        elif "cebola" in n:
-            cor, qt, tam = HexColor("#E8DAEF"), 10, .045
-        elif "pimentão" in n:
-            cor, qt, tam = HexColor("#D35400"), 9, .04
-        elif "ervilha" in n or "manjericão" in n:
-            cor, qt, tam = HexColor("#27AE60"), 12, .035
-        elif "tomate" in n:
-            cor, qt, tam = HexColor("#E74C3C"), 8, .075
-        elif "parmes" in n:
-            cor, qt, tam = HexColor("#FDF2CC"), 25, .018
-        elif "pimenta" in n:
-            cor, qt, tam = HexColor("#922B21"), 25, .012
+    if copias == 1:
+        h = min(larg * prop, altura_max)
+        w = h / prop
+        c.drawImage(caminho, cx - w / 2, cy - h / 2, w, h, mask="auto")
+        return
+    h = min(larg * prop, altura_max * 0.8)
+    w = h / prop
+    faixa = 230
+    for k in range(copias):
+        x = cx - faixa / 2 + (k + 0.5) * faixa / copias + rnd.uniform(-6, 6)
+        y = cy + rnd.uniform(-altura_max * .18, altura_max * .18)
+        c.drawImage(caminho, x - w / 2, y - h / 2, w, h, mask="auto")
+
+
+def pagina_pizza(c, p, num, forno):
+    moldura(c)
+    titulo(c, p["nome"], num)
+    linhas = p["linhas"]                        # massa primeiro (ordem de montagem)
+    n = len(linhas)
+
+    base_y, topo_y = 132, PH - 142
+    passo = min(78, (topo_y - base_y) / max(n - 1, 1))
+    ys = [base_y + i * passo for i in range(n)]
+
+    # ---- pizza em camadas (esquerda)
+    cx = 205
+    for i, l in enumerate(linhas):
+        k = chave(l["nome"]) if l["classe"] != "massa" else "massa"
+        k = {"muçarela": "mussarela", "cheddar": "cheddar cremoso", "catupiry original": "catupiry"}.get(k, k)
+        if l["classe"] == "base":                     # molho / creme deitado em cima da massa
+            desenha_camada(c, k, cx, ys[0] + 14, 52, i)
+        elif l["classe"] == "massa":
+            desenha_camada(c, k, cx, ys[0], 92, i)
         else:
-            qt, tam = 10, .08
-        c.setFillColor(cor)
-        c.setStrokeColor(HexColor("#00000033"))
-        for _ in range(qt):
-            a, d = rnd.uniform(0, 2 * math.pi), rnd.uniform(0, r * 0.72)
-            c.circle(cx + d * math.cos(a), cy + d * math.sin(a), r * tam, stroke=0, fill=1)
-    c.setStrokeColor(HexColor("#FFFFFF"))
-    c.setLineWidth(1.2)
-    for k in range(4):
-        a = k * math.pi / 4
-        c.line(cx - r * .86 * math.cos(a), cy - r * .86 * math.sin(a), cx + r * .86 * math.cos(a), cy + r * .86 * math.sin(a))
+            desenha_camada(c, k, cx, ys[i] + 6, passo * 1.9, int(p["id"]) + i)
 
-
-def pagina_pizza(c, p, num, pag, forno):
-    topo(c, p["nome"], "Ficha técnica oficial · P 25 cm · M 30 cm · G 35 cm", num)
-    y = H - 52 * mm
-
-    # ilustração + descrição
-    ilustracao(c, W - M - 17 * mm, y - 16 * mm, 16 * mm, p, int(p["id"]))
-    c.setFillColor(CINZA_ESC)
-    c.setFont("Sans", 11)
-    yy = y - 2 * mm
-    for ln in quebra(c, "Como está no cardápio: " + p["desc"], "Sans", 11, W - 2 * M - 50 * mm)[:6]:
-        yy -= 5 * mm
-        c.drawString(M, yy, ln)
-    y = min(yy - 4 * mm, y - 30 * mm)
-    lista_passos = passos(p)
-    fundo = 12 * mm + 32 * mm + 3 * mm          # rodapé + caixas forno/obs + folga
-    for fp in (14, 13, 12, 11):
-        ep = fp * 0.443 * mm                      # entrelinha dos passos
-        h_passos = sum(max(10 * mm, len(quebra(c, t, "Sans", fp, W - 2 * M - 14 * mm)) * ep + 4.5 * mm)
-                       for t in lista_passos)
-        livre = y - fundo - h_passos - 40 * mm
-        lh = max(6.6 * mm, min(10.5 * mm, livre / len(p["linhas"])))
-        if livre / len(p["linhas"]) >= 6.6 * mm:
-            break
-
-    # tabela de gramaturas
-    y = secao(c, y, "Ingredientes e gramatura")
-    larg = W - 2 * M
-    colw = 30 * mm
-    col0 = larg - 3 * colw
-    hh = 11 * mm
-    c.setFillColor(PRETO)
-    c.rect(M, y - hh, larg, hh, stroke=0, fill=1)
-    c.setFillColor(white)
-    c.setFont("Sans-B", 14)
-    c.drawString(M + 3 * mm, y - 7.5 * mm, "INGREDIENTE")
-    for i, (_, t, _) in enumerate(TAMANHOS):
-        c.setFillColor(DOURADO)
-        c.drawCentredString(M + col0 + colw * (i + .5), y - 7.5 * mm, t)
-    y -= hh
-    for k, l in enumerate(p["linhas"]):
-        c.setFillColor(CINZA if k % 2 == 0 else white)
-        c.rect(M, y - lh, larg, lh, stroke=0, fill=1)
+    # ---- lista à direita (de cima para baixo = última camada primeiro)
+    x0 = 398
+    cols = [PW - BORDA - 168, PW - BORDA - 102, PW - BORDA - 36]
+    hy = ys[-1] + min(passo / 2, 26) + 6
+    for (_, t, d), x in zip(TAMANHOS, cols):
+        c.setFillColor(VERMELHO)
+        c.roundRect(x - 29, hy, 58, 30, 6, stroke=0, fill=1)
+        c.setFillColor(white)
+        c.setFont("Sans-B", 15)
+        c.drawCentredString(x, hy + 14, t)
+        c.setFont("Sans", 8)
+        c.drawCentredString(x, hy + 4, d.split(" · ")[0])
+    tam_nome = 17 if passo >= 36 else 15
+    for i, l in reversed(list(enumerate(linhas))):
+        y = ys[i]
+        c.setStrokeColor(HexColor("#E6DCC3"))
+        c.setLineWidth(.6)
+        c.line(x0, y - min(passo / 2, 22) + 2, PW - BORDA - 8, y - min(passo / 2, 22) + 2)
+        c.setFillColor(DOURADO if l["classe"] != "massa" else PRETO)
+        c.circle(x0 + 11, y + 5, 10, stroke=0, fill=1)
+        c.setFillColor(PRETO if l["classe"] != "massa" else white)
+        c.setFont("Sans-B", 11)
+        c.drawCentredString(x0 + 11, y + 1, str(i + 1))
+        nome = "Massa da pizza" if l["classe"] == "massa" else l["nome"]
         c.setFillColor(PRETO)
-        tn = 15
-        while c.stringWidth(l["nome"], "Sans-B", tn) > col0 - 6 * mm:
+        tn = tam_nome
+        while c.stringWidth(nome, "Sans-B", tn) > cols[0] - 32 - x0 - 30:
             tn -= .5
         c.setFont("Sans-B", tn)
-        c.drawString(M + 3 * mm, y - lh / 2 - 1.8 * mm, l["nome"])
-        c.setFont("Sans-B", 16)
-        for i, (s, _, _) in enumerate(TAMANHOS):
+        c.drawString(x0 + 28, y, nome)
+        if depois_do_forno(p, l):
+            c.setFillColor(VERMELHO)
+            c.setFont("Sans-B", 9)
+            c.drawString(x0 + 28, y - 11, "DEPOIS DO FORNO")
+        for (s, _, _), x in zip(TAMANHOS, cols):
             v = l["q"].get(s, "—")
             c.setFillColor(VERMELHO if v == "—" else PRETO)
-            c.drawCentredString(M + col0 + colw * (i + .5), y - lh / 2 - 2 * mm, v)
-        y -= lh
-    c.setStrokeColor(DOURADO)
-    c.setLineWidth(1.5)
-    c.line(M, y, M + larg, y)
-    y -= 7 * mm
+            c.setFont("Sans-B", 16 if passo >= 36 else 14)
+            c.drawCentredString(x, y, v)
 
-    # ordem de montagem
-    y = secao(c, y, "Ordem de montagem na praça")
-    for i, t in enumerate(lista_passos, 1):
-        lins = quebra(c, t, "Sans", fp, W - 2 * M - 14 * mm)
-        c.setFillColor(VERMELHO)
-        c.circle(M + 4.5 * mm, y - 4 * mm, 4.5 * mm, stroke=0, fill=1)
-        c.setFillColor(white)
-        c.setFont("Sans-B", 13)
-        c.drawCentredString(M + 4.5 * mm, y - 5.6 * mm, str(i))
-        c.setFillColor(PRETO)
-        c.setFont("Sans", fp)
-        for j, ln in enumerate(lins):
-            c.drawString(M + 12 * mm, y - 5.4 * mm - j * ep, ln)
-        y -= max(10 * mm, len(lins) * ep + 4.5 * mm)
-    if y < 12 * mm + 2 * mm + 32 * mm:
-        print(f"AVISO: página de {p['nome']} apertada (sobra {(y / mm) - 48:.0f} mm)", file=sys.stderr)
-    y = 12 * mm + 2 * mm + 32 * mm
-
-    # forno + observações (lado a lado)
-    caixa_h = 32 * mm
-    lw = (W - 2 * M - 6 * mm) / 2
-    for i, (tit, cor) in enumerate((("PONTO DE FORNO", VERMELHO), ("OBSERVAÇÕES", DOURADO))):
-        x = M + i * (lw + 6 * mm)
+    # ---- faixa de baixo: forno e observações
+    fy, fh = BORDA + 12, 62
+    lw = (PW - 2 * BORDA - 36) / 2
+    obs = []
+    if p["problemas"]:
+        obs.append("Ficha a completar: " + "; ".join(p["problemas"]) + ".")
+    obs.append("Meio a meio: metade da gramatura de cada sabor.")
+    for k, (tit, cor, txt) in enumerate((("PONTO DE FORNO", VERMELHO, forno),
+                                         ("OBSERVAÇÕES", DOURADO, " ".join(obs)))):
+        x = BORDA + 12 + k * (lw + 12)
         c.setFillColor(cor)
-        c.roundRect(x, y - caixa_h, lw, caixa_h, 3 * mm, stroke=0, fill=1)
+        c.roundRect(x, fy, lw, fh, 6, stroke=0, fill=1)
         c.setFillColor(white)
-        c.roundRect(x + 1.2 * mm, y - caixa_h + 1.2 * mm, lw - 2.4 * mm, caixa_h - 9 * mm, 2 * mm, stroke=0, fill=1)
+        c.roundRect(x + 108, fy + 3, lw - 111, fh - 6, 4, stroke=0, fill=1)
         c.setFillColor(white if cor == VERMELHO else PRETO)
-        c.setFont("Sans-B", 13)
-        c.drawString(x + 4 * mm, y - 6 * mm, tit)
+        c.setFont("Sans-B", 11)
+        for j, ln in enumerate(quebra(c, tit, "Sans-B", 11, 96)):
+            c.drawString(x + 9, fy + fh - 22 - j * 13, ln)
         c.setFillColor(PRETO)
-        if i == 0:
-            txt = forno
-        else:
-            obs = []
-            if p["problemas"]:
-                obs.append("Ficha a completar: " + "; ".join(p["problemas"]) + ".")
-            obs.append("Pizza meio a meio: use metade da gramatura de cada sabor.")
-            txt = " ".join(obs)
-        tam = 12.5
-        lins = quebra(c, txt, "Sans", tam, lw - 9 * mm)
-        while len(lins) * tam * 0.45 * mm > caixa_h - 13 * mm and tam > 9:
+        tam = 11.5
+        lins = quebra(c, txt, "Sans", tam, lw - 128)
+        while len(lins) * tam * 1.2 > fh - 10 and tam > 8:
             tam -= .5
-            lins = quebra(c, txt, "Sans", tam, lw - 9 * mm)
+            lins = quebra(c, txt, "Sans", tam, lw - 128)
         c.setFont("Sans", tam)
+        y0 = fy + fh / 2 + (len(lins) * tam * 1.2) / 2 - tam
         for j, ln in enumerate(lins):
-            c.drawString(x + 4.5 * mm, y - 14.5 * mm - j * tam * 0.45 * mm, ln)
-    rodape(c, pag)
+            c.drawString(x + 117, y0 - j * tam * 1.2, ln)
 
 
 def capa(c, total):
     c.setFillColor(PRETO)
-    c.rect(0, 0, W, H, stroke=0, fill=1)
+    c.rect(0, 0, PW, PH, stroke=0, fill=1)
     c.setFillColor(VERMELHO)
-    c.rect(0, H * .62, W, H * .38, stroke=0, fill=1)
+    c.rect(0, 0, PW * .46, PH, stroke=0, fill=1)
     c.setFillColor(DOURADO)
-    c.rect(0, H * .62 - 3 * mm, W, 3 * mm, stroke=0, fill=1)
+    c.rect(PW * .46, 0, 5, PH, stroke=0, fill=1)
     if LOGO.exists():
         c.setFillColor(white)
-        c.circle(W / 2, H * .62, 52 * mm, stroke=0, fill=1)
-        c.drawImage(str(LOGO), W / 2 - 34 * mm, H * .62 - 34 * mm, 68 * mm, 68 * mm, mask="auto",
-                    preserveAspectRatio=True)
+        c.circle(PW * .23, PH / 2, 135, stroke=0, fill=1)
+        c.drawImage(str(LOGO), PW * .23 - 100, PH / 2 - 100, 200, 200, mask="auto", preserveAspectRatio=True)
+    x = PW * .46 + 40
     c.setFillColor(white)
-    c.setFont("Sans-B", 40)
-    c.drawCentredString(W / 2, H * .33, "MANUAL DE MONTAGEM")
+    c.setFont("Sans-B", 38)
+    c.drawString(x, PH * .62, "MANUAL DE")
+    c.drawString(x, PH * .62 - 46, "MONTAGEM")
     c.setFillColor(DOURADO)
     c.setFont("Sans-B", 26)
-    c.drawCentredString(W / 2, H * .33 - 14 * mm, "TILI PIZZARIA")
+    c.drawString(x, PH * .62 - 92, "TILI PIZZARIA")
     c.setFillColor(white)
     c.setFont("Sans", 14)
-    c.drawCentredString(W / 2, H * .33 - 30 * mm, f"{total} pizzas · gramatura P, M e G · ordem de montagem")
-    c.drawCentredString(W / 2, H * .33 - 38 * mm, "Dados da ficha técnica do ALIV")
+    c.drawString(x, PH * .62 - 130, f"{total} pizzas · gramatura P, M e G")
+    c.drawString(x, PH * .62 - 150, "Ordem de montagem de baixo para cima")
+    c.setFont("Sans", 10)
+    c.setFillColor(HexColor("#BBBBBB"))
+    c.drawString(x, 40, "Gramaturas da ficha técnica do ALIV, arredondadas de 5 em 5 g.")
 
 
-def pagina_regras(c, pag):
-    topo(c, "Regras da praça", "Leia antes de começar o turno")
-    y = H - 56 * mm
+def pagina_regras(c):
+    moldura(c)
+    titulo(c, "Regras da praça")
     regras = [
-        ("Balança sempre", "Pese todo recheio. A gramatura deste manual é a da ficha técnica — é o que o custo considera."),
-        ("Tamanhos", "P = disco 25 cm (4 fatias) · M = disco 30 cm (6 fatias) · G = disco 35 cm (8 fatias)."),
+        ("Balança sempre", "Pese todo recheio. A gramatura é a da ficha técnica — é o que o custo considera."),
+        ("Tamanhos", "P = disco 25 cm (4 fatias) · M = 30 cm (6 fatias) · G = 35 cm (8 fatias)."),
+        ("Como ler a página", "Monte de baixo para cima, na ordem dos números: 1 é a massa, o último é a finalização."),
         ("Borda limpa", "Molho e recheio até 1 dedo da borda. Borda suja queima e vaza na caixa."),
-        ("Ordem padrão", "Disco → molho → muçarela → recheios → cremosos → parmesão, orégano e azeitona → forno."),
-        ("Meio a meio", "Cada metade leva metade da gramatura do seu sabor. Muçarela e molho, normais."),
-        ("Doces", "Base de creme de leite. Chocolate e Nutella entram depois do forno, sobre a massa quente."),
+        ("Meio a meio", "Cada metade leva metade da gramatura do seu sabor. Massa e molho, normais."),
+        ("Depois do forno", "O que estiver marcado em vermelho entra só quando a pizza sai do forno."),
         ("Embalagem", "Caixa do tamanho certo, mesinha no centro, sachês de ketchup e maionese."),
     ]
+    y = PH - 125
     for i, (t, d) in enumerate(regras, 1):
+        x = 60 if i <= 4 else PW / 2 + 15
+        if i == 5:
+            y = PH - 125
         c.setFillColor(VERMELHO)
-        c.circle(M + 7 * mm, y - 6 * mm, 7 * mm, stroke=0, fill=1)
+        c.circle(x + 16, y - 6, 16, stroke=0, fill=1)
         c.setFillColor(white)
         c.setFont("Sans-B", 17)
-        c.drawCentredString(M + 7 * mm, y - 8.2 * mm, str(i))
+        c.drawCentredString(x + 16, y - 12, str(i))
         c.setFillColor(PRETO)
         c.setFont("Sans-B", 17)
-        c.drawString(M + 18 * mm, y - 4.5 * mm, t.upper())
-        c.setFont("Sans", 14)
-        lins = quebra(c, d, "Sans", 14, W - 2 * M - 20 * mm)
+        c.drawString(x + 42, y - 4, t.upper())
+        c.setFont("Sans", 13.5)
+        lins = quebra(c, d, "Sans", 13.5, PW / 2 - 120)
         for j, ln in enumerate(lins):
-            c.drawString(M + 18 * mm, y - 11.5 * mm - j * 6.3 * mm, ln)
-        y -= 16 * mm + len(lins) * 6.3 * mm
-    rodape(c, pag)
+            c.drawString(x + 42, y - 24 - j * 17, ln)
+        y -= 50 + len(lins) * 17
 
 
-def pagina_pendencias(c, pend, pag):
-    topo(c, "Fichas a completar", f"{len(pend)} pizzas ativas sem ficha ou com ficha incompleta no ALIV")
-    y = H - 54 * mm
-    for k, p in enumerate(pend):
-        txt = "; ".join(p["problemas"])
-        lins = quebra(c, txt, "Sans", 11.5, W - 2 * M - 100 * mm)
-        h = max(9 * mm, len(lins) * 5.2 * mm + 3.5 * mm)
-        if y - h < 18 * mm:
-            rodape(c, pag)
-            c.showPage()
-            pag += 1
-            topo(c, "Fichas a completar", "continuação")
-            y = H - 54 * mm
-        c.setFillColor(CINZA if k % 2 == 0 else white)
-        c.rect(M, y - h, W - 2 * M, h, stroke=0, fill=1)
-        c.setFillColor(PRETO)
-        tn = 13
-        while c.stringWidth(p["nome"], "Sans-B", tn) > 92 * mm:
-            tn -= .5
-        c.setFont("Sans-B", tn)
-        c.drawString(M + 3 * mm, y - 6.2 * mm, p["nome"])
-        c.setFillColor(VERMELHO)
-        c.setFont("Sans", 11.5)
-        for j, ln in enumerate(lins):
-            c.drawString(M + 98 * mm, y - 6 * mm - j * 5.2 * mm, ln)
-        y -= h
-    rodape(c, pag)
-    return pag
+def pagina_pendencias(c, pend):
+    moldura(c)
+    titulo(c, "Fichas a completar no ALIV")
+    c.setFillColor(CINZA_ESC)
+    c.setFont("Sans", 12)
+    c.drawCentredString(PW / 2 - 20, PH - 108, f"{len(pend)} pizzas ativas sem ficha técnica ou com ficha incompleta")
+    meio = (len(pend) + 1) // 2
+    for col, grupo in enumerate((pend[:meio], pend[meio:])):
+        x = 34 + col * (PW / 2 - 22)
+        larg = PW / 2 - 46
+        y = PH - 128
+        for k, p in enumerate(grupo):
+            txt = "; ".join(p["problemas"])
+            lins = quebra(c, txt, "Sans", 10, larg - 200)
+            h = max(30, len(lins) * 12 + 10, len(quebra(c, p["nome"], "Sans-B", 11.5, 186)) * 13 + 8)
+            c.setFillColor(CINZA if k % 2 == 0 else white)
+            c.rect(x, y - h, larg, h, stroke=0, fill=1)
+            c.setFillColor(PRETO)
+            nl = quebra(c, p["nome"], "Sans-B", 11.5, 186)
+            c.setFont("Sans-B", 11.5)
+            for j, ln in enumerate(nl):
+                c.drawString(x + 5, y - h / 2 - 4 + (len(nl) - 1) * 6.5 - j * 13, ln)
+            c.setFillColor(VERMELHO)
+            c.setFont("Sans", 10)
+            y0 = y - h / 2 + (len(lins) - 1) * 6 - 3.5
+            for j, ln in enumerate(lins):
+                c.drawString(x + 196, y0 - j * 12, ln)
+            y -= h
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--saida", default=str(RAIZ / "manuais" / "Manual_de_Montagem_Tili_Pizzaria.pdf"))
     ap.add_argument("--paginas", type=int, default=0, help="só as N primeiras pizzas (prévia)")
+    ap.add_argument("--so", help="só as pizzas com estes nomes (separados por vírgula)")
     ap.add_argument("--cache", type=Path)
-    ap.add_argument("--forno", default="Forno: ____ °C  ·  Tempo: ____ min. "
-                    "Ponto: borda dourada, fundo firme e queijo borbulhando.")
+    ap.add_argument("--forno", default="Forno ______ °C · Tempo ______ min. "
+                    "Pronta quando a borda estiver dourada e o queijo borbulhando.")
     a = ap.parse_args()
     _, rec = carregar(a.cache)
     pizzas, pend = montar(rec)
-    lista = pizzas[: a.paginas] if a.paginas else pizzas
-    c = canvas.Canvas(a.saida, pagesize=A4)
+    lista = pizzas
+    if a.so:
+        alvo = {sem_acento(x.strip()) for x in a.so.split(",")}
+        lista = [p for p in pizzas if sem_acento(p["nome"]) in alvo]
+    if a.paginas:
+        lista = lista[: a.paginas]
+    c = canvas.Canvas(a.saida, pagesize=landscape(A4))
     c.setTitle("Manual de Montagem — Tili Pizzaria")
     capa(c, len(pizzas))
     c.showPage()
-    pag = 2
-    pagina_regras(c, pag)
+    pagina_regras(c)
     c.showPage()
-    for i, p in enumerate(lista, 1):
-        pag += 1
-        pagina_pizza(c, p, i, pag, a.forno)
+    for p in lista:
+        pagina_pizza(c, p, pizzas.index(p) + 1, a.forno)
         c.showPage()
-    if not a.paginas:
-        pag = pagina_pendencias(c, pend, pag + 1)
+    if not (a.paginas or a.so):
+        pagina_pendencias(c, pend)
         c.showPage()
     c.save()
     print(f"{a.saida}: {len(lista)} pizzas, {len(pend)} pendências")
-    for p in pend:
-        print(" -", p["nome"], "→", "; ".join(p["problemas"]))
 
 
 if __name__ == "__main__":

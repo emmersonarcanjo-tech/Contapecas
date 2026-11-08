@@ -18,7 +18,7 @@ dia do mês passado), janela 16:00–00:00 de cada dia:
   • Capacidade segura = o melhor ritmo (entregas/motoboy/hora no pico) de um dia
     que NÃO estourou. Recomendação = pico previsto ÷ capacidade, arredondado em
     faixa; nunca abaixo do nº de motoboys de um dia que estourou com movimento parecido.
-  • Regra do Emerson: no máximo 2 entregas por saída. Ritmo máximo = 2 × 60 ÷ (2 × rua média + 5 min);
+  • Limite de entregas por saída (MAX_POR_SAIDA, hoje desligado): ritmo máximo = N × 60 ÷ (2 × rua média + 5 min);
     vale o menor entre esse e o ritmo dos dias sem atraso.
   • Ajustes: feriado/data forte (+20%), véspera (+15%), promoção (+10%,
     monitor/assets/promocoes.json). Dias da base que eram feriado/véspera/promo
@@ -70,7 +70,8 @@ PESOS = [0.35, 0.25, 0.15, 0.10]     # semanas -1, -2, -3, -4
 PESO_MES = 0.15                      # mesmo dia do mês passado
 AJ_FERIADO, AJ_VESPERA, AJ_PROMO = 1.20, 1.15, 1.10
 CAPACIDADE_PADRAO = 4.0              # entregas/motoboy/hora, se nenhum dia servir de base
-MAX_POR_SAIDA = 2                    # Emerson (08/11/2026): cada motoboy sai com no máximo 2 entregas
+MAX_POR_SAIDA = None                 # limite de entregas por saída (ex.: 2). Desligado: Emerson (08/11/2026)
+                                     # preferiu o ritmo real do ALIV e acompanhar 30 dias antes de limitar.
 ESPERA_LOJA = 5                      # min na loja entre uma saída e outra (pegar o pedido)
 RUA_PADRAO = 15.0                    # min de rua, se o ALIV não trouxer
 GERENTES = [{"thiago", "camilo"}, {"josue", "ruas"}]   # logins de gerente no ALIV (qualquer ordem)
@@ -431,7 +432,7 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
     ruas = [(pesos[k], x.rua) for k, x in base if x.rua > 0]
     rua = sum(p * r for p, r in ruas) / sum(p for p, _ in ruas) if ruas else RUA_PADRAO
     ciclo = 2 * rua + ESPERA_LOJA
-    cap_saida = MAX_POR_SAIDA * 60 / ciclo
+    cap_saida = MAX_POR_SAIDA * 60 / ciclo if MAX_POR_SAIDA else float("inf")
     cap = min(cap_hist, cap_saida)
     if pico_prev <= 0:
         return {"pico_prev": 0.0, "dia_prev": 0.0, "cap": cap, "lo": 1, "hi": 2, "base_cap": None,

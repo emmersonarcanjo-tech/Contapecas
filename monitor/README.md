@@ -383,7 +383,7 @@ Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1`
 - Tempos (Pizzaria, operation-monitor): rua média, vida média e quantas entregas passaram de 45 min (a janela é dividida até isolar cada pedido).
 - Pico = hora com mais entregas. Ritmo = entregas do pico ÷ motoboys no pico.
 - Dia **estourado** = mais de 10% das entregas acima de 45 min, ou vida média acima de 45.
-- **Até 2 entregas por saída** (regra do Emerson, 08/11/2026): ritmo máximo = 2 × 60 ÷ (2 × rua média + 5 min). Vale o menor entre esse ritmo e o melhor ritmo de um dia que não estourou. Como a rua média é medida no ALIV, o número se ajusta sozinho quando os motoboys passarem a sair com 2.
+- **Limite de entregas por saída** (`MAX_POR_SAIDA`): **desligado**. Em 08/11/2026 o Emerson decidiu manter o ritmo real do ALIV, que hoje fica em 3 a 4 entregas por saída, e acompanhar 30 dias. Se for ligado, por exemplo com 2, o ritmo máximo passa a ser 2 × 60 ÷ (2 × rua média + 5 min).
 - Capacidade = melhor ritmo de um dia que não estourou. Recomendação = pico previsto ÷ capacidade. Se um dia com pico parecido (±10%) estourou com ritmo acima da capacidade, recomenda pelo menos 1 motoboy a mais que ele teve. Dia que estourou com ritmo baixo = gargalo na cozinha/expedição, não conta.
 - Ajustes: feriado nacional/Bahia ou data forte (Mães, Pais, Namorados) +20% · véspera (inclui 24 e 31/12) +15% · promoção +10%. Os dias da base que eram feriado/véspera/promoção são descontados antes da média.
 - Promoções e feriados municipais: `monitor/assets/promocoes.json` (`dias_semana`, `datas`, `feriados_extra`). Hoje está vazio — é só pedir ao Claude para incluir.

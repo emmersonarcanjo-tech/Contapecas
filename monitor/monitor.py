@@ -13,8 +13,8 @@ cargo da Rotina (ver README).
 
 Somente biblioteca padrão do Python 3.9+. Nunca faz POST/PUT/DELETE no ALIV,
 exceto o POST de login e, com --whatsapp, o POST /admin/api/chat/send
-(também usado por diaristas.py, com o PDF anexado). Com --whatsapp manda também
-o painel em PNG (painel.py, desenhado pelo Chromium headless) logo depois do texto.
+(também usado por diaristas.py, com o PDF anexado). Com --whatsapp manda
+só o painel em PNG (painel.py, desenhado pelo Chromium headless); o texto vai só se o painel falhar.
 """
 
 from __future__ import annotations
@@ -792,19 +792,21 @@ def main() -> int:
         if not fone:
             print("WHATSAPP: não enviado — variável WHATSAPP_EMERSON não definida.", file=sys.stderr)
             return 3
-        try:
-            api.enviar_whatsapp(fone, texto)
-            print("WHATSAPP: enviado.", file=sys.stderr)
-        except (AlivError, OSError) as e:
-            print(f"WHATSAPP: {e}", file=sys.stderr)
-            return 3
+        # Emerson (08/11/2026): só o painel em imagem, sem o texto. O texto vai apenas
+        # se o painel não for gerado ou não for aceito, para o relatório não se perder.
         if painel is not None:
-            # Falha no painel não muda o código de saída: o texto já chegou.
             try:
                 api.enviar_whatsapp(fone, f"Painel Tili — {agora:%d/%m %H:%M}", arquivo=painel)
                 print("WHATSAPP: painel enviado.", file=sys.stderr)
+                return 0
             except (AlivError, OSError) as e:
-                print(f"WHATSAPP: painel não enviado — {e}", file=sys.stderr)
+                print(f"WHATSAPP: painel não enviado — {e}; mandando o texto", file=sys.stderr)
+        try:
+            api.enviar_whatsapp(fone, texto)
+            print("WHATSAPP: texto enviado (sem painel).", file=sys.stderr)
+        except (AlivError, OSError) as e:
+            print(f"WHATSAPP: {e}", file=sys.stderr)
+            return 3
     return 0
 
 

@@ -370,9 +370,8 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
     if mes:
         L.append("Mês passado: " + linha_hist("mês", mes[0]))
     if semana:
-        L += ["", "⚠️ *Atraso na semana passada:* " + "; ".join(
-            f"{d:%d/%m} {DIAS_CURTO[d.weekday()]} {a} entregas >45min (vida média {v:.0f})"
-            for d, a, n, v in semana)]
+        L += ["", f"⚠️ *Atraso na semana passada* ({len(semana)} de 7 dias, entregas >45min): " + " · ".join(
+            f"{DIAS_CURTO[d.weekday()]} {d:%d/%m} {a}" for d, a, n, v in semana)]
     else:
         L += ["", "✅ Semana passada sem entrega acima de 45 min."]
     return "\n".join(L)

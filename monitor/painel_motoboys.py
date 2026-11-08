@@ -301,9 +301,136 @@ def html_painel(hoje: date, base: list, rec: dict, motivos: list[str], semana: l
 
 
 def gerar_painel(destino: Path, hoje: date, base: list, rec: dict, motivos: list[str], semana: list,
-                 celular: bool = False) -> Path:
-    """Largo (2880 px, 3 colunas, igual ao painel de vendas) ou celular (1 coluna, 2160 px, fonte grande)."""
+                 celular: bool = False, ipad: bool = False) -> Path:
+    """ipad: 2360 × 1640 (iPad deitado, tela cheia) · celular: 2160 × 4680 (iPhone, 1 coluna) ·
+    nenhum: largo de 2880 px, igual ao painel de vendas."""
+    if ipad:
+        return html_para_png(html_ipad(hoje, base, rec, motivos, semana), destino, IPAD_W, escala=2, altura_fixa=IPAD_H)
     pagina = html_painel(hoje, base, rec, motivos, semana, celular)
     if celular:
         return html_para_png(pagina, destino, LARGURA_CELULAR, escala=2)
     return html_para_png(pagina, destino)
+
+
+# ------------------------------------------------------------------ iPad (paisagem)
+IPAD_W, IPAD_H = 1180, 820      # px de tela do iPad Air/10ª geração deitado; escala 2 → 2360 × 1640
+
+CSS_IPAD = f"""
+* {{ box-sizing: border-box; margin: 0; padding: 0 }}
+html, body {{ width: {IPAD_W}px; height: {IPAD_H}px; overflow: hidden; background: #1A1A1A }}
+body {{ font-family: "Inter", "Liberation Sans", "DejaVu Sans", Arial, sans-serif; color: #fff;
+       display: flex; flex-direction: column; font-size: 17px; line-height: 1.2 }}
+.faixa {{ height: 6px; flex: none; background: linear-gradient(90deg, {VERMELHO} 0 62%, {DOURADO} 62% 100%) }}
+.topo {{ display: flex; align-items: center; gap: 14px; padding: 10px 18px 6px; flex: none }}
+.logo {{ width: 52px; height: 52px; border-radius: 10px; background: #fff; padding: 3px; display: flex;
+         align-items: center; justify-content: center }}
+.logo img {{ max-width: 100%; max-height: 100%; object-fit: contain }}
+.titulo {{ font-size: 30px; font-weight: 800 }} .titulo span {{ color: {DOURADO} }}
+.sub {{ font-size: 17px; color: #bbb }}
+.grade3 {{ flex: 1; display: grid; grid-template-columns: 1.08fr 1fr 1fr; gap: 14px; padding: 6px 18px 12px; min-height: 0 }}
+.col {{ display: flex; flex-direction: column; gap: 12px; min-height: 0 }}
+.box {{ background: #262626; border-radius: 14px; padding: 12px 16px }}
+.cab {{ font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: {DOURADO}; margin-bottom: 8px }}
+.hero {{ background: linear-gradient(135deg, #3a0a14, #262626 75%); border-left: 7px solid {DOURADO}; flex: 1;
+         display: flex; flex-direction: column; justify-content: center }}
+.hero .num {{ font-size: 96px; font-weight: 900; color: {DOURADO}; line-height: 1; letter-spacing: -2px }}
+.hero .num {{ font-size: 104px; white-space: nowrap }}
+.hero .num small {{ display: block; font-size: 46px; color: #fff; letter-spacing: 0; margin-top: 4px }}
+.hero p {{ font-size: 21px; margin-top: 12px; color: #ddd }} .hero p b {{ color: #fff }}
+.chip {{ display: inline-block; margin-top: 10px; background: {VERMELHO}; border-radius: 20px; padding: 3px 12px;
+         font-size: 15px; font-weight: 800 }}
+.tempo {{ display: grid; grid-template-columns: 54px 1fr; gap: 4px 12px; align-items: center }}
+.tempo .ic {{ font-size: 46px; line-height: 1; grid-row: span 2 }}
+.tempo .cond {{ font-size: 22px; font-weight: 800 }} .tempo .det {{ font-size: 15px; color: #ddd }}
+.tempo .acao {{ grid-column: 1 / -1; font-size: 22px; font-weight: 900; color: {DOURADO}; margin-top: 4px }}
+.horas {{ flex: 1; display: flex; flex-direction: column }}
+.horas .linhas {{ flex: 1; display: flex; flex-direction: column; justify-content: space-around }}
+.hora {{ display: grid; grid-template-columns: 48px 1fr 40px 132px; gap: 8px; align-items: center }}
+.hora .h, .hora .e, .hora .m {{ font-size: 22px; font-weight: 800 }}
+.hora .e {{ text-align: right }} .hora .m {{ text-align: right; color: {DOURADO}; white-space: nowrap }}
+.hora.pico .h, .hora.pico .e {{ color: {DOURADO} }}
+.trilho {{ height: 20px; background: #333; border-radius: 8px; overflow: hidden }}
+.trilho i {{ display: block; height: 100%; border-radius: 8px }}
+.alerta {{ background: #3a1018; border: 3px solid {VERMELHO}; padding: 0; overflow: hidden }}
+.alerta .t {{ background: {VERMELHO}; font-size: 16px; font-weight: 800; padding: 7px 14px }}
+.alerta ul {{ list-style: none; padding: 8px 14px 10px }}
+.alerta li {{ font-size: 20px; font-weight: 700; padding: 3px 0; white-space: nowrap }} .alerta li b {{ color: {DOURADO} }}
+.ok {{ background: #16331f; border: 3px solid #2e9d57; font-size: 19px; font-weight: 800 }}
+.tab {{ flex: 1; display: flex; flex-direction: column }}
+.tab .corpo {{ flex: 1; display: flex; flex-direction: column; justify-content: space-around }}
+.tab .l {{ display: grid; grid-template-columns: 1.55fr .75fr 1fr .7fr; padding: 6px 0; border-bottom: 1px solid #383838;
+           font-size: 22px; align-items: baseline }}
+.tab .l:last-child {{ border-bottom: none }}
+.tab .h {{ font-size: 13px; color: #999; font-weight: 700; letter-spacing: 1px }}
+.tab .x {{ text-align: right; font-weight: 800 }}
+.up {{ color: #4cd17d }} .dn {{ color: #ff5a6e }}
+.nota {{ font-size: 13px; color: #888; margin-top: 6px }}
+"""
+
+
+def html_ipad(hoje: date, base: list, rec: dict, motivos: list[str], semana: list) -> str:
+    agora = datetime.now(TZ)
+    hp = rec["horas_prev"]
+    pico = max(hp, key=hp.get)
+    P = [f'<div class="faixa"></div><div class="topo"><div class="logo"><img src="{_logo_src()}"></div>'
+         f'<div><div class="titulo">Motoboys <span>Tili</span></div>'
+         f'<div class="sub">Previsão para hoje, {DIAS[hoje.weekday()]} {hoje:%d/%m} · Pizzaria + Sushi · '
+         f'gerado às {agora:%H:%M}</div></div></div><div class="grade3">']
+
+    # Coluna 1: recomendação + tempo
+    chips = "".join(f'<span class="chip">{_e(m)}</span> ' for m in motivos)
+    P.append(f'<div class="col"><div class="box hero"><div class="cab">CHAMAR HOJE</div>'
+             f'<div class="num">{rec["lo"]} a {rec["hi"]} <small>motoboys</small></div>'
+             f'<p>Pico de <b>~{rec["pico_prev"]:.0f} entregas/h</b> às {_h(pico)} · ~{rec["dia_prev"]:.0f} no dia.</p>'
+             f'<p>Ritmo seguro: <b>{_f1(rec["cap"])} entregas/motoboy/h</b>.</p>{chips}</div>')
+    c = rec.get("chuva")
+    if c:
+        lo, hi = rec["lo"] + EXTRA_CHUVA, rec["hi"] + EXTRA_CHUVA_FORTE
+        ic, cor, cond, acao = {
+            "forte": ("🌧️", "#1e3a8a", "Chuva forte prevista", f"Chame +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} → {lo} a {hi}"),
+            "chuva": ("🌧️", "#1e3a8a", "Chuva prevista", f"Chame +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} → {lo} a {hi}"),
+            "possível": ("🌦️", "#334155", "Pode chover", f"Se chover: +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} → {lo} a {hi}"),
+            "seco": ("☀️", "#16331f", "Sem chuva à noite", "Previsão normal vale"),
+            "indisponível": ("❔", "#333", "Tempo indisponível", f"Se chover: +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE}"),
+        }[c["status"]]
+        det = ""
+        if c["status"] != "indisponível":
+            faixa = f"{c['quando'][0]:02d}h–{(c['quando'][-1] + 1) % 24:02d}h · " if c.get("quando") else ""
+            fontes = (f"{c['concordam']} de {c['total']} modelos" if c["total"] > 1 else "só 1 fonte respondeu")
+            det = f"{faixa}{fontes} · ~{_f1(c['mm'])} mm"
+        P.append(f'<div class="box tempo" style="background:{cor}"><div class="ic">{ic}</div>'
+                 f'<div class="cond">{_e(cond)}</div><div class="det">{_e(det)}</div>'
+                 f'<div class="acao">{_e(acao)}</div></div>')
+    P.append("</div>")
+
+    # Coluna 2: quando chamar
+    horas = {h: v for h, v in hp.items() if v >= 5}
+    maior = max(list(horas.values()) + [1.0])
+    linhas = []
+    for h, v in horas.items():
+        m = max(1, math.ceil(v / rec["cap"]))
+        linhas.append(f'<div class="hora{" pico" if h == pico else ""}"><div class="h">{_h(h)}</div>'
+                      f'<div class="trilho"><i style="width:{max(v / maior * 100, 2):.1f}%;'
+                      f'background:{DOURADO if h == pico else VERMELHO}"></i></div>'
+                      f'<div class="e">{v:.0f}</div><div class="m">{m} motoboy{"s" if m != 1 else ""}</div></div>')
+    P.append('<div class="col"><div class="box horas"><div class="cab">QUANDO CHAMAR · POR HORA</div>'
+             f'<div class="linhas">{"".join(linhas)}</div></div></div>')
+
+    # Coluna 3: atraso da semana + histórico
+    P.append('<div class="col">')
+    if semana:
+        P.append(f'<div class="box alerta"><div class="t">ATRASO NA SEMANA PASSADA</div><ul>'
+                 + "".join(f"<li>{DC[d.weekday()]} {d:%d/%m} · <b>{a}</b> acima de 45 min{f' ({a / n * 100:.0f}%)' if n else ''}</li>"
+                           for d, a, n, v in semana) + "</ul></div>")
+    else:
+        P.append('<div class="box ok">Semana passada sem entrega acima de 45 min</div>')
+    P.append('<div class="box tab"><div class="cab">MESMO DIA NAS ÚLTIMAS SEMANAS</div>'
+             '<div class="l h"><span>DIA</span><span>NA RUA</span><span>ENTREG./H</span><span class="x">&gt;45</span></div><div class="corpo">')
+    for k, x in sorted(base, key=lambda kx: kx[1].dia, reverse=True):
+        P.append(f'<div class="l"><span>{DC[x.dia.weekday()]} {x.dia:%d/%m}</span><span>{x.motos_pico}</span>'
+                 f'<span>{_f1(x.eph)}</span><span class="x {"dn" if x.estourou else "up"}">'
+                 f'{x.pct_atraso * 100:.0f}%</span></div>')
+    P.append('</div><div class="nota">Na rua = motoboys no pico · Entreg./h = por motoboy · &gt;45 = entregas atrasadas</div>'
+             '</div></div></div><div class="faixa"></div>')
+    return (f'<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><style>{CSS_IPAD}</style>'
+            f'</head><body>{"".join(P)}</body></html>')

@@ -310,7 +310,8 @@ def _chrome() -> str:
     raise RuntimeError("Chromium não encontrado (defina DIARISTAS_CHROME)")
 
 
-def html_para_png(pagina: str, destino: Path, largura: int = LARGURA, escala: float = 1) -> Path:
+def html_para_png(pagina: str, destino: Path, largura: int = LARGURA, escala: float = 1,
+                  altura_fixa: int | None = None) -> Path:
     """Fotografa o HTML na largura `largura` (px de tela), com `escala` pixels por px
     (2 = imagem em dobro, nítida no celular). 1ª passada mede a altura, 2ª tira a foto."""
     chrome = _chrome()
@@ -324,7 +325,7 @@ def html_para_png(pagina: str, destino: Path, largura: int = LARGURA, escala: fl
         out = subprocess.run(base + [f"--window-size={largura},1000", "--dump-dom", arq.as_uri()],
                              capture_output=True, text=True, timeout=90).stdout
         m = re.search(r"ALTURA=(\d+)", out)
-        altura = min(int(m.group(1)), 8000) if m else 3600
+        altura = altura_fixa or (min(int(m.group(1)), 8000) if m else 3600)
         arq.write_text(pagina, encoding="utf-8")
         subprocess.run(base + [f"--window-size={largura},{altura}", f"--force-device-scale-factor={escala}",
                                f"--screenshot={destino}", arq.as_uri()],

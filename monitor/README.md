@@ -370,7 +370,7 @@ Todo dia às 08:00 (Bahia) recomenda quantos motoboys chamar **hoje**, com faixa
 python3 monitor/previsao_motoboys.py                  # só mostra (não envia)
 python3 monitor/previsao_motoboys.py --data 2026-11-15
 python3 monitor/previsao_motoboys.py --promo          # considera promoção hoje
-python3 monitor/previsao_motoboys.py --painel l.png --painel-celular c.png   # gera os painéis, sem enviar
+python3 monitor/previsao_motoboys.py --painel-ipad i.png --painel-celular c.png   # gera os painéis, sem enviar
 python3 monitor/previsao_motoboys.py --whatsapp       # painel iPad para o Emerson; vertical para Josué e Camilo
 ```
 
@@ -388,6 +388,6 @@ Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1`
 - Promoções e feriados municipais: `monitor/assets/promocoes.json` (`dias_semana`, `datas`, `feriados_extra`). Hoje está vazio — é só pedir ao Claude para incluir.
 
 **Painéis (pedido do Emerson, 08/11/2026):** no WhatsApp vai só a imagem, com uma legenda curta. O texto só vai se a imagem falhar.
-- **Emerson:** versão iPad (`painel_motoboys.py`, 2880 px, 3 colunas, mesmo layout do painel de vendas).
+- **Emerson:** versão iPad deitado, tela cheia de 2360 × 1640, com 3 colunas e fonte grande (`--painel-ipad`). A versão larga de 2880 px, igual ao painel de vendas, ainda sai com `--painel`, mas não é enviada.
 - **Josué e Camilo:** versão celular, 1 coluna e fonte grande, no tamanho de uma tela de iPhone (19,5:9). A imagem sai com 2160 × 4680 px.
 - **Chuva:** a recomendação principal fica normal. Uma faixa abaixo mostra o tempo e, se chover, "+2 a 3 motoboys". Fontes: Open-Meteo (modelos ECMWF, GFS e ICON) e, de reserva, MET Norway. Só conta como chuva com 2 fontes de acordo. Os hosts `api.open-meteo.com` e `api.met.no` estão liberados no ambiente Contapecas.

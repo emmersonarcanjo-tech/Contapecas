@@ -538,7 +538,8 @@ def main() -> int:
                     help="envia para WHATSAPP_EMERSON, WHATSAPP_JOSUE e WHATSAPP_CAMILO")
     ap.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (diagnóstico, não commitar)")
     ap.add_argument("--painel", metavar="ARQ.png", help="salva o painel largo (3 colunas) em PNG neste arquivo")
-    ap.add_argument("--painel-celular", metavar="ARQ.png", help="salva o painel vertical (celular) em PNG neste arquivo")
+    ap.add_argument("--painel-celular", metavar="ARQ.png", help="salva o painel vertical (iPhone) em PNG neste arquivo")
+    ap.add_argument("--painel-ipad", metavar="ARQ.png", help="salva o painel do iPad (2360 × 1640) em PNG neste arquivo")
     ap.add_argument("--sem-painel", action="store_true", help="não gera o painel (manda só o texto)")
     ap.add_argument("--salvar-dados", metavar="ARQ.json", help="guarda os números coletados (para testar o painel)")
     ap.add_argument("--usar-dados", metavar="ARQ.json", help="usa números já coletados, sem consultar o ALIV")
@@ -592,16 +593,19 @@ def main() -> int:
     print(f"capacidade {rec['cap']:.2f}/moto/h · pico previsto {rec['pico_prev']:.1f} · "
           f"dia previsto {rec['dia_prev']:.0f} · fator {fator:.2f}", file=sys.stderr)
 
-    # Emerson (08/11/2026): painel vertical (celular) para Josué e Camilo; o largo (iPad) para ele.
+    # Emerson (08/11/2026): painel vertical (iPhone) para Josué e Camilo; iPad deitado (2360 × 1640) para ele.
     paineis: dict = {}
-    if not args.sem_painel and (args.painel or args.painel_celular or args.whatsapp):
+    if not args.sem_painel and (args.painel or args.painel_celular or args.painel_ipad or args.whatsapp):
         tmp = Path(tempfile.mkdtemp())
         destinos = {"celular": Path(args.painel_celular) if args.painel_celular else tmp / f"motoboys_{hoje:%d-%m}_celular.png",
-                    "largo": Path(args.painel) if args.painel else tmp / f"motoboys_{hoje:%d-%m}.png"}
+                    "ipad": Path(args.painel_ipad) if args.painel_ipad else tmp / f"motoboys_{hoje:%d-%m}_ipad.png"}
+        if args.painel:
+            destinos["largo"] = Path(args.painel)
         from painel_motoboys import gerar_painel
         for tipo, destino in destinos.items():
             try:
-                paineis[tipo] = gerar_painel(destino, hoje, base, rec, motivos, semana, celular=tipo == "celular")
+                paineis[tipo] = gerar_painel(destino, hoje, base, rec, motivos, semana,
+                                             celular=tipo == "celular", ipad=tipo == "ipad")
                 print(f"PAINEL {tipo}: {paineis[tipo]}", file=sys.stderr)
             except Exception as e:      # o painel nunca derruba a previsão em texto
                 print(f"PAINEL {tipo}: não gerado — {e}", file=sys.stderr)
@@ -619,10 +623,10 @@ def main() -> int:
         if not fone:
             print(f"WHATSAPP: {var} não definida — pulado.", file=sys.stderr)
             continue
-        tipos = ["largo"] if var == "WHATSAPP_EMERSON" else ["celular"]      # Emerson vê no iPad
+        tipos = ["ipad"] if var == "WHATSAPP_EMERSON" else ["celular"]      # Emerson vê no iPad
         foi = False
         for tipo in tipos:
-            arq = paineis.get(tipo) or paineis.get("largo" if tipo == "celular" else "celular")
+            arq = paineis.get(tipo) or paineis.get("ipad" if tipo == "celular" else "celular")
             if arq is None:
                 continue
             try:

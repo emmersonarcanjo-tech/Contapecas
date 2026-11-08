@@ -21,7 +21,7 @@ from diaristas import CHROME, _logo_src
 from monitor import (META_CANCEL, META_CUSTO_IFOOD, META_ENTREGA, META_PREPARO, META_TICKET,
                      alertas_operacao, brl, num, pct, resumo)
 
-LARGURA = 2000   # px — 2 colunas, formato do iPad em pé (~3:4) para a imagem ocupar a tela toda
+LARGURA = 2880   # px — 3 colunas, formato do iPad deitado (~3:2) para a imagem ocupar a tela toda
 
 VERMELHO, DOURADO, FUNDO = "#C8102E", "#D4A017", "#1A1A1A"
 
@@ -87,7 +87,7 @@ body {{ font-family: "Inter", "Liberation Sans", "DejaVu Sans", Arial, sans-seri
 .comp .h {{ font-size: 24px; color: #999; font-weight: 700; letter-spacing: 1px }}
 .comp .x {{ text-align: right; font-weight: 800; white-space: nowrap }}
 .up {{ color: #4cd17d }} .dn {{ color: #ff5a6e }}
-.colunas {{ display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 4px; align-items: start;
+.colunas {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 4px; align-items: start;
              padding: 0 20px }}
 .colunas .sec, .colunas .grade, .colunas .lucro, .colunas .comp {{ margin-left: 20px; margin-right: 20px }}
 .colunas .g3 .val {{ font-size: 44px }}
@@ -191,7 +191,7 @@ def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, mot
     else:
         P.append('<div class="semalerta">Sem alertas — operação dentro das metas</div>')
 
-    # Duas colunas: esquerda = vendas e canais; direita = o resto
+    # Três colunas: vendas e canais | ticket, tempos e motoboys | lucro e semana passada
     P.append('<div class="colunas"><div>')
 
     # Vendas por loja
@@ -223,6 +223,8 @@ def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, mot
         P.append(_barras("Sushi", itens, DOURADO))
     P.append("</div>")
 
+    P.append('</div><div>')
+
     # Ticket e cancelamento
     P.append('<div class="sec">TICKET E CANCELAMENTO</div><div class="grade g2">')
     P.append(_card("Ticket Pizzaria", brl(r["ticket"]), meta=f"meta {brl(META_TICKET)}",
@@ -233,8 +235,6 @@ def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, mot
     P.append(_card("Cancelados Sushi", f"{s['cancelados']} · {pct(s['taxa_cancel'])}" if s else "—",
                    meta="meta até 2%", cls=_situacao(s["taxa_cancel"] <= META_CANCEL) if s else "d"))
     P.append("</div>")
-
-    P.append('</div><div>')
 
     # Tempos (Pizzaria): média do turno; embaixo, máximo e média da última hora
     prod, rua, vida = resumo(ops, "prod_delivery"), resumo(ops, "street"), resumo(ops, "life_delivery")
@@ -259,6 +259,8 @@ def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, mot
     P.append(_card("Custo iFood", pct(r["custo_ifood"]), "comissão + desc. loja", "meta até 25%",
                    _situacao(r["custo_ifood"] <= META_CUSTO_IFOOD if r["receita_ifood"] else None)))
     P.append("</div>")
+
+    P.append('</div><div>')
 
     # Lucro estimado
     P.append('<div class="sec">LUCRO ESTIMADO · PIZZARIA</div>')

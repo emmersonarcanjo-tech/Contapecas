@@ -11,12 +11,14 @@ Ponto da carne, tostagem e tempos NÃO existem no ALIV: usam o padrão da casa
 definido em PADRAO abaixo (conferir com o Emerson).
 """
 import json
+import re
 import sys
 from datetime import date
 from pathlib import Path
 
 from reportlab.lib.colors import HexColor, white
 from reportlab.lib.pagesizes import A4
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
@@ -35,10 +37,10 @@ pdfmetrics.registerFont(TTFont("C", "/usr/share/fonts/truetype/liberation/Libera
 
 # Padrão da casa (não vem do ALIV) — ajustar aqui se o Emerson mudar.
 PADRAO = {
-    "blend": "Blend: BEM PASSADO e suculento, 3–4 min cada lado. Não amassar.",
-    "picanha": "Hambúrguer: direto do freezer, 2–3 min cada lado, BEM PASSADO.",
+    "blend": "Blend: BEM PASSADO e suculento, 3–4 min cada lado.",
+    "picanha": "Hambúrguer 90 g: direto do freezer, 2–3 min cada lado, BEM PASSADO.",
     "carne_sol": "Carne de sol: dourar com a cebola, 2–3 min.",
-    "frango": "Frango: BEM PASSADO, sem parte rosada, 3–4 min cada lado.",
+    "frango": "Frango: BEM PASSADO, sem parte rosada.",
     "file": "Filé bovino: ao ponto para bem, 2–3 min cada lado.",
     "pao": "Abrir, miolo para baixo na chapa: 30 a 40 s até DOURADO CLARO. "
            "Brioche queima rápido — não deixar escurecer.",
@@ -150,37 +152,69 @@ CARNES = ("blend", "picanha", "carne_sol", "frango", "file")
 QUEIJOS = ("cheddar", "mussarela", "coalho")
 
 
-def camadas(L: dict) -> list[tuple[str, str]]:
-    """(tipo, rótulo) de baixo para cima."""
+def dividir(qtd: str, d: int) -> str:
+    """Divide '60 g' / '2 fatias' / '2 × 90 g' por d (para metades e para o combo de 2)."""
+    if d == 1 or qtd == "—":
+        return qtd
+    m = re.match(r"^(\d+(?:\.\d+)?)\s*(?:×\s*)?(.*)$", qtd)
+    if not m:
+        return qtd
+    v = float(m.group(1)) / d
+    resto = m.group(2)
+    if "×" in qtd:
+        return resto if v == 1 else f"{v:g} × {resto}"
+    if v == 1:
+        resto = {"fatias": "fatia", "folha(s)": "folha"}.get(resto, resto)
+    return f"{round(v) if v >= 1 else v:g} {resto}"
+
+
+def camadas(L: dict) -> list[tuple[str, str, str]]:
+    """(imagem, nome, quantidade) de baixo para cima — uma unidade do lanche."""
     t = {i["tipo"]: i for i in L["ings"]}
-    out = [("pao_base", "Pão (base)" + (" + molho" if "molho" in t else ""))]
+    d = L["lanches"]
+    q = lambda k, extra=1: dividir(dividir(t[k]["qtd"], d), extra)
+    out = [("base", "Base pão", "")]
+    if "molho" in t:
+        out.append(("maionese", "Molho da casa", q("molho", 2)))
     for k in ("alface", "tomate"):
         if k in t:
-            out.append((k, t[k]["nome"]))
+            out.append((k, t[k]["nome"], q(k)))
     carne = next((k for k in CARNES if k in t), None)
-    # frango principal só quando não há outra carne
     if carne == "frango" and any(k in t for k in ("blend", "picanha", "carne_sol", "file")):
         carne = next(k for k in ("blend", "picanha", "carne_sol", "file") if k in t)
     queijo = next((k for k in QUEIJOS if k in t), None)
-    n = t[carne].get("n", 1) if carne else 1
+    n = max(1, t[carne].get("n", 1) // d) if carne else 1
+    img_carne = {"carne_sol": "carne_sol", "frango": "frango"}.get(carne, "blend")
     for _ in range(n):
         if carne:
-            out.append(("carne", t[carne]["nome"].replace(" 120 g", "")))
+            qc = q(carne)
+            if n > 1 and "×" in qc:
+                qc = qc.split("×")[1].strip()
+            out.append((img_carne, t[carne]["nome"], qc))
         if queijo:
-            out.append(("queijo_" + queijo, t[queijo]["nome"]))
+            out.append((queijo, t[queijo]["nome"], q(queijo, n)))
     if carne != "frango" and "frango" in t:
-        out.append(("frango", "Filé de frango"))
+        out.append(("frango", "Filé de frango", q("frango")))
+    caram = "caramelizada" in L["desc"].lower() and "cebola caramelizada" in L["desc"].lower()
     for k in ("cremoso", "presunto", "calabresa", "bacon", "banana", "abacaxi", "cebola", "ovo", "picles"):
         if k in t:
-            out.append((k, t[k]["nome"]))
-    out.append(("pao_topo", "Pão (tampa)" + (" + molho" if "molho" in t else "")))
+            img = ("cebola_caram" if caram else "cebola") if k == "cebola" else k
+            nome = t[k]["nome"]
+            if k == "cebola":
+                nome = "Cebola caramelizada" if caram else "Cebola refogada"
+            if k == "banana":
+                nome = "Banana da terra caramel."
+            out.append((img, nome, q(k)))
+    if "molho" in t:
+        out.append(("maionese", "Molho da casa", q("molho", 2)))
+    out.append(("coroa", "Coroa pão", ""))
     return out
 
 
 def passos(L: dict) -> list[str]:
     t = {i["tipo"]: i for i in L["ings"]}
     q = lambda k: f" {t[k]['qtd']}" if t[k]["qtd"] != "—" else ""
-    s = ["Chapa bem quente. Tostar o pão (ver TOSTAGEM)."]
+    s = ["Chapa bem quente. Tostar base e coroa do pão (ver TOSTAGEM)."]
     carnes = [k for k in CARNES if k in t]
     for k in carnes:
         nome = {"blend": "o(s) blend(s)", "picanha": "o(s) hambúrguer(es)", "carne_sol": "a carne de sol",
@@ -205,7 +239,7 @@ def passos(L: dict) -> list[str]:
             s.append(f"Depois de virar a carne: {t[k]['nome'].lower()}{q(k)} por cima e abafar até derreter.")
     if "cremoso" in t:
         s.append(f"{t['cremoso']['nome']}{q('cremoso')}: espalhar por cima, sem ir à chapa.")
-    s.append("Montar na ORDEM DAS CAMADAS e fechar com a tampa.")
+    s.append("Montar de baixo para cima, como na figura, e fechar com a coroa.")
     return s
 
 
@@ -246,80 +280,67 @@ def texto(c, x, y, txt, fonte, tam, larg, cor=PRETO, entre=1.25):
     return y
 
 
-CORES = {
-    "pao_base": "#D9A055", "pao_topo": "#D9A055", "alface": "#5DAA3C", "tomate": "#D8352A",
-    "carne": "#5B3220", "queijo_cheddar": "#F2A20C", "queijo_mussarela": "#F6E7B0",
-    "queijo_coalho": "#E9C27A", "cremoso": "#FFFFFF", "presunto": "#F2A6A6", "calabresa": "#A8281E",
-    "frango": "#E8C08A", "bacon": "#B4473A", "banana": "#F0C93C", "abacaxi": "#F7D44C",
-    "cebola": "#9B5A8C", "ovo": "#FFF6D6", "picles": "#7A9A2E",
-}
-ALTURA = {"pao_base": 22, "pao_topo": 46, "carne": 24, "alface": 12, "tomate": 10}
+IMG_DIR = Path(__file__).resolve().parent / "assets" / "ingredientes"
+# altura relativa de cada foto na pilha (pão maior, molho menor)
+PESO = {"coroa": 1.5, "base": 1.0, "blend": 1.2, "carne_sol": 1.3, "frango": 1.2, "maionese": 1.0,
+        "alface": 1.2, "tomate": 1.1, "cheddar": 0.8, "mussarela": 0.8, "coalho": 0.8, "presunto": 0.8,
+        "cremoso": 1.0, "bacon": 0.8, "calabresa": 1.1, "cebola": 0.9, "cebola_caram": 1.2,
+        "banana": 0.8, "abacaxi": 0.9, "ovo": 1.1, "picles": 0.8}
+LARG = {"coroa": 1.0, "base": 1.0, "blend": 0.92, "carne_sol": 0.75, "frango": 0.85, "maionese": 0.55,
+        "alface": 0.8, "tomate": 0.7, "cheddar": 1.0, "mussarela": 1.0, "coalho": 1.0, "presunto": 1.0,
+        "cremoso": 0.7, "bacon": 0.95, "calabresa": 0.75, "cebola": 0.85, "cebola_caram": 0.6,
+        "banana": 0.85, "abacaxi": 0.85, "ovo": 0.8, "picles": 0.8}
+_cache = {}
 
 
-def _alturas(camadas_):
-    return [ALTURA.get(k.split("_")[0] if k.startswith("queijo") else k, 11) for k, _ in camadas_]
+def foto(nome):
+    if nome not in _cache:
+        p = IMG_DIR / f"{nome}.png"
+        _cache[nome] = (ImageReader(str(p)), ImageReader(str(p)).getSize()) if p.exists() else (None, (1, 1))
+    return _cache[nome]
 
 
-def altura_pilha(camadas_):
-    a = _alturas(camadas_)
-    return max(sum(a) + 3 * len(a) + 10, 19 * len(a))
-
-
-def ilustracao(c, x, y, larg, camadas_):
-    """Pilha de camadas de baixo (y) para cima, com rótulos à direita. Retorna o topo."""
-    cx, w = x + 58, 104
-    yy = y
-    alturas = [ALTURA.get(k.split("_")[0] if k.startswith("queijo") else k, 11) for k, _ in camadas_]
-    total = sum(alturas) + 3 * len(camadas_)
-    passo_rot = max(19, total / len(camadas_))
-    rot_y = y + 4
-    for (k, rotulo), h in zip(camadas_, alturas):
-        cor = HexColor(CORES.get(k, "#CCCCCC"))
-        c.setFillColor(cor)
-        c.setStrokeColor(PRETO)
-        c.setLineWidth(1.2)
-        if k == "pao_topo":
-            p = c.beginPath()
-            p.moveTo(cx - w / 2, yy)
-            p.curveTo(cx - w / 2, yy + h * 1.3, cx + w / 2, yy + h * 1.3, cx + w / 2, yy)
-            p.close()
-            c.drawPath(p, fill=1, stroke=1)
-            c.setFillColor(HexColor("#FFF3D6"))
-            for dx, dy in ((-24, 22), (-6, 30), (14, 26), (30, 16), (-36, 12)):
-                c.ellipse(cx + dx - 3, yy + dy - 1.5, cx + dx + 3, yy + dy + 1.5, fill=1, stroke=0)
-            mid = yy + h * 0.45
-        elif k == "alface":
-            p = c.beginPath()
-            p.moveTo(cx - w / 2 - 8, yy + 4)
-            for i in range(9):
-                xx = cx - w / 2 - 8 + (i + 1) * (w + 16) / 9
-                p.curveTo(xx - 10, yy + h + 4, xx - 4, yy - 3, xx, yy + 4)
-            p.lineTo(cx + w / 2 + 8, yy)
-            p.lineTo(cx - w / 2 - 8, yy)
-            p.close()
-            c.drawPath(p, fill=1, stroke=1)
-            mid = yy + h / 2
-        elif k.startswith("queijo") or k == "cremoso":
-            c.roundRect(cx - w / 2 - 4, yy, w + 8, h, 3, fill=1, stroke=1)
-            if k in ("queijo_cheddar", "queijo_mussarela", "cremoso"):
-                for dx in (-32, 8, 36):
-                    c.roundRect(cx + dx, yy - 7, 9, 10, 4, fill=1, stroke=0)
-            mid = yy + h / 2
-        else:
-            r = 9 if k in ("carne", "pao_base") else 4
-            c.roundRect(cx - w / 2 - (4 if k == "carne" else 0), yy, w + (8 if k == "carne" else 0), h, r,
-                        fill=1, stroke=1)
-            mid = yy + h / 2
-        # rótulo
-        c.setStrokeColor(CINZA)
-        c.setLineWidth(0.8)
-        c.line(cx + w / 2 + 10, mid, x + 128, rot_y + 4)
+def ilustracao(c, x, y_baixo, y_topo, larg_img, x_rot, camadas_):
+    """Burger 'explodido' (fotos do kit) de y_baixo até y_topo, rótulos em x_rot."""
+    pesos = [PESO.get(k, 1) for k, _, _ in camadas_]
+    vao = 4
+    unid = min((y_topo - y_baixo - vao * (len(camadas_) - 1)) / sum(pesos), 42)
+    cx = x + larg_img / 2
+    tam = 16 if unid >= 24 else 14.5
+    # posições das fotos
+    y, mids, alturas = y_baixo, [], []
+    for p in pesos:
+        h = unid * p
+        alturas.append(h)
+        mids.append(y + h / 2)
+        y += h + vao
+    # rótulos sem sobreposição (mínimo de 1 linha + folga)
+    rot = list(mids)
+    for i in range(1, len(rot)):
+        rot[i] = max(rot[i], rot[i - 1] + tam + 5)
+    for (k, nome, qtd), h, mid, ry, yb in zip(camadas_, alturas, mids, rot,
+                                             [m - a / 2 for m, a in zip(mids, alturas)]):
+        img, (iw, ih) = foto(k)
+        w = min(larg_img * LARG.get(k, 0.9), h * iw / ih)
+        hh = w * ih / iw
+        if img:
+            c.drawImage(img, cx - w / 2, yb + (h - hh) / 2, w, hh, mask=[245, 255, 245, 255, 245, 255])
+        c.setStrokeColor(DOURADO)
+        c.setLineWidth(1)
+        c.setDash(2, 2)
+        c.line(cx + w / 2 + 4, mid, x_rot - 14, mid)
+        c.line(x_rot - 14, mid, x_rot - 6, ry + tam / 3)
+        c.setDash()
+        q = ("a definir" if qtd == "—" else qtd) if qtd else ""
+        t = tam
+        while c.stringWidth(nome + "  " + q, "B", t) > W - M - x_rot and t > 10:
+            t -= 0.5
         c.setFillColor(PRETO)
-        c.setFont("B", 11.5)
-        c.drawString(x + 131, rot_y, rotulo)
-        rot_y += passo_rot
-        yy += h + 3
-    return max(yy, rot_y)
+        c.setFont("B", t)
+        c.drawString(x_rot, ry, nome)
+        if q:
+            c.setFillColor(VERMELHO)
+            c.drawString(x_rot + c.stringWidth(nome + "  ", "B", t), ry, q)
 
 
 def cabecalho(c, L, pag):
@@ -371,56 +392,38 @@ def titulo_secao(c, x, y, txt, larg):
 def pagina_lanche(c, L, pag, data_ref):
     cabecalho(c, L, pag)
     y0 = H - 150
-    # ---- ingredientes (esq)
-    lx, lw = M, 268
-    y = titulo_secao(c, lx, y0, "INGREDIENTES E GRAMATURA", lw)
+    passos_ = passos(L)
+    # altura do bloco de baixo (montagem + caixas) para saber quanto sobra para a pilha
+    by, bh = 36, 120
+    larg_txt = W - 2 * M - 40
+    alt_passos = sum(len(wrap(c, s, "R", 15, larg_txt)) * 15 * 1.22 + 6 for s in passos_)
+    y_mont = by + bh + 14 + alt_passos + 26
+    # ---- instruções de montagem (burger explodido)
+    titulo_secao(c, M, y0, "INSTRUÇÕES DE MONTAGEM  ·  de baixo para cima", W - 2 * M)
     if L["lanches"] > 1:
-        y = texto(c, lx, y, f"Quantidades para os {L['lanches']} lanches.", "B", 12, lw, VERMELHO)
-    linhas = [i for i in L["ings"] if i["tipo"] != "emb"]
-    for k, i in enumerate(linhas):
-        if k % 2 == 0:
-            c.setFillColor(CREME)
-            c.rect(lx, y - 8, lw, 26, fill=1, stroke=0)
-        c.setFillColor(PRETO)
-        c.setFont("R", 16)
-        c.drawString(lx + 8, y, i["nome"])
-        c.setFont("B", 17)
-        c.setFillColor(VERMELHO if i["qtd"] == "—" else PRETO)
-        c.drawRightString(lx + lw - 8, y, i["qtd"])
-        y -= 26
-    if L["sem_ficha"]:
-        y -= 4
         c.setFillColor(VERMELHO)
-        c.roundRect(lx, y - 30, lw, 40, 6, fill=1, stroke=0)
+        c.setFont("B", 12)
+        c.drawRightString(W - M, y0 - 22, f"Combo com {L['lanches']} lanches: monte {L['lanches']} iguais a este.")
+    if L["sem_ficha"]:
+        c.setFillColor(VERMELHO)
+        c.roundRect(W - M - 200, y0 - 74, 200, 44, 6, fill=1, stroke=0)
         c.setFillColor(white)
-        c.setFont("B", 14)
-        c.drawCentredString(lx + lw / 2, y - 4, "SEM FICHA TÉCNICA NO ALIV")
-        c.setFont("R", 11)
-        c.drawCentredString(lx + lw / 2, y - 22, "Gramatura a definir — perguntar ao gerente")
-        y -= 44
-    y_ing = y
-    # ---- camadas (dir)
-    rx, rw = M + lw + 14, W - 2 * M - lw - 14
-    titulo_secao(c, rx, y0, "ORDEM DAS CAMADAS", rw)
-    c.setFillColor(CINZA)
-    c.setFont("R", 10)
-    c.drawString(rx + 4, y0 - 22, "de baixo para cima ↑")
-    cam = camadas(L)
-    base = y0 - 40 - altura_pilha(cam)
-    ilustracao(c, rx, base, rw, cam)
-    # ---- montagem
-    y = min(y_ing, base - 14) - 6
-    y = titulo_secao(c, M, y, "MONTAGEM NA CHAPA", W - 2 * M)
-    for k, s in enumerate(passos(L), 1):
+        c.setFont("B", 13)
+        c.drawCentredString(W - M - 100, y0 - 50, "SEM FICHA TÉCNICA")
+        c.setFont("R", 10.5)
+        c.drawCentredString(W - M - 100, y0 - 66, "gramatura: perguntar ao gerente")
+    ilustracao(c, M + 10, y_mont + 22, y0 - 26, 220, M + 256, camadas(L))
+    # ---- montagem na chapa
+    y = titulo_secao(c, M, y_mont, "MONTAGEM NA CHAPA", W - 2 * M)
+    for k, s in enumerate(passos_, 1):
         c.setFillColor(VERMELHO)
         c.circle(M + 13, y + 5, 12, fill=1, stroke=0)
         c.setFillColor(white)
         c.setFont("B", 14)
         c.drawCentredString(M + 13, y, str(k))
-        y = texto(c, M + 34, y, s, "R", 16.5, W - 2 * M - 40) - 7
+        y = texto(c, M + 34, y, s, "R", 15, larg_txt, entre=1.22) - 6
     # ---- caixas finais
     bw = (W - 2 * M - 20) / 3
-    by, bh = 36, 138
     for j, (tit, txt) in enumerate((("PONTO DA CARNE", ponto(L)), ("TOSTAGEM DO PÃO", PADRAO["pao"]),
                                     ("EMBALAGEM", embalagem(L)))):
         bx = M + j * (bw + 10)
@@ -434,16 +437,12 @@ def pagina_lanche(c, L, pag, data_ref):
         c.setFillColor(white)
         c.setFont("B", 14)
         c.drawCentredString(bx + bw / 2, by + bh - 19, tit)
-        tam = 14.5
-        while len(wrap(c, txt, "R", tam, bw - 16)) * tam * 1.22 > bh - 40 and tam > 9:
+        tam = 14
+        while len(wrap(c, txt, "R", tam, bw - 16)) * tam * 1.2 > bh - 38 and tam > 9:
             tam -= 0.5
-        texto(c, bx + 8, by + bh - 46, txt, "R", tam, bw - 16, entre=1.22)
-    if y < by + bh + 8:
+        texto(c, bx + 8, by + bh - 45, txt, "R", tam, bw - 16, entre=1.2)
+    if y < by + bh:
         print(f"AVISO: página {pag} ({L['nome']}) apertada (y={y:.0f})", file=sys.stderr)
-    # alerta de divergência
-    if L["alertas"]:
-        c.setFillColor(DOURADO)
-        c.rect(0, 26, W, 8, fill=1, stroke=0)
     rodape(c, f"Ficha ALIV loja 150 · {data_ref}"
               + ("  ·  ⚠ ver pendências no final" if L["alertas"] or L["sem_ficha"] else ""), pag)
     c.showPage()

@@ -373,7 +373,7 @@ python3 monitor/previsao_motoboys.py --promo          # considera promoção hoj
 python3 monitor/previsao_motoboys.py --whatsapp       # envia para WHATSAPP_EMERSON, WHATSAPP_JOSUE e WHATSAPP_CAMILO
 ```
 
-Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` nenhum WhatsApp enviado. Destino sem variável é pulado com aviso.
+Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` nenhum WhatsApp enviado. Josué e Camilo: usa `WHATSAPP_JOSUE` / `WHATSAPP_CAMILO` se existirem; senão pega o número do mesmo nome em `DESPESAS_REMETENTES` (a lista das despesas). Destino sem número é pulado com aviso.
 
 **Método** (janela 16:00–00:00 de cada dia):
 - Base: mesmo dia da semana nas últimas 4 semanas (pesos 35/25/15/10%) + mesmo dia do mês passado (15%).

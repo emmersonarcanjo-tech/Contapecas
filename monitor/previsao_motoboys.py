@@ -42,6 +42,7 @@ import math
 import os
 import re
 import sys
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
@@ -378,6 +379,18 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
 
 
 # ---------------------------------------------------------------- main
+def fone_remetente(var: str) -> str:
+    """Sem WHATSAPP_JOSUE / WHATSAPP_CAMILO, usa o número do mesmo nome em DESPESAS_REMETENTES
+    ("numero=Nome,numero=Nome", a lista das despesas)."""
+    chave = var.removeprefix("WHATSAPP_").lower()
+    for item in os.environ.get("DESPESAS_REMETENTES", "").split(","):
+        num_, _, nome = item.partition("=")
+        nome = unicodedata.normalize("NFKD", nome).encode("ascii", "ignore").decode().lower()
+        if chave in nome.split():
+            return re.sub(r"\D", "", num_)
+    return ""
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Previsão de motoboys do dia (ALIV, só leitura)")
     ap.add_argument("--data", help="dia da previsão (AAAA-MM-DD); padrão: hoje")
@@ -431,7 +444,7 @@ def main() -> int:
         return 0
     enviados = 0
     for var in DESTINOS:
-        fone = re.sub(r"\D", "", os.environ.get(var, ""))
+        fone = re.sub(r"\D", "", os.environ.get(var, "")) or fone_remetente(var)
         if not fone:
             print(f"WHATSAPP: {var} não definida — pulado.", file=sys.stderr)
             continue

@@ -246,10 +246,12 @@ def passos(L: dict) -> list[str]:
 
 
 def embalagem(L: dict) -> str:
-    emb = [i for i in L["ings"] if i["tipo"] == "emb"]
+    # Papel: padrão da casa para TODOS os lanches (Emerson, 08/11/2026): acoplado laminado 30×38.
+    emb = [i for i in L["ings"] if i["tipo"] == "emb" and not i["nome"].startswith("papel")]
     if not emb:
-        return "Papel acoplado + 2 sachês de ketchup + 2 de maionese (padrão — sem ficha)."
-    return "Embrulhar bem fechado: " + " · ".join(f"{i['qtd']} {i['nome']}" for i in emb) + "."
+        emb = [dict(qtd="2", nome="sachês ketchup"), dict(qtd="2", nome="sachês maionese")]
+    return ("Embrulhar bem fechado no papel acoplado laminado 30×38 · "
+            + " · ".join(f"{i['qtd']} {i['nome']}" for i in emb) + ".")
 
 
 def ponto(L: dict) -> str:
@@ -526,25 +528,25 @@ def pendencias(c, lanches, data_ref):
     inc = [l for l in lanches if l["alertas"] and not l["sem_ficha"]]
     y = titulo_secao(c, M, y, f"SEM FICHA TÉCNICA NO ALIV ({len(sem)})", W - 2 * M) - 2
     for l in sem:
-        y = texto(c, M + 10, y, f"• {l['nome']} — {l['desc']}", "R", 13, W - 2 * M - 20) - 4
+        y = texto(c, M + 10, y, f"• {l['nome']} — {l['desc']}", "R", 11.5, W - 2 * M - 20) - 4
     y -= 10
     y = titulo_secao(c, M, y, f"FICHA INCOMPLETA OU DIFERENTE DO CARDÁPIO ({len(inc)})", W - 2 * M) - 2
     for l in inc:
-        c.setFont("B", 13)
+        c.setFont("B", 12)
         c.setFillColor(VERMELHO)
         c.drawString(M + 10, y, l["nome"])
-        y -= 17
+        y -= 15
         for a in l["alertas"]:
-            y = texto(c, M + 24, y, "– " + a, "R", 12, W - 2 * M - 34) - 2
+            y = texto(c, M + 24, y, "– " + a, "R", 11, W - 2 * M - 34) - 2
         y -= 4
     y -= 6
     y = titulo_secao(c, M, y, "PARA CONFERIR", W - 2 * M) - 2
     for a in ["Ponto da carne, tempos de chapa e tostagem não existem no ALIV: usado o padrão da casa.",
               "Clube 2 Cheddar Burguer está na categoria Artesanais no ALIV, mas é tradicional (90 g).",
-              "Cheddar Burguer e X-Burguer usam papel 40×40; os outros lanches usam 30×38.",
+              "Papel: padrão é acoplado laminado 30×38 para todos. Cheddar Burguer e X-Burguer estão com 40×40 na ficha do ALIV.",
               "Alface: todas as fichas dizem '1 UN' — usei 1 folha; confirmar.",
-              "Papel acoplado 30×38: as fichas dizem 4 folhas por lanche — confirmar."]:
-        y = texto(c, M + 10, y, "• " + a, "R", 12, W - 2 * M - 20) - 2
+              "Fichas com papel 30×38 lançam 4 folhas por lanche (0,01 caixa de 400) — confirmar."]:
+        y = texto(c, M + 10, y, "• " + a, "R", 11, W - 2 * M - 20) - 2
     rodape(c, f"Conferido nas fichas do ALIV (loja 150) em {data_ref}. Só leitura.")
     c.showPage()
 

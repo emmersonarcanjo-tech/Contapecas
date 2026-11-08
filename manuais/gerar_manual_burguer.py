@@ -139,10 +139,11 @@ def carregar(pasta: Path) -> list[dict]:
             alertas += DIVERGENCIAS.get(p["id"], [])
             if not ficha:
                 ings = [dict(nome=n, qtd="—", tipo=t) for n, t in SEM_FICHA.get(p["id"], [])]
-            lanches.append(dict(id=p["id"], nome=nome, cat=CATEGORIAS[c["id"]],
+            cat = "TRADICIONAL" if nome.startswith("Clube 2") else CATEGORIAS[c["id"]]   # 2 Cheddar Burguer
+            lanches.append(dict(id=p["id"], nome=nome, cat=cat,
                                 desc=fd.get("description") or "", ings=ings,
                                 sem_ficha=not ficha, alertas=alertas, lanches=qtd_lanches))
-    return lanches
+    return sorted(lanches, key=lambda l: l["cat"] != "ARTESANAL")
 
 
 # ------------------------------------------------------------------ montagem
@@ -203,7 +204,7 @@ def camadas(L: dict) -> list[tuple[str, str, str]]:
             if k == "cebola":
                 nome = "Cebola caramelizada" if caram else "Cebola refogada"
             if k == "banana":
-                nome = "Banana da terra caramel."
+                nome = "Banana da terra frita" if "frita" in L["desc"].lower() else "Banana da terra caramel."
             out.append((img, nome, q(k)))
     if "molho" in t:
         out.append(("maionese", "Molho da casa", q("molho", 2)))
@@ -223,7 +224,8 @@ def passos(L: dict) -> list[str]:
         s.append(f"Colocar {nome}{q(k)}{extra} na chapa (ver PONTO).")
     quentes = []
     for k, txt in (("bacon", "bacon até ficar crocante"), ("calabresa", "calabresa até dourar"),
-                   ("banana", "banana até caramelizar dos dois lados"),
+                   ("banana", "banana até dourar dos dois lados" if "frita" in L["desc"].lower()
+                    else "banana até caramelizar dos dois lados"),
                    ("abacaxi", "abacaxi até marcar dos dois lados"), ("presunto", "presunto só para aquecer"),
                    ("ovo", "ovo com a gema firme")):
         if k in t:
@@ -538,6 +540,8 @@ def pendencias(c, lanches, data_ref):
     y -= 6
     y = titulo_secao(c, M, y, "PARA CONFERIR", W - 2 * M) - 2
     for a in ["Ponto da carne, tempos de chapa e tostagem não existem no ALIV: usado o padrão da casa.",
+              "Clube 2 Cheddar Burguer está na categoria Artesanais no ALIV, mas é tradicional (90 g).",
+              "Cheddar Burguer e X-Burguer usam papel 40×40; os outros lanches usam 30×38.",
               "Alface: todas as fichas dizem '1 UN' — usei 1 folha; confirmar.",
               "Papel acoplado 30×38: as fichas dizem 4 folhas por lanche — confirmar."]:
         y = texto(c, M + 10, y, "• " + a, "R", 12, W - 2 * M - 20) - 2

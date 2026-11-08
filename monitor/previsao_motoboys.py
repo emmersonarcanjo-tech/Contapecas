@@ -21,8 +21,9 @@ dia do mês passado), janela 16:00–00:00 de cada dia:
   • Ajustes: feriado/data forte (+20%), véspera (+15%), promoção (+10%,
     monitor/assets/promocoes.json). Dias da base que eram feriado/véspera/promo
     são descontados do ajuste antes de entrar na média.
-  • Chuva (Open-Meteo, 3 modelos: ECMWF, GFS, ICON, 17h–00h): se 2 ou mais modelos
-    preveem chuva, soma +2 motoboys (+3 se for forte, ≥5 mm). Só 1 modelo = "fique de olho".
+  • Chuva (Open-Meteo: ECMWF, GFS, ICON + reserva MET Norway; 17h–00h): a recomendação principal fica
+    normal; se 2 ou mais modelos preveem chuva, mostra à parte "+2 a 3 motoboys". Só 1 modelo
+    ou chance ≥40% = "se chover, +2 a 3".
   • Alerta se algum dia dos últimos 7 teve atraso.
 
 Uso:
@@ -152,54 +153,81 @@ def contexto(d: date, forcar_promo: bool) -> tuple[float, list[str]]:
     return fator, motivos
 
 
+def _get_json(url: str, tentativas=(0, 10, 30)) -> tuple[dict | None, str]:
+    erro = ""
+    for espera in tentativas:                   # serviços gratuitos às vezes respondem 429 (muitos pedidos)
+        time.sleep(espera)
+        try:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": "tili-previsao/1.0 github.com/emmersonarcanjo-tech/contapecas"})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return json.loads(r.read().decode()), ""
+        except Exception as e:
+            erro = str(e)[:120]
+    return None, erro
+
+
+def _modelo(nome: str, prob: dict, mm: dict) -> dict:
+    """prob/mm: {hora: valor}. O modelo "vê chuva" se tem hora com ≥60% e ≥0,5 mm (sem probabilidade:
+    só ≥0,5 mm) ou ≥2 mm na noite."""
+    chuvosas = [h for h in CHUVA_HORAS if mm.get(h, 0) >= CHUVA_MM_HORA and (not prob or prob.get(h, 0) >= CHUVA_PROB)]
+    total = sum(mm.get(h, 0) for h in CHUVA_HORAS)
+    return {"ve_chuva": bool(chuvosas) or total >= CHUVA_MM_TOTAL, "mm": total,
+            "prob_max": max([prob.get(h, 0) for h in CHUVA_HORAS] or [0]) if prob else None,
+            "horas": chuvosas, "prob": prob}
+
+
 def previsao_chuva(hoje: date) -> dict:
-    """Previsão de chuva para 17h–00h em Porto Seguro, em 3 modelos. status: forte · chuva ·
-    possível · seco · indisponível. extra = motoboys a somar (só com 2+ modelos de acordo)."""
+    """Previsão de chuva para 17h–00h em Porto Seguro. Fontes: Open-Meteo (ECMWF, GFS, ICON) e
+    MET Norway (reserva). status: forte · chuva · possível · seco · indisponível.
+    "chuva"/"forte" só com 2+ fontes de acordo (ou 1 fonte só no ar e ≥2 mm)."""
+    modelos, erros = {}, []
     q = urllib.parse.urlencode({
         "latitude": CHUVA_LAT, "longitude": CHUVA_LON, "hourly": "precipitation_probability,precipitation",
         "models": ",".join(CHUVA_MODELOS), "timezone": "America/Bahia",
         "start_date": hoje.isoformat(), "end_date": hoje.isoformat()})
-    h, erro = None, ""
-    for espera in (0, 10, 30, 60):              # o serviço gratuito às vezes responde 429 (muitos pedidos)
-        time.sleep(espera)
-        try:
-            req = urllib.request.Request("https://api.open-meteo.com/v1/forecast?" + q,
-                                         headers={"User-Agent": "tili-previsao/1.0"})
-            with urllib.request.urlopen(req, timeout=30) as r:
-                h = json.loads(r.read().decode())["hourly"]
-            break
-        except Exception as e:
-            erro = str(e)[:120]
-    if h is None:                               # sem previsão, a recomendação segue sem chuva
-        return {"status": "indisponível", "extra": 0, "erro": erro, "modelos": {}, "horas": {}}
-    idx = [i for i, t in enumerate(h["time"]) if int(t[11:13]) in CHUVA_HORAS]
-    modelos, horas = {}, {int(h["time"][i][11:13]): [] for i in idx}
-    for m, nome in CHUVA_MODELOS.items():
-        prob = [num(h.get(f"precipitation_probability_{m}", [None] * len(h["time"]))[i]) for i in idx]
-        mm = [num(h.get(f"precipitation_{m}", [None] * len(h["time"]))[i]) for i in idx]
-        if not any(prob) and not any(mm) and h.get(f"precipitation_{m}") is None:
-            continue
-        chuvosas = [int(h["time"][i][11:13]) for i, p, x in zip(idx, prob, mm) if p >= CHUVA_PROB and x >= CHUVA_MM_HORA]
-        modelos[nome] = {"ve_chuva": bool(chuvosas) or sum(mm) >= CHUVA_MM_TOTAL, "mm": sum(mm),
-                         "prob_max": max(prob or [0]), "horas": chuvosas}
-        for i, p in zip(idx, prob):
-            horas[int(h["time"][i][11:13])].append(p)
+    j, e = _get_json("https://api.open-meteo.com/v1/forecast?" + q)
+    if j and "hourly" in j:
+        h = j["hourly"]
+        hs = [int(t[11:13]) for t in h["time"]]
+        for m, nome in CHUVA_MODELOS.items():
+            if h.get(f"precipitation_{m}") is None:
+                continue
+            prob = {x: num(v) for x, v in zip(hs, h.get(f"precipitation_probability_{m}") or [])}
+            mm = {x: num(v) for x, v in zip(hs, h[f"precipitation_{m}"])}
+            modelos[nome] = _modelo(nome, prob, mm)
+    else:
+        erros.append(f"Open-Meteo: {e or 'sem dados'}")
+    j, e = _get_json(f"https://api.met.no/weatherapi/locationforecast/2.0/complete?lat={CHUVA_LAT}&lon={CHUVA_LON}")
+    if j:
+        mm = {}
+        for t in j.get("properties", {}).get("timeseries", []):
+            quando = datetime.fromisoformat(t["time"].replace("Z", "+00:00")).astimezone(TZ)
+            det = t.get("data", {}).get("next_1_hours", {}).get("details", {})
+            if quando.date() == hoje and "precipitation_amount" in det:
+                mm[quando.hour] = num(det["precipitation_amount"])
+        if mm:
+            modelos["Norueguês (MET)"] = _modelo("Norueguês (MET)", {}, mm)
+    else:
+        erros.append(f"MET: {e}")
     if not modelos:
-        return {"status": "indisponível", "extra": 0, "erro": "sem dados", "modelos": {}, "horas": {}}
+        return {"status": "indisponível", "extra": 0, "erro": "; ".join(erros), "modelos": {}, "horas": {}}
+
     sim = [v for v in modelos.values() if v["ve_chuva"]]
     mms = sorted(v["mm"] for v in modelos.values())
     mediana = mms[len(mms) // 2]
-    prob_h = {k: (sum(v) / len(v) if v else 0.0) for k, v in horas.items()}
+    com_prob = [v["prob"] for v in modelos.values() if v["prob"]]
+    prob_h = {x: sum(p.get(x, 0) for p in com_prob) / len(com_prob) for x in CHUVA_HORAS} if com_prob else {}
     quando = sorted({x for v in sim for x in v["horas"]})
-    if len(sim) >= 2:
-        status = "forte" if mediana >= CHUVA_FORTE_MM else "chuva"
+    if len(sim) >= 2 or (len(modelos) == 1 and sim and sim[0]["mm"] >= CHUVA_MM_TOTAL):
+        status = "forte" if mediana >= CHUVA_FORTE_MM or (len(modelos) == 1 and mediana >= CHUVA_FORTE_MM) else "chuva"
     elif sim or max(prob_h.values() or [0]) >= 40:
         status = "possível"
     else:
         status = "seco"
     extra = {"forte": EXTRA_CHUVA_FORTE, "chuva": EXTRA_CHUVA}.get(status, 0)
     return {"status": status, "extra": extra, "modelos": modelos, "horas": prob_h, "quando": quando,
-            "mm": mediana, "concordam": len(sim), "total": len(modelos)}
+            "mm": mediana, "concordam": len(sim), "total": len(modelos), "erro": "; ".join(erros)}
 
 
 def texto_chuva(c: dict) -> str:
@@ -448,7 +476,13 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
     c = rec.get("chuva")
     L += [porque1, porque2]
     if c:
-        L.append(texto_chuva(c) + (f" → já somei +{c['extra']}" if c["extra"] else ""))
+        L.append(texto_chuva(c))
+        if c["status"] in ("chuva", "forte"):
+            L.append(f"🌧️ *Com chuva: chame +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} motoboys "
+                     f"({rec['lo'] + EXTRA_CHUVA} a {rec['hi'] + EXTRA_CHUVA_FORTE})*")
+        elif c["status"] == "possível":
+            L.append(f"Se chover: +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} motoboys "
+                     f"({rec['lo'] + EXTRA_CHUVA} a {rec['hi'] + EXTRA_CHUVA_FORTE})")
     L += ["", "*Últimas 4 semanas*"]
     L += [linha_hist(k, x) for k, x in base if k != "mês"]
     mes = [x for k, x in base if k == "mês"]
@@ -545,10 +579,8 @@ def main() -> int:
     rec = recomendar(base, fator)
     chuva = previsao_chuva(hoje)
     rec["chuva"] = chuva
-    if chuva["extra"]:
-        rec["lo"] += chuva["extra"]
-        rec["hi"] += chuva["extra"]
-        motivos.append(f"chuva (+{chuva['extra']} motoboys)")
+    # Emerson (08/11/2026): a recomendação principal fica normal; a chuva aparece à parte,
+    # com "+2 a 3 motoboys" quando os modelos concordam (ou "se chover" quando há só chance).
     texto = mensagem(hoje, base, rec, motivos, semana)
     print(texto)
 
@@ -574,6 +606,8 @@ def main() -> int:
         return 0
     # Como o painel de vendas: vai só a imagem (legenda curta); o texto só se a imagem falhar.
     legenda = f"Motoboys hoje {hoje:%d/%m}: chamar {rec['lo']} a {rec['hi']}"
+    if chuva["status"] in ("chuva", "forte"):
+        legenda += f" · com chuva +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE}"
     enviados = 0
     for var in DESTINOS:
         fone = re.sub(r"\D", "", os.environ.get(var, "")) or fone_remetente(var)

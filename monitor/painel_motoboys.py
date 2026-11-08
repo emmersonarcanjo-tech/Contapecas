@@ -14,6 +14,7 @@ from pathlib import Path
 
 from diaristas import _logo_src
 from monitor import TZ
+from previsao_motoboys import EXTRA_CHUVA, EXTRA_CHUVA_FORTE
 from painel import CSS, DOURADO, VERMELHO, _card, _e, html_para_png
 
 DIAS = ["segunda", "terça", "quarta", "quinta", "sexta", "sábado", "domingo"]
@@ -40,6 +41,12 @@ CSS_EXTRA = f"""
 .dias .val {{ font-size: 46px }}
 .tag {{ float: right; font-size: 24px; font-weight: 800; padding: 4px 14px; border-radius: 20px }}
 .tag.ok {{ background: #2e9d57 }} .tag.no {{ background: {VERMELHO} }}
+.tempo {{ margin: 18px 40px 0; border-radius: 20px; padding: 20px 30px; display: grid;
+          grid-template-columns: 110px 1fr auto; gap: 24px; align-items: center }}
+.tempo .ic {{ font-size: 90px; line-height: 1 }}
+.tempo .cond {{ font-size: 46px; font-weight: 800 }}
+.tempo .det {{ font-size: 30px; color: #ddd }}
+.tempo .acao {{ font-size: 44px; font-weight: 900; color: {DOURADO}; text-align: right }}
 .como {{ margin: 0 20px; background: #262626; border-radius: 20px; padding: 18px 24px; font-size: 27px;
          color: #ccc; line-height: 1.4 }}
 .como b {{ color: #fff }}
@@ -70,6 +77,29 @@ def _horas(rec: dict) -> str:
             + "".join(linhas) + "</div>")
 
 
+def _tempo_hoje(rec: dict) -> str:
+    """Faixa do tempo logo abaixo da recomendação: condição + quantos a mais se chover."""
+    c = rec.get("chuva")
+    if not c:
+        return ""
+    lo, hi = rec["lo"] + EXTRA_CHUVA, rec["hi"] + EXTRA_CHUVA_FORTE
+    ic, cor, cond, acao = {
+        "forte": ("🌧️", "#1e3a8a", "Chuva forte prevista", f"Chame +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} motoboys → {lo} a {hi}"),
+        "chuva": ("🌧️", "#1e3a8a", "Chuva prevista", f"Chame +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} motoboys → {lo} a {hi}"),
+        "possível": ("🌦️", "#334155", "Pode chover (sem consenso)", f"Se chover: +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} motoboys → {lo} a {hi}"),
+        "seco": ("☀️", "#16331f", "Sem chuva prevista à noite", "Previsão normal vale"),
+        "indisponível": ("❔", "#333", "Previsão do tempo indisponível", "Se chover: +2 a 3 motoboys"),
+    }[c["status"]]
+    det = ""
+    if c["status"] != "indisponível":
+        faixa = f"{c['quando'][0]:02d}h–{(c['quando'][-1] + 1) % 24:02d}h · " if c.get("quando") else ""
+        det = f"{faixa}{c['concordam']} de {c['total']} modelos · ~{_f1(c['mm'])} mm" + (
+            f" · chance máx. {max(c['horas'].values()):.0f}%" if c["horas"] else "")
+    return (f'<div class="tempo" style="background:{cor}"><div class="ic">{ic}</div>'
+            f'<div><div class="cond">{_e(cond)}</div><div class="det">{_e(det)}</div></div>'
+            f'<div class="acao">{_e(acao)}</div></div>')
+
+
 def _chuva(c: dict | None) -> str:
     if not c:
         return ""
@@ -79,16 +109,19 @@ def _chuva(c: dict | None) -> str:
     titulo = {"forte": "CHUVA FORTE", "chuva": "VAI CHOVER", "possível": "PODE CHOVER", "seco": "SEM CHUVA"}[c["status"]]
     cls = {"forte": "ruim", "chuva": "ruim", "possível": "d", "seco": "bom"}[c["status"]]
     det = (f"{c['concordam']} de {c['total']} modelos preveem chuva · ~{_f1(c['mm'])} mm")
-    meta = (f"+{c['extra']} motoboys já somados na recomendação" if c["extra"]
-            else "sem consenso: não somei; se começar a chover, chame +2" if c["status"] == "possível"
+    meta = (f"com chuva: +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} motoboys" if c["status"] in ("chuva", "forte")
+            else f"sem consenso: se começar a chover, +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE}" if c["status"] == "possível"
             else "nenhum motoboy a mais")
     linhas = "".join(
         f'<div class="hora"><div class="h">{_h(h)}</div><div class="trilho"><i style="width:{max(v, 1.5):.0f}%;'
         f'background:{"#3b82f6" if v >= 60 else "#64748b"}"></i></div><div class="e">{v:.0f}%</div>'
         f'<div class="m">{"chuva" if v >= 60 else ""}</div></div>'
         for h, v in sorted(c["horas"].items()))
-    mods = " · ".join(f"{n.split(' ')[0]}: {'chuva' if m['ve_chuva'] else 'seco'} ({m['prob_max']:.0f}%, {_f1(m['mm'])} mm)"
+    mods = " · ".join(f"{n.split(' ')[0]}: {'chuva' if m['ve_chuva'] else 'seco'} ("
+                      + (f"{m['prob_max']:.0f}%, " if m["prob_max"] is not None else "") + f"{_f1(m['mm'])} mm)"
                       for n, m in c["modelos"].items())
+    if not c["horas"]:
+        linhas = '<div class="det">Sem chance por hora nesta fonte.</div>'
     return (f'<div class="sec">CHUVA HOJE (17h–00h)</div><div class="grade">'
             f'{_card("Previsão do tempo · Porto Seguro", titulo, det, meta, cls)}'
             f'<div class="barras"><div class="t">Chance de chuva por hora (média dos modelos)</div>{linhas}'
@@ -134,6 +167,7 @@ def html_painel(hoje: date, base: list, rec: dict, motivos: list[str], semana: l
     P.append(f'<div class="hero"><div><div class="rot">CHAMAR HOJE</div>'
              f'<div class="num">{rec["lo"]} a {rec["hi"]} <small>motoboys</small></div></div>'
              f'<div class="pq"><p>{p1}</p><p>{p2}</p><div class="chips">{chips}</div></div></div>')
+    P.append(_tempo_hoje(rec))
 
     # Alerta da semana passada
     if semana:

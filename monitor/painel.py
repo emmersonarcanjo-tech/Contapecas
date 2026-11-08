@@ -6,8 +6,9 @@ os PDFs dos diaristas e prestadores. Não precisa instalar nada além disso.
 
 Dois formatos (pedido do Emerson, 08/11/2026), mandados um depois do outro:
   ipad   — 3 colunas, iPad deitado, 2880 px de largura
-  iphone — 1 coluna, tela do iPhone 14 Pro Max, 1290 px de largura (desenhado em
-           1080 px e fotografado com escala 1290/1080 para sair nítido)
+  iphone — tela do iPhone 14 Pro Max (1290×2796), em 2 imagens que ocupam a tela
+           toda: 1/2 alertas, vendas, canais e ticket; 2/2 tempos, motoboys, descontos,
+           lucro e semana passada (desenhado em 1080 px, escala 1290/1080)
 
 Uso pelo monitor.py: gerar_paineis(base, agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi).
 """
@@ -31,11 +32,18 @@ FORMATOS = {
     "ipad": {"largura": 2880, "escala": 1.0, "rotulo": "iPad"},        # 3 colunas, iPad deitado
     "iphone": {"largura": 1080, "escala": 1290 / 1080, "rotulo": "iPhone"},  # 1 coluna, 1290 px
 }
-# No iPhone as três colunas viram uma só, na mesma ordem.
-CSS_IPHONE = """
-.colunas { display: block; padding: 0 }
-.colunas .sec, .colunas .grade, .colunas .lucro, .colunas .comp { margin-left: 40px; margin-right: 40px }
-.colunas .g3 .val { font-size: 44px }
+ALTURA_IPHONE = round(2796 / (1290 / 1080))   # altura da tela do 14 Pro Max em px CSS
+ROTULOS = {"ipad": "iPad", "iphone_1": "iPhone 1/2", "iphone_2": "iPhone 2/2"}
+QUEBRA = "<!--QUEBRA-->"
+# No iPhone as três colunas viram uma só, na mesma ordem, cortada em 2 telas.
+CSS_IPHONE = f"""
+body {{ min-height: {ALTURA_IPHONE}px; display: flex; flex-direction: column }}
+.fim {{ margin-top: auto }}
+.colunas {{ display: block; padding: 0 }}
+.colunas .sec, .colunas .grade, .colunas .lucro, .colunas .comp {{ margin-left: 40px; margin-right: 40px }}
+.colunas .g3 .val {{ font-size: 44px }}
+.linha {{ padding: 5px 0 }}
+.colunas .sec {{ margin-top: 20px }}
 """
 
 VERMELHO, DOURADO, FUNDO = "#C8102E", "#D4A017", "#1A1A1A"
@@ -251,6 +259,7 @@ def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, mot
                    meta="meta até 2%", cls=_situacao(s["taxa_cancel"] <= META_CANCEL) if s else "d"))
     P.append("</div>")
 
+    P.append(QUEBRA)
     # Tempos (Pizzaria): média do turno; embaixo, máximo e média da última hora
     prod, rua, vida = resumo(ops, "prod_delivery"), resumo(ops, "street"), resumo(ops, "life_delivery")
     P.append('<div class="sec">TEMPOS PIZZARIA · MÉDIA (1h = ÚLTIMA HORA)</div><div class="grade g3">')
@@ -310,12 +319,20 @@ def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, mot
                  f'{_var(s["pecas"], w["pecas"])}</div>')
     P.append("</div>")
     P.append('</div></div>')
-    P.append('<div class="rodape">Dados do ALIV (só leitura) · lucro é estimativa</div>'
-             '<div class="faixa" style="margin-top:22px"></div>')
+    fim = ('<div class="fim"><div class="rodape">Dados do ALIV (só leitura) · lucro é estimativa</div>'
+           '<div class="faixa" style="margin-top:22px"></div></div>')
 
     css = CSS + f"html, body {{ width: {FORMATOS[formato]['largura']}px }}" + (CSS_IPHONE if formato == "iphone" else "")
-    return (f'<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><style>{css}</style></head>'
-            f'<body>{"".join(P)}</body></html>')
+    def pagina(corpo: str) -> str:
+        return (f'<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><style>{css}</style></head>'
+                f'<body>{corpo}</body></html>')
+    corpo = "".join(P)
+    if formato != "iphone":
+        return pagina(corpo.replace(QUEBRA, "") + fim)
+    # iPhone: duas telas. A 2ª repete o topo (sem os alertas) para se ler sozinha.
+    um, dois = corpo.split(QUEBRA)
+    return QUEBRA.join([pagina(um + "</div></div>" + fim),
+                        pagina(P[0] + '<div class="colunas"><div>' + dois + fim)])
 
 
 def _chrome() -> str:
@@ -348,19 +365,26 @@ def html_para_png(pagina: str, destino: Path, largura: int = 2880, escala: float
     return destino
 
 
-def gerar_painel(destino: Path, *dados, formato: str = "ipad") -> Path:
-    """dados = (agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi), os mesmos do relatorio()."""
+def gerar_painel(destino: Path, *dados, formato: str = "ipad") -> list[Path]:
+    """dados = (agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi), os mesmos do relatorio().
+    iPad: 1 arquivo. iPhone: 2 arquivos (destino_1.png e destino_2.png)."""
     f = FORMATOS[formato]
-    return html_para_png(html_painel(*dados, formato=formato), destino, f["largura"], f["escala"])
+    paginas = html_painel(*dados, formato=formato).split(QUEBRA)
+    if len(paginas) == 1:
+        return [html_para_png(paginas[0], destino, f["largura"], f["escala"])]
+    return [html_para_png(h, destino.with_name(f"{destino.stem}_{i}.png"), f["largura"], f["escala"])
+            for i, h in enumerate(paginas, 1)]
 
 
 def gerar_paineis(base: Path, *dados) -> dict[str, Path | Exception]:
-    """Gera os dois formatos: base_ipad.png e base_iphone.png. Um formato que falhar
-    vem como a exceção, sem impedir o outro."""
+    """Gera base_ipad.png, base_iphone_1.png e base_iphone_2.png (chaves de ROTULOS).
+    Um formato que falhar vem como a exceção, sem impedir o outro."""
     out: dict[str, Path | Exception] = {}
     for formato in FORMATOS:
         try:
-            out[formato] = gerar_painel(base.with_name(f"{base.stem}_{formato}.png"), *dados, formato=formato)
+            arqs = gerar_painel(base.with_name(f"{base.stem}_{formato}.png"), *dados, formato=formato)
+            out.update({formato: arqs[0]} if len(arqs) == 1 else
+                       {f"{formato}_{i}": a for i, a in enumerate(arqs, 1)})
         except Exception as e:
             out[formato] = e
     return out

@@ -734,7 +734,7 @@ def main() -> int:
     ap.add_argument("--sem-semana", action="store_true", help="pula a comparação semanal")
     ap.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (diagnóstico)")
     ap.add_argument("--painel", metavar="ARQ.png",
-                    help="salva os painéis em PNG: ARQ_ipad.png e ARQ_iphone.png")
+                    help="salva os painéis em PNG: ARQ_ipad.png, ARQ_iphone_1.png e ARQ_iphone_2.png")
     ap.add_argument("--sem-painel", action="store_true", help="não gera nem envia o painel em PNG")
     ap.add_argument("--whatsapp", action="store_true",
                     help="envia o relatório pelo WhatsApp da loja para WHATSAPP_EMERSON "
@@ -783,12 +783,12 @@ def main() -> int:
     if not args.sem_painel and (args.painel or args.whatsapp):
         base = Path(args.painel) if args.painel else Path(tempfile.mkdtemp()) / f"painel_{agora:%d-%m_%H%M}.png"
         try:
-            from painel import FORMATOS, gerar_paineis
+            from painel import ROTULOS, gerar_paineis
             for formato, res in gerar_paineis(base, agora, dia, r, ops, ops_h, moto, uh, l, sem, sushi).items():
                 if isinstance(res, Exception):
                     print(f"PAINEL {formato}: não gerado — {res}", file=sys.stderr)
                 else:
-                    paineis.append((FORMATOS[formato]["rotulo"], res))
+                    paineis.append((ROTULOS.get(formato, formato), res))
                     print(f"PAINEL {formato}: {res}", file=sys.stderr)
         except Exception as e:      # o painel nunca derruba o relatório em texto
             print(f"PAINEL: não gerado — {e}", file=sys.stderr)

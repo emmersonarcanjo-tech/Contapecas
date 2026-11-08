@@ -21,7 +21,7 @@ from diaristas import CHROME, _logo_src
 from monitor import (META_CANCEL, META_CUSTO_IFOOD, META_ENTREGA, META_PREPARO, META_TICKET,
                      alertas_operacao, brl, num, pct, resumo)
 
-LARGURA = 1080   # px — no celular a imagem ocupa a largura da tela; fontes de 30px pra cima
+LARGURA = 2000   # px — 2 colunas, formato do iPad em pé (~3:4) para a imagem ocupar a tela toda
 
 VERMELHO, DOURADO, FUNDO = "#C8102E", "#D4A017", "#1A1A1A"
 
@@ -87,6 +87,11 @@ body {{ font-family: "Inter", "Liberation Sans", "DejaVu Sans", Arial, sans-seri
 .comp .h {{ font-size: 24px; color: #999; font-weight: 700; letter-spacing: 1px }}
 .comp .x {{ text-align: right; font-weight: 800; white-space: nowrap }}
 .up {{ color: #4cd17d }} .dn {{ color: #ff5a6e }}
+.colunas {{ display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 4px; align-items: start;
+             padding: 0 20px }}
+.colunas .sec, .colunas .grade, .colunas .lucro, .colunas .comp {{ margin-left: 20px; margin-right: 20px }}
+.colunas .g3 .val {{ font-size: 44px }}
+.colunas > div > .sec:first-child {{ margin-top: 26px }}
 .rodape {{ margin: 28px 40px 0; font-size: 24px; color: #888; text-align: center }}
 """
 
@@ -186,6 +191,9 @@ def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, mot
     else:
         P.append('<div class="semalerta">Sem alertas — operação dentro das metas</div>')
 
+    # Duas colunas: esquerda = vendas e canais; direita = o resto
+    P.append('<div class="colunas"><div>')
+
     # Vendas por loja
     P.append('<div class="sec">VENDAS DO DIA</div><div class="grade g2">')
     P.append(f'<div class="card v"><div class="loja">Pizzaria</div><div class="val g">{_e(brl(r["vendas"]))}</div>'
@@ -225,6 +233,8 @@ def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, mot
     P.append(_card("Cancelados Sushi", f"{s['cancelados']} · {pct(s['taxa_cancel'])}" if s else "—",
                    meta="meta até 2%", cls=_situacao(s["taxa_cancel"] <= META_CANCEL) if s else "d"))
     P.append("</div>")
+
+    P.append('</div><div>')
 
     # Tempos (Pizzaria): média do turno; embaixo, máximo e média da última hora
     prod, rua, vida = resumo(ops, "prod_delivery"), resumo(ops, "street"), resumo(ops, "life_delivery")
@@ -282,6 +292,7 @@ def html_painel(agora: datetime, dia: date, r: dict, ops: dict, ops_h: dict, mot
         P.append(f'<div class="l"><span>Sushi peças</span><span>{s["pecas"]}</span><span>{w["pecas"]}</span>'
                  f'{_var(s["pecas"], w["pecas"])}</div>')
     P.append("</div>")
+    P.append('</div></div>')
     P.append('<div class="rodape">Dados do ALIV (só leitura) · lucro é estimativa</div>'
              '<div class="faixa" style="margin-top:22px"></div>')
 

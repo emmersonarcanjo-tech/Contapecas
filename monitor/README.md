@@ -383,11 +383,12 @@ Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1`
 - Tempos (Pizzaria, operation-monitor): rua média, vida média e quantas entregas passaram de 45 min (a janela é dividida até isolar cada pedido).
 - Pico = hora com mais entregas. Ritmo = entregas do pico ÷ motoboys no pico.
 - Dia **estourado** = mais de 10% das entregas acima de 45 min, ou vida média acima de 45.
+- **Até 2 entregas por saída** (regra do Emerson, 08/11/2026): ritmo máximo = 2 × 60 ÷ (2 × rua média + 5 min). Vale o menor entre esse ritmo e o melhor ritmo de um dia que não estourou. Como a rua média é medida no ALIV, o número se ajusta sozinho quando os motoboys passarem a sair com 2.
 - Capacidade = melhor ritmo de um dia que não estourou. Recomendação = pico previsto ÷ capacidade. Se um dia com pico parecido (±10%) estourou com ritmo acima da capacidade, recomenda pelo menos 1 motoboy a mais que ele teve. Dia que estourou com ritmo baixo = gargalo na cozinha/expedição, não conta.
 - Ajustes: feriado nacional/Bahia ou data forte (Mães, Pais, Namorados) +20% · véspera (inclui 24 e 31/12) +15% · promoção +10%. Os dias da base que eram feriado/véspera/promoção são descontados antes da média.
 - Promoções e feriados municipais: `monitor/assets/promocoes.json` (`dias_semana`, `datas`, `feriados_extra`). Hoje está vazio — é só pedir ao Claude para incluir.
 
 **Painéis (pedido do Emerson, 08/11/2026):** no WhatsApp vai só a imagem, com uma legenda curta. O texto só vai se a imagem falhar.
-- **Emerson:** versão iPad deitado, tela cheia de 2360 × 1640, com 3 colunas e fonte grande (`--painel-ipad`). A versão larga de 2880 px, igual ao painel de vendas, ainda sai com `--painel`, mas não é enviada.
+- **Emerson:** recebe as duas, iPad e iPhone. Versão iPad deitado, tela cheia de 2360 × 1640, com 3 colunas e fonte grande (`--painel-ipad`). A versão larga de 2880 px, igual ao painel de vendas, ainda sai com `--painel`, mas não é enviada.
 - **Josué e Camilo:** versão celular, 1 coluna e fonte grande, no tamanho de uma tela de iPhone (19,5:9). A imagem sai com 2160 × 4680 px.
 - **Chuva:** a recomendação principal fica normal. Uma faixa abaixo mostra o tempo e, se chover, "+2 a 3 motoboys". Fontes: Open-Meteo (modelos ECMWF, GFS e ICON) e, de reserva, MET Norway. Só conta como chuva com 2 fontes de acordo. Os hosts `api.open-meteo.com` e `api.met.no` estão liberados no ambiente Contapecas.

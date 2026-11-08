@@ -14,7 +14,7 @@ from pathlib import Path
 
 from diaristas import _logo_src
 from monitor import TZ
-from previsao_motoboys import EXTRA_CHUVA, EXTRA_CHUVA_FORTE
+from previsao_motoboys import EXTRA_CHUVA, EXTRA_CHUVA_FORTE, MAX_POR_SAIDA
 from painel import CSS, DOURADO, VERMELHO, _card, _e, html_para_png
 
 DIAS = ["segunda", "terça", "quarta", "quinta", "sexta", "sábado", "domingo"]
@@ -130,6 +130,16 @@ def _chuva(c: dict | None) -> str:
             f'<div class="meta" style="margin-top:10px">{_e(mods)}</div></div></div>')
 
 
+def _regra(rec: dict, curto: bool = False) -> str:
+    """Frase do ritmo: regra das 2 entregas por saída ou ritmo dos dias sem atraso."""
+    if rec.get("por_saida") and curto:
+        return f"Até {MAX_POR_SAIDA} por saída → <b>{_f1(rec['cap'])} entregas/motoboy/h</b>."
+    if rec.get("por_saida"):
+        return (f"Até {MAX_POR_SAIDA} entregas por saída (ida e volta ~{rec['ciclo']:.0f} min) → "
+                f"<b>{_f1(rec['cap'])} entregas/motoboy/h</b>.")
+    return f"Ritmo seguro: <b>{_f1(rec['cap'])} entregas/motoboy/h</b>."
+
+
 def _dia_card(x, titulo: str) -> str:
     tag = '<span class="tag no">ESTOUROU</span>' if x.estourou else '<span class="tag ok">NO TEMPO</span>'
     sushi = "" if x.sushi_ok else " (sem Sushi)"
@@ -196,13 +206,17 @@ def html_painel(hoje: date, base: list, rec: dict, motivos: list[str], semana: l
     b = rec["base_cap"]
     p1 = f"Pico previsto de <b>~{rec['pico_prev']:.0f} entregas/h</b> às {_h(max(rec['horas_prev'], key=rec['horas_prev'].get))}" \
          f" e ~{rec['dia_prev']:.0f} entregas no dia."
-    if b:
+    if rec.get("por_saida"):
+        p2 = _regra(rec) + f" Hoje fazem até {_f1(rec['cap_hist'])}/h saindo com 3 ou mais pedidos."
+    elif b:
         p2 = (f"Sem atraso, cada motoboy faz até <b>{_f1(rec['cap'])} entregas/h</b> no pico "
               f"(como em {b.dia:%d/%m}, com {b.motos_pico} na rua).")
     else:
         p2 = f"Nenhum dia sem atraso na base: usei {_f1(rec['cap'])} entregas/motoboy/h, com folga."
     sobre = [x for x in rec["ruins"] if x.eph > rec["cap"]]
-    if sobre:
+    if rec.get("por_saida"):
+        pass
+    elif sobre:
         r = max(sobre, key=lambda x: x.eph)
         p2 += f" Em {r.dia:%d/%m} estourou com {r.motos_pico} na rua ({_f1(r.eph)}/motoboy/h)."
     elif rec["ruins"]:
@@ -211,7 +225,7 @@ def html_painel(hoje: date, base: list, rec: dict, motivos: list[str], semana: l
         '<span class="chip neutro">dia normal · sem feriado ou promoção</span>'
     if celular:
         p1 = f"Pico de <b>~{rec['pico_prev']:.0f} entregas/h</b> às {_h(max(rec['horas_prev'], key=rec['horas_prev'].get))} · ~{rec['dia_prev']:.0f} no dia."
-        p2 = f"Ritmo seguro: <b>{_f1(rec['cap'])} entregas/motoboy/h</b>."
+        p2 = _regra(rec, curto=True)
         if not motivos:
             chips = ""
     P.append(f'<div class="hero"><div><div class="rot">CHAMAR HOJE</div>'
@@ -258,7 +272,8 @@ def html_painel(hoje: date, base: list, rec: dict, motivos: list[str], semana: l
     P.append('<div class="sec">PREVISÃO DE HOJE</div><div class="grade g3">')
     P.append(_card("Pico previsto", f"{rec['pico_prev']:.0f}/h", "entregas na hora de pico", cls="d"))
     P.append(_card("Entregas no dia", f"~{rec['dia_prev']:.0f}", "16h às 00h", cls="d"))
-    P.append(_card("Ritmo seguro", _f1(rec["cap"]), "entregas/motoboy/h", cls="v"))
+    P.append(_card("Ritmo por motoboy", _f1(rec["cap"]), f"entregas/h · até {MAX_POR_SAIDA} por saída"
+                   if rec.get("por_saida") else "entregas/motoboy/h", cls="v"))
     P.append('</div><div class="sec">QUANDO CHAMAR</div><div class="grade">')
     P.append(_horas(rec))
     P.append('</div>')
@@ -382,7 +397,7 @@ def html_ipad(hoje: date, base: list, rec: dict, motivos: list[str], semana: lis
     P.append(f'<div class="col"><div class="box hero"><div class="cab">CHAMAR HOJE</div>'
              f'<div class="num">{rec["lo"]} a {rec["hi"]} <small>motoboys</small></div>'
              f'<p>Pico de <b>~{rec["pico_prev"]:.0f} entregas/h</b> às {_h(pico)} · ~{rec["dia_prev"]:.0f} no dia.</p>'
-             f'<p>Ritmo seguro: <b>{_f1(rec["cap"])} entregas/motoboy/h</b>.</p>{chips}</div>')
+             f'<p>{_regra(rec)}</p>{chips}</div>')
     c = rec.get("chuva")
     if c:
         lo, hi = rec["lo"] + EXTRA_CHUVA, rec["hi"] + EXTRA_CHUVA_FORTE

@@ -18,6 +18,8 @@ dia do mês passado), janela 16:00–00:00 de cada dia:
   • Capacidade segura = o melhor ritmo (entregas/motoboy/hora no pico) de um dia
     que NÃO estourou. Recomendação = pico previsto ÷ capacidade, arredondado em
     faixa; nunca abaixo do nº de motoboys de um dia que estourou com movimento parecido.
+  • Regra do Emerson: no máximo 2 entregas por saída. Ritmo máximo = 2 × 60 ÷ (2 × rua média + 5 min);
+    vale o menor entre esse e o ritmo dos dias sem atraso.
   • Ajustes: feriado/data forte (+20%), véspera (+15%), promoção (+10%,
     monitor/assets/promocoes.json). Dias da base que eram feriado/véspera/promo
     são descontados do ajuste antes de entrar na média.
@@ -68,6 +70,9 @@ PESOS = [0.35, 0.25, 0.15, 0.10]     # semanas -1, -2, -3, -4
 PESO_MES = 0.15                      # mesmo dia do mês passado
 AJ_FERIADO, AJ_VESPERA, AJ_PROMO = 1.20, 1.15, 1.10
 CAPACIDADE_PADRAO = 4.0              # entregas/motoboy/hora, se nenhum dia servir de base
+MAX_POR_SAIDA = 2                    # Emerson (08/11/2026): cada motoboy sai com no máximo 2 entregas
+ESPERA_LOJA = 5                      # min na loja entre uma saída e outra (pegar o pedido)
+RUA_PADRAO = 15.0                    # min de rua, se o ALIV não trouxer
 GERENTES = [{"thiago", "camilo"}, {"josue", "ruas"}]   # logins de gerente no ALIV (qualquer ordem)
 MIN_ENTREGAS = 3                     # menos que isso no dia = não conta como motoboy do dia
 DESTINOS = ("WHATSAPP_EMERSON", "WHATSAPP_JOSUE", "WHATSAPP_CAMILO")
@@ -421,10 +426,17 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
         cap = min(x.eph for x in ruins) * 0.85     # todos estouraram: ritmo 15% menor
     else:
         cap = CAPACIDADE_PADRAO
-    cap = max(cap, 1.0)
+    cap_hist = max(cap, 1.0)
+    # Regra das 2 entregas por saída: ciclo = ida e volta (2 × tempo médio de rua) + espera na loja.
+    ruas = [(pesos[k], x.rua) for k, x in base if x.rua > 0]
+    rua = sum(p * r for p, r in ruas) / sum(p for p, _ in ruas) if ruas else RUA_PADRAO
+    ciclo = 2 * rua + ESPERA_LOJA
+    cap_saida = MAX_POR_SAIDA * 60 / ciclo
+    cap = min(cap_hist, cap_saida)
     if pico_prev <= 0:
         return {"pico_prev": 0.0, "dia_prev": 0.0, "cap": cap, "lo": 1, "hi": 2, "base_cap": None,
-                "ruins": ruins, "horas_prev": horas_prev}
+                "ruins": ruins, "horas_prev": horas_prev, "cap_hist": cap_hist, "rua": rua, "ciclo": ciclo,
+                "por_saida": cap_saida < cap_hist}
     alvo = pico_prev / cap
     lo = max(1, math.floor(alvo))
     hi = max(lo + 1, math.ceil(alvo)) if alvo - lo > 0.15 or alvo == lo else lo + 1
@@ -439,7 +451,8 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
         lo = hi - 1
     return {"pico_prev": pico_prev, "dia_prev": dia_prev, "cap": cap, "lo": lo, "hi": hi,
             "base_cap": bons and max(bons, key=lambda x: x.eph) or None, "ruins": ruins,
-            "horas_prev": horas_prev}
+            "horas_prev": horas_prev, "cap_hist": cap_hist, "rua": rua, "ciclo": ciclo,
+            "por_saida": cap_saida < cap_hist}
 
 
 # ---------------------------------------------------------------- texto
@@ -462,17 +475,15 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
     b = rec["base_cap"]
     porque1 = (f"Pico previsto ~{rec['pico_prev']:.0f} entregas/h (Pizzaria + Sushi)"
                + (f", {', '.join(motivos)}" if motivos else "") + ".")
-    if b:
+    if rec.get("por_saida"):
+        porque2 = (f"Até {MAX_POR_SAIDA} entregas por saída: ida e volta ~{rec['ciclo']:.0f} min "
+                   f"(rua {rec['rua']:.0f} × 2 + {ESPERA_LOJA}) → ~{f1(rec['cap'])} entregas/motoboy/h "
+                   f"(hoje fazem {f1(max(x.eph for _, x in base))} saindo com mais pedidos).")
+    elif b:
         porque2 = (f"Sem atraso, cada motoboy faz até {f1(rec['cap'])} entregas/h no pico "
                    f"(como em {b.dia:%d/%m}, com {b.motos_pico} em turno).")
     else:
         porque2 = f"Nenhum dia sem atraso na base: usei ritmo de {f1(rec['cap'])} entregas/motoboy/h para folgar."
-    sobrecarga = [x for x in rec["ruins"] if x.eph > rec["cap"]]
-    if sobrecarga:
-        r = max(sobrecarga, key=lambda x: x.eph)
-        porque2 += (f" Em {r.dia:%d/%m} estourou com {r.motos_pico} no pico ({f1(r.eph)}/moto/h).")
-    elif rec["ruins"]:
-        porque2 += " Os dias que estouraram não tinham falta de motoboy: o atraso veio da cozinha/expedição."
     c = rec.get("chuva")
     L += [porque1, porque2]
     if c:
@@ -593,7 +604,7 @@ def main() -> int:
     print(f"capacidade {rec['cap']:.2f}/moto/h · pico previsto {rec['pico_prev']:.1f} · "
           f"dia previsto {rec['dia_prev']:.0f} · fator {fator:.2f}", file=sys.stderr)
 
-    # Emerson (08/11/2026): painel vertical (iPhone) para Josué e Camilo; iPad deitado (2360 × 1640) para ele.
+    # Emerson (08/11/2026): painel vertical (iPhone) para Josué e Camilo; para ele, iPad (2360 × 1640) e iPhone.
     paineis: dict = {}
     if not args.sem_painel and (args.painel or args.painel_celular or args.painel_ipad or args.whatsapp):
         tmp = Path(tempfile.mkdtemp())
@@ -623,14 +634,15 @@ def main() -> int:
         if not fone:
             print(f"WHATSAPP: {var} não definida — pulado.", file=sys.stderr)
             continue
-        tipos = ["ipad"] if var == "WHATSAPP_EMERSON" else ["celular"]      # Emerson vê no iPad
+        tipos = ["ipad", "celular"] if var == "WHATSAPP_EMERSON" else ["celular"]   # Emerson: iPad e iPhone
         foi = False
         for tipo in tipos:
             arq = paineis.get(tipo) or paineis.get("ipad" if tipo == "celular" else "celular")
             if arq is None:
                 continue
             try:
-                api.enviar_whatsapp(fone, legenda, arquivo=arq)
+                api.enviar_whatsapp(fone, legenda if tipo != "celular" or len(tipos) == 1
+                                    else f"Versão iPhone — {hoje:%d/%m}", arquivo=arq)
                 foi = True
                 print(f"WHATSAPP: painel {tipo} enviado para {var}.", file=sys.stderr)
             except (AlivError, OSError) as e:

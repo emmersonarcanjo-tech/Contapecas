@@ -310,8 +310,9 @@ def _chrome() -> str:
     raise RuntimeError("Chromium não encontrado (defina DIARISTAS_CHROME)")
 
 
-def html_para_png(pagina: str, destino: Path) -> Path:
-    """Fotografa o HTML na largura LARGURA. 1ª passada mede a altura, 2ª tira a foto."""
+def html_para_png(pagina: str, destino: Path, largura: int = LARGURA, escala: float = 1) -> Path:
+    """Fotografa o HTML na largura `largura` (px de tela), com `escala` pixels por px
+    (2 = imagem em dobro, nítida no celular). 1ª passada mede a altura, 2ª tira a foto."""
     chrome = _chrome()
     destino.unlink(missing_ok=True)
     medir = '<script>document.title="ALTURA="+document.documentElement.scrollHeight</script>'
@@ -320,12 +321,13 @@ def html_para_png(pagina: str, destino: Path) -> Path:
         base = [chrome, "--headless", "--no-sandbox", "--disable-gpu", "--hide-scrollbars",
                 f"--user-data-dir={tmp}/perfil"]
         arq.write_text(pagina.replace("</body>", medir + "</body>"), encoding="utf-8")
-        out = subprocess.run(base + [f"--window-size={LARGURA},1000", "--dump-dom", arq.as_uri()],
+        out = subprocess.run(base + [f"--window-size={largura},1000", "--dump-dom", arq.as_uri()],
                              capture_output=True, text=True, timeout=90).stdout
         m = re.search(r"ALTURA=(\d+)", out)
         altura = min(int(m.group(1)), 8000) if m else 3600
         arq.write_text(pagina, encoding="utf-8")
-        subprocess.run(base + [f"--window-size={LARGURA},{altura}", f"--screenshot={destino}", arq.as_uri()],
+        subprocess.run(base + [f"--window-size={largura},{altura}", f"--force-device-scale-factor={escala}",
+                               f"--screenshot={destino}", arq.as_uri()],
                        capture_output=True, timeout=90)
     if not destino.exists() or destino.stat().st_size < 1000:
         raise RuntimeError("Chromium não gerou o PNG do painel")

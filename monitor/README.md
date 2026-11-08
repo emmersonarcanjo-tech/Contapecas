@@ -370,7 +370,8 @@ Todo dia às 08:00 (Bahia) recomenda quantos motoboys chamar **hoje**, com faixa
 python3 monitor/previsao_motoboys.py                  # só mostra (não envia)
 python3 monitor/previsao_motoboys.py --data 2026-11-15
 python3 monitor/previsao_motoboys.py --promo          # considera promoção hoje
-python3 monitor/previsao_motoboys.py --whatsapp       # envia para WHATSAPP_EMERSON, WHATSAPP_JOSUE e WHATSAPP_CAMILO
+python3 monitor/previsao_motoboys.py --painel l.png --painel-celular c.png   # gera os painéis, sem enviar
+python3 monitor/previsao_motoboys.py --whatsapp       # painel iPad para o Emerson; vertical para Josué e Camilo
 ```
 
 Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` nenhum WhatsApp enviado. Josué e Camilo: usa `WHATSAPP_JOSUE` / `WHATSAPP_CAMILO` se existirem; senão pega o número do mesmo nome em `DESPESAS_REMETENTES` (a lista das despesas). Destino sem número é pulado com aviso.
@@ -385,3 +386,8 @@ Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1`
 - Capacidade = melhor ritmo de um dia que não estourou. Recomendação = pico previsto ÷ capacidade. Se um dia com pico parecido (±10%) estourou com ritmo acima da capacidade, recomenda pelo menos 1 motoboy a mais que ele teve. Dia que estourou com ritmo baixo = gargalo na cozinha/expedição, não conta.
 - Ajustes: feriado nacional/Bahia ou data forte (Mães, Pais, Namorados) +20% · véspera (inclui 24 e 31/12) +15% · promoção +10%. Os dias da base que eram feriado/véspera/promoção são descontados antes da média.
 - Promoções e feriados municipais: `monitor/assets/promocoes.json` (`dias_semana`, `datas`, `feriados_extra`). Hoje está vazio — é só pedir ao Claude para incluir.
+
+**Painéis (pedido do Emerson, 08/11/2026):** no WhatsApp vai só a imagem, com uma legenda curta. O texto só vai se a imagem falhar.
+- **Emerson:** versão iPad (`painel_motoboys.py`, 2880 px, 3 colunas, mesmo layout do painel de vendas).
+- **Josué e Camilo:** versão celular, 1 coluna e fonte grande, no tamanho de uma tela de iPhone (19,5:9). A imagem sai com 2160 × 4680 px.
+- **Chuva:** a recomendação principal fica normal. Uma faixa abaixo mostra o tempo e, se chover, "+2 a 3 motoboys". Fontes: Open-Meteo (modelos ECMWF, GFS e ICON) e, de reserva, MET Norway. Só conta como chuva com 2 fontes de acordo. Os hosts `api.open-meteo.com` e `api.met.no` estão liberados no ambiente Contapecas.

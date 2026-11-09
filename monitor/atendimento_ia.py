@@ -606,7 +606,9 @@ def gerar(dia: date, convs: list[dict], pares, regras, itens, hist, existentes, 
     L += ["## 3) Correções sugeridas", "",
           "### Pares para \"Ensine o jeito da sua loja\" (Configurações da loja → IA)", "",
           f"O campo aceita até {MAX_EXEMPLOS} exemplos e hoje tem {len(existentes)}. "
-          "Para entrar um par novo é preciso escolher qual sai (comando `aprovar --no-lugar-de N`).", ""]
+          + ("Para entrar um par novo é preciso escolher qual sai (comando `aprovar --no-lugar-de N`)."
+             if len(existentes) >= MAX_EXEMPLOS else
+             f"Cabem mais {MAX_EXEMPLOS - len(existentes)} sem tirar nenhum."), ""]
     for i, p in enumerate(pares, 1):
         aviso = f" — ⚠️ já existe parecido (exemplo {p['ja_existe_parecido']}), não proposto" if p["ja_existe_parecido"] else ""
         falta = " — ✏️ completar o trecho entre colchetes antes de aprovar" if p["falta_preencher"] else ""

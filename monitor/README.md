@@ -456,3 +456,45 @@ python3 monitor/atendimento_ia.py aprovar --data 2026-11-07 --par 1 --no-lugar-d
 ## Rotina das 03:30
 
 Cron `CRON_TZ=America/Bahia 30 3 * * *`, sessão nova a cada disparo, ambiente Contapecas. Roda `--whatsapp` e faz commit de `monitor/atendimento/`.
+
+---
+
+# Contagem física do estoque (`contagem.py` e `contagem_lancar.py`) — sob demanda
+
+Não é Rotina: roda só quando o Emerson pedir.
+
+## 1. Gerar a folha (`contagem.py`, só leitura)
+
+```bash
+python3 monitor/contagem.py
+```
+
+Gera em `manuais/`:
+- `Folha_de_Contagem_Tili_Pizzaria.pdf` (A4, letra grande, linhas de 14 mm):
+  - **Parte 1** — contagem por área: Freezer, Câmara/Geladeira, Estoque seco, Bebidas, Embalagens, Limpeza. Em cada área, primeiro os insumos **em uso nas fichas**, depois o resto, em ordem alfabética. Colunas: insumo (nome de exibição; o nome do ALIV aparece embaixo quando é diferente), unidade de contagem (= unidade de compra/estoque do ALIV: KG, CX, FD, UN…), fator (quanto 1 unidade vale na ficha, ex.: 1 KG = 1.000 G), quantidade em branco e observação.
+  - **Parte 2** — decidir "contar" ou "zerar": insumos com saldo negativo e insumos fora de todas as fichas (inclui utensílios, equipamentos e material de obra cadastrados como insumo, que ficam fora da Parte 1).
+  - **Parte 3** — pizzas e lanches ativos sem ficha ou com ficha incompleta.
+- `Folha_de_Contagem_Tili_Pizzaria.xlsx`: aba **Contagem** com as mesmas linhas da Parte 1 (só digitar a coluna amarela), aba **Decidir (Parte 2)** e aba **Fichas (Parte 3)**.
+
+Regras:
+- **Em uso** = aparece em alguma ficha de produto ativo (todos os tamanhos), de adicional ativo, ou é componente de uma sub-receita em uso (ex.: a farinha da massa). Conferido em 09/11/2026: bate 100% com o campo `in_use` do ALIV (59 insumos).
+- **Área**: por palavras do nome (o ALIV só tem 3 categorias). As regras ficam em `REGRAS` no topo do script.
+- **Ficha incompleta**: ficha vazia em algum tamanho; pizza sem massa; lanche sem pão; batata sem batata; sem embalagem; menos de 3 itens; item com quantidade 0; insumo da ficha sem custo.
+- `--cache ARQ.json` guarda/reaproveita a coleta (útil para refazer o PDF sem consultar o ALIV de novo).
+
+Endpoints lidos: `/admin/inventory/api/ingredients`, `/admin/api/menu/full_data`, `/admin/menu/product/{id}/recipes?size_id=`, `/admin/menu/addon/{id}/recipe_matrix`.
+
+## 2. Lançar a contagem (`contagem_lancar.py`) — só com o ok do Emerson
+
+```bash
+python3 monitor/contagem_lancar.py manuais/Folha_de_Contagem_Tili_Pizzaria.xlsx              # dry-run: mostra, não grava
+python3 monitor/contagem_lancar.py manuais/Folha_de_Contagem_Tili_Pizzaria.xlsx --confirmar  # lança
+```
+
+- Quantidade em branco = não lança. `0` = contado e zerado. "zerar" na aba Decidir lança 0.
+- Quantidade enviada = contada × "Fator p/ estoque ALIV" (padrão 1). Ex.: contou 3 caixas de 12 de um item que o ALIV controla em UN → fator 12 → lança 36 UN.
+- Confere antes: insumo existe, não está pausado e a unidade do ALIV não mudou desde que a planilha foi gerada. Com linha inválida na planilha, `--confirmar` não lança nada.
+- Usa a Conferência de Estoque do ALIV: abre uma (`check/start`) se não houver, e grava cada item com `check/update-item` (zera e soma, igual aos botões da tela). Item que já tem contagem na sessão só é regravado com `--sobrescrever`.
+- **Não finaliza.** O ajuste do estoque é feito pelo Emerson na tela: Estoque → Conferência → Finalizar (responsável + senha).
+- Testado em dry-run contra o ALIV real em 09/11/2026. O modo `--confirmar` ainda não foi rodado (grava no ALIV).
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis ou planilha inválida · `3` lançou com falhas.

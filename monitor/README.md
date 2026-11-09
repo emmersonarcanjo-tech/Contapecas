@@ -495,7 +495,7 @@ python3 monitor/fechamento_semanal.py --whatsapp             # envia painel + te
 
 ## Rotina de segunda às 08:51
 
-Cron `CRON_TZ=America/Bahia 51 8 * * 1` (Rotina "Fechamento semanal Tili (segunda)"; a coleta leva ~10 min, o painel chega por volta das 09:00), sessão nova a cada disparo, ambiente Contapecas, conector Gmail para o e-mail de reserva. Roda `--whatsapp` e faz commit de `monitor/semanal/`.
+Cron `CRON_TZ=America/Bahia 51 8 * * 1` (Rotina "Fechamento semanal Tili (segunda)"; a coleta leva ~10 min, o painel chega por volta das 09:00), sessão nova a cada disparo, ambiente Contapecas, conector Gmail para o e-mail de reserva. Roda `--whatsapp`, faz commit de `monitor/semanal/` no branch da sessão e abre um pull request para a `main` ("semanal: fechamento DD/MM a DD/MM"), que o Emerson aceita.
 
 ---
 

@@ -384,10 +384,11 @@ Todo dia às 08:00 (Bahia) recomenda quantos motoboys chamar **hoje**, com faixa
 python3 monitor/previsao_motoboys.py                  # só mostra (não envia)
 python3 monitor/previsao_motoboys.py --data 2026-11-15
 python3 monitor/previsao_motoboys.py --promo          # considera promoção hoje
-python3 monitor/previsao_motoboys.py --whatsapp       # envia para WHATSAPP_EMERSON, WHATSAPP_JOSUE e WHATSAPP_CAMILO
+python3 monitor/previsao_motoboys.py --painel-ipad i.png --painel-celular c.png   # gera os painéis, sem enviar
+python3 monitor/previsao_motoboys.py --whatsapp       # painel iPad para o Emerson; vertical para Josué e Camilo
 ```
 
-Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` nenhum WhatsApp enviado. Destino sem variável é pulado com aviso.
+Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` nenhum WhatsApp enviado. Josué e Camilo: usa `WHATSAPP_JOSUE` / `WHATSAPP_CAMILO` se existirem; senão pega o número do mesmo nome em `DESPESAS_REMETENTES` (a lista das despesas). Destino sem número é pulado com aviso.
 
 **Método** (janela 16:00–00:00 de cada dia):
 - Base: mesmo dia da semana nas últimas 4 semanas (pesos 35/25/15/10%) + mesmo dia do mês passado (15%).
@@ -396,9 +397,15 @@ Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1`
 - Tempos (Pizzaria, operation-monitor): rua média, vida média e quantas entregas passaram de 45 min (a janela é dividida até isolar cada pedido).
 - Pico = hora com mais entregas. Ritmo = entregas do pico ÷ motoboys no pico.
 - Dia **estourado** = mais de 10% das entregas acima de 45 min, ou vida média acima de 45.
+- **Limite de entregas por saída** (`MAX_POR_SAIDA`): **desligado**. Em 08/11/2026 o Emerson decidiu manter o ritmo real do ALIV, que hoje fica em 3 a 4 entregas por saída, e acompanhar 30 dias. Se for ligado, por exemplo com 2, o ritmo máximo passa a ser 2 × 60 ÷ (2 × rua média + 5 min).
 - Capacidade = melhor ritmo de um dia que não estourou. Recomendação = pico previsto ÷ capacidade. Se um dia com pico parecido (±10%) estourou com ritmo acima da capacidade, recomenda pelo menos 1 motoboy a mais que ele teve. Dia que estourou com ritmo baixo = gargalo na cozinha/expedição, não conta.
 - Ajustes: feriado nacional/Bahia ou data forte (Mães, Pais, Namorados) +20% · véspera (inclui 24 e 31/12) +15% · promoção +10%. Os dias da base que eram feriado/véspera/promoção são descontados antes da média.
 - Promoções e feriados municipais: `monitor/assets/promocoes.json` (`dias_semana`, `datas`, `feriados_extra`). Hoje está vazio — é só pedir ao Claude para incluir.
+
+**Painéis (pedido do Emerson, 08/11/2026):** no WhatsApp vai só a imagem, com uma legenda curta. O texto só vai se a imagem falhar.
+- **Emerson:** recebe as duas, iPad e iPhone. Versão iPad deitado, tela cheia de 2360 × 1640, com 3 colunas e fonte grande (`--painel-ipad`). A versão larga de 2880 px, igual ao painel de vendas, ainda sai com `--painel`, mas não é enviada.
+- **Josué e Camilo:** versão celular, 1 coluna e fonte grande, no tamanho de uma tela de iPhone (19,5:9). A imagem sai com 2160 × 4680 px.
+- **Chuva:** a recomendação principal fica normal. Uma faixa abaixo mostra o tempo e, se chover, "+2 a 3 motoboys". Fontes: Open-Meteo (modelos ECMWF, GFS e ICON), MET Norway e a previsão oficial do aeroporto de Porto Seguro (TAF SBPS). O tempo de agora vem do boletim do aeroporto (METAR SBPS). Só conta como chuva com 2 fontes de acordo. Os hosts `api.open-meteo.com`, `api.met.no` e `aviationweather.gov` estão liberados no ambiente Contapecas.
 
 # Auditoria do atendimento da IA no WhatsApp (`atendimento_ia.py`)
 

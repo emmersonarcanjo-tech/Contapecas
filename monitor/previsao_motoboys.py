@@ -18,15 +18,22 @@ dia do mês passado), janela 16:00–00:00 de cada dia:
   • Capacidade segura = o melhor ritmo (entregas/motoboy/hora no pico) de um dia
     que NÃO estourou. Recomendação = pico previsto ÷ capacidade, arredondado em
     faixa; nunca abaixo do nº de motoboys de um dia que estourou com movimento parecido.
+  • Limite de entregas por saída (MAX_POR_SAIDA, hoje desligado): ritmo máximo = N × 60 ÷ (2 × rua média + 5 min);
+    vale o menor entre esse e o ritmo dos dias sem atraso.
   • Ajustes: feriado/data forte (+20%), véspera (+15%), promoção (+10%,
     monitor/assets/promocoes.json). Dias da base que eram feriado/véspera/promo
     são descontados do ajuste antes de entrar na média.
+  • Chuva (17h–00h): Open-Meteo (ECMWF, GFS, ICON), MET Norway e a previsão oficial do aeroporto de
+    Porto Seguro (TAF SBPS); tempo agora pelo METAR SBPS: a recomendação principal fica
+    normal; se 2 ou mais modelos preveem chuva, mostra à parte "+2 a 3 motoboys". Só 1 modelo
+    ou chance ≥40% = "se chover, +2 a 3".
   • Alerta se algum dia dos últimos 7 teve atraso.
 
 Uso:
   python3 monitor/previsao_motoboys.py                  # hoje, imprime e NÃO envia
   python3 monitor/previsao_motoboys.py --data 2026-11-08
-  python3 monitor/previsao_motoboys.py --whatsapp       # envia para EMERSON, JOSUE e CAMILO
+  python3 monitor/previsao_motoboys.py --painel p.png   # gera o painel em PNG, sem enviar
+  python3 monitor/previsao_motoboys.py --whatsapp       # vertical para JOSUE e CAMILO; largo (iPad) para EMERSON
   python3 monitor/previsao_motoboys.py --promo          # força "tem promoção hoje"
 
 Códigos de saída: 0 ok · 1 erro no ALIV · 2 faltam ALIV_USER/ALIV_PASS ·
@@ -42,8 +49,13 @@ import math
 import os
 import re
 import sys
+import tempfile
+import time
+import urllib.parse
+import urllib.request
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -59,9 +71,21 @@ PESOS = [0.35, 0.25, 0.15, 0.10]     # semanas -1, -2, -3, -4
 PESO_MES = 0.15                      # mesmo dia do mês passado
 AJ_FERIADO, AJ_VESPERA, AJ_PROMO = 1.20, 1.15, 1.10
 CAPACIDADE_PADRAO = 4.0              # entregas/motoboy/hora, se nenhum dia servir de base
+MAX_POR_SAIDA = None                 # limite de entregas por saída (ex.: 2). Desligado: Emerson (08/11/2026)
+                                     # preferiu o ritmo real do ALIV e acompanhar 30 dias antes de limitar.
+ESPERA_LOJA = 5                      # min na loja entre uma saída e outra (pegar o pedido)
+RUA_PADRAO = 15.0                    # min de rua, se o ALIV não trouxer
 GERENTES = [{"thiago", "camilo"}, {"josue", "ruas"}]   # logins de gerente no ALIV (qualquer ordem)
 MIN_ENTREGAS = 3                     # menos que isso no dia = não conta como motoboy do dia
 DESTINOS = ("WHATSAPP_EMERSON", "WHATSAPP_JOSUE", "WHATSAPP_CAMILO")
+# Chuva (Open-Meteo, sem chave): 3 modelos independentes; só conta como chuva "certa" se 2 concordarem.
+CHUVA_LAT, CHUVA_LON = -16.4497, -39.0647          # Porto Seguro
+CHUVA_MODELOS = {"ecmwf_ifs025": "Europeu (ECMWF)", "gfs_seamless": "Americano (GFS)",
+                 "icon_seamless": "Alemão (ICON)"}
+CHUVA_HORAS = range(17, 24)                        # horário que importa para a entrega
+CHUVA_PROB, CHUVA_MM_HORA, CHUVA_MM_TOTAL = 60, 0.5, 2.0   # modelo "vê chuva": hora com ≥60% e ≥0,5 mm, ou ≥2 mm no total
+CHUVA_FORTE_MM = 5.0                               # chuva forte: mediana dos modelos ≥5 mm na noite
+EXTRA_CHUVA, EXTRA_CHUVA_FORTE = 2, 3              # motoboys a mais (Emerson, 08/11/2026)
 PROMO_ARQ = Path(__file__).resolve().parent / "assets" / "promocoes.json"
 DIAS = ["segunda", "terça", "quarta", "quinta", "sexta", "sábado", "domingo"]
 DIAS_CURTO = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"]
@@ -134,6 +158,156 @@ def contexto(d: date, forcar_promo: bool) -> tuple[float, list[str]]:
         fator *= AJ_PROMO
         motivos.append(f"promoção hoje (+{round((AJ_PROMO - 1) * 100)}%)")
     return fator, motivos
+
+
+def _get_json(url: str, tentativas=(0, 10, 30)) -> tuple[dict | list | None, str]:
+    erro = ""
+    for espera in tentativas:                   # serviços gratuitos às vezes respondem 429 (muitos pedidos)
+        time.sleep(espera)
+        try:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": "tili-previsao/1.0 github.com/emmersonarcanjo-tech/contapecas"})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return json.loads(r.read().decode()), ""
+        except Exception as e:
+            erro = str(e)[:120]
+    return None, erro
+
+
+def _modelo(nome: str, prob: dict, mm: dict) -> dict:
+    """prob/mm: {hora: valor}. O modelo "vê chuva" se tem hora com ≥60% e ≥0,5 mm (sem probabilidade:
+    só ≥0,5 mm) ou ≥2 mm na noite."""
+    chuvosas = [h for h in CHUVA_HORAS if mm.get(h, 0) >= CHUVA_MM_HORA and (not prob or prob.get(h, 0) >= CHUVA_PROB)]
+    total = sum(mm.get(h, 0) for h in CHUVA_HORAS)
+    return {"ve_chuva": bool(chuvosas) or total >= CHUVA_MM_TOTAL, "mm": total,
+            "prob_max": max([prob.get(h, 0) for h in CHUVA_HORAS] or [0]) if prob else None,
+            "horas": chuvosas, "prob": prob}
+
+
+def previsao_chuva(hoje: date) -> dict:
+    """Previsão de chuva para 17h–00h em Porto Seguro. Fontes: Open-Meteo (ECMWF, GFS, ICON) e
+    MET Norway (reserva). status: forte · chuva · possível · seco · indisponível.
+    "chuva"/"forte" só com 2+ fontes de acordo (ou 1 fonte só no ar e ≥2 mm)."""
+    modelos, erros = {}, []
+    q = urllib.parse.urlencode({
+        "latitude": CHUVA_LAT, "longitude": CHUVA_LON, "hourly": "precipitation_probability,precipitation",
+        "models": ",".join(CHUVA_MODELOS), "timezone": "America/Bahia",
+        "start_date": hoje.isoformat(), "end_date": hoje.isoformat()})
+    j, e = _get_json("https://api.open-meteo.com/v1/forecast?" + q, tentativas=(0, 15, 45, 90))
+    if j and "hourly" in j:
+        h = j["hourly"]
+        hs = [int(t[11:13]) for t in h["time"]]
+        for m, nome in CHUVA_MODELOS.items():
+            if h.get(f"precipitation_{m}") is None:
+                continue
+            prob = {x: num(v) for x, v in zip(hs, h.get(f"precipitation_probability_{m}") or [])}
+            mm = {x: num(v) for x, v in zip(hs, h[f"precipitation_{m}"])}
+            modelos[nome] = _modelo(nome, prob, mm)
+    else:
+        erros.append(f"Open-Meteo: {e or 'sem dados'}")
+    j, e = _get_json(f"https://api.met.no/weatherapi/locationforecast/2.0/complete?lat={CHUVA_LAT}&lon={CHUVA_LON}")
+    if j:
+        mm = {}
+        for t in j.get("properties", {}).get("timeseries", []):
+            quando = datetime.fromisoformat(t["time"].replace("Z", "+00:00")).astimezone(TZ)
+            det = t.get("data", {}).get("next_1_hours", {}).get("details", {})
+            if quando.date() == hoje and "precipitation_amount" in det:
+                mm[quando.hour] = num(det["precipitation_amount"])
+        if mm:
+            modelos["Norueguês (MET)"] = _modelo("Norueguês (MET)", {}, mm)
+    else:
+        erros.append(f"MET: {e}")
+    taf = taf_aeroporto(hoje)
+    if taf is not None:
+        modelos["Aeroporto (oficial)"] = taf
+    agora = metar_aeroporto()
+    if not modelos:
+        return {"status": "indisponível", "extra": 0, "erro": "; ".join(erros), "modelos": {}, "horas": {},
+                "agora": agora}
+
+    sim = [v for v in modelos.values() if v["ve_chuva"]]
+    mms = sorted(v["mm"] for v in modelos.values() if v["mm"] is not None) or [0.0]
+    mediana = mms[len(mms) // 2]
+    com_prob = [v["prob"] for v in modelos.values() if v["prob"]]
+    prob_h = {x: sum(p.get(x, 0) for p in com_prob) / len(com_prob) for x in CHUVA_HORAS} if com_prob else {}
+    quando = sorted({x for v in sim for x in v["horas"]})
+    if len(sim) >= 2 or (len(modelos) == 1 and sim and sim[0]["mm"] >= CHUVA_MM_TOTAL):
+        status = "forte" if mediana >= CHUVA_FORTE_MM or (len(modelos) == 1 and mediana >= CHUVA_FORTE_MM) else "chuva"
+    elif sim or max(prob_h.values() or [0]) >= 40:
+        status = "possível"
+    else:
+        status = "seco"
+    extra = {"forte": EXTRA_CHUVA_FORTE, "chuva": EXTRA_CHUVA}.get(status, 0)
+    return {"status": status, "extra": extra, "modelos": modelos, "horas": prob_h, "quando": quando,
+            "mm": mediana, "concordam": len(sim), "total": len(modelos), "erro": "; ".join(erros),
+            "agora": agora}
+
+
+CHUVA_CODIGOS = ("RA", "SH", "TS", "DZ")          # chuva, pancada, trovoada, garoa (códigos de aviação)
+
+
+def taf_aeroporto(hoje: date) -> dict | None:
+    """Previsão oficial do aeroporto de Porto Seguro (TAF SBPS, feita por meteorologista). Vê chuva se algum
+    trecho que cobre 17h–00h traz RA/SH/TS/DZ (PROB30 sozinho não conta)."""
+    j, _ = _get_json("https://aviationweather.gov/api/data/taf?ids=SBPS&format=json", tentativas=(0, 10))
+    if not j or not isinstance(j, list):
+        return None
+    ini = datetime(hoje.year, hoje.month, hoje.day, CHUVA_HORAS.start, tzinfo=TZ)
+    fim = datetime(hoje.year, hoje.month, hoje.day, tzinfo=TZ) + timedelta(hours=CHUVA_HORAS.stop)
+    validade = num(j[0].get("validTimeTo"))
+    horas, textos = [], []
+    for f in j[0].get("fcsts") or []:
+        a = datetime.fromtimestamp(num(f.get("timeFrom")), TZ)
+        b = datetime.fromtimestamp(num(f.get("timeTo")), TZ)
+        wx = str(f.get("wxString") or "")
+        if b <= ini or a >= fim or not any(c in wx for c in CHUVA_CODIGOS):
+            continue
+        if f.get("probability") and num(f.get("probability")) < 40:
+            continue
+        textos.append(wx)
+        horas += [h for h in CHUVA_HORAS if a <= ini.replace(hour=h) < b]
+    if validade and datetime.fromtimestamp(validade, TZ) < fim:
+        cobre = f"cobre até {datetime.fromtimestamp(validade, TZ):%H}h"
+    else:
+        cobre = ""
+    return {"ve_chuva": bool(horas), "mm": None, "prob_max": None, "horas": sorted(set(horas)), "prob": {},
+            "texto": " ".join(textos), "cobre": cobre}
+
+
+def metar_aeroporto() -> str:
+    """Tempo agora no aeroporto de Porto Seguro (METAR SBPS): ex. '32°C, sem chuva' ou '24°C, chovendo'."""
+    j, _ = _get_json("https://aviationweather.gov/api/data/metar?ids=SBPS&format=json", tentativas=(0, 10))
+    if not j or not isinstance(j, list):
+        return ""
+    m = j[0]
+    wx = str(m.get("wxString") or "")
+    hora = datetime.fromisoformat(str(m.get("reportTime", "")).replace("Z", "+00:00")).astimezone(TZ) \
+        if m.get("reportTime") else None
+    if any(c in wx for c in ("TS",)):
+        cond = "trovoada"
+    elif "VC" in wx and any(c in wx for c in CHUVA_CODIGOS):
+        cond = "pancada por perto"
+    elif any(c in wx for c in CHUVA_CODIGOS):
+        cond = "chovendo"
+    else:
+        cond = "sem chuva"
+    return f"{num(m.get('temp')):.0f}°C, {cond}" + (f" (às {hora:%H:%M})" if hora else "")
+
+
+def texto_chuva(c: dict) -> str:
+    agora = f" · aeroporto agora: {c['agora']}" if c.get("agora") else ""
+    return _texto_chuva(c) + agora
+
+
+def _texto_chuva(c: dict) -> str:
+    if c["status"] == "indisponível":
+        return "previsão do tempo indisponível"
+    faixa = (f" ({c['quando'][0]:02d}h–{(c['quando'][-1] + 1) % 24:02d}h)" if c.get("quando") else "")
+    base = f"{c['concordam']} de {c['total']} modelos"
+    return {"forte": f"🌧️ chuva forte prevista{faixa}, ~{f1(c['mm'])} mm · {base}",
+            "chuva": f"🌧️ chuva prevista{faixa}, ~{f1(c['mm'])} mm · {base}",
+            "possível": f"🌦️ chance de chuva{faixa} sem consenso ({base}) · fique de olho",
+            "seco": "☀️ sem chuva prevista à noite"}[c["status"]]
 
 
 def dias_base(hoje: date) -> list[tuple[str, date]]:
@@ -305,6 +479,8 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
     tot = sum(p for p, _ in usados) or 1.0
     pico_prev = sum(p * x.entregas_pico / x.fator for p, x in usados) / tot * fator
     dia_prev = sum(p * sum(x.total_h.values()) / x.fator for p, x in usados) / tot * fator
+    horas_prev = {h: sum(p * x.total_h[h] / x.fator for p, x in usados) / tot * fator
+                  for h in range(HORA_INI, HORA_FIM)}
 
     bons = [x for _, x in base if not x.estourou and x.eph > 0]
     ruins = [x for _, x in base if x.estourou and x.eph > 0]
@@ -314,9 +490,17 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
         cap = min(x.eph for x in ruins) * 0.85     # todos estouraram: ritmo 15% menor
     else:
         cap = CAPACIDADE_PADRAO
-    cap = max(cap, 1.0)
+    cap_hist = max(cap, 1.0)
+    # Regra das 2 entregas por saída: ciclo = ida e volta (2 × tempo médio de rua) + espera na loja.
+    ruas = [(pesos[k], x.rua) for k, x in base if x.rua > 0]
+    rua = sum(p * r for p, r in ruas) / sum(p for p, _ in ruas) if ruas else RUA_PADRAO
+    ciclo = 2 * rua + ESPERA_LOJA
+    cap_saida = MAX_POR_SAIDA * 60 / ciclo if MAX_POR_SAIDA else float("inf")
+    cap = min(cap_hist, cap_saida)
     if pico_prev <= 0:
-        return {"pico_prev": 0.0, "dia_prev": 0.0, "cap": cap, "lo": 1, "hi": 2, "base_cap": None, "ruins": ruins}
+        return {"pico_prev": 0.0, "dia_prev": 0.0, "cap": cap, "lo": 1, "hi": 2, "base_cap": None,
+                "ruins": ruins, "horas_prev": horas_prev, "cap_hist": cap_hist, "rua": rua, "ciclo": ciclo,
+                "por_saida": cap_saida < cap_hist}
     alvo = pico_prev / cap
     lo = max(1, math.floor(alvo))
     hi = max(lo + 1, math.ceil(alvo)) if alvo - lo > 0.15 or alvo == lo else lo + 1
@@ -330,7 +514,9 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
     if hi - lo > 1:
         lo = hi - 1
     return {"pico_prev": pico_prev, "dia_prev": dia_prev, "cap": cap, "lo": lo, "hi": hi,
-            "base_cap": bons and max(bons, key=lambda x: x.eph) or None, "ruins": ruins}
+            "base_cap": bons and max(bons, key=lambda x: x.eph) or None, "ruins": ruins,
+            "horas_prev": horas_prev, "cap_hist": cap_hist, "rua": rua, "ciclo": ciclo,
+            "por_saida": cap_saida < cap_hist}
 
 
 # ---------------------------------------------------------------- texto
@@ -353,18 +539,26 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
     b = rec["base_cap"]
     porque1 = (f"Pico previsto ~{rec['pico_prev']:.0f} entregas/h (Pizzaria + Sushi)"
                + (f", {', '.join(motivos)}" if motivos else "") + ".")
-    if b:
+    if rec.get("por_saida"):
+        porque2 = (f"Até {MAX_POR_SAIDA} entregas por saída: ida e volta ~{rec['ciclo']:.0f} min "
+                   f"(rua {rec['rua']:.0f} × 2 + {ESPERA_LOJA}) → ~{f1(rec['cap'])} entregas/motoboy/h "
+                   f"(hoje fazem {f1(max(x.eph for _, x in base))} saindo com mais pedidos).")
+    elif b:
         porque2 = (f"Sem atraso, cada motoboy faz até {f1(rec['cap'])} entregas/h no pico "
                    f"(como em {b.dia:%d/%m}, com {b.motos_pico} em turno).")
     else:
         porque2 = f"Nenhum dia sem atraso na base: usei ritmo de {f1(rec['cap'])} entregas/motoboy/h para folgar."
-    sobrecarga = [x for x in rec["ruins"] if x.eph > rec["cap"]]
-    if sobrecarga:
-        r = max(sobrecarga, key=lambda x: x.eph)
-        porque2 += (f" Em {r.dia:%d/%m} estourou com {r.motos_pico} no pico ({f1(r.eph)}/moto/h).")
-    elif rec["ruins"]:
-        porque2 += " Os dias que estouraram não tinham falta de motoboy: o atraso veio da cozinha/expedição."
-    L += [porque1, porque2, "", "*Últimas 4 semanas*"]
+    c = rec.get("chuva")
+    L += [porque1, porque2]
+    if c:
+        L.append(texto_chuva(c))
+        if c["status"] in ("chuva", "forte"):
+            L.append(f"🌧️ *Com chuva: chame +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} motoboys "
+                     f"({rec['lo'] + EXTRA_CHUVA} a {rec['hi'] + EXTRA_CHUVA_FORTE})*")
+        elif c["status"] == "possível":
+            L.append(f"Se chover: +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE} motoboys "
+                     f"({rec['lo'] + EXTRA_CHUVA} a {rec['hi'] + EXTRA_CHUVA_FORTE})")
+    L += ["", "*Últimas 4 semanas*"]
     L += [linha_hist(k, x) for k, x in base if k != "mês"]
     mes = [x for k, x in base if k == "mês"]
     if mes:
@@ -377,7 +571,40 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
     return "\n".join(L)
 
 
+# ---------------------------------------------------------------- cache de teste
+def gravar_dados(arq: Path, base: list, semana: list) -> None:
+    def dia(x: Dia) -> dict:
+        d = asdict(x)
+        d["dia"] = x.dia.isoformat()
+        return d
+    arq.write_text(json.dumps({"base": [[k, dia(x)] for k, x in base],
+                               "semana": [[d.isoformat(), a, n, v] for d, a, n, v in semana]}), encoding="utf-8")
+
+
+def ler_dados(arq: Path) -> tuple[list, list]:
+    j = json.loads(arq.read_text(encoding="utf-8"))
+    base = []
+    for k, d in j["base"]:
+        d["dia"] = date.fromisoformat(d["dia"])
+        for c in ("piz_h", "sushi_h", "moto_h"):
+            d[c] = {int(h): v for h, v in d[c].items()}
+        base.append((k, Dia(**d)))
+    return base, [(date.fromisoformat(d), a, n, v) for d, a, n, v in j["semana"]]
+
+
 # ---------------------------------------------------------------- main
+def fone_remetente(var: str) -> str:
+    """Sem WHATSAPP_JOSUE / WHATSAPP_CAMILO, usa o número do mesmo nome em DESPESAS_REMETENTES
+    ("numero=Nome,numero=Nome", a lista das despesas)."""
+    chave = var.removeprefix("WHATSAPP_").lower()
+    for item in os.environ.get("DESPESAS_REMETENTES", "").split(","):
+        num_, _, nome = item.partition("=")
+        nome = unicodedata.normalize("NFKD", nome).encode("ascii", "ignore").decode().lower()
+        if chave in nome.split():
+            return re.sub(r"\D", "", num_)
+    return ""
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Previsão de motoboys do dia (ALIV, só leitura)")
     ap.add_argument("--data", help="dia da previsão (AAAA-MM-DD); padrão: hoje")
@@ -385,6 +612,12 @@ def main() -> int:
     ap.add_argument("--whatsapp", action="store_true",
                     help="envia para WHATSAPP_EMERSON, WHATSAPP_JOSUE e WHATSAPP_CAMILO")
     ap.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (diagnóstico, não commitar)")
+    ap.add_argument("--painel", metavar="ARQ.png", help="salva o painel largo (3 colunas) em PNG neste arquivo")
+    ap.add_argument("--painel-celular", metavar="ARQ.png", help="salva o painel vertical (iPhone) em PNG neste arquivo")
+    ap.add_argument("--painel-ipad", metavar="ARQ.png", help="salva o painel do iPad (2360 × 1640) em PNG neste arquivo")
+    ap.add_argument("--sem-painel", action="store_true", help="não gera o painel (manda só o texto)")
+    ap.add_argument("--salvar-dados", metavar="ARQ.json", help="guarda os números coletados (para testar o painel)")
+    ap.add_argument("--usar-dados", metavar="ARQ.json", help="usa números já coletados, sem consultar o ALIV")
     args = ap.parse_args()
 
     user, pwd = os.environ.get("ALIV_USER"), os.environ.get("ALIV_PASS")
@@ -406,16 +639,25 @@ def main() -> int:
 
     try:
         api.login()
-        dias = dias_base(hoje)
-        with ThreadPoolExecutor(3) as ex:
-            base = list(zip([k for k, _ in dias], ex.map(lambda kd: coletar_dia(api, api_sushi, kd[1]), dias)))
-        semana = atraso_semana(api, hoje)
+        if args.usar_dados:
+            base, semana = ler_dados(Path(args.usar_dados))
+        else:
+            dias = dias_base(hoje)
+            with ThreadPoolExecutor(3) as ex:
+                base = list(zip([k for k, _ in dias], ex.map(lambda kd: coletar_dia(api, api_sushi, kd[1]), dias)))
+            semana = atraso_semana(api, hoje)
+            if args.salvar_dados:
+                gravar_dados(Path(args.salvar_dados), base, semana)
     except AlivError as e:
         print(f"Tili — Motoboys {hoje:%d/%m} — ERRO no ALIV\n\n{e}")
         return 1
 
     fator, motivos = contexto(hoje, args.promo)
     rec = recomendar(base, fator)
+    chuva = previsao_chuva(hoje)
+    rec["chuva"] = chuva
+    # Emerson (08/11/2026): a recomendação principal fica normal; a chuva aparece à parte,
+    # com "+2 a 3 motoboys" quando os modelos concordam (ou "se chover" quando há só chance).
     texto = mensagem(hoje, base, rec, motivos, semana)
     print(texto)
 
@@ -426,21 +668,57 @@ def main() -> int:
     print(f"capacidade {rec['cap']:.2f}/moto/h · pico previsto {rec['pico_prev']:.1f} · "
           f"dia previsto {rec['dia_prev']:.0f} · fator {fator:.2f}", file=sys.stderr)
 
+    # Emerson (08/11/2026): painel vertical (iPhone) para Josué e Camilo; para ele, iPad (2360 × 1640) e iPhone.
+    paineis: dict = {}
+    if not args.sem_painel and (args.painel or args.painel_celular or args.painel_ipad or args.whatsapp):
+        tmp = Path(tempfile.mkdtemp())
+        destinos = {"celular": Path(args.painel_celular) if args.painel_celular else tmp / f"motoboys_{hoje:%d-%m}_celular.png",
+                    "ipad": Path(args.painel_ipad) if args.painel_ipad else tmp / f"motoboys_{hoje:%d-%m}_ipad.png"}
+        if args.painel:
+            destinos["largo"] = Path(args.painel)
+        from painel_motoboys import gerar_painel
+        for tipo, destino in destinos.items():
+            try:
+                paineis[tipo] = gerar_painel(destino, hoje, base, rec, motivos, semana,
+                                             celular=tipo == "celular", ipad=tipo == "ipad")
+                print(f"PAINEL {tipo}: {paineis[tipo]}", file=sys.stderr)
+            except Exception as e:      # o painel nunca derruba a previsão em texto
+                print(f"PAINEL {tipo}: não gerado — {e}", file=sys.stderr)
+
     if not args.whatsapp:
         print("\nWHATSAPP: não enviado (sem --whatsapp).", file=sys.stderr)
         return 0
+    # Como o painel de vendas: vai só a imagem (legenda curta); o texto só se nenhuma imagem sair.
+    legenda = f"Motoboys hoje {hoje:%d/%m}: chamar {rec['lo']} a {rec['hi']}"
+    if chuva["status"] in ("chuva", "forte"):
+        legenda += f" · com chuva +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE}"
     enviados = 0
     for var in DESTINOS:
-        fone = re.sub(r"\D", "", os.environ.get(var, ""))
+        fone = re.sub(r"\D", "", os.environ.get(var, "")) or fone_remetente(var)
         if not fone:
             print(f"WHATSAPP: {var} não definida — pulado.", file=sys.stderr)
             continue
-        try:
-            api.enviar_whatsapp(fone, texto)
-            enviados += 1
-            print(f"WHATSAPP: enviado para {var}.", file=sys.stderr)
-        except (AlivError, OSError) as e:
-            print(f"WHATSAPP: {var} falhou — {e}", file=sys.stderr)
+        tipos = ["ipad", "celular"] if var == "WHATSAPP_EMERSON" else ["celular"]   # Emerson: iPad e iPhone
+        foi = False
+        for tipo in tipos:
+            arq = paineis.get(tipo) or paineis.get("ipad" if tipo == "celular" else "celular")
+            if arq is None:
+                continue
+            try:
+                api.enviar_whatsapp(fone, legenda if tipo != "celular" or len(tipos) == 1
+                                    else f"Versão iPhone — {hoje:%d/%m}", arquivo=arq)
+                foi = True
+                print(f"WHATSAPP: painel {tipo} enviado para {var}.", file=sys.stderr)
+            except (AlivError, OSError) as e:
+                print(f"WHATSAPP: painel {tipo} não enviado para {var} — {e}", file=sys.stderr)
+        if not foi:
+            try:
+                api.enviar_whatsapp(fone, texto)
+                foi = True
+                print(f"WHATSAPP: texto enviado para {var} (sem painel).", file=sys.stderr)
+            except (AlivError, OSError) as e:
+                print(f"WHATSAPP: {var} falhou — {e}", file=sys.stderr)
+        enviados += foi
     return 0 if enviados else 3
 
 

@@ -1,0 +1,164 @@
+{
+ "v": 1,
+ "dia": "2026-11-08",
+ "lojas": {
+  "piz": {
+   "pedidos": 279,
+   "cancelados": 4,
+   "vendas": 20290.93,
+   "receita": 21043.12,
+   "desc_loja": 1198.39,
+   "desc_plataforma": 948.44,
+   "desc_manual": 40.96,
+   "comissao_ifood": 1047.85,
+   "desc_loja_ifood": 1157.43,
+   "receita_ifood": 8186.35,
+   "proprios": 12856.77,
+   "entregas_delivery": 227,
+   "canais": {
+    "Salão": [
+     41,
+     2661.85,
+     0
+    ],
+    "iFood": [
+     120,
+     7434.16,
+     0
+    ],
+    "PDV delivery": [
+     4,
+     326.5,
+     0
+    ],
+    "App": [
+     114,
+     9868.42,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     70,
+     4855.36
+    ],
+    "Burguer": [
+     35,
+     1436.73
+    ],
+    "Pizzaria 2.0": [
+     15,
+     1142.07
+    ]
+   },
+   "motoboys": {
+    "Mesaque D": 13,
+    "Pedrohenrique nunes": 13,
+    "Andre Vitor Silva dos Reis": 18,
+    "Gustavo Cardoso Carvalho": 16,
+    "Marcos Vinicius silva de sousa": 16,
+    "LEONARDOPINTO DO BOMFIM": 12,
+    "Bruno Giostry de Jesus": 18,
+    "Kalyson de Oliveira Santos": 15,
+    "Emanuel dos Santos Guedes": 18,
+    "Alexsandro Santana de Ecio": 21,
+    "Jefferson Lima Chargas": 9,
+    "Adriano Santos de Assis Junior": 14,
+    "Claudio Da Costa Nolasso": 20,
+    "Matheus Emilio Ferreira": 11,
+    "Ricardo Gomes Camilo": 12
+   },
+   "tempos": {
+    "prod": [
+     21.0,
+     170
+    ],
+    "rua": [
+     15.0,
+     227
+    ],
+    "vida": [
+     42.0,
+     170
+    ]
+   },
+   "atrasos": 71
+  },
+  "sushi": {
+   "pedidos": 179,
+   "cancelados": 0,
+   "vendas": 11493.85,
+   "receita": 11670.28,
+   "desc_loja": 344.85,
+   "desc_plataforma": 223.71,
+   "desc_manual": 0.0,
+   "comissao_ifood": 273.14,
+   "desc_loja_ifood": 344.85,
+   "receita_ifood": 2133.94,
+   "proprios": 9536.34,
+   "entregas_delivery": 54,
+   "pecas": 2942,
+   "temakis": 29,
+   "canais": {
+    "Salão": [
+     122,
+     6249.27,
+     1823
+    ],
+    "PDV delivery": [
+     1,
+     40.89,
+     0
+    ],
+    "iFood": [
+     26,
+     1957.51,
+     395
+    ],
+    "App": [
+     30,
+     3246.18,
+     724
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     26,
+     1957.51
+    ]
+   },
+   "motoboys": {
+    "Ricardo Gomes Camilo": 5,
+    "Claudio Da Costa Nolasso": 6,
+    "Andre Vitor Silva dos Reis": 2,
+    "Matheus Emilio Ferreira": 5,
+    "Alexsandro Santana de Ecio": 1,
+    "Adriano Santos de Assis Junior": 5,
+    "Gustavo Cardoso Carvalho": 2,
+    "Emanuel dos Santos Guedes": 4,
+    "Jefferson Lima Chargas": 6,
+    "Marcos Vinicius silva de sousa": 3,
+    "Bruno Giostry de Jesus": 3,
+    "Mesaque D": 5,
+    "Pedrohenrique nunes": 1,
+    "Kalyson de Oliveira Santos": 5,
+    "LEONARDOPINTO DO BOMFIM": 1
+   },
+   "tempos": {
+    "prod": [
+     38.0,
+     32
+    ],
+    "rua": [
+     15.0,
+     54
+    ],
+    "vida": [
+     57.0,
+     32
+    ]
+   },
+   "atrasos": 27
+  }
+ }
+}

@@ -411,6 +411,7 @@ Depois lê `GET /admin/api/chat/messages/{phone}?limit=500` de cada um. Conversa
 ## Regras
 
 - **Virou pedido:** há pedido do mesmo telefone (últimos 8 dígitos) no turno. "Pela IA" quando a nota tem *Pedido montado pela IA*. iFood fica de fora. Pedido da IA cancelado conta como "cancelado depois de montado". Sem pedido = **abandonada**.
+- **Pediu pelo link:** a IA manda o link do cardápio (`alivhub.com.br/app/tilipizzaria`) na saudação. Pedido do App do mesmo telefone **sem** a nota da IA = "pediu pelo link" e conta como convertido, não como abandono. O abandono é separado em "recebeu o link e não pediu" e "sem link". Se o cliente pedir pelo link com outro telefone, o script não consegue ligar os dois.
 - **Tempo de resposta:** da 1ª mensagem de cada bloco do cliente até a próxima mensagem da loja (minutos, o ALIV só dá HH:MM). Acima de 5 min = demora.
 - **Problemas** (por palavras-chave, conta 1 por conversa): não entendeu · item ou preço errado (inclui "não encontrei no cardápio") · endereço/taxa · demora · pergunta repetida pela IA (frases com "?" 80% iguais) · reclamou/pediu humano · não soube responder (horário, promoção, pagamento, tempo de entrega: sem resposta em 10 min ou "não sei/vou verificar") · cancelado depois de montado.
 - **Pares sugeridos:** modelo por tema, no tom das respostas que já estão no campo. Antes de propor, compara com os exemplos atuais; se já há um parecido, o par sai marcado "já existe parecido" e não vai no WhatsApp. Trechos entre colchetes (ex.: promoção do dia) precisam ser completados antes de aprovar.

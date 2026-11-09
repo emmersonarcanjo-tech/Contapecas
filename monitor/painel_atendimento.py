@@ -118,11 +118,13 @@ def html_painel(dia: date, dados: dict, hist: list[dict], formato: str = "ipad")
     if hist:
         conv_ok = r["conversao"] >= statistics.mean(h["conversao"] for h in hist)
     P.append('<div class="sec">TURNO</div><div class="grade g2">')
-    P.append(_card("Conversas", str(r["conversas"]), f"{r['abandonadas']} sem pedido", cls="v", grande=True))
-    P.append(_card("Pedidos fechados", str(r["pedidos"]), f"{r['pedidos_ia']} montados pela IA", cls="d", grande=True))
+    P.append(_card("Conversas", str(r["conversas"]), f"link enviado em {r.get('receberam_link', 0)}", cls="v", grande=True))
+    P.append(_card("Pedidos fechados", str(r["pedidos"]),
+                   f"{r['pedidos_ia']} pela IA · {r.get('pedidos_link', 0)} pelo link", cls="d", grande=True))
     P.append(_card("Conversão", _pct(r["conversao"]), "pedidos ÷ conversas",
                    cls="" if conv_ok is None else ("bom" if conv_ok else "ruim")))
-    P.append(_card("Abandono", _pct(r["abandono"]), "conversa sem pedido",
+    P.append(_card("Abandono real", _pct(r["abandono"]),
+                   f"{r.get('abandono_com_link', 0)} com link · {r.get('abandono_sem_link', 0)} sem link",
                    cls="ruim" if r["abandono"] > 0.5 else "bom"))
     t = r["tempo_medio_min"]
     P.append(_card("Resposta média", _min(t), f"mediana {_min(r['tempo_mediana_min'])}",

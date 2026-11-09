@@ -135,6 +135,7 @@ I_FORA_AREA = [r"nao (entregamos|atendemos|fazemos entrega)", r"fora da (nossa )
 
 
 # ------------------------------------------------------------------ anonimização
+RE_LINK = re.compile(r"alivhub\.com\.br/app/|https?://\S*(cardapio|pedido|menu)", re.I)
 RE_FONE = re.compile(r"\+?\d[\d\s().-]{6,}\d")
 RE_EMAIL = re.compile(r"\S+@\S+")
 RE_CEP = re.compile(r"\b\d{5}-?\d{3}\b")
@@ -373,18 +374,21 @@ def analisa(phone: str, nome: str, msgs: list[dict], dia: date, peds_fone: list[
     validos = [p for p in peds_turno if "CANCEL" not in str(p.get("status")).upper()]
     if any(p["_ia"] for p in validos):
         desfecho = "pedido_ia"
+    elif any(str(p.get("platform_slug") or "").lower() == "app" for p in validos):
+        desfecho = "pedido_link"          # fez pelo link do cardápio (App, sem a nota da IA)
     elif validos:
-        desfecho = "pedido_outro_canal"
+        desfecho = "pedido_outro_canal"   # balcão/PDV
     elif cancelados:
         desfecho = "cancelado"
     else:
         desfecho = "abandonada"
     humano = any(m.get("direction") == "outgoing" and m.get("wa_account") for m in conv)
+    link = any(m.get("direction") == "outgoing" and RE_LINK.search(m.get("body") or "") for m in conv)
     return {"desfecho": desfecho, "problemas": dict(prob), "trechos": trechos, "tempos": tempos,
             "sem_resposta_final": tempos_sem, "topicos_sem_resposta": topicos_sem_resposta,
             "itens_faltando": itens_faltando, "perguntas": {k: corta(anonimiza(v, nomes), 100)
                                                            for k, v in perguntas_topico.items()},
-            "equipe_respondeu": humano, "msgs": len(conv),
+            "equipe_respondeu": humano, "msgs": len(conv), "recebeu_link": link,
             "pedidos_ia": len(ped_ia), "cancelados": len(cancelados)}
 
 
@@ -470,7 +474,7 @@ def propostas(cont: Counter, topicos: Counter, perguntas: dict[str, str], itens:
 # ------------------------------------------------------------------ relatório
 def resumo_num(convs: list[dict]) -> dict:
     n = len(convs)
-    ped = sum(1 for c in convs if c["desfecho"] in ("pedido_ia", "pedido_outro_canal"))
+    ped = sum(1 for c in convs if c["desfecho"] in ("pedido_ia", "pedido_link", "pedido_outro_canal"))
     ped_ia = sum(1 for c in convs if c["desfecho"] == "pedido_ia")
     aband = sum(1 for c in convs if c["desfecho"] == "abandonada")
     tempos = [t for c in convs for t in c["tempos"]]
@@ -484,6 +488,11 @@ def resumo_num(convs: list[dict]) -> dict:
             "tempo_mediana_min": round(statistics.median(tempos), 1) if tempos else None,
             "sem_resposta": sum(1 for c in convs if c["sem_resposta_final"]),
             "cancelados_ia": sum(c["cancelados"] for c in convs),
+            "pedidos_link": sum(1 for c in convs if c["desfecho"] == "pedido_link"),
+            "pedidos_outro": sum(1 for c in convs if c["desfecho"] == "pedido_outro_canal"),
+            "receberam_link": sum(1 for c in convs if c.get("recebeu_link")),
+            "abandono_com_link": sum(1 for c in convs if c["desfecho"] == "abandonada" and c.get("recebeu_link")),
+            "abandono_sem_link": sum(1 for c in convs if c["desfecho"] == "abandonada" and not c.get("recebeu_link")),
             "problemas": dict(prob)}
 
 
@@ -540,9 +549,12 @@ def gerar(dia: date, convs: list[dict], pares, regras, itens, hist, existentes, 
          "", f"Janela: {ini:%d/%m %H:%M} até {fim:%d/%m %H:%M} (horário da Bahia). Só WhatsApp da loja 150; iFood fica de fora.",
          "", "## 1) Resumo do dia", "",
          f"- Conversas com cliente: **{r['conversas']}**",
-         f"- Pedidos fechados: **{r['pedidos']}** ({r['pedidos_ia']} montados pela IA)",
+         f"- Pedidos fechados: **{r['pedidos']}** — {r['pedidos_ia']} montados pela IA · "
+         f"{r['pedidos_link']} pelo link do cardápio que a IA mandou · {r['pedidos_outro']} no balcão/PDV",
          f"- Taxa de conversão: **{pct(r['conversao'])}**",
-         f"- Abandono (sem pedido): **{r['abandonadas']}** ({pct(r['abandono'])})",
+         f"- Abandono (sem pedido em nenhum canal): **{r['abandonadas']}** ({pct(r['abandono'])}) — "
+         f"{r['abandono_com_link']} receberam o link e não pediram · {r['abandono_sem_link']} sem link",
+         f"- Conversas em que a IA mandou o link do cardápio: {r['receberam_link']}",
          f"- Tempo médio de resposta: **{r['tempo_medio_min'] if r['tempo_medio_min'] is not None else '—'} min** "
          f"(mediana {r['tempo_mediana_min'] if r['tempo_mediana_min'] is not None else '—'} min)",
          f"- Conversas que terminaram sem resposta: {r['sem_resposta']}",
@@ -598,6 +610,8 @@ def resumo_whatsapp(dia: date, dados: dict, hist: list[dict]) -> str:
     L = [f"*Atendimento IA — turno {dia:%d/%m}*",
          f"{r['conversas']} conversas · {r['pedidos']} pedidos ({pct(r['conversao'])}) · "
          f"abandono {pct(r['abandono'])} · resposta média {r['tempo_medio_min'] if r['tempo_medio_min'] is not None else '—'} min"]
+    L.append(f"Pedidos: {r['pedidos_ia']} pela IA · {r['pedidos_link']} pelo link · {r.get('pedidos_outro', 0)} balcão. "
+             f"Abandono real: {r['abandono_com_link']} com link · {r['abandono_sem_link']} sem link")
     if hist:
         m = statistics.mean(h["conversao"] for h in hist)
         L.append(f"Conversão 7 dias: {pct(m)} → ontem {pct(r['conversao'])} "

@@ -1,0 +1,35 @@
+{
+ "dia": "2026-11-03",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 17,
+  "pedidos": 13,
+  "pedidos_ia": 2,
+  "abandonadas": 4,
+  "conversao": 0.765,
+  "abandono": 0.235,
+  "tempo_medio_min": 1.2,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 2,
+  "cancelados_ia": 0,
+  "pedidos_link": 11,
+  "pedidos_outro": 0,
+  "receberam_link": 12,
+  "abandono_com_link": 4,
+  "abandono_sem_link": 0,
+  "problemas": {
+   "item_preco": 4,
+   "repetiu": 2,
+   "demora": 2
+  }
+ },
+ "pares": [],
+ "regras": [
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Boa noite",
+  "Quero pedir sushi e dois lanches"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

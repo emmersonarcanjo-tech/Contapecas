@@ -1,0 +1,73 @@
+{
+ "dia": "2026-11-08",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 32,
+  "pedidos": 22,
+  "pedidos_ia": 6,
+  "abandonadas": 10,
+  "conversao": 0.688,
+  "abandono": 0.312,
+  "tempo_medio_min": 0.8,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 3,
+  "cancelados_ia": 0,
+  "pedidos_link": 14,
+  "pedidos_outro": 2,
+  "receberam_link": 27,
+  "abandono_com_link": 8,
+  "abandono_sem_link": 2,
+  "problemas": {
+   "demora": 2,
+   "nao_soube": 2,
+   "nao_entendeu": 2,
+   "reclamou_humano": 2,
+   "repetiu": 4,
+   "item_preco": 2
+  }
+ },
+ "pares": [
+  {
+   "tema": "tempo de entrega",
+   "user": "Quanto tempo demora pra chegar?",
+   "assistant": "Hoje está saindo em média em [XX] a [YY] minutos 🛵 Assim que sair pra entrega eu te aviso aqui!",
+   "exemplo_cliente": "O moto boy já saiu da aí?",
+   "ja_existe_parecido": null,
+   "falta_preencher": true
+  },
+  {
+   "tema": "pagamento",
+   "user": "Vocês aceitam cartão ou pix?",
+   "assistant": "Aceitamos Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket 💳 Na entrega o motoboy leva a maquininha. Se for dinheiro, me avisa o troco 😉",
+   "exemplo_cliente": "Eu vi no aplicativo de pedidos, que aceita VR Alimentação, mas meu cartao ta em outro estado com mi…",
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Informar um tempo médio de entrega (ex.: 40–50 min) e avisar quando o pedido sair.",
+  "Formas de pagamento aceitas na entrega: Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "tem coisas a mais que não tem no cardápio?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

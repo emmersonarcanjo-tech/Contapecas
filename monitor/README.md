@@ -21,7 +21,7 @@ python3 monitor/monitor.py
   - `--sem-snapshot`: não grava o snapshot.
   - `--sem-semana`: pula a comparação com a semana passada.
   - `--whatsapp`: envia só o painel em imagem pelo WhatsApp (o texto vai apenas se o painel falhar).
-  - `--painel ARQ.png`: salva o painel em PNG nesse arquivo (para conferir sem enviar).
+  - `--painel ARQ.png`: salva os painéis em `ARQ_ipad.png`, `ARQ_iphone_1.png` e `ARQ_iphone_2.png` (para conferir sem enviar).
   - `--sem-painel`: não gera nem envia o painel.
   - `--raw PASTA`: salva as respostas cruas do ALIV, para conferir os campos. Não faça commit dessa pasta.
 - Códigos de saída: `0` ok, `1` erro no ALIV (o motivo sai no relatório), `2` faltam as variáveis.
@@ -49,7 +49,7 @@ No Claude Code na nuvem:
 - Usa `POST /admin/api/chat/send` (campos `phone` e `message`), o mesmo do chat de atendimento do ALIV. A mensagem sai pelo **WhatsApp principal da loja** (canal Evolution `aliv_store_150_…`), não por um número separado.
 - Envia só para o número da variável `WHATSAPP_EMERSON` (com DDI e DDD, ex.: `5573…`). Sem a variável, ou se o ALIV não confirmar (`success: true`), o script sai com **código 3** e a Rotina manda o e-mail.
 - A conversa aparece no chat de atendimento da loja. Se você responder, o atendente de IA pode responder também.
-- No WhatsApp vai **só o painel em imagem** (`painel.py`, pedido do Emerson em 08/11/2026): 2880 px de largura em 3 colunas (formato do iPad deitado), fundo escuro, vermelho e dourado da Tili, com alertas no topo, vendas e última hora por loja, canais, ticket, cancelamento, tempos, motoboys, descontos, lucro estimado e comparação com a semana passada. É desenhado em HTML e fotografado pelo Chromium headless. Se o painel falhar (não gerado ou não aceito), vai o relatório em texto no lugar; o motivo aparece no log como `PAINEL:` ou `WHATSAPP: painel não enviado`. Código `3` só se nada for enviado.
+- No WhatsApp vai **só o painel em imagem** (`painel.py`, pedido do Emerson em 08/11/2026), em **dois formatos**, um depois do outro: **iPad** (2880 px de largura, 3 colunas, iPad deitado) e **iPhone 14 Pro Max** em 2 imagens do tamanho exato da tela (1290×2796): 1/2 com alertas, vendas, canais e ticket; 2/2 com tempos, motoboys, descontos, lucro e semana passada. Os dois têm fundo escuro, vermelho e dourado da Tili, com alertas no topo, vendas e última hora por loja, canais, ticket, cancelamento, tempos, motoboys, descontos, lucro estimado e comparação com a semana passada. É desenhado em HTML e fotografado pelo Chromium headless. Se o painel falhar (não gerado ou não aceito), vai o relatório em texto no lugar; o motivo aparece no log como `PAINEL:` ou `WHATSAPP: painel não enviado`. Código `3` só se nada for enviado.
 - O relatório semanal dos motoboys **não** usa WhatsApp: ele gera PDFs e grava na pasta do Drive.
 
 ## Rotina
@@ -251,21 +251,25 @@ python3 monitor/prestadores.py                                  # rodada normal:
 
 # NFC-e — lista do dia e emissão sob comando (`nfce.py`)
 
-Fase 1: só a **Tili Pizzaria (loja 150)**. Reaproveita o login (`ALIV_USER` / `ALIV_PASS`) e o WhatsApp do `monitor.py`. **Nunca emite sozinho**: a Rotina das 23:50 só roda `listar`; `emitir` só roda numa sessão, quando o Emerson responde "emite".
+Lojas: **Tili Pizzaria (loja 150)**, com `ALIV_USER` / `ALIV_PASS`, e **Tili Sushi (loja 155)**, com `ALIV_USER_SUSHI` / `ALIV_PASS_SUSHI`. Reaproveita o cliente e o WhatsApp do `monitor.py`. Lista, arquivo, mensagem e emissão são **separados por loja**. **Nunca emite sozinho**: a Rotina das 23:50 só roda `listar`; `emitir` só roda numa sessão, quando o Emerson responde "emite".
 
 ## Como rodar
 
 ```bash
-python3 monitor/nfce.py listar --dry-run                       # lista de hoje, não grava nem envia
-python3 monitor/nfce.py listar                                 # grava monitor/nfce/AAAA-MM-DD.json e manda no WhatsApp
-python3 monitor/nfce.py emitir --data 2026-11-06 --dry-run     # mostra o que emitiria, sem nenhum POST
-python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdade (só após "emite")
+python3 monitor/nfce.py listar --dry-run                                 # as duas lojas, hoje; não grava nem envia
+python3 monitor/nfce.py listar                                           # grava os arquivos e manda uma lista por loja
+python3 monitor/nfce.py listar --loja sushi --data 2026-11-08 --dry-run  # só uma loja
+python3 monitor/nfce.py emitir --data 2026-11-08 --loja sushi --dry-run  # mostra o que emitiria, sem nenhum POST
+python3 monitor/nfce.py emitir --data 2026-11-08 --loja pizzaria         # emite de verdade (só após "emite")
 ```
 
-- `listar --data AAAA-MM-DD`: sem a opção, vale hoje (antes das 04:00, ontem).
-- `emitir --data` é obrigatório. `--limite N` (máx. 200 por execução).
-- Variáveis: `ALIV_USER`, `ALIV_PASS`, `WHATSAPP_EMERSON`.
-- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` WhatsApp não aceitou (a Rotina manda por e-mail) · `4` emissão parada por `LIMIT_REACHED`.
+- `listar --data AAAA-MM-DD`: sem a opção, vale hoje (antes das 04:00, ontem). `--loja pizzaria|150|sushi|155`: sem a opção, lista as duas. Um erro numa loja não impede a outra.
+- `emitir --data` e `--loja` são obrigatórios: cada emissão é de uma loja só. `--limite N` (máx. 200 por execução).
+- Arquivos: Pizzaria em `monitor/nfce/AAAA-MM-DD.json`, Sushi em `monitor/nfce/sushi/AAAA-MM-DD.json`.
+- A saída tem um bloco por loja, separado por uma linha de `=`. A 1ª linha de cada bloco é o assunto (`NFC-e Tili — …` para a Pizzaria e `NFC-e Tili Sushi — …` para o Sushi).
+- Cada lista termina com "Responda *emite pizzaria*" ou "*emite sushi*" (ou *emite* para as duas lojas).
+- Variáveis: `ALIV_USER`, `ALIV_PASS`, `ALIV_USER_SUSHI`, `ALIV_PASS_SUSHI`, `WHATSAPP_EMERSON`. Cada lista sai pelo WhatsApp da própria loja.
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` WhatsApp não aceitou (a Rotina manda por e-mail) · `4` emissão parada por `LIMIT_REACHED`. Com as duas lojas, vale o mais grave (1 > 2 > 3).
 
 ## Quem entra na lista
 
@@ -279,6 +283,9 @@ python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdad
 | iFood Tili Burguer (`34e58883…`) | tudo menos dinheiro, inclusive online | dinheiro |
 | iFood Tili Pizzaria 2.0 (`c1577426…`) | tudo menos dinheiro, inclusive online | dinheiro |
 
+| **Tili Sushi (loja 155)**: app, PDV, balcão e iFood | tudo menos dinheiro: Pix, Pix Online pago, cartão, vale e iFood online | dinheiro |
+
+- Sushi: só entram pedidos com status `CONCLUIDO`. Na Pizzaria, `CONCLUIDO` ou `ENTREGUE`.
 - Misto dinheiro + forma permitida: **EMITE**. Dinheiro puro: nunca.
 - **ATENÇÃO** (não emite, decidir na mão): Fiado, Carteira, Conta Func., saldo usado; Pix Online não pago; pagamento "Em Aberto"; forma não reconhecida; iFood de merchant desconhecido; iFood Tili Pizzaria misto online + maquininha.
 
@@ -287,7 +294,7 @@ python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdad
 - Emite **só os pedidos EMITIR da lista salva** em `monitor/nfce/AAAA-MM-DD.json` (antes, `git pull` para pegar o arquivo da Rotina). Cada um é reconferido ao vivo; o que mudou de grupo, já tem nota ou foi cancelado sai da fila. Pedido novo que não estava na lista aprovada **não** é emitido, só avisado. Sem lista salva, usa a lista gerada na hora e avisa.
 - `POST /admin/api/orders/{id}/emit-fiscal` (FormData `customer_document`): primeiro `""` (CPF do pedido); se a SEFAZ recusar o CPF/destinatário, de novo com `" "` (sem CPF). Confirma em `GET /admin/api/orders/{id}/check-fiscal`. Uma por vez, máximo 200.
 - `LIMIT_REACHED`: para tudo e avisa (código 4). `MISSING_PAYMENT` ou rejeição SEFAZ: registra o motivo exato e segue. "Ausência de troco…": ATENÇÃO (bug do ALIV com borda/adicional como desconto negativo), não insiste. Timeout no POST: não reenvia, consulta o status e, se não confirmar, vai para ATENÇÃO.
-- Conferência de CNPJ: posições 7 a 20 da chave de 44 dígitos, comparadas **em memória** com `/admin/api/stores/150/fiscal-profiles` (perfil ativo cuja regra iFood bate com o merchant — hoje só o 2.0) e `fiscal-config` (CNPJ principal). O relatório mostra só o nome do perfil.
+- Conferência de CNPJ: posições 7 a 20 da chave de 44 dígitos, comparadas **em memória** com `/admin/api/stores/{loja}/fiscal-profiles` (perfil ativo cuja regra iFood bate com o merchant — hoje só o 2.0 da Pizzaria) e `fiscal-config` da loja (CNPJ principal). O Sushi não tem perfis extras: tudo deve sair no CNPJ principal da loja 155. O relatório mostra só o nome do perfil.
 - **Nada sensível é gravado**: o JSON tem id, código, hora, valor, forma de pagamento, loja, grupo e motivo. Sem CPF, nome de cliente, CNPJ, chave, token, CSC ou senha.
 
 ## Relatórios
@@ -300,10 +307,17 @@ python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdad
 - 197 pedidos: 134 EMITIR (R$ 10.234,41), 52 NÃO EMITIR (10 dinheiro, 42 online iFood Tili Pizzaria), 1 ATENÇÃO (Conta Func.), 10 cancelados.
 - `emitir --dry-run`: 120 notas no CNPJ principal e 14 no perfil Tili Pizzaria 2.0. Nenhum POST feito.
 
-## Rotina das 23:50
+## Conferido em 09/11/2026 (dia 08/11, ALIV real)
 
-- Cron `CRON_TZ=America/Bahia 50 23 * * *`, sessão nova a cada disparo, conector Gmail para o e-mail de reserva. Só `listar`.
-- Pedidos criados depois das 23:50 ou ainda abertos nessa hora não entram na lista daquele dia.
+- Sushi: 179 pedidos. 159 já tinham nota (o ALIV do Sushi emite a maioria sozinho). 1 EMITIR (iFood, cartão, R$ 173,39). 19 NÃO EMITIR (dinheiro). 0 ATENÇÃO.
+- Pizzaria: 0 EMITIR (201 já com nota), 77 NÃO EMITIR, 1 ATENÇÃO (Conta Func.).
+- `emitir --loja sushi --dry-run`: 1 nota no CNPJ principal, nenhum POST. Conferência com as 16 chaves reais já autorizadas do Sushi nessa página: todas no CNPJ principal da loja 155.
+
+## Rotinas
+
+- **Tili — NFC-e lista do dia anterior (02:00)**: cron `CRON_TZ=America/Bahia 0 2 * * *`, sessão nova a cada disparo. Roda `listar --data <ontem>`. No dia 01 não faz nada, porque o último dia do mês já foi listado às 23:50.
+- **Tili — NFC-e último dia do mês (23:50)**: cron `CRON_TZ=America/Bahia 50 23 28-31 * *`. Só age quando amanhã é dia 01. Roda `listar --data <hoje>`, para a emissão sair antes da virada do mês. Pedidos criados depois das 23:50 desse dia ficam fora da lista.
+- As duas só rodam `listar`, nunca `emitir`. O e-mail de reserva (códigos 1, 2 e 3) precisa do conector **Gmail** nas Rotinas.
 
 ## Despesas pelo WhatsApp da loja (`despesas.py`)
 
@@ -392,3 +406,135 @@ Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1`
 - **Emerson:** recebe as duas, iPad e iPhone. Versão iPad deitado, tela cheia de 2360 × 1640, com 3 colunas e fonte grande (`--painel-ipad`). A versão larga de 2880 px, igual ao painel de vendas, ainda sai com `--painel`, mas não é enviada.
 - **Josué e Camilo:** versão celular, 1 coluna e fonte grande, no tamanho de uma tela de iPhone (19,5:9). A imagem sai com 2160 × 4680 px.
 - **Chuva:** a recomendação principal fica normal. Uma faixa abaixo mostra o tempo e, se chover, "+2 a 3 motoboys". Fontes: Open-Meteo (modelos ECMWF, GFS e ICON), MET Norway e a previsão oficial do aeroporto de Porto Seguro (TAF SBPS). O tempo de agora vem do boletim do aeroporto (METAR SBPS). Só conta como chuva com 2 fontes de acordo. Os hosts `api.open-meteo.com`, `api.met.no` e `aviationweather.gov` estão liberados no ambiente Contapecas.
+
+# Auditoria do atendimento da IA no WhatsApp (`atendimento_ia.py`)
+
+Todo dia às 03:30 (Bahia) audita as conversas do WhatsApp da **Tili Pizzaria (loja 150)** e da **Tili Sushi & Poke (loja 155)** no turno que fechou: **16:00 de D até 01:00 de D+1**. Só lê o ALIV. Nunca responde cliente, não marca conversa como atendida e não liga/desliga a IA. Reaproveita o login e o envio por WhatsApp do `monitor.py` e a leitura do chat do `despesas.py`.
+
+```bash
+python3 monitor/atendimento_ia.py --data 2026-11-07 --sem-gravar   # teste: mostra, não grava, não envia
+python3 monitor/atendimento_ia.py --whatsapp                        # rodada normal: turno de ontem
+```
+
+- `--loja pizzaria|sushi|todas` (padrão: todas). Cada loja usa o seu login (`ALIV_USER`/`ALIV_PASS` e `ALIV_USER_SUSHI`/`ALIV_PASS_SUSHI`). O WhatsApp sai sempre pelo número da Pizzaria.
+- `--painel ARQ.png`: salva os painéis (iPad e iPhone 1/2, por loja) sem enviar. Com `--whatsapp` manda os painéis e depois o texto com os pares.
+- Grava `monitor/atendimento/AAAA-MM-DD.md` (Pizzaria) e `AAAA-MM-DD_sushi.md` (Sushi), cada um com o seu `.json` (só números e pares, usado na comparação de 7 dias). **Nenhum nome, telefone ou endereço** de cliente: os trechos passam pela função `anonimiza`.
+- `--whatsapp`: manda o resumo curto com os pares propostos só para `WHATSAPP_EMERSON`.
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` relatório gravado, WhatsApp não enviado.
+
+## Como acha as conversas
+
+O `chat/contacts` do ALIV só devolve as ~50 conversas mais recentes e não pagina. Por isso o script junta:
+1. `GET /admin/api/chat/contacts` (com `include_transactional` e `so_pedido_ia`) e `GET /admin/api/chat/pending-attention`;
+2. `GET /admin/api/chat/search?q=5573…`: busca por prefixo do telefone, descendo um dígito quando a busca volta cheia (a busca do ALIV corta em ~20). Fica só quem falou de D em diante. Até 2.000 buscas, 6 em paralelo;
+3. telefones dos pedidos do turno (`orders/audit` + detalhe).
+
+Depois lê `GET /admin/api/chat/messages/{phone}?limit=500` de cada um. Conversa = telefone com mensagem do cliente na janela. Números internos (`numeros_internos` da config da IA, `DESPESAS_REMETENTES`, `WHATSAPP_EMERSON`, `WHATSAPP_ADMIN`) ficam de fora.
+
+## Regras
+
+- **Virou pedido:** há pedido do mesmo telefone (últimos 8 dígitos) no turno. "Pela IA" quando a nota tem *Pedido montado pela IA*. iFood fica de fora. Pedido da IA cancelado conta como "cancelado depois de montado". Sem pedido = **abandonada**.
+- **Pediu pelo link:** a IA manda o link do cardápio (`alivhub.com.br/app/tilipizzaria`) na saudação. Pedido do App do mesmo telefone **sem** a nota da IA = "pediu pelo link" e conta como convertido, não como abandono. O abandono é separado em "recebeu o link e não pediu" e "sem link". Se o cliente pedir pelo link com outro telefone, o script não consegue ligar os dois.
+- **Tempo de resposta:** da 1ª mensagem de cada bloco do cliente até a próxima mensagem da loja (minutos, o ALIV só dá HH:MM). Acima de 5 min = demora.
+- **Problemas** (por palavras-chave, conta 1 por conversa): não entendeu · item ou preço errado (inclui "não encontrei no cardápio") · endereço/taxa · demora · pergunta repetida pela IA (frases com "?" 80% iguais) · reclamou/pediu humano · não soube responder (horário, promoção, pagamento, tempo de entrega: sem resposta em 10 min ou "não sei/vou verificar") · cancelado depois de montado.
+- **Pares sugeridos:** modelo por tema, no tom das respostas que já estão no campo. Antes de propor, compara com os exemplos atuais; se já há um parecido, o par sai marcado "já existe parecido" e não vai no WhatsApp. Trechos entre colchetes (ex.: promoção do dia) precisam ser completados antes de aprovar.
+- Comparação: média dos 7 dias anteriores a partir dos `.json` gravados.
+
+## Campo de treinamento da IA (investigado em 08/11/2026, só leitura)
+
+Mesma tela e mesmos endpoints nas duas lojas (Sushi: `/admin/api/stores/155/ai-config`). Tela: **Configurações da loja → IA → "Ensine o jeito da sua loja (opcional)"**. Campos "Cliente pergunta" e "Resposta ideal (seu tom)". **Limite: 5 exemplos** (em 08/11: Pizzaria 5 de 5, Sushi 3 de 5).
+
+| Ação | Endpoint | Observação |
+|---|---|---|
+| Listar | `GET /admin/api/stores/150/ai-config` | `few_shot_examples: [{user, assistant}]`, junto com o resto da config da IA |
+| Gravar | `POST /admin/api/openai/sync` (multipart) | **Não existe endpoint só para os exemplos.** O POST regrava a config inteira da IA (chave, ligada/desligada, perfil, upsell, horários, números internos, tamanhos e sabores padrão) e **ressincroniza o cardápio**, igual ao botão Salvar da tela. `few_shot_examples` vai como JSON |
+
+### Comando `aprovar` (só com ordem do Emerson na sessão)
+
+```bash
+python3 monitor/atendimento_ia.py aprovar --loja pizzaria --data 2026-11-07 --par 1 --no-lugar-de 3   # mostra o antes/depois
+python3 monitor/atendimento_ia.py aprovar --data 2026-11-07 --par 1 --no-lugar-de 3 --confirmo # grava
+```
+- Sem `--confirmo` não grava nada.
+- Lê a config atual e reenvia **todos os campos exatamente como estão**, trocando só os exemplos. Depois relê e confere que os exemplos entraram e que nenhum outro campo mudou.
+- Recusa se já existir exemplo parecido (75%) ou se a resposta ainda tiver `[colchetes]`. `--pergunta` / `--resposta` trocam o texto antes de gravar.
+- Como o campo está cheio, `--no-lugar-de N` diz qual exemplo atual sai.
+
+## Rotina das 03:30
+
+Cron `CRON_TZ=America/Bahia 30 3 * * *`, sessão nova a cada disparo, ambiente Contapecas. Roda `--whatsapp` e faz commit de `monitor/atendimento/`.
+
+# Fechamento semanal (`fechamento_semanal.py`)
+
+Toda **segunda às 09:00** (America/Bahia) fecha a semana que terminou, **segunda a domingo**, com **dia operacional das 16:00 às 04:00** (o turno do monitor). Só lê o ALIV. Reaproveita do `monitor.py` o login das duas lojas, a coleta de pedidos, os cálculos (vendas, ticket, cancelamento, descontos, custo iFood, peças do Sushi, lucro) e o envio por WhatsApp; do `previsao_motoboys.py`, a contagem de entregas acima de 45 min e os feriados; do `painel.py`, o estilo e o Chromium.
+
+## Como rodar
+
+```bash
+python3 monitor/fechamento_semanal.py                        # semana passada, imprime e NÃO envia
+python3 monitor/fechamento_semanal.py --semana 2026-11-02    # semana (seg–dom) que contém o dia
+python3 monitor/fechamento_semanal.py --inicio 2026-10-27    # 7 dias a partir do dia exato (teste)
+python3 monitor/fechamento_semanal.py --whatsapp             # envia painel + texto para WHATSAPP_EMERSON
+```
+
+- Saídas: texto resumido no terminal, relatório completo em `monitor/semanal/AAAA-MM-DD.md` (data = 1º dia da semana) e painel PNG (`--painel PASTA` para guardar; senão vai para uma pasta temporária). O commit fica com a Rotina.
+- Painel: **só iPad, 2360×1640** (resolução nativa do iPad deitado, uma tela, 4 colunas). Emerson pediu sem a versão de celular em 09/11/2026.
+- Cache: cada dia fechado vira `monitor/semanal/dias/AAAA-MM-DD.json` (só números e o apelido do motoboy como aparece no pedido, sem dígitos — nunca CPF/CNPJ). Um dia leva ~1–5 min no ALIV; com o cache, a segunda só busca os 7 dias novos. `--sem-cache` refaz tudo.
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` WhatsApp não aceitou (a Rotina manda por e-mail).
+
+## O que entra
+
+- **Por loja e consolidado:** pedidos, vendas, ticket, cancelamentos; canais (App, iFood por loja, PDV delivery, Salão); peças do Sushi; desconto da loja, desconto bancado pelo iFood e custo iFood (comissão 12,8% + desconto da loja ÷ receita iFood).
+- **Motoboys (Pizzaria + Sushi):** turno = motoboy com entrega finalizada no dia (gerentes fora); custo = diária (R$ 100 seg–sex, R$ 120 sáb–dom) por turno + R$ 2 por entrega, dividido entre as lojas pelas entregas. Custo por entrega e entregas por motoboy.
+- **Tempos:** média ponderada de preparo, rua e vida (operation-monitor) e entregas com vida acima de 45 min.
+- **Lucro ESTIMADO:** mesma fórmula do monitor (receita − CMV 26,5% − imposto 9,45% − comissão iFood − cartão 1,6% nos próprios − motoboys). Sempre marcado como estimativa.
+- **Melhor e pior dia** pelas vendas consolidadas (feriado aparece no nome do dia).
+- **Comparações:** semana anterior e mesma semana do mês passado (4 semanas antes, mesmos dias da semana), com variação em % e setas (percentuais em pontos percentuais). Verde = melhorou, vermelho = piorou.
+- **Mês até agora:** do dia 1 até o domingo da semana, com projeção simples (média diária × dias do mês).
+- **Destaques:** o indicador que mais melhorou e o que mais piorou contra a semana anterior, e uma recomendação por regra (atrasos > 10% → reforço de motoboy no pior dia; custo iFood > 25%; cancelamento > 2%; ticket < R$ 75; preparo > 20 min; senão, promoção no dia mais fraco).
+
+## Rotina de segunda às 08:51
+
+Cron `CRON_TZ=America/Bahia 51 8 * * 1` (Rotina "Fechamento semanal Tili (segunda)"; a coleta leva ~10 min, o painel chega por volta das 09:00), sessão nova a cada disparo, ambiente Contapecas, conector Gmail para o e-mail de reserva. Roda `--whatsapp` e faz commit de `monitor/semanal/`.
+
+---
+
+# Contagem física do estoque (`contagem.py` e `contagem_lancar.py`) — sob demanda
+
+Não é Rotina: roda só quando o Emerson pedir.
+
+## 1. Gerar a folha (`contagem.py`, só leitura)
+
+```bash
+python3 monitor/contagem.py
+```
+
+Gera em `manuais/`:
+- `Folha_de_Contagem_Tili_Pizzaria.pdf` (A4, letra grande, linhas de 14 mm):
+  - **Parte 1** — contagem por área: Freezer, Câmara/Geladeira, Estoque seco, Bebidas, Embalagens, Limpeza. Em cada área, primeiro os insumos **em uso nas fichas**, depois o resto, em ordem alfabética. Colunas: insumo (nome de exibição; o nome do ALIV aparece embaixo quando é diferente), unidade de contagem (= unidade de compra/estoque do ALIV: KG, CX, FD, UN…), fator (quanto 1 unidade vale na ficha, ex.: 1 KG = 1.000 G), quantidade em branco e observação.
+  - **Parte 2** — decidir "contar" ou "zerar": insumos com saldo negativo e insumos fora de todas as fichas (inclui utensílios, equipamentos e material de obra cadastrados como insumo, que ficam fora da Parte 1).
+  - **Parte 3** — pizzas e lanches ativos sem ficha ou com ficha incompleta.
+- `Folha_de_Contagem_Tili_Pizzaria.xlsx`: aba **Contagem** com as mesmas linhas da Parte 1 (só digitar a coluna amarela), aba **Decidir (Parte 2)** e aba **Fichas (Parte 3)**.
+
+Regras:
+- **Em uso** = aparece em alguma ficha de produto ativo (todos os tamanhos), de adicional ativo, ou é componente de uma sub-receita em uso (ex.: a farinha da massa). Conferido em 09/11/2026: bate 100% com o campo `in_use` do ALIV (59 insumos).
+- **Área**: por palavras do nome (o ALIV só tem 3 categorias). As regras ficam em `REGRAS` no topo do script.
+- **Ficha incompleta**: ficha vazia em algum tamanho; pizza sem massa; lanche sem pão; batata sem batata; sem embalagem; menos de 3 itens; item com quantidade 0; insumo da ficha sem custo.
+- `--cache ARQ.json` guarda/reaproveita a coleta (útil para refazer o PDF sem consultar o ALIV de novo).
+
+Endpoints lidos: `/admin/inventory/api/ingredients`, `/admin/api/menu/full_data`, `/admin/menu/product/{id}/recipes?size_id=`, `/admin/menu/addon/{id}/recipe_matrix`.
+
+## 2. Lançar a contagem (`contagem_lancar.py`) — só com o ok do Emerson
+
+```bash
+python3 monitor/contagem_lancar.py manuais/Folha_de_Contagem_Tili_Pizzaria.xlsx              # dry-run: mostra, não grava
+python3 monitor/contagem_lancar.py manuais/Folha_de_Contagem_Tili_Pizzaria.xlsx --confirmar  # lança
+```
+
+- Quantidade em branco = não lança. `0` = contado e zerado. "zerar" na aba Decidir lança 0.
+- Quantidade enviada = contada × "Fator p/ estoque ALIV" (padrão 1). Ex.: contou 3 caixas de 12 de um item que o ALIV controla em UN → fator 12 → lança 36 UN.
+- Confere antes: insumo existe, não está pausado, o nome da linha bate com o ALIV e a unidade não mudou desde que a planilha foi gerada. Aceita também a planilha baixada do Google Planilhas como .xlsx (usa a 1ª aba). Com linha inválida na planilha, `--confirmar` não lança nada.
+- Usa a Conferência de Estoque do ALIV: abre uma (`check/start`) se não houver, e grava cada item com `check/update-item` (zera e soma, igual aos botões da tela). Item que já tem contagem na sessão só é regravado com `--sobrescrever`.
+- **Não finaliza.** O ajuste do estoque é feito pelo Emerson na tela: Estoque → Conferência → Finalizar (responsável + senha).
+- Testado em dry-run contra o ALIV real em 09/11/2026. O modo `--confirmar` ainda não foi rodado (grava no ALIV).
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis ou planilha inválida · `3` lançou com falhas.

@@ -1,0 +1,35 @@
+{
+ "dia": "2026-11-05",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 7,
+  "pedidos": 5,
+  "pedidos_ia": 4,
+  "abandonadas": 2,
+  "conversao": 0.714,
+  "abandono": 0.286,
+  "tempo_medio_min": 0.9,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 2,
+  "cancelados_ia": 0,
+  "pedidos_link": 1,
+  "pedidos_outro": 0,
+  "receberam_link": 7,
+  "abandono_com_link": 2,
+  "abandono_sem_link": 0,
+  "problemas": {
+   "item_preco": 3,
+   "repetiu": 5,
+   "demora": 1
+  }
+ },
+ "pares": [],
+ "regras": [
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Tem yakisoba de frango?",
+  "Gostaria de experimentar"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

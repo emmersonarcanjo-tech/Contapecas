@@ -1,0 +1,144 @@
+{
+ "v": 1,
+ "dia": "2026-10-29",
+ "lojas": {
+  "piz": {
+   "pedidos": 130,
+   "cancelados": 4,
+   "vendas": 9545.03,
+   "receita": 9917.69,
+   "desc_loja": 489.59,
+   "desc_plataforma": 460.41,
+   "desc_manual": 0.0,
+   "comissao_ifood": 460.45,
+   "desc_loja_ifood": 489.59,
+   "receita_ifood": 3597.29,
+   "proprios": 6320.4,
+   "entregas_delivery": 106,
+   "canais": {
+    "iFood": [
+     51,
+     3224.63,
+     0
+    ],
+    "App": [
+     58,
+     5071.69,
+     0
+    ],
+    "Salão": [
+     17,
+     1038.73,
+     0
+    ],
+    "PDV delivery": [
+     4,
+     209.98,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     39,
+     2736.53
+    ],
+    "Burguer": [
+     11,
+     392.45
+    ],
+    "Pizzaria 2.0": [
+     1,
+     95.65
+    ]
+   },
+   "motoboys": {
+    "Kalyson de Oliveira Santos": 10,
+    "Matheus Emilio Ferreira": 12,
+    "Andre Vitor Silva dos Reis": 12,
+    "Breno Jesus de Souza": 15,
+    "Carlos Silva Dos Santos Junior": 13,
+    "Gustavo Cardoso Carvalho": 12,
+    "Guilherme Silva Nascimento": 17,
+    "Rodrigo Santana Massaranduba Filho": 11,
+    "Emanuel dos Santos Guedes": 4
+   },
+   "tempos": {
+    "prod": [
+     13.0,
+     90
+    ],
+    "rua": [
+     13.0,
+     106
+    ],
+    "vida": [
+     30.0,
+     90
+    ]
+   },
+   "atrasos": 9
+  },
+  "sushi": {
+   "pedidos": 96,
+   "cancelados": 0,
+   "vendas": 5303.69,
+   "receita": 5324.45,
+   "desc_loja": 77.85,
+   "desc_plataforma": 31.29,
+   "desc_manual": 0.0,
+   "comissao_ifood": 53.3,
+   "desc_loja_ifood": 77.85,
+   "receita_ifood": 416.38,
+   "proprios": 4908.07,
+   "entregas_delivery": 15,
+   "pecas": 1350,
+   "temakis": 10,
+   "canais": {
+    "Salão": [
+     81,
+     4242.35,
+     1129
+    ],
+    "App": [
+     8,
+     665.72,
+     127
+    ],
+    "iFood": [
+     7,
+     395.62,
+     94
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     7,
+     395.62
+    ]
+   },
+   "motoboys": {
+    "Gustavo Cardoso Carvalho": 3,
+    "Breno Jesus de Souza": 1,
+    "Matheus Emilio Ferreira": 4,
+    "Andre Vitor Silva dos Reis": 3,
+    "Guilherme Silva Nascimento": 2,
+    "Carlos Silva Dos Santos Junior": 2
+   },
+   "tempos": {
+    "prod": [
+     13.0,
+     8
+    ],
+    "rua": [
+     13.0,
+     14
+    ],
+    "vida": [
+     35.0,
+     8
+    ]
+   },
+   "atrasos": 2
+  }
+ }
+}

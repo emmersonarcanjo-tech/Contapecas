@@ -1,0 +1,61 @@
+{
+ "dia": "2026-11-03",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 100,
+  "pedidos": 62,
+  "pedidos_ia": 23,
+  "abandonadas": 38,
+  "conversao": 0.62,
+  "abandono": 0.38,
+  "tempo_medio_min": 1.5,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 31,
+  "cancelados_ia": 0,
+  "pedidos_link": 39,
+  "pedidos_outro": 0,
+  "receberam_link": 79,
+  "abandono_com_link": 33,
+  "abandono_sem_link": 5,
+  "problemas": {
+   "item_preco": 9,
+   "repetiu": 8,
+   "demora": 8,
+   "endereco_taxa": 3,
+   "nao_entendeu": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "endereco_taxa",
+   "user": "A taxa pro meu bairro tá errada",
+   "assistant": "Me manda o bairro e uma referência, por favor 🙏 Confiro a taxa certinha e ajusto antes de enviar o pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Confirmar bairro e referência antes de fechar a taxa; nunca assumir o endereço salvo sem perguntar.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Cardápio por favor. Hoje tem promoção né?",
+  "⚠️ Mídia expirada (Retida por apenas 24h)",
+  "Faz entrega de sushi?",
+  "Boa noite, [nome] sushi",
+  "Quero repetir o pedido",
+  "Sushi por favor",
+  "Sushi??",
+  "Vem maionese verde?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

@@ -1,32 +1,34 @@
 #!/usr/bin/env python3
-"""NFC-e da Tili Pizzaria (loja 150) — lista do dia e emissão sob comando.
+"""NFC-e da Tili Pizzaria (loja 150) e da Tili Sushi (loja 155) — lista do dia e emissão sob comando.
 
 Dois subcomandos:
 
   listar  Lê os pedidos criados no dia, separa em EMITIR / NÃO EMITIR / ATENÇÃO
-          pelas regras combinadas, grava monitor/nfce/AAAA-MM-DD.json e manda a
-          lista pro WhatsApp do Emerson. NÃO emite nada. É o que a Rotina das
-          23:50 roda.
+          pelas regras de cada loja, grava um arquivo por loja
+          (monitor/nfce/AAAA-MM-DD.json = Pizzaria, monitor/nfce/sushi/AAAA-MM-DD.json
+          = Sushi) e manda uma lista por loja pro WhatsApp do Emerson. NÃO emite
+          nada. É o que as Rotinas rodam. --loja escolhe uma só (padrão: as duas).
 
-  emitir  Emite as NFC-e da lista aprovada do dia (--data obrigatório). Só roda
-          quando o Emerson manda "emite" numa sessão. Uma nota por vez, no máximo
-          200. Com --dry-run não faz nenhum POST: só mostra o que faria.
+  emitir  Emite as NFC-e da lista aprovada do dia de UMA loja (--data e --loja
+          obrigatórios). Só roda quando o Emerson manda "emite" numa sessão. Uma
+          nota por vez, no máximo 200. Com --dry-run não faz nenhum POST.
 
-Reaproveita o login (ALIV_USER / ALIV_PASS) e o envio por WhatsApp do monitor.py.
+Logins: Pizzaria com ALIV_USER / ALIV_PASS, Sushi com ALIV_USER_SUSHI / ALIV_PASS_SUSHI
+(mesmo cliente e envio por WhatsApp do monitor.py).
 Nunca grava CNPJ, chave de acesso, token, CSC ou senha em arquivo, log ou commit:
 a conferência de CNPJ (posições 7 a 20 da chave) é feita só em memória, contra
-/admin/api/stores/150/fiscal-profiles e fiscal-config lidos na hora.
+/admin/api/stores/{loja}/fiscal-profiles e fiscal-config lidos na hora.
 
 Uso:
-  python3 monitor/nfce.py listar                         # hoje (antes das 04:00 vale ontem)
-  python3 monitor/nfce.py listar --data 2026-11-06 --dry-run
-  python3 monitor/nfce.py emitir --data 2026-11-06 --dry-run
-  python3 monitor/nfce.py emitir --data 2026-11-06       # emite de verdade
+  python3 monitor/nfce.py listar                         # hoje, as duas lojas (antes das 04:00 vale ontem)
+  python3 monitor/nfce.py listar --data 2026-11-08 --loja sushi --dry-run
+  python3 monitor/nfce.py emitir --data 2026-11-08 --loja sushi --dry-run
+  python3 monitor/nfce.py emitir --data 2026-11-08 --loja pizzaria   # emite de verdade
 
-Códigos de saída:
+Códigos de saída (com as duas lojas, vale o mais grave: 1 > 2 > 3):
   0 ok (ou dry-run)
   1 erro de login/ALIV
-  2 faltam ALIV_USER / ALIV_PASS
+  2 faltam as variáveis de login da loja pedida
   3 tudo feito, mas o WhatsApp não aceitou a mensagem (a Rotina manda por e-mail)
   4 emissão interrompida por LIMIT_REACHED (pacote de notas esgotado)
 """
@@ -50,11 +52,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from monitor import BASE_URL, TZ, Aliv, AlivError, brl, lista_pedidos, num, parse_dt  # noqa: E402
 
 PASTA = Path(__file__).resolve().parent / "nfce"
-LOJA = 150
+PIZZARIA, SUSHI = 150, 155
+LOJAS = {
+    PIZZARIA: {"nome": "Tili Pizzaria", "slug": "pizzaria", "env": ("ALIV_USER", "ALIV_PASS"),
+               "pasta": PASTA, "assunto": "NFC-e Tili", "status": {"CONCLUIDO", "ENTREGUE"}},
+    SUSHI: {"nome": "Tili Sushi", "slug": "sushi", "env": ("ALIV_USER_SUSHI", "ALIV_PASS_SUSHI"),
+            "pasta": PASTA / "sushi", "assunto": "NFC-e Tili Sushi", "status": {"CONCLUIDO"}},
+}
 MAX_POR_EXECUCAO = 200
 VIRADA_H = 4                 # antes das 04:00, "hoje" ainda é o dia anterior
 
-STATUS_OK = {"CONCLUIDO", "ENTREGUE"}
 FISCAL_PENDENTE = {"", "PENDENTE"}
 
 # iFood: merchant → (nome, emite pagamento online iFood?)
@@ -67,7 +74,8 @@ MERCHANTS = {
     IFOOD_PIZZARIA_20: ("iFood Tili Pizzaria 2.0", True),
 }
 ORDEM_LOJAS = ["Loja (app próprio)", "Loja (PDV/balcão)", "iFood Tili Pizzaria",
-               "iFood Tili Burguer", "iFood Tili Pizzaria 2.0"]
+               "iFood Tili Burguer", "iFood Tili Pizzaria 2.0",
+               "Sushi (app próprio)", "Sushi (PDV/balcão)", "iFood Tili Sushi"]
 
 RE_REJ_CPF = re.compile(r"(cpf|cnpj|documento)[^.]{0,40}(destinat[aá]rio|inv[aá]lid)|destinat[aá]rio[^.]{0,30}inv[aá]lid", re.I)
 RE_REJ_TROCO = re.compile(r"aus[eê]ncia de troco", re.I)
@@ -132,20 +140,24 @@ PERMITIDO_LOJA = {"pix", "pix_online", "credito", "debito", "vale"}
 PERMITIDO_MAQUININHA = {"pix", "credito", "debito", "vale"}
 
 
-def loja_do_pedido(det: dict) -> tuple[str, str | None]:
-    """(rótulo da loja, merchant iFood ou None)."""
+def loja_do_pedido(det: dict, loja: int = PIZZARIA) -> tuple[str, str | None]:
+    """(rótulo da origem, merchant iFood ou None)."""
     canal = str(det.get("platform_slug") or "").lower()
     meta = det.get("payment_metadata") if isinstance(det.get("payment_metadata"), dict) else {}
     merchant = meta.get("ifood_merchant_id")
+    if loja == SUSHI:
+        if canal == "ifood" or merchant:
+            return "iFood Tili Sushi", merchant
+        return ("Sushi (app próprio)" if canal == "app" else "Sushi (PDV/balcão)"), None
     if canal == "ifood" or merchant:
         nome = MERCHANTS.get(merchant, (f"iFood ? ({det.get('branch_label') or 'loja desconhecida'})", None))[0]
         return nome, merchant
     return ("Loja (app próprio)" if canal == "app" else "Loja (PDV/balcão)"), None
 
 
-def classificar(det: dict) -> tuple[str, str]:
+def classificar(det: dict, loja_id: int = PIZZARIA) -> tuple[str, str]:
     """('EMITIR' | 'NAO_EMITIR' | 'ATENCAO', regra/motivo)."""
-    loja, merchant = loja_do_pedido(det)
+    loja, merchant = loja_do_pedido(det, loja_id)
     partes = partes_pagamento(det.get("payment_method") or det.get("payment") or "")
     tipos = [tipo_pagamento(n) for n, _ in partes] or ["aberto"]
     if num(det.get("balance_used")) > 0:
@@ -160,9 +172,11 @@ def classificar(det: dict) -> tuple[str, str]:
     if "desconhecido" in tipos:
         return "ATENCAO", "forma de pagamento não reconhecida"
 
-    if merchant is None and loja.startswith("iFood"):
+    if loja_id == SUSHI:                    # Sushi: tudo menos dinheiro, inclusive online e iFood online
+        permitidos = PERMITIDO_LOJA | {"ifood_online"}
+    elif merchant is None and loja.startswith("iFood"):
         return "ATENCAO", "pedido iFood sem merchant conhecido"
-    if merchant is None:
+    elif merchant is None:
         permitidos = PERMITIDO_LOJA
     elif MERCHANTS[merchant][1]:            # Burguer e 2.0: tudo menos dinheiro
         permitidos = PERMITIDO_MAQUININHA | {"ifood_online"}
@@ -181,8 +195,8 @@ def classificar(det: dict) -> tuple[str, str]:
 
 
 # ---------------------------------------------------------------- coleta
-def coletar(api: Aliv, dia: date) -> dict:
-    """Pedidos criados em `dia` na loja 150, com detalhe e classificação."""
+def coletar(api: Aliv, dia: date, loja_id: int = PIZZARIA) -> dict:
+    """Pedidos criados em `dia` na loja `loja_id`, com detalhe e classificação."""
     brutos: dict = {}
     page = 1
     while page < 200:
@@ -205,7 +219,7 @@ def coletar(api: Aliv, dia: date) -> dict:
     pedidos, contagem = [], {"cancelados": 0, "abertos": 0, "ja_emitidos": 0, "outra_loja": 0, "outro_dia": 0}
     for oid, item in brutos.items():
         det = {**item, **(dets[oid] if isinstance(dets[oid], dict) else {})}
-        if item.get("store_id") not in (None, LOJA):
+        if item.get("store_id") not in (None, loja_id):
             contagem["outra_loja"] += 1
             continue
         criado = parse_dt(item.get("created_at") or det.get("created_at_fmt"), dia.year)
@@ -216,18 +230,18 @@ def coletar(api: Aliv, dia: date) -> dict:
         if st.startswith("CANCELADO"):
             contagem["cancelados"] += 1
             continue
-        if st not in STATUS_OK:
+        if st not in LOJAS[loja_id]["status"]:
             contagem["abertos"] += 1
             continue
         fiscal = str(det.get("fiscal_status") or "").strip().upper()
         if fiscal == "AUTORIZADO":
             contagem["ja_emitidos"] += 1
             continue
-        loja, merchant = loja_do_pedido(det)
+        loja, merchant = loja_do_pedido(det, loja_id)
         if fiscal not in FISCAL_PENDENTE:
             grupo, regra = "ATENCAO", f"fiscal_status {fiscal}"
         else:
-            grupo, regra = classificar(det)
+            grupo, regra = classificar(det, loja_id)
         pedidos.append({
             "id": oid,
             "codigo": det.get("wabiz_id") or str(oid),
@@ -248,13 +262,13 @@ def _soma(ps) -> float:
     return round(sum(p["valor"] for p in ps), 2)
 
 
-def texto_lista(dia: date, col: dict) -> tuple[str, str]:
+def texto_lista(dia: date, col: dict, loja_id: int = PIZZARIA) -> tuple[str, str]:
     """(assunto, corpo)."""
     ps = col["pedidos"]
     emitir = [p for p in ps if p["grupo"] == "EMITIR"]
     nao = [p for p in ps if p["grupo"] == "NAO_EMITIR"]
     aten = [p for p in ps if p["grupo"] == "ATENCAO"]
-    assunto = f"NFC-e Tili — {dm(dia)} — {len(emitir)} a emitir / {brl(_soma(emitir))}"
+    assunto = f"{LOJAS[loja_id]['assunto']} — {dm(dia)} — {len(emitir)} a emitir / {brl(_soma(emitir))}"
     L = [f"*{assunto}*", "", f"*EMITIR — {len(emitir)} / {brl(_soma(emitir))}*"]
     lojas = sorted({p["loja"] for p in emitir}, key=lambda x: (ORDEM_LOJAS.index(x) if x in ORDEM_LOJAS else 99, x))
     for loja in lojas:
@@ -275,7 +289,8 @@ def texto_lista(dia: date, col: dict) -> tuple[str, str]:
         L.append("• nada")
     c = col["contagem"]
     L += ["", f"Fora da lista: {c['cancelados']} cancelados, {c['abertos']} ainda abertos, "
-              f"{c['ja_emitidos']} já com nota.", "", "Responda *emite* para emitir."]
+              f"{c['ja_emitidos']} já com nota.", "",
+          f"Responda *emite {LOJAS[loja_id]['slug']}* para emitir (ou *emite* para as duas lojas)."]
     return assunto, "\n".join(L)
 
 
@@ -288,20 +303,20 @@ def detalhe_texto(col: dict) -> str:
 
 
 # ---------------------------------------------------------------- arquivo do dia
-def arquivo(dia: date) -> Path:
-    return PASTA / f"{dia}.json"
+def arquivo(dia: date, loja_id: int = PIZZARIA) -> Path:
+    return LOJAS[loja_id]["pasta"] / f"{dia}.json"
 
 
-def ler_arquivo(dia: date) -> dict:
+def ler_arquivo(dia: date, loja_id: int = PIZZARIA) -> dict:
     try:
-        return json.loads(arquivo(dia).read_text(encoding="utf-8"))
+        return json.loads(arquivo(dia, loja_id).read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {}
 
 
-def gravar_arquivo(dia: date, dados: dict) -> Path:
-    PASTA.mkdir(parents=True, exist_ok=True)
-    caminho = arquivo(dia)
+def gravar_arquivo(dia: date, dados: dict, loja_id: int = PIZZARIA) -> Path:
+    caminho = arquivo(dia, loja_id)
+    caminho.parent.mkdir(parents=True, exist_ok=True)
     caminho.write_text(json.dumps(dados, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     return caminho
 
@@ -323,9 +338,9 @@ def enviar(api: Aliv, texto: str) -> str | None:
 class Fiscal:
     """Perfis fiscais lidos ao vivo. CNPJs ficam só em memória, nunca saem."""
 
-    def __init__(self, api: Aliv):
-        fc = api.get(f"/admin/api/stores/{LOJA}/fiscal-config") or {}
-        fp = api.get(f"/admin/api/stores/{LOJA}/fiscal-profiles") or {}
+    def __init__(self, api: Aliv, loja_id: int = PIZZARIA):
+        fc = api.get(f"/admin/api/stores/{loja_id}/fiscal-config") or {}
+        fp = api.get(f"/admin/api/stores/{loja_id}/fiscal-profiles") or {}
         campos = fc.get("fields") or {}
         self.ativo = bool(campos.get("fiscal_active"))
         self._principal = dig(campos.get("cnpj"))
@@ -439,13 +454,13 @@ def emitir_um(api: Aliv, p: dict) -> dict:
     return {**res, "resultado": "REJEITADA", "motivo": res.get("motivo_cpf", "rejeitada")}
 
 
-def texto_emissao(dia: date, resumo: dict, dry: bool) -> str:
+def texto_emissao(dia: date, resumo: dict, dry: bool, loja_id: int = PIZZARIA) -> str:
     rs = resumo["resultados"]
     aut = [r for r in rs if r["resultado"] == "AUTORIZADA"]
     rej = [r for r in rs if r["resultado"] == "REJEITADA"]
     aten = [r for r in rs if r["resultado"] == "ATENCAO"]
     titulo = "SIMULAÇÃO (dry-run) — " if dry else ""
-    L = [f"*{titulo}NFC-e Tili — {dm(dia)} — resultado*", ""]
+    L = [f"*{titulo}{LOJAS[loja_id]['assunto']} — {dm(dia)} — resultado*", ""]
     if dry:
         L.append(f"Seriam emitidas {len(rs)} notas / {brl(_soma(rs))} (nenhum POST feito).")
         for perfil in sorted({r['perfil_esperado'] for r in rs}):
@@ -480,36 +495,67 @@ def texto_emissao(dia: date, resumo: dict, dry: bool) -> str:
 
 
 # ---------------------------------------------------------------- comandos
-def cmd_listar(api: Aliv, dia: date, dry: bool) -> int:
-    col = coletar(api, dia)
-    assunto, corpo = texto_lista(dia, col)
+def login_loja(loja_id: int, raw: str | None) -> Aliv | None:
+    """Aliv logado na loja, ou None se faltam as variáveis (avisa no stderr)."""
+    var_u, var_p = LOJAS[loja_id]["env"]
+    user, pwd = os.environ.get(var_u), os.environ.get(var_p)
+    if not user or not pwd:
+        print(f"ERRO: defina {var_u} e {var_p} nas variáveis de ambiente ({LOJAS[loja_id]['nome']}).",
+              file=sys.stderr)
+        return None
+    api = Aliv(user, pwd, raw_dir=Path(raw) / LOJAS[loja_id]["slug"] if raw else None)
+    api.login()
+    return api
+
+
+def listar_loja(api: Aliv, loja_id: int, dia: date, dry: bool) -> int:
+    col = coletar(api, dia, loja_id)
+    assunto, corpo = texto_lista(dia, col, loja_id)
     print(assunto + "\n")
     print(corpo)
     print("\nDETALHE\n" + detalhe_texto(col))
     if dry:
-        print("\nDRY-RUN: nada gravado nem enviado.", file=sys.stderr)
+        print(f"\nDRY-RUN ({LOJAS[loja_id]['nome']}): nada gravado nem enviado.", file=sys.stderr)
         return 0
-    dados = ler_arquivo(dia)
-    dados.update({"data": dia.isoformat(), "loja": LOJA,
+    dados = ler_arquivo(dia, loja_id)
+    dados.update({"data": dia.isoformat(), "loja": loja_id,
                   "lista": {"gerada_em": datetime.now(TZ).isoformat(timespec="seconds"), **col}})
-    caminho = gravar_arquivo(dia, dados)
+    caminho = gravar_arquivo(dia, dados, loja_id)
     print(f"\nArquivo: {caminho.relative_to(PASTA.parent.parent)}")
     falha = enviar(api, corpo)
     if falha:
-        print(f"WHATSAPP: não enviado — {falha}", file=sys.stderr)
+        print(f"WHATSAPP ({LOJAS[loja_id]['nome']}): não enviado — {falha}", file=sys.stderr)
         return 3
-    print("WHATSAPP: lista enviada.", file=sys.stderr)
+    print(f"WHATSAPP ({LOJAS[loja_id]['nome']}): lista enviada.", file=sys.stderr)
     return 0
 
 
-def cmd_emitir(api: Aliv, dia: date, dry: bool, limite: int) -> int:
-    dados = ler_arquivo(dia)
+def cmd_listar(lojas: list[int], dia: date, dry: bool, raw: str | None) -> int:
+    """Uma lista por loja. Erro numa loja não impede a outra."""
+    codigos = []
+    for n, loja_id in enumerate(lojas):
+        if n:
+            print("\n" + "=" * 60 + "\n")
+        try:
+            api = login_loja(loja_id, raw)
+            codigos.append(2 if api is None else listar_loja(api, loja_id, dia, dry))
+        except (AlivError, OSError) as e:
+            print(f"{LOJAS[loja_id]['assunto']} — {dm(dia)} — ERRO no ALIV\n\n{e}")
+            codigos.append(1)
+    for c in (1, 2, 3):
+        if c in codigos:
+            return c
+    return 0
+
+
+def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int) -> int:
+    dados = ler_arquivo(dia, loja_id)
     aprovada = dados.get("lista")
     avisos = []
-    col = coletar(api, dia)                       # estado ao vivo
+    col = coletar(api, dia, loja_id)              # estado ao vivo
     vivos = {p["id"]: p for p in col["pedidos"]}
     if not aprovada:
-        avisos.append(f"Sem lista salva de {dm(dia)}: usei a lista gerada agora.")
+        avisos.append(f"Sem lista salva de {dm(dia)} ({LOJAS[loja_id]['nome']}): usei a lista gerada agora.")
         ids_aprovados = [p["id"] for p in col["pedidos"] if p["grupo"] == "EMITIR"]
     else:
         ids_aprovados = [p["id"] for p in aprovada.get("pedidos", []) if p["grupo"] == "EMITIR"]
@@ -533,9 +579,9 @@ def cmd_emitir(api: Aliv, dia: date, dry: bool, limite: int) -> int:
         avisos.append(f"Fila com {len(fila)} notas: só as primeiras {limite} entram nesta execução. Rode de novo para o resto.")
         fila = fila[:limite]
 
-    fiscal = Fiscal(api)
+    fiscal = Fiscal(api, loja_id)
     if not fiscal.ativo:
-        avisos.append("fiscal_active = false no fiscal-config da loja 150.")
+        avisos.append(f"fiscal_active = false no fiscal-config da loja {loja_id}.")
 
     resultados, interrompido = [], False
     for i, p in enumerate(fila, 1):
@@ -564,14 +610,15 @@ def cmd_emitir(api: Aliv, dia: date, dry: bool, limite: int) -> int:
 
     resumo = {"executada_em": datetime.now(TZ).isoformat(timespec="seconds"), "dry_run": dry,
               "resultados": resultados, "avisos": avisos}
-    texto = texto_emissao(dia, resumo, dry)
+    texto = texto_emissao(dia, resumo, dry, loja_id)
     print(texto)
     if dry:
         print("\nDRY-RUN: nenhum POST, nada gravado nem enviado.", file=sys.stderr)
         return 0
     dados.setdefault("data", dia.isoformat())
+    dados.setdefault("loja", loja_id)
     dados.setdefault("emissoes", []).append(resumo)
-    caminho = gravar_arquivo(dia, dados)
+    caminho = gravar_arquivo(dia, dados, loja_id)
     print(f"\nArquivo: {caminho.relative_to(PASTA.parent.parent)}")
     falha = enviar(api, texto)
     if falha:
@@ -581,33 +628,40 @@ def cmd_emitir(api: Aliv, dia: date, dry: bool, limite: int) -> int:
     return 3 if falha else 0
 
 
+def loja_arg(v: str) -> int:
+    v = v.strip().lower()
+    for lid, cfg in LOJAS.items():
+        if v in (str(lid), cfg["slug"]):
+            return lid
+    raise argparse.ArgumentTypeError("use pizzaria (150) ou sushi (155)")
+
+
 def main() -> int:
-    ap = argparse.ArgumentParser(description="NFC-e da Tili Pizzaria (loja 150): listar e emitir")
+    ap = argparse.ArgumentParser(description="NFC-e da Tili Pizzaria (150) e Tili Sushi (155): listar e emitir")
     sub = ap.add_subparsers(dest="cmd", required=True)
-    pl = sub.add_parser("listar", help="lista do dia (não emite)")
+    pl = sub.add_parser("listar", help="lista do dia por loja (não emite)")
     pl.add_argument("--data", help="AAAA-MM-DD (padrão: hoje; antes das 04:00, ontem)")
-    pl.add_argument("--dry-run", action="store_true", help="não envia WhatsApp")
-    pe = sub.add_parser("emitir", help="emite a lista aprovada do dia")
+    pl.add_argument("--loja", type=loja_arg, help="pizzaria/150 ou sushi/155 (padrão: as duas)")
+    pl.add_argument("--dry-run", action="store_true", help="não grava nem envia WhatsApp")
+    pe = sub.add_parser("emitir", help="emite a lista aprovada do dia de uma loja")
     pe.add_argument("--data", required=True, help="AAAA-MM-DD da lista aprovada")
+    pe.add_argument("--loja", type=loja_arg, required=True, help="pizzaria/150 ou sushi/155")
     pe.add_argument("--dry-run", action="store_true", help="não faz POST, só mostra")
     pe.add_argument("--limite", type=int, default=MAX_POR_EXECUCAO, help="máximo de notas (até 200)")
     for p in (pl, pe):
         p.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (não commitar)")
     args = ap.parse_args()
 
-    user, pwd = os.environ.get("ALIV_USER"), os.environ.get("ALIV_PASS")
-    if not user or not pwd:
-        print("ERRO: defina ALIV_USER e ALIV_PASS nas variáveis de ambiente.", file=sys.stderr)
-        return 2
     dia = date.fromisoformat(args.data) if args.data else hoje_operacional(datetime.now(TZ))
-    api = Aliv(user, pwd, raw_dir=Path(args.raw) if args.raw else None)
+    if args.cmd == "listar":
+        return cmd_listar([args.loja] if args.loja else list(LOJAS), dia, args.dry_run, args.raw)
     try:
-        api.login()
-        if args.cmd == "listar":
-            return cmd_listar(api, dia, args.dry_run)
-        return cmd_emitir(api, dia, args.dry_run, max(1, min(args.limite, MAX_POR_EXECUCAO)))
+        api = login_loja(args.loja, args.raw)
+        if api is None:
+            return 2
+        return cmd_emitir(api, args.loja, dia, args.dry_run, max(1, min(args.limite, MAX_POR_EXECUCAO)))
     except (AlivError, OSError) as e:
-        print(f"NFC-e Tili — {dm(dia)} — ERRO no ALIV\n\n{e}")
+        print(f"{LOJAS[args.loja]['assunto']} — {dm(dia)} — ERRO no ALIV\n\n{e}")
         return 1
 
 

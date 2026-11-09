@@ -1,0 +1,148 @@
+{
+ "v": 1,
+ "dia": "2026-09-30",
+ "lojas": {
+  "piz": {
+   "pedidos": 199,
+   "cancelados": 1,
+   "vendas": 12821.91,
+   "receita": 13123.36,
+   "desc_loja": 829.7,
+   "desc_plataforma": 449.33,
+   "desc_manual": 59.99,
+   "comissao_ifood": 833.51,
+   "desc_loja_ifood": 769.71,
+   "receita_ifood": 6511.82,
+   "proprios": 6611.54,
+   "entregas_delivery": 151,
+   "canais": {
+    "iFood": [
+     102,
+     6210.37,
+     0
+    ],
+    "Salão": [
+     43,
+     2197.13,
+     0
+    ],
+    "PDV delivery": [
+     24,
+     2053.65,
+     0
+    ],
+    "App": [
+     30,
+     2360.76,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     62,
+     4207.81
+    ],
+    "Burguer": [
+     27,
+     1040.71
+    ],
+    "Pizzaria 2.0": [
+     13,
+     961.85
+    ]
+   },
+   "motoboys": {
+    "Nivaldo Lima Brandao Junior": 15,
+    "Claudio Da Costa Nolasso": 14,
+    "Ian Mendes dos Santos": 14,
+    "Carlos Silva Dos Santos Junior": 17,
+    "Andre Vitor Silva dos Reis": 16,
+    "Alexsandro Santana de Ecio": 16,
+    "Breno Jesus de Souza": 14,
+    "Gustavo Cardoso Carvalho": 14,
+    "Pablo Deivid D": 17,
+    "Kalyson de Oliveira Santos": 13
+   },
+   "tempos": {
+    "prod": [
+     18.0,
+     132
+    ],
+    "rua": [
+     14.0,
+     150
+    ],
+    "vida": [
+     36.0,
+     132
+    ]
+   },
+   "atrasos": 28
+  },
+  "sushi": {
+   "pedidos": 307,
+   "cancelados": 3,
+   "vendas": 14877.1,
+   "receita": 14864.79,
+   "desc_loja": 30.0,
+   "desc_plataforma": 0.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 52.6,
+   "desc_loja_ifood": 30.0,
+   "receita_ifood": 410.92,
+   "proprios": 14453.87,
+   "entregas_delivery": 19,
+   "pecas": 5770,
+   "temakis": 20,
+   "canais": {
+    "Salão": [
+     287,
+     13080.01,
+     5510
+    ],
+    "App": [
+     15,
+     1373.86,
+     170
+    ],
+    "iFood": [
+     5,
+     423.23,
+     90
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     5,
+     423.23
+    ]
+   },
+   "motoboys": {
+    "Nivaldo Lima Brandao Junior": 2,
+    "Alexsandro Santana de Ecio": 2,
+    "Gustavo Cardoso Carvalho": 1,
+    "Claudio Da Costa Nolasso": 1,
+    "Andre Vitor Silva dos Reis": 3,
+    "Pablo Deivid D": 2,
+    "Carlos Silva Dos Santos Junior": 2,
+    "Kalyson de Oliveira Santos": 2,
+    "Breno Jesus de Souza": 4
+   },
+   "tempos": {
+    "prod": [
+     31.0,
+     13
+    ],
+    "rua": [
+     18.0,
+     18
+    ],
+    "vida": [
+     51.0,
+     13
+    ]
+   },
+   "atrasos": 11
+  }
+ }
+}

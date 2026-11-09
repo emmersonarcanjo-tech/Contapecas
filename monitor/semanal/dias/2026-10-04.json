@@ -1,0 +1,162 @@
+{
+ "v": 1,
+ "dia": "2026-10-04",
+ "lojas": {
+  "piz": {
+   "pedidos": 410,
+   "cancelados": 12,
+   "vendas": 33163.94,
+   "receita": 33748.97,
+   "desc_loja": 1453.22,
+   "desc_plataforma": 902.4,
+   "desc_manual": 21.99,
+   "comissao_ifood": 1929.12,
+   "desc_loja_ifood": 1431.23,
+   "receita_ifood": 15023.24,
+   "proprios": 18725.73,
+   "entregas_delivery": 358,
+   "canais": {
+    "App": [
+     159,
+     16058.5,
+     0
+    ],
+    "Salão": [
+     39,
+     2055.74,
+     0
+    ],
+    "iFood": [
+     206,
+     14438.21,
+     0
+    ],
+    "PDV delivery": [
+     6,
+     611.49,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     37,
+     1630.73
+    ],
+    "Pizzaria 2.0": [
+     27,
+     2162.16
+    ],
+    "Pizzaria": [
+     142,
+     10645.32
+    ]
+   },
+   "motoboys": {
+    "Gabriel Amorin D": 14,
+    "Carlos Silva Dos Santos Junior": 22,
+    "Gustavo Cardoso Carvalho": 17,
+    "Mesaque D": 23,
+    "Lohran Alcântara Rodrigues": 18,
+    "Guilherme Silva Nascimento": 33,
+    "Emanuel dos Santos Guedes": 21,
+    "Andre Vitor Silva dos Reis": 13,
+    "Claudio Da Costa Nolasso": 20,
+    "Breno Jesus de Souza": 26,
+    "Rodrigo Santana Massaranduba Filho": 20,
+    "Kalyson de Oliveira Santos": 20,
+    "Pedro Vinicius Nascimento de Jesus": 16,
+    "Claudio Oliveira D": 15,
+    "AdrianoSantos de Assis Junior": 20,
+    "Matheus Emilio Ferreira": 29,
+    "Josue Manoel dos Santos": 17,
+    "Beatriz Ribeiro Serafim Gonçalves D": 13
+   },
+   "tempos": {
+    "prod": [
+     37.0,
+     326
+    ],
+    "rua": [
+     15.0,
+     357
+    ],
+    "vida": [
+     62.0,
+     326
+    ]
+   },
+   "atrasos": 274
+  },
+  "sushi": {
+   "pedidos": 117,
+   "cancelados": 2,
+   "vendas": 6857.25,
+   "receita": 6946.41,
+   "desc_loja": 119.93,
+   "desc_plataforma": 108.65,
+   "desc_manual": 0.0,
+   "comissao_ifood": 145.55,
+   "desc_loja_ifood": 119.93,
+   "receita_ifood": 1137.09,
+   "proprios": 5809.32,
+   "entregas_delivery": 26,
+   "pecas": 1792,
+   "temakis": 9,
+   "canais": {
+    "Salão": [
+     90,
+     4713.44,
+     1316
+    ],
+    "iFood": [
+     15,
+     1047.93,
+     222
+    ],
+    "App": [
+     12,
+     1095.88,
+     254
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     15,
+     1047.93
+    ]
+   },
+   "motoboys": {
+    "Beatriz Ribeiro Serafim Gonçalves D": 2,
+    "Claudio Da Costa Nolasso": 3,
+    "Mesaque D": 2,
+    "AdrianoSantos de Assis Junior": 2,
+    "Pedro Vinicius Nascimento de Jesus": 1,
+    "Josue Manoel dos Santos": 1,
+    "Matheus Emilio Ferreira": 1,
+    "Andre Vitor Silva dos Reis": 1,
+    "Rodrigo Santana Massaranduba Filho": 1,
+    "Breno Jesus de Souza": 1,
+    "Carlos Silva Dos Santos Junior": 4,
+    "Gabriel Amorin D": 2,
+    "Guilherme Silva Nascimento": 1,
+    "Gustavo Cardoso Carvalho": 2,
+    "Kalyson de Oliveira Santos": 2
+   },
+   "tempos": {
+    "prod": [
+     25.0,
+     12
+    ],
+    "rua": [
+     16.0,
+     26
+    ],
+    "vida": [
+     55.0,
+     12
+    ]
+   },
+   "atrasos": 10
+  }
+ }
+}

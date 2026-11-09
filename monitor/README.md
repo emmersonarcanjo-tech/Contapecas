@@ -385,3 +385,60 @@ Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1`
 - Capacidade = melhor ritmo de um dia que não estourou. Recomendação = pico previsto ÷ capacidade. Se um dia com pico parecido (±10%) estourou com ritmo acima da capacidade, recomenda pelo menos 1 motoboy a mais que ele teve. Dia que estourou com ritmo baixo = gargalo na cozinha/expedição, não conta.
 - Ajustes: feriado nacional/Bahia ou data forte (Mães, Pais, Namorados) +20% · véspera (inclui 24 e 31/12) +15% · promoção +10%. Os dias da base que eram feriado/véspera/promoção são descontados antes da média.
 - Promoções e feriados municipais: `monitor/assets/promocoes.json` (`dias_semana`, `datas`, `feriados_extra`). Hoje está vazio — é só pedir ao Claude para incluir.
+
+# Auditoria do atendimento da IA no WhatsApp (`atendimento_ia.py`)
+
+Todo dia às 03:30 (Bahia) audita as conversas do WhatsApp da **Tili Pizzaria (loja 150)** e da **Tili Sushi & Poke (loja 155)** no turno que fechou: **16:00 de D até 01:00 de D+1**. Só lê o ALIV. Nunca responde cliente, não marca conversa como atendida e não liga/desliga a IA. Reaproveita o login e o envio por WhatsApp do `monitor.py` e a leitura do chat do `despesas.py`.
+
+```bash
+python3 monitor/atendimento_ia.py --data 2026-11-07 --sem-gravar   # teste: mostra, não grava, não envia
+python3 monitor/atendimento_ia.py --whatsapp                        # rodada normal: turno de ontem
+```
+
+- `--loja pizzaria|sushi|todas` (padrão: todas). Cada loja usa o seu login (`ALIV_USER`/`ALIV_PASS` e `ALIV_USER_SUSHI`/`ALIV_PASS_SUSHI`). O WhatsApp sai sempre pelo número da Pizzaria.
+- `--painel ARQ.png`: salva os painéis (iPad e iPhone 1/2, por loja) sem enviar. Com `--whatsapp` manda os painéis e depois o texto com os pares.
+- Grava `monitor/atendimento/AAAA-MM-DD.md` (Pizzaria) e `AAAA-MM-DD_sushi.md` (Sushi), cada um com o seu `.json` (só números e pares, usado na comparação de 7 dias). **Nenhum nome, telefone ou endereço** de cliente: os trechos passam pela função `anonimiza`.
+- `--whatsapp`: manda o resumo curto com os pares propostos só para `WHATSAPP_EMERSON`.
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` relatório gravado, WhatsApp não enviado.
+
+## Como acha as conversas
+
+O `chat/contacts` do ALIV só devolve as ~50 conversas mais recentes e não pagina. Por isso o script junta:
+1. `GET /admin/api/chat/contacts` (com `include_transactional` e `so_pedido_ia`) e `GET /admin/api/chat/pending-attention`;
+2. `GET /admin/api/chat/search?q=5573…`: busca por prefixo do telefone, descendo um dígito quando a busca volta cheia (a busca do ALIV corta em ~20). Fica só quem falou de D em diante. Até 2.000 buscas, 6 em paralelo;
+3. telefones dos pedidos do turno (`orders/audit` + detalhe).
+
+Depois lê `GET /admin/api/chat/messages/{phone}?limit=500` de cada um. Conversa = telefone com mensagem do cliente na janela. Números internos (`numeros_internos` da config da IA, `DESPESAS_REMETENTES`, `WHATSAPP_EMERSON`, `WHATSAPP_ADMIN`) ficam de fora.
+
+## Regras
+
+- **Virou pedido:** há pedido do mesmo telefone (últimos 8 dígitos) no turno. "Pela IA" quando a nota tem *Pedido montado pela IA*. iFood fica de fora. Pedido da IA cancelado conta como "cancelado depois de montado". Sem pedido = **abandonada**.
+- **Pediu pelo link:** a IA manda o link do cardápio (`alivhub.com.br/app/tilipizzaria`) na saudação. Pedido do App do mesmo telefone **sem** a nota da IA = "pediu pelo link" e conta como convertido, não como abandono. O abandono é separado em "recebeu o link e não pediu" e "sem link". Se o cliente pedir pelo link com outro telefone, o script não consegue ligar os dois.
+- **Tempo de resposta:** da 1ª mensagem de cada bloco do cliente até a próxima mensagem da loja (minutos, o ALIV só dá HH:MM). Acima de 5 min = demora.
+- **Problemas** (por palavras-chave, conta 1 por conversa): não entendeu · item ou preço errado (inclui "não encontrei no cardápio") · endereço/taxa · demora · pergunta repetida pela IA (frases com "?" 80% iguais) · reclamou/pediu humano · não soube responder (horário, promoção, pagamento, tempo de entrega: sem resposta em 10 min ou "não sei/vou verificar") · cancelado depois de montado.
+- **Pares sugeridos:** modelo por tema, no tom das respostas que já estão no campo. Antes de propor, compara com os exemplos atuais; se já há um parecido, o par sai marcado "já existe parecido" e não vai no WhatsApp. Trechos entre colchetes (ex.: promoção do dia) precisam ser completados antes de aprovar.
+- Comparação: média dos 7 dias anteriores a partir dos `.json` gravados.
+
+## Campo de treinamento da IA (investigado em 08/11/2026, só leitura)
+
+Mesma tela e mesmos endpoints nas duas lojas (Sushi: `/admin/api/stores/155/ai-config`). Tela: **Configurações da loja → IA → "Ensine o jeito da sua loja (opcional)"**. Campos "Cliente pergunta" e "Resposta ideal (seu tom)". **Limite: 5 exemplos** (em 08/11: Pizzaria 5 de 5, Sushi 3 de 5).
+
+| Ação | Endpoint | Observação |
+|---|---|---|
+| Listar | `GET /admin/api/stores/150/ai-config` | `few_shot_examples: [{user, assistant}]`, junto com o resto da config da IA |
+| Gravar | `POST /admin/api/openai/sync` (multipart) | **Não existe endpoint só para os exemplos.** O POST regrava a config inteira da IA (chave, ligada/desligada, perfil, upsell, horários, números internos, tamanhos e sabores padrão) e **ressincroniza o cardápio**, igual ao botão Salvar da tela. `few_shot_examples` vai como JSON |
+
+### Comando `aprovar` (só com ordem do Emerson na sessão)
+
+```bash
+python3 monitor/atendimento_ia.py aprovar --loja pizzaria --data 2026-11-07 --par 1 --no-lugar-de 3   # mostra o antes/depois
+python3 monitor/atendimento_ia.py aprovar --data 2026-11-07 --par 1 --no-lugar-de 3 --confirmo # grava
+```
+- Sem `--confirmo` não grava nada.
+- Lê a config atual e reenvia **todos os campos exatamente como estão**, trocando só os exemplos. Depois relê e confere que os exemplos entraram e que nenhum outro campo mudou.
+- Recusa se já existir exemplo parecido (75%) ou se a resposta ainda tiver `[colchetes]`. `--pergunta` / `--resposta` trocam o texto antes de gravar.
+- Como o campo está cheio, `--no-lugar-de N` diz qual exemplo atual sai.
+
+## Rotina das 03:30
+
+Cron `CRON_TZ=America/Bahia 30 3 * * *`, sessão nova a cada disparo, ambiente Contapecas. Roda `--whatsapp` e faz commit de `monitor/atendimento/`.

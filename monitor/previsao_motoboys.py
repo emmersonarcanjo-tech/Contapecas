@@ -16,7 +16,8 @@ dia do mês passado), janela 16:00–00:00 de cada dia:
     hora no pico = entregas da hora ÷ motoboys em turno nessa hora.
   • Dia "estourado" = mais de 10% das entregas acima de 45 min ou vida média > 45.
   • Capacidade segura = o melhor ritmo (entregas/motoboy/hora no pico) de um dia
-    que NÃO estourou. Recomendação = pico previsto ÷ capacidade, arredondado em
+    que NÃO estourou e teve movimento parecido (pico ≥75% do previsto); sem dia assim,
+    6,0 entregas/motoboy/h (o que funcionou em 08/10/2026). Nunca abaixo de 4,0. Recomendação = pico previsto ÷ capacidade, arredondado em
     faixa; nunca abaixo do nº de motoboys de um dia que estourou com movimento parecido.
   • Limite de entregas por saída (MAX_POR_SAIDA, hoje desligado): ritmo máximo = N × 60 ÷ (2 × rua média + 5 min);
     vale o menor entre esse e o ritmo dos dias sem atraso.
@@ -70,7 +71,11 @@ LIMITE_VIDA_MEDIA = 45               # ...ou vida média acima de 45 min
 PESOS = [0.35, 0.25, 0.15, 0.10]     # semanas -1, -2, -3, -4
 PESO_MES = 0.15                      # mesmo dia do mês passado
 AJ_FERIADO, AJ_VESPERA, AJ_PROMO = 1.20, 1.15, 1.10
-CAPACIDADE_PADRAO = 4.0              # entregas/motoboy/hora, se nenhum dia servir de base
+CAPACIDADE_PADRAO = 6.0              # entregas/motoboy/hora sem atraso quando nenhum dia serve de base
+                                     # (08/10/2026: 6,1 no pico, saindo com 3–4 entregas, vida 30 min)
+CAPACIDADE_MIN = 4.0                 # nunca supor menos que isso (evita chamar motoboy demais)
+MOVIMENTO_MIN = 0.75                 # dia "no tempo" só mede o ritmo se o pico dele for ≥75% do previsto:
+                                     # dia fraco não mostra quanto o motoboy aguenta (09/11/2026)
 MAX_POR_SAIDA = None                 # limite de entregas por saída (ex.: 2). Desligado: Emerson (08/11/2026)
                                      # preferiu o ritmo real do ALIV e acompanhar 30 dias antes de limitar.
 ESPERA_LOJA = 5                      # min na loja entre uma saída e outra (pegar o pedido)
@@ -482,15 +487,10 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
     horas_prev = {h: sum(p * x.total_h[h] / x.fator for p, x in usados) / tot * fator
                   for h in range(HORA_INI, HORA_FIM)}
 
-    bons = [x for _, x in base if not x.estourou and x.eph > 0]
+    bons = [x for _, x in base if not x.estourou and x.eph > 0 and x.entregas_pico >= pico_prev * MOVIMENTO_MIN]
     ruins = [x for _, x in base if x.estourou and x.eph > 0]
-    if bons:
-        cap = max(x.eph for x in bons)
-    elif ruins:
-        cap = min(x.eph for x in ruins) * 0.85     # todos estouraram: ritmo 15% menor
-    else:
-        cap = CAPACIDADE_PADRAO
-    cap_hist = max(cap, 1.0)
+    cap = max(x.eph for x in bons) if bons else CAPACIDADE_PADRAO
+    cap_hist = max(cap, CAPACIDADE_MIN)
     # Regra das 2 entregas por saída: ciclo = ida e volta (2 × tempo médio de rua) + espera na loja.
     ruas = [(pesos[k], x.rua) for k, x in base if x.rua > 0]
     rua = sum(p * r for p, r in ruas) / sum(p for p, _ in ruas) if ruas else RUA_PADRAO
@@ -547,7 +547,8 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
         porque2 = (f"Sem atraso, cada motoboy faz até {f1(rec['cap'])} entregas/h no pico "
                    f"(como em {b.dia:%d/%m}, com {b.motos_pico} em turno).")
     else:
-        porque2 = f"Nenhum dia sem atraso na base: usei ritmo de {f1(rec['cap'])} entregas/motoboy/h para folgar."
+        porque2 = (f"Nenhum dia sem atraso com movimento parecido: usei {f1(rec['cap'])} entregas/motoboy/h, "
+                   f"o ritmo que funcionou sem atraso.")
     c = rec.get("chuva")
     L += [porque1, porque2]
     if c:

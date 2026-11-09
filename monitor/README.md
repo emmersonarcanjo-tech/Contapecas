@@ -398,7 +398,7 @@ Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1`
 - Pico = hora com mais entregas. Ritmo = entregas do pico ÷ motoboys no pico.
 - Dia **estourado** = mais de 10% das entregas acima de 45 min, ou vida média acima de 45.
 - **Limite de entregas por saída** (`MAX_POR_SAIDA`): **desligado**. Em 08/11/2026 o Emerson decidiu manter o ritmo real do ALIV, que hoje fica em 3 a 4 entregas por saída, e acompanhar 30 dias. Se for ligado, por exemplo com 2, o ritmo máximo passa a ser 2 × 60 ÷ (2 × rua média + 5 min).
-- Capacidade = melhor ritmo de um dia que não estourou. Recomendação = pico previsto ÷ capacidade. Se um dia com pico parecido (±10%) estourou com ritmo acima da capacidade, recomenda pelo menos 1 motoboy a mais que ele teve. Dia que estourou com ritmo baixo = gargalo na cozinha/expedição, não conta.
+- Capacidade = melhor ritmo de um dia que não estourou **e teve movimento parecido** (pico ≥75% do previsto). Sem dia assim, usa 6,0 entregas/motoboy/h, o ritmo que funcionou em 08/10. Nunca abaixo de 4,0. Ajustado em 09/11: uma segunda fraca (19/10) tinha puxado o ritmo para 2,6 e a recomendação para 18–19. Recomendação = pico previsto ÷ capacidade. Se um dia com pico parecido (±10%) estourou com ritmo acima da capacidade, recomenda pelo menos 1 motoboy a mais que ele teve. Dia que estourou com ritmo baixo = gargalo na cozinha/expedição, não conta.
 - Ajustes: feriado nacional/Bahia ou data forte (Mães, Pais, Namorados) +20% · véspera (inclui 24 e 31/12) +15% · promoção +10%. Os dias da base que eram feriado/véspera/promoção são descontados antes da média.
 - Promoções e feriados municipais: `monitor/assets/promocoes.json` (`dias_semana`, `datas`, `feriados_extra`). Hoje está vazio — é só pedir ao Claude para incluir.
 

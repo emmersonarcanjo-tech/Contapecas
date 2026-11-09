@@ -457,6 +457,39 @@ python3 monitor/atendimento_ia.py aprovar --data 2026-11-07 --par 1 --no-lugar-d
 
 Cron `CRON_TZ=America/Bahia 30 3 * * *`, sessão nova a cada disparo, ambiente Contapecas. Roda `--whatsapp` e faz commit de `monitor/atendimento/`.
 
+# Fechamento semanal (`fechamento_semanal.py`)
+
+Toda **segunda às 09:00** (America/Bahia) fecha a semana que terminou, **segunda a domingo**, com **dia operacional das 16:00 às 04:00** (o turno do monitor). Só lê o ALIV. Reaproveita do `monitor.py` o login das duas lojas, a coleta de pedidos, os cálculos (vendas, ticket, cancelamento, descontos, custo iFood, peças do Sushi, lucro) e o envio por WhatsApp; do `previsao_motoboys.py`, a contagem de entregas acima de 45 min e os feriados; do `painel.py`, o estilo e o Chromium.
+
+## Como rodar
+
+```bash
+python3 monitor/fechamento_semanal.py                        # semana passada, imprime e NÃO envia
+python3 monitor/fechamento_semanal.py --semana 2026-11-02    # semana (seg–dom) que contém o dia
+python3 monitor/fechamento_semanal.py --inicio 2026-10-27    # 7 dias a partir do dia exato (teste)
+python3 monitor/fechamento_semanal.py --whatsapp             # envia painel + texto para WHATSAPP_EMERSON
+```
+
+- Saídas: texto resumido no terminal, relatório completo em `monitor/semanal/AAAA-MM-DD.md` (data = 1º dia da semana) e painel PNG (`--painel PASTA` para guardar; senão vai para uma pasta temporária). O commit fica com a Rotina.
+- Painel: **só iPad, 2360×1640** (resolução nativa do iPad deitado, uma tela, 4 colunas). Emerson pediu sem a versão de celular em 09/11/2026.
+- Cache: cada dia fechado vira `monitor/semanal/dias/AAAA-MM-DD.json` (só números e o apelido do motoboy como aparece no pedido, sem dígitos — nunca CPF/CNPJ). Um dia leva ~1–5 min no ALIV; com o cache, a segunda só busca os 7 dias novos. `--sem-cache` refaz tudo.
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` WhatsApp não aceitou (a Rotina manda por e-mail).
+
+## O que entra
+
+- **Por loja e consolidado:** pedidos, vendas, ticket, cancelamentos; canais (App, iFood por loja, PDV delivery, Salão); peças do Sushi; desconto da loja, desconto bancado pelo iFood e custo iFood (comissão 12,8% + desconto da loja ÷ receita iFood).
+- **Motoboys (Pizzaria + Sushi):** turno = motoboy com entrega finalizada no dia (gerentes fora); custo = diária (R$ 100 seg–sex, R$ 120 sáb–dom) por turno + R$ 2 por entrega, dividido entre as lojas pelas entregas. Custo por entrega e entregas por motoboy.
+- **Tempos:** média ponderada de preparo, rua e vida (operation-monitor) e entregas com vida acima de 45 min.
+- **Lucro ESTIMADO:** mesma fórmula do monitor (receita − CMV 26,5% − imposto 9,45% − comissão iFood − cartão 1,6% nos próprios − motoboys). Sempre marcado como estimativa.
+- **Melhor e pior dia** pelas vendas consolidadas (feriado aparece no nome do dia).
+- **Comparações:** semana anterior e mesma semana do mês passado (4 semanas antes, mesmos dias da semana), com variação em % e setas (percentuais em pontos percentuais). Verde = melhorou, vermelho = piorou.
+- **Mês até agora:** do dia 1 até o domingo da semana, com projeção simples (média diária × dias do mês).
+- **Destaques:** o indicador que mais melhorou e o que mais piorou contra a semana anterior, e uma recomendação por regra (atrasos > 10% → reforço de motoboy no pior dia; custo iFood > 25%; cancelamento > 2%; ticket < R$ 75; preparo > 20 min; senão, promoção no dia mais fraco).
+
+## Rotina de segunda às 09:00
+
+Cron `CRON_TZ=America/Bahia 0 9 * * 1`, sessão nova a cada disparo, ambiente Contapecas, conector Gmail para o e-mail de reserva. Roda `--whatsapp` e faz commit de `monitor/semanal/`.
+
 ---
 
 # Contagem física do estoque (`contagem.py` e `contagem_lancar.py`) — sob demanda

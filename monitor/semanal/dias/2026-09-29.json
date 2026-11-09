@@ -1,0 +1,154 @@
+{
+ "v": 1,
+ "dia": "2026-09-29",
+ "lojas": {
+  "piz": {
+   "pedidos": 195,
+   "cancelados": 1,
+   "vendas": 12301.84,
+   "receita": 12528.83,
+   "desc_loja": 630.29,
+   "desc_plataforma": 348.6,
+   "desc_manual": 28.51,
+   "comissao_ifood": 677.24,
+   "desc_loja_ifood": 601.78,
+   "receita_ifood": 5290.91,
+   "proprios": 7237.92,
+   "entregas_delivery": 160,
+   "canais": {
+    "iFood": [
+     88,
+     5063.92,
+     0
+    ],
+    "PDV delivery": [
+     29,
+     2140.7,
+     0
+    ],
+    "Salão": [
+     29,
+     1754.16,
+     0
+    ],
+    "App": [
+     49,
+     3343.06,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     29,
+     1133.17
+    ],
+    "Pizzaria": [
+     56,
+     3710.51
+    ],
+    "Pizzaria 2.0": [
+     3,
+     220.24
+    ]
+   },
+   "motoboys": {
+    "Breno Jesus de Souza": 14,
+    "Kalyson de Oliveira Santos": 11,
+    "Josue Manoel dos Santos": 17,
+    "Andre Vitor Silva dos Reis": 14,
+    "Isaac da Silva Mota Lisboa": 11,
+    "Claudio Da Costa Nolasso": 11,
+    "Guilherme Silva Nascimento": 17,
+    "Alexsandro Santana de Ecio": 18,
+    "Carlos Silva Dos Santos Junior": 17,
+    "Gustavo Cardoso Carvalho": 12,
+    "Matheus Emilio Ferreira": 17
+   },
+   "tempos": {
+    "prod": [
+     13.0,
+     156
+    ],
+    "rua": [
+     14.0,
+     159
+    ],
+    "vida": [
+     31.0,
+     156
+    ]
+   },
+   "atrasos": 15
+  },
+  "sushi": {
+   "pedidos": 94,
+   "cancelados": 0,
+   "vendas": 5264.58,
+   "receita": 5266.76,
+   "desc_loja": 42.0,
+   "desc_plataforma": 19.23,
+   "desc_manual": 0.0,
+   "comissao_ifood": 62.62,
+   "desc_loja_ifood": 42.0,
+   "receita_ifood": 489.24,
+   "proprios": 4777.52,
+   "entregas_delivery": 16,
+   "pecas": 1409,
+   "temakis": 9,
+   "canais": {
+    "Salão": [
+     78,
+     3860.38,
+     1056
+    ],
+    "App": [
+     10,
+     865.3,
+     229
+    ],
+    "iFood": [
+     5,
+     487.06,
+     109
+    ],
+    "PDV delivery": [
+     1,
+     51.84,
+     15
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     5,
+     487.06
+    ]
+   },
+   "motoboys": {
+    "Kalyson de Oliveira Santos": 2,
+    "Gustavo Cardoso Carvalho": 1,
+    "Claudio Da Costa Nolasso": 2,
+    "Isaac da Silva Mota Lisboa": 2,
+    "Guilherme Silva Nascimento": 3,
+    "Breno Jesus de Souza": 3,
+    "Carlos Silva Dos Santos Junior": 1,
+    "Andre Vitor Silva dos Reis": 1,
+    "Matheus Emilio Ferreira": 1
+   },
+   "tempos": {
+    "prod": [
+     22.0,
+     11
+    ],
+    "rua": [
+     14.0,
+     16
+    ],
+    "vida": [
+     49.0,
+     11
+    ]
+   },
+   "atrasos": 4
+  }
+ }
+}

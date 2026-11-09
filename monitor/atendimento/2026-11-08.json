@@ -1,0 +1,73 @@
+{
+ "dia": "2026-11-08",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 153,
+  "pedidos": 115,
+  "pedidos_ia": 64,
+  "abandonadas": 37,
+  "conversao": 0.752,
+  "abandono": 0.242,
+  "tempo_medio_min": 1.0,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 46,
+  "cancelados_ia": 1,
+  "pedidos_link": 45,
+  "pedidos_outro": 6,
+  "receberam_link": 128,
+  "abandono_com_link": 35,
+  "abandono_sem_link": 2,
+  "problemas": {
+   "demora": 17,
+   "repetiu": 18,
+   "item_preco": 11,
+   "nao_entendeu": 3,
+   "endereco_taxa": 1,
+   "reclamou_humano": 4,
+   "cancelado": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "endereco_taxa",
+   "user": "A taxa pro meu bairro tá errada",
+   "assistant": "Me manda o bairro e uma referência, por favor 🙏 Confiro a taxa certinha e ajusto antes de enviar o pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Confirmar bairro e referência antes de fechar a taxa; nunca assumir o endereço salvo sem perguntar.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "4 queijo outra metade carne seca",
+  "Calabresa Portuguesa Carne seca",
+  "Está tendo alguma promoção hje ?",
+  "Tamanho família",
+  "Qual a promoção do dia!",
+  "A tradicional",
+  "[reclamacao do cliente]: Foto de uma fatia de pizza de calabresa com cebola seg…",
+  "Tem alguma promoção hj",
+  "Tem promoções"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

@@ -251,21 +251,25 @@ python3 monitor/prestadores.py                                  # rodada normal:
 
 # NFC-e — lista do dia e emissão sob comando (`nfce.py`)
 
-Fase 1: só a **Tili Pizzaria (loja 150)**. Reaproveita o login (`ALIV_USER` / `ALIV_PASS`) e o WhatsApp do `monitor.py`. **Nunca emite sozinho**: a Rotina das 23:50 só roda `listar`; `emitir` só roda numa sessão, quando o Emerson responde "emite".
+Lojas: **Tili Pizzaria (loja 150)**, com `ALIV_USER` / `ALIV_PASS`, e **Tili Sushi (loja 155)**, com `ALIV_USER_SUSHI` / `ALIV_PASS_SUSHI`. Reaproveita o cliente e o WhatsApp do `monitor.py`. Lista, arquivo, mensagem e emissão são **separados por loja**. **Nunca emite sozinho**: a Rotina das 23:50 só roda `listar`; `emitir` só roda numa sessão, quando o Emerson responde "emite".
 
 ## Como rodar
 
 ```bash
-python3 monitor/nfce.py listar --dry-run                       # lista de hoje, não grava nem envia
-python3 monitor/nfce.py listar                                 # grava monitor/nfce/AAAA-MM-DD.json e manda no WhatsApp
-python3 monitor/nfce.py emitir --data 2026-11-06 --dry-run     # mostra o que emitiria, sem nenhum POST
-python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdade (só após "emite")
+python3 monitor/nfce.py listar --dry-run                                 # as duas lojas, hoje; não grava nem envia
+python3 monitor/nfce.py listar                                           # grava os arquivos e manda uma lista por loja
+python3 monitor/nfce.py listar --loja sushi --data 2026-11-08 --dry-run  # só uma loja
+python3 monitor/nfce.py emitir --data 2026-11-08 --loja sushi --dry-run  # mostra o que emitiria, sem nenhum POST
+python3 monitor/nfce.py emitir --data 2026-11-08 --loja pizzaria         # emite de verdade (só após "emite")
 ```
 
-- `listar --data AAAA-MM-DD`: sem a opção, vale hoje (antes das 04:00, ontem).
-- `emitir --data` é obrigatório. `--limite N` (máx. 200 por execução).
-- Variáveis: `ALIV_USER`, `ALIV_PASS`, `WHATSAPP_EMERSON`.
-- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` WhatsApp não aceitou (a Rotina manda por e-mail) · `4` emissão parada por `LIMIT_REACHED`.
+- `listar --data AAAA-MM-DD`: sem a opção, vale hoje (antes das 04:00, ontem). `--loja pizzaria|150|sushi|155`: sem a opção, lista as duas. Um erro numa loja não impede a outra.
+- `emitir --data` e `--loja` são obrigatórios: cada emissão é de uma loja só. `--limite N` (máx. 200 por execução).
+- Arquivos: Pizzaria em `monitor/nfce/AAAA-MM-DD.json`, Sushi em `monitor/nfce/sushi/AAAA-MM-DD.json`.
+- A saída tem um bloco por loja, separado por uma linha de `=`. A 1ª linha de cada bloco é o assunto (`NFC-e Tili — …` para a Pizzaria e `NFC-e Tili Sushi — …` para o Sushi).
+- Cada lista termina com "Responda *emite pizzaria*" ou "*emite sushi*" (ou *emite* para as duas lojas).
+- Variáveis: `ALIV_USER`, `ALIV_PASS`, `ALIV_USER_SUSHI`, `ALIV_PASS_SUSHI`, `WHATSAPP_EMERSON`. Cada lista sai pelo WhatsApp da própria loja.
+- Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` WhatsApp não aceitou (a Rotina manda por e-mail) · `4` emissão parada por `LIMIT_REACHED`. Com as duas lojas, vale o mais grave (1 > 2 > 3).
 
 ## Quem entra na lista
 
@@ -279,6 +283,9 @@ python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdad
 | iFood Tili Burguer (`34e58883…`) | tudo menos dinheiro, inclusive online | dinheiro |
 | iFood Tili Pizzaria 2.0 (`c1577426…`) | tudo menos dinheiro, inclusive online | dinheiro |
 
+| **Tili Sushi (loja 155)**: app, PDV, balcão e iFood | tudo menos dinheiro: Pix, Pix Online pago, cartão, vale e iFood online | dinheiro |
+
+- Sushi: só entram pedidos com status `CONCLUIDO`. Na Pizzaria, `CONCLUIDO` ou `ENTREGUE`.
 - Misto dinheiro + forma permitida: **EMITE**. Dinheiro puro: nunca.
 - **ATENÇÃO** (não emite, decidir na mão): Fiado, Carteira, Conta Func., saldo usado; Pix Online não pago; pagamento "Em Aberto"; forma não reconhecida; iFood de merchant desconhecido; iFood Tili Pizzaria misto online + maquininha.
 
@@ -287,7 +294,7 @@ python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdad
 - Emite **só os pedidos EMITIR da lista salva** em `monitor/nfce/AAAA-MM-DD.json` (antes, `git pull` para pegar o arquivo da Rotina). Cada um é reconferido ao vivo; o que mudou de grupo, já tem nota ou foi cancelado sai da fila. Pedido novo que não estava na lista aprovada **não** é emitido, só avisado. Sem lista salva, usa a lista gerada na hora e avisa.
 - `POST /admin/api/orders/{id}/emit-fiscal` (FormData `customer_document`): primeiro `""` (CPF do pedido); se a SEFAZ recusar o CPF/destinatário, de novo com `" "` (sem CPF). Confirma em `GET /admin/api/orders/{id}/check-fiscal`. Uma por vez, máximo 200.
 - `LIMIT_REACHED`: para tudo e avisa (código 4). `MISSING_PAYMENT` ou rejeição SEFAZ: registra o motivo exato e segue. "Ausência de troco…": ATENÇÃO (bug do ALIV com borda/adicional como desconto negativo), não insiste. Timeout no POST: não reenvia, consulta o status e, se não confirmar, vai para ATENÇÃO.
-- Conferência de CNPJ: posições 7 a 20 da chave de 44 dígitos, comparadas **em memória** com `/admin/api/stores/150/fiscal-profiles` (perfil ativo cuja regra iFood bate com o merchant — hoje só o 2.0) e `fiscal-config` (CNPJ principal). O relatório mostra só o nome do perfil.
+- Conferência de CNPJ: posições 7 a 20 da chave de 44 dígitos, comparadas **em memória** com `/admin/api/stores/{loja}/fiscal-profiles` (perfil ativo cuja regra iFood bate com o merchant — hoje só o 2.0 da Pizzaria) e `fiscal-config` da loja (CNPJ principal). O Sushi não tem perfis extras: tudo deve sair no CNPJ principal da loja 155. O relatório mostra só o nome do perfil.
 - **Nada sensível é gravado**: o JSON tem id, código, hora, valor, forma de pagamento, loja, grupo e motivo. Sem CPF, nome de cliente, CNPJ, chave, token, CSC ou senha.
 
 ## Relatórios
@@ -300,10 +307,17 @@ python3 monitor/nfce.py emitir --data 2026-11-06               # emite de verdad
 - 197 pedidos: 134 EMITIR (R$ 10.234,41), 52 NÃO EMITIR (10 dinheiro, 42 online iFood Tili Pizzaria), 1 ATENÇÃO (Conta Func.), 10 cancelados.
 - `emitir --dry-run`: 120 notas no CNPJ principal e 14 no perfil Tili Pizzaria 2.0. Nenhum POST feito.
 
-## Rotina das 23:50
+## Conferido em 09/11/2026 (dia 08/11, ALIV real)
 
-- Cron `CRON_TZ=America/Bahia 50 23 * * *`, sessão nova a cada disparo, conector Gmail para o e-mail de reserva. Só `listar`.
-- Pedidos criados depois das 23:50 ou ainda abertos nessa hora não entram na lista daquele dia.
+- Sushi: 179 pedidos. 159 já tinham nota (o ALIV do Sushi emite a maioria sozinho). 1 EMITIR (iFood, cartão, R$ 173,39). 19 NÃO EMITIR (dinheiro). 0 ATENÇÃO.
+- Pizzaria: 0 EMITIR (201 já com nota), 77 NÃO EMITIR, 1 ATENÇÃO (Conta Func.).
+- `emitir --loja sushi --dry-run`: 1 nota no CNPJ principal, nenhum POST. Conferência com as 16 chaves reais já autorizadas do Sushi nessa página: todas no CNPJ principal da loja 155.
+
+## Rotinas
+
+- **Tili — NFC-e lista do dia anterior (02:00)**: cron `CRON_TZ=America/Bahia 0 2 * * *`, sessão nova a cada disparo. Roda `listar --data <ontem>`. No dia 01 não faz nada, porque o último dia do mês já foi listado às 23:50.
+- **Tili — NFC-e último dia do mês (23:50)**: cron `CRON_TZ=America/Bahia 50 23 28-31 * *`. Só age quando amanhã é dia 01. Roda `listar --data <hoje>`, para a emissão sair antes da virada do mês. Pedidos criados depois das 23:50 desse dia ficam fora da lista.
+- As duas só rodam `listar`, nunca `emitir`. O e-mail de reserva (códigos 1, 2 e 3) precisa do conector **Gmail** nas Rotinas.
 
 ## Despesas pelo WhatsApp da loja (`despesas.py`)
 

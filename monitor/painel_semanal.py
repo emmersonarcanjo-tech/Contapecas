@@ -18,7 +18,7 @@ from monitor import META_CANCEL, META_CUSTO_IFOOD, META_ENTREGA, META_PREPARO, M
 from painel import DOURADO, FUNDO, VERMELHO, _chrome
 from previsao_motoboys import DIAS_CURTO
 
-IPAD = {"largura": 1180, "altura": 820, "escala": 2.0, "raiz": 12.6}       # 2360×1640
+IPAD = {"largura": 1180, "altura": 820, "escala": 2.0, "raiz": 13.6}       # 2360×1640
 VERDE, VERMELHO_CLARO = "#4cd17d", "#ff5a6e"
 
 CSS = f"""
@@ -69,7 +69,7 @@ body {{ font-family: "Inter", "Liberation Sans", "DejaVu Sans", Arial, sans-seri
 .ruim {{ color: {VERMELHO_CLARO} }}
 .barras {{ background: #262626; border-radius: .7rem; padding: .45rem .75rem; margin-top: .5rem }}
 .barras .t {{ font-size: .9rem; font-weight: 800; margin-bottom: .15rem }}
-.linha {{ display: grid; grid-template-columns: 7.4rem 1fr 5.6rem; align-items: center; gap: .45rem; padding: .16rem 0 }}
+.linha {{ display: grid; grid-template-columns: 8.8rem 1fr 5.6rem; align-items: center; gap: .45rem; padding: .16rem 0 }}
 .linha .nm {{ font-size: .85rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }}
 .linha .q {{ font-size: .75rem; color: #aaa; font-weight: 400 }}
 .trilho {{ height: .75rem; background: #333; border-radius: .4rem; overflow: hidden }}
@@ -80,11 +80,12 @@ body {{ font-family: "Inter", "Liberation Sans", "DejaVu Sans", Arial, sans-seri
 .ranking {{ background: #262626; border-radius: .7rem; padding: .4rem .75rem; margin-top: .5rem }}
 .ranking .l {{ display: grid; grid-template-columns: 1.1rem 1fr 3rem 3.2rem; gap: .3rem; font-size: .82rem;
                padding: .14rem 0; border-bottom: 1px solid #333 }}
+.ranking .l span:nth-child(2) {{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis }}
 .ranking .l:last-child {{ border-bottom: none }}
 .ranking .l span:nth-child(3), .ranking .l span:nth-child(4) {{ text-align: right }}
 .ranking .h {{ color: #999; font-size: .7rem; font-weight: 700 }}
 .tempos {{ background: #262626; border-radius: .7rem; padding: .35rem .75rem }}
-.tempos .l {{ display: grid; grid-template-columns: 1fr 3.3rem 3rem 3.2rem 5.6rem; gap: .3rem; font-size: .88rem;
+.tempos .l {{ display: grid; grid-template-columns: 3.5rem 3.1rem 2.8rem 3rem 1fr; gap: .25rem; font-size: .8rem;
               padding: .2rem 0; border-bottom: 1px solid #333; align-items: baseline }}
 .tempos .l:last-child {{ border-bottom: none }}
 .tempos .l span + span {{ text-align: right; font-weight: 800; white-space: nowrap }}
@@ -97,7 +98,7 @@ body {{ font-family: "Inter", "Liberation Sans", "DejaVu Sans", Arial, sans-seri
 .graf .bar i {{ display: block; width: 100% }}
 .graf .c.melhor .vv {{ color: {DOURADO} }} .graf .c.pior .vv {{ color: {VERMELHO_CLARO} }}
 .rotd {{ display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: .3rem; margin-top: .2rem }}
-.rotd span {{ text-align: center; font-size: .72rem; color: #bbb; font-weight: 700 }}
+.rotd span {{ text-align: center; font-size: .66rem; white-space: nowrap; color: #bbb; font-weight: 700 }}
 .rotd span.melhor {{ color: {DOURADO} }} .rotd span.pior {{ color: {VERMELHO_CLARO} }}
 .leg {{ font-size: .72rem; color: #aaa; margin-top: .3rem; display: flex; gap: .7rem; flex-wrap: wrap }}
 .leg i {{ display: inline-block; width: .6rem; height: .6rem; border-radius: .15rem; margin-right: .2rem; vertical-align: -.05rem }}

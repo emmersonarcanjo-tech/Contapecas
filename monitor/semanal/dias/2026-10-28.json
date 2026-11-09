@@ -1,0 +1,144 @@
+{
+ "v": 1,
+ "dia": "2026-10-28",
+ "lojas": {
+  "piz": {
+   "pedidos": 146,
+   "cancelados": 3,
+   "vendas": 9252.96,
+   "receita": 9839.35,
+   "desc_loja": 749.57,
+   "desc_plataforma": 734.45,
+   "desc_manual": 26.99,
+   "comissao_ifood": 649.64,
+   "desc_loja_ifood": 722.58,
+   "receita_ifood": 5059.3,
+   "proprios": 4780.05,
+   "entregas_delivery": 117,
+   "canais": {
+    "App": [
+     44,
+     3616.9,
+     0
+    ],
+    "Salão": [
+     23,
+     1065.15,
+     0
+    ],
+    "iFood": [
+     78,
+     4472.91,
+     0
+    ],
+    "PDV delivery": [
+     1,
+     98.0,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     17,
+     700.51
+    ],
+    "Pizzaria": [
+     58,
+     3608.19
+    ],
+    "Pizzaria 2.0": [
+     3,
+     164.21
+    ]
+   },
+   "motoboys": {
+    "Carlos Silva Dos Santos Junior": 18,
+    "Breno Jesus de Souza": 15,
+    "AdrianoSantos de Assis Junior": 11,
+    "Guilherme Silva Nascimento": 17,
+    "Andre Vitor Silva dos Reis": 18,
+    "Alexsandro Santana de Ecio": 13,
+    "Rodrigo Santana Massaranduba Filho": 12,
+    "Gustavo Cardoso Carvalho": 12
+   },
+   "tempos": {
+    "prod": [
+     11.0,
+     113
+    ],
+    "rua": [
+     14.0,
+     117
+    ],
+    "vida": [
+     29.0,
+     113
+    ]
+   },
+   "atrasos": 9
+  },
+  "sushi": {
+   "pedidos": 296,
+   "cancelados": 0,
+   "vendas": 14809.04,
+   "receita": 14826.7,
+   "desc_loja": 49.99,
+   "desc_plataforma": 24.99,
+   "desc_manual": 2.0,
+   "comissao_ifood": 37.03,
+   "desc_loja_ifood": 47.99,
+   "receita_ifood": 289.31,
+   "proprios": 14537.39,
+   "entregas_delivery": 15,
+   "pecas": 5903,
+   "temakis": 3,
+   "canais": {
+    "Salão": [
+     279,
+     13252.54,
+     5488
+    ],
+    "App": [
+     13,
+     1284.85,
+     343
+    ],
+    "iFood": [
+     4,
+     271.65,
+     72
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     4,
+     271.65
+    ]
+   },
+   "motoboys": {
+    "Rodrigo Santana Massaranduba Filho": 2,
+    "Gustavo Cardoso Carvalho": 3,
+    "Breno Jesus de Souza": 3,
+    "AdrianoSantos de Assis Junior": 3,
+    "Andre Vitor Silva dos Reis": 1,
+    "Carlos Silva Dos Santos Junior": 1,
+    "Alexsandro Santana de Ecio": 2
+   },
+   "tempos": {
+    "prod": [
+     20.0,
+     11
+    ],
+    "rua": [
+     14.0,
+     15
+    ],
+    "vida": [
+     41.0,
+     11
+    ]
+   },
+   "atrasos": 4
+  }
+ }
+}

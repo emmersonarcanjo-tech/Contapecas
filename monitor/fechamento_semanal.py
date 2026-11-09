@@ -91,6 +91,7 @@ def limpa_motoboy(nome) -> str:
     """Apelido do motoboy como vem no pedido, sem números (o ALIV às vezes traz CNPJ no nome)."""
     s = re.sub(r"(?i)cnpj|cpf|mei", " ", str(nome or ""))
     s = re.sub(r"[\d./\-–—:]+", " ", s)
+    s = re.sub(r"(?<=[a-zà-ÿ])(?=[A-ZÀ-Þ])", " ", s)          # 'AdrianoSantos' → 'Adriano Santos'
     return " ".join(s.split())[:40]
 
 
@@ -136,6 +137,12 @@ def coletar_dia(apis: dict, d: date, agora: datetime, usar_cache: bool = True) -
         try:
             x = json.loads(arq.read_text(encoding="utf-8"))
             if x.get("v") == VERSAO_CACHE and all(x["lojas"].get(k) is not None for k in apis):
+                for L in x["lojas"].values():
+                    if L:
+                        m = {}
+                        for nome, n in L.get("motoboys", {}).items():
+                            m[limpa_motoboy(nome)] = m.get(limpa_motoboy(nome), 0) + n
+                        L["motoboys"] = m
                 return x
         except (OSError, ValueError, KeyError):
             pass

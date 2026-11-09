@@ -1,0 +1,55 @@
+{
+ "dia": "2026-11-04",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 15,
+  "pedidos": 13,
+  "pedidos_ia": 3,
+  "abandonadas": 2,
+  "conversao": 0.867,
+  "abandono": 0.133,
+  "tempo_medio_min": 0.4,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 1,
+  "cancelados_ia": 0,
+  "pedidos_link": 8,
+  "pedidos_outro": 2,
+  "receberam_link": 14,
+  "abandono_com_link": 2,
+  "abandono_sem_link": 0,
+  "problemas": {
+   "item_preco": 2,
+   "repetiu": 3,
+   "nao_entendeu": 1,
+   "nao_soube": 1,
+   "demora": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "Mas queria saber quais peças entram na promoção",
+   "ja_existe_parecido": 1,
+   "falta_preencher": true
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Quais peças estão de 1,99?",
+  "As peças é a partir ?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

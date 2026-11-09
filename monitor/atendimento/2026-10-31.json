@@ -1,0 +1,80 @@
+{
+ "dia": "2026-10-31",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 120,
+  "pedidos": 78,
+  "pedidos_ia": 38,
+  "abandonadas": 42,
+  "conversao": 0.65,
+  "abandono": 0.35,
+  "tempo_medio_min": 1.0,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 29,
+  "cancelados_ia": 0,
+  "pedidos_link": 32,
+  "pedidos_outro": 8,
+  "receberam_link": 101,
+  "abandono_com_link": 32,
+  "abandono_sem_link": 10,
+  "problemas": {
+   "demora": 13,
+   "repetiu": 13,
+   "item_preco": 10,
+   "endereco_taxa": 1,
+   "reclamou_humano": 3,
+   "nao_entendeu": 1,
+   "nao_soube": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "Tem promo?",
+   "ja_existe_parecido": null,
+   "falta_preencher": true
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "endereco_taxa",
+   "user": "A taxa pro meu bairro tá errada",
+   "assistant": "Me manda o bairro e uma referência, por favor 🙏 Confiro a taxa certinha e ajusto antes de enviar o pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Confirmar bairro e referência antes de fechar a taxa; nunca assumir o endereço salvo sem perguntar.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Tem promo?",
+  "Gostaria do cardápio de susi",
+  "Fica quanto?",
+  "Eu vou esperar a resposta, pois o pedido seria uma salgada",
+  "queria cancelar meu pedido. é possível?",
+  "Pode ser meio a meio frango com catupiry, carne seca com banana da terra",
+  "Boa noite, [nome] uma pizza 🍕 Grande: Metade frango com bacon, Outra metade atu…"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

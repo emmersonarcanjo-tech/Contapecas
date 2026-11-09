@@ -1,0 +1,29 @@
+{
+ "dia": "2026-11-07",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 13,
+  "pedidos": 12,
+  "pedidos_ia": 1,
+  "abandonadas": 1,
+  "conversao": 0.923,
+  "abandono": 0.077,
+  "tempo_medio_min": 1.2,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 4,
+  "cancelados_ia": 0,
+  "pedidos_link": 9,
+  "pedidos_outro": 2,
+  "receberam_link": 9,
+  "abandono_com_link": 1,
+  "abandono_sem_link": 0,
+  "problemas": {
+   "demora": 2,
+   "item_preco": 1
+  }
+ },
+ "pares": [],
+ "regras": [],
+ "itens_faltando": [],
+ "pedidos_ia_sem_chat": 0
+}

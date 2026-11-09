@@ -1,0 +1,66 @@
+{
+ "dia": "2026-11-07",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 92,
+  "pedidos": 56,
+  "pedidos_ia": 30,
+  "abandonadas": 34,
+  "conversao": 0.609,
+  "abandono": 0.37,
+  "tempo_medio_min": 1.0,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 24,
+  "cancelados_ia": 2,
+  "pedidos_link": 23,
+  "pedidos_outro": 3,
+  "receberam_link": 78,
+  "abandono_com_link": 29,
+  "abandono_sem_link": 5,
+  "problemas": {
+   "demora": 11,
+   "repetiu": 8,
+   "item_preco": 3,
+   "cancelado": 2,
+   "nao_entendeu": 1,
+   "nao_soube": 1,
+   "reclamou_humano": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "pagamento",
+   "user": "Vocês aceitam cartão ou pix?",
+   "assistant": "Aceitamos Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket 💳 Na entrega o motoboy leva a maquininha. Se for dinheiro, me avisa o troco 😉",
+   "exemplo_cliente": "Olá! Fiz um pedido #APP-[nº] pelo PIX mas tive um problema no pagamento. Podem me ajudar?",
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Formas de pagamento aceitas na entrega: Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Promoção",
+  "Então vou pegar com a borda toda de chocolate e vou trocar o sabor de muçarela…"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

@@ -534,7 +534,9 @@ def carregar_historico(dia: date) -> list[dict]:
         f = PASTA / f"{d.isoformat()}{SUFIXO}.json"
         if f.exists():
             try:
-                out.append(json.loads(f.read_text())["resumo"] | {"dia": d.isoformat()})
+                r = json.loads(f.read_text())["resumo"]
+                if r.get("pedidos"):           # dia sem pedido (loja fechada) não entra na média
+                    out.append(r | {"dia": d.isoformat()})
             except (ValueError, KeyError):
                 pass
     return out
@@ -604,11 +606,13 @@ def gerar(dia: date, convs: list[dict], pares, regras, itens, hist, existentes, 
     L += ["## 3) Correções sugeridas", "",
           "### Pares para \"Ensine o jeito da sua loja\" (Configurações da loja → IA)", "",
           f"O campo aceita até {MAX_EXEMPLOS} exemplos e hoje tem {len(existentes)}. "
-          "Para entrar um par novo é preciso escolher qual sai (comando `aprovar --no-lugar-de N`).", ""]
+          + ("Para entrar um par novo é preciso escolher qual sai (comando `aprovar --no-lugar-de N`)."
+             if len(existentes) >= MAX_EXEMPLOS else
+             f"Cabem mais {MAX_EXEMPLOS - len(existentes)} sem tirar nenhum."), ""]
     for i, p in enumerate(pares, 1):
         aviso = f" — ⚠️ já existe parecido (exemplo {p['ja_existe_parecido']}), não proposto" if p["ja_existe_parecido"] else ""
         falta = " — ✏️ completar o trecho entre colchetes antes de aprovar" if p["falta_preencher"] else ""
-        L.append(f"**Par {i}** ({p['tema']}){aviso}{falta}")
+        L.append(f"**Par {i}** ({PROBLEMAS.get(p['tema'], p['tema'])}){aviso}{falta}")
         L.append(f"- Cliente pergunta: {p['user']}")
         L.append(f"- Resposta ideal: {p['assistant']}")
         if p.get("exemplo_cliente"):
@@ -681,6 +685,14 @@ def auditar(a) -> int:
 
 def auditar_loja(a, dia: date, remetente) -> int:
     api = AlivLeitura(os.environ[LOJA_INFO["user"]], os.environ[LOJA_INFO["senha"]])
+    try:
+        sch = api.get(f"/admin/api/stores/{LOJA}/schedule-config").get("operating_schedule") or []
+        dia_semana = (dia.weekday() + 1) % 7          # ALIV: 0 = domingo
+        if sch and dia_semana not in {d.get("day") for d in sch}:
+            print(f"{LOJA_INFO['curto']}: fechada em {dia:%d/%m} pelo horário do ALIV — sem auditoria.")
+            return 0
+    except (AlivError, OSError, AttributeError):
+        pass
     try:
         cfg = api.get(f"/admin/api/stores/{LOJA}/ai-config")
         cfg = cfg.get("config", cfg)

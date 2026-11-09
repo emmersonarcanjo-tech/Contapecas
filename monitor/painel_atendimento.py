@@ -209,7 +209,7 @@ def html_painel(dia: date, dados: dict, hist: list[dict], formato: str = "ipad")
     P.append('<div class="sec">PARES PROPOSTOS</div><div class="pares">')
     for i, p in novos[:MAX_PARES_PAINEL]:
         aviso = "completar o trecho entre colchetes" if p.get("falta_preencher") else ""
-        P.append(f'<div class="par"><div class="n">PAR {i} · {_e(p["tema"]).upper()}</div>'
+        P.append(f'<div class="par"><div class="n">PAR {i} · {_e(NOMES_CURTOS.get(p["tema"], p["tema"])).upper()}</div>'
                  f'<div class="p">P: {_e(p["user"])}</div><div class="r">R: {_e(_corta(p["assistant"], 120))}</div>'
                  + (f'<div class="a">{_e(aviso)}</div>' if aviso else "") + "</div>")
     if len(novos) > MAX_PARES_PAINEL:

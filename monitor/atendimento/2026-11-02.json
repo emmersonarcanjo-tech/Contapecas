@@ -1,0 +1,56 @@
+{
+ "dia": "2026-11-02",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 102,
+  "pedidos": 61,
+  "pedidos_ia": 26,
+  "abandonadas": 41,
+  "conversao": 0.598,
+  "abandono": 0.402,
+  "tempo_medio_min": 1.0,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 26,
+  "cancelados_ia": 0,
+  "pedidos_link": 32,
+  "pedidos_outro": 3,
+  "receberam_link": 85,
+  "abandono_com_link": 31,
+  "abandono_sem_link": 10,
+  "problemas": {
+   "item_preco": 7,
+   "repetiu": 8,
+   "demora": 10,
+   "nao_entendeu": 1,
+   "nao_soube": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "pagamento",
+   "user": "Vocês aceitam cartão ou pix?",
+   "assistant": "Aceitamos Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket 💳 Na entrega o motoboy leva a maquininha. Se for dinheiro, me avisa o troco 😉",
+   "exemplo_cliente": "Vocês aceitam vales",
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Formas de pagamento aceitas na entrega: Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Promoção de pitizza",
+  "No sushi??",
+  "Tem alguma promoção hoje de vocês ?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

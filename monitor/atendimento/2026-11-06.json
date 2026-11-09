@@ -1,0 +1,83 @@
+{
+ "dia": "2026-11-06",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 93,
+  "pedidos": 49,
+  "pedidos_ia": 27,
+  "abandonadas": 42,
+  "conversao": 0.527,
+  "abandono": 0.452,
+  "tempo_medio_min": 1.5,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 20,
+  "cancelados_ia": 2,
+  "pedidos_link": 20,
+  "pedidos_outro": 2,
+  "receberam_link": 75,
+  "abandono_com_link": 35,
+  "abandono_sem_link": 7,
+  "problemas": {
+   "demora": 12,
+   "item_preco": 13,
+   "repetiu": 12,
+   "endereco_taxa": 1,
+   "reclamou_humano": 2,
+   "nao_soube": 3,
+   "cancelado": 2
+  }
+ },
+ "pares": [
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "Tem alguma promoção hoje ?",
+   "ja_existe_parecido": null,
+   "falta_preencher": true
+  },
+  {
+   "tema": "horário",
+   "user": "Vocês estão funcionando agora?",
+   "assistant": "Estamos sim! 🍕 Nosso horário é das 16:30 às 23:45, todos os dias. Me fala o que vai querer que eu já anoto 🛵",
+   "exemplo_cliente": "Hoje abre que horas?",
+   "ja_existe_parecido": 1,
+   "falta_preencher": false
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "endereco_taxa",
+   "user": "A taxa pro meu bairro tá errada",
+   "assistant": "Me manda o bairro e uma referência, por favor 🙏 Confiro a taxa certinha e ajusto antes de enviar o pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Confirmar bairro e referência antes de fechar a taxa; nunca assumir o endereço salvo sem perguntar.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Eu quero metade pizza de calabresa e metade carne seca",
+  "Vocês entregam o temaki?",
+  "Queria o cardápio do sushi",
+  "Tem alguma promoção hoje ?",
+  "Vou querer 2 temaki da promoção por favor",
+  "Tem a promoção do hambúrguer?",
+  "Hoje seria a promoção do temaki de 24,90, certo?",
+  "Certo",
+  "Eu queria pedir um sushi",
+  "[Áudio do cliente]: Ah tá, você faz pra mim uma pizza de calabresa sem cebola,…"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

@@ -1,0 +1,44 @@
+{
+ "dia": "2026-11-01",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 16,
+  "pedidos": 12,
+  "pedidos_ia": 6,
+  "abandonadas": 4,
+  "conversao": 0.75,
+  "abandono": 0.25,
+  "tempo_medio_min": 0.6,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 5,
+  "cancelados_ia": 0,
+  "pedidos_link": 6,
+  "pedidos_outro": 0,
+  "receberam_link": 13,
+  "abandono_com_link": 3,
+  "abandono_sem_link": 1,
+  "problemas": {
+   "demora": 2,
+   "nao_entendeu": 2,
+   "repetiu": 4,
+   "item_preco": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Mas quando peço no poke, a máquina tem dificuldade de funcionar"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

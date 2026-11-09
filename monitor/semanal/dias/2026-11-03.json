@@ -1,0 +1,143 @@
+{
+ "v": 1,
+ "dia": "2026-11-03",
+ "lojas": {
+  "piz": {
+   "pedidos": 190,
+   "cancelados": 6,
+   "vendas": 11261.49,
+   "receita": 12067.67,
+   "desc_loja": 810.91,
+   "desc_plataforma": 895.46,
+   "desc_manual": 124.47,
+   "comissao_ifood": 539.33,
+   "desc_loja_ifood": 686.44,
+   "receita_ifood": 4213.51,
+   "proprios": 7854.16,
+   "entregas_delivery": 155,
+   "canais": {
+    "Salão": [
+     30,
+     1513.79,
+     0
+    ],
+    "App": [
+     89,
+     6340.37,
+     0
+    ],
+    "iFood": [
+     71,
+     3407.33,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     12,
+     534.04
+    ],
+    "Pizzaria": [
+     56,
+     2580.65
+    ],
+    "Pizzaria 2.0": [
+     3,
+     292.64
+    ]
+   },
+   "motoboys": {
+    "Gustavo Cardoso Carvalho": 19,
+    "Breno Jesus de Souza": 20,
+    "Rodrigo Santana Massaranduba Filho": 13,
+    "Carlos Silva Dos Santos Junior": 13,
+    "Adriano Santos de Assis Junior": 16,
+    "Pedro Vinicius Nascimento de Jesus": 17,
+    "Kalyson de Oliveira Santos": 11,
+    "Nivaldo Lima Brandao Junior": 12,
+    "Emanuel dos Santos Guedes": 16,
+    "Guilherme Silva Nascimento": 18
+   },
+   "tempos": {
+    "prod": [
+     11.0,
+     116
+    ],
+    "rua": [
+     13.0,
+     155
+    ],
+    "vida": [
+     30.0,
+     116
+    ]
+   },
+   "atrasos": 10
+  },
+  "sushi": {
+   "pedidos": 110,
+   "cancelados": 0,
+   "vendas": 6086.21,
+   "receita": 6135.29,
+   "desc_loja": 77.21,
+   "desc_plataforma": 59.22,
+   "desc_manual": 0.0,
+   "comissao_ifood": 48.76,
+   "desc_loja_ifood": 77.21,
+   "receita_ifood": 380.96,
+   "proprios": 5754.33,
+   "entregas_delivery": 24,
+   "pecas": 1565,
+   "temakis": 11,
+   "canais": {
+    "iFood": [
+     8,
+     331.88,
+     74
+    ],
+    "Salão": [
+     86,
+     3732.29,
+     1078
+    ],
+    "App": [
+     16,
+     2022.04,
+     413
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     8,
+     331.88
+    ]
+   },
+   "motoboys": {
+    "Breno Jesus de Souza": 2,
+    "Pedro Vinicius Nascimento de Jesus": 3,
+    "Kalyson de Oliveira Santos": 3,
+    "Rodrigo Santana Massaranduba Filho": 3,
+    "Nivaldo Lima Brandao Junior": 2,
+    "Adriano Santos de Assis Junior": 2,
+    "Carlos Silva Dos Santos Junior": 5,
+    "Guilherme Silva Nascimento": 2,
+    "Gustavo Cardoso Carvalho": 2
+   },
+   "tempos": {
+    "prod": [
+     29.0,
+     16
+    ],
+    "rua": [
+     15.0,
+     24
+    ],
+    "vida": [
+     51.0,
+     16
+    ]
+   },
+   "atrasos": 12
+  }
+ }
+}

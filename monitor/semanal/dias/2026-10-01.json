@@ -1,0 +1,151 @@
+{
+ "v": 1,
+ "dia": "2026-10-01",
+ "lojas": {
+  "piz": {
+   "pedidos": 196,
+   "cancelados": 1,
+   "vendas": 14417.15,
+   "receita": 14823.16,
+   "desc_loja": 781.92,
+   "desc_plataforma": 543.26,
+   "desc_manual": 82.0,
+   "comissao_ifood": 901.95,
+   "desc_loja_ifood": 699.92,
+   "receita_ifood": 7046.47,
+   "proprios": 7776.69,
+   "entregas_delivery": 172,
+   "canais": {
+    "iFood": [
+     106,
+     6640.46,
+     0
+    ],
+    "Salão": [
+     19,
+     1577.28,
+     0
+    ],
+    "App": [
+     52,
+     4339.74,
+     0
+    ],
+    "PDV delivery": [
+     19,
+     1859.67,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     39,
+     1836.97
+    ],
+    "Pizzaria 2.0": [
+     9,
+     522.59
+    ],
+    "Pizzaria": [
+     58,
+     4280.9
+    ]
+   },
+   "motoboys": {
+    "Ricardo Gomes Camilo": 18,
+    "Guilherme Silva Nascimento": 18,
+    "Josue Manoel dos Santos": 17,
+    "Gustavo Cardoso Carvalho": 22,
+    "Johnmichael teixeira dos santos": 20,
+    "Nivaldo Lima Brandao Junior": 18,
+    "Claudio Oliveira D": 14,
+    "Claudio Da Costa Nolasso": 16,
+    "AdrianoSantos de Assis Junior": 12
+   },
+   "tempos": {
+    "prod": [
+     17.0,
+     139
+    ],
+    "rua": [
+     23.0,
+     172
+    ],
+    "vida": [
+     51.0,
+     139
+    ]
+   },
+   "atrasos": 78
+  },
+  "sushi": {
+   "pedidos": 120,
+   "cancelados": 1,
+   "vendas": 7279.02,
+   "receita": 7347.98,
+   "desc_loja": 106.99,
+   "desc_plataforma": 84.3,
+   "desc_manual": 6.99,
+   "comissao_ifood": 86.79,
+   "desc_loja_ifood": 100.0,
+   "receita_ifood": 678.08,
+   "proprios": 6669.9,
+   "entregas_delivery": 34,
+   "pecas": 1687,
+   "temakis": 29,
+   "canais": {
+    "Salão": [
+     85,
+     4152.46,
+     1074
+    ],
+    "iFood": [
+     14,
+     609.12,
+     56
+    ],
+    "App": [
+     20,
+     2435.06,
+     557
+    ],
+    "PDV delivery": [
+     1,
+     82.38,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     14,
+     609.12
+    ]
+   },
+   "motoboys": {
+    "Guilherme Silva Nascimento": 7,
+    "AdrianoSantos de Assis Junior": 6,
+    "Ricardo Gomes Camilo": 4,
+    "Claudio Da Costa Nolasso": 2,
+    "Josue Manoel dos Santos": 5,
+    "Johnmichael teixeira dos santos": 1,
+    "Gustavo Cardoso Carvalho": 5,
+    "Nivaldo Lima Brandao Junior": 1
+   },
+   "tempos": {
+    "prod": [
+     26.0,
+     20
+    ],
+    "rua": [
+     22.0,
+     34
+    ],
+    "vida": [
+     60.0,
+     20
+    ]
+   },
+   "atrasos": 18
+  }
+ }
+}

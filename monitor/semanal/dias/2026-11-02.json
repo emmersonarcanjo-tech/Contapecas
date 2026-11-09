@@ -1,0 +1,119 @@
+{
+ "v": 1,
+ "dia": "2026-11-02",
+ "lojas": {
+  "piz": {
+   "pedidos": 226,
+   "cancelados": 4,
+   "vendas": 14796.51,
+   "receita": 15815.89,
+   "desc_loja": 1361.52,
+   "desc_plataforma": 1190.07,
+   "desc_manual": 96.96,
+   "comissao_ifood": 958.85,
+   "desc_loja_ifood": 1264.56,
+   "receita_ifood": 7491.05,
+   "proprios": 8324.84,
+   "entregas_delivery": 185,
+   "canais": {
+    "iFood": [
+     121,
+     6471.67,
+     0
+    ],
+    "App": [
+     72,
+     6403.3,
+     0
+    ],
+    "Salão": [
+     30,
+     1644.65,
+     0
+    ],
+    "PDV delivery": [
+     3,
+     276.89,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     79,
+     4338.96
+    ],
+    "Pizzaria 2.0": [
+     8,
+     652.31
+    ],
+    "Burguer": [
+     34,
+     1480.4
+    ]
+   },
+   "motoboys": {
+    "Carlos Silva Dos Santos Junior": 14,
+    "Ian Mendes dos Santos": 15,
+    "Andre Vitor Silva dos Reis": 12,
+    "Breno Jesus de Souza": 13,
+    "Claudio Da Costa Nolasso": 10,
+    "Emanuel dos Santos Guedes": 13,
+    "João Vitor Santos Ramos": 11,
+    "Guilherme Silva Nascimento": 21,
+    "Gustavo Cardoso Carvalho": 13,
+    "Matheus Emilio Ferreira": 12,
+    "AdrianoSantos de Assis Junior": 8,
+    "Ricardo Gomes Camilo": 13
+   },
+   "tempos": {
+    "prod": [
+     11.0,
+     107
+    ],
+    "rua": [
+     14.0,
+     185
+    ],
+    "vida": [
+     41.0,
+     107
+    ]
+   },
+   "atrasos": 32
+  },
+  "sushi": {
+   "pedidos": 0,
+   "cancelados": 0,
+   "vendas": 0.0,
+   "receita": 0.0,
+   "desc_loja": 0.0,
+   "desc_plataforma": 0.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 0.0,
+   "desc_loja_ifood": 0.0,
+   "receita_ifood": 0.0,
+   "proprios": 0.0,
+   "entregas_delivery": 0,
+   "pecas": 0,
+   "temakis": 0,
+   "canais": {},
+   "ifood_lojas": {},
+   "motoboys": {},
+   "tempos": {
+    "prod": [
+     0.0,
+     0
+    ],
+    "rua": [
+     0.0,
+     0
+    ],
+    "vida": [
+     0.0,
+     0
+    ]
+   },
+   "atrasos": 0
+  }
+ }
+}

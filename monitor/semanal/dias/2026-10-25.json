@@ -1,0 +1,153 @@
+{
+ "v": 1,
+ "dia": "2026-10-25",
+ "lojas": {
+  "piz": {
+   "pedidos": 341,
+   "cancelados": 7,
+   "vendas": 29718.98,
+   "receita": 30336.13,
+   "desc_loja": 1277.27,
+   "desc_plataforma": 903.33,
+   "desc_manual": 40.48,
+   "comissao_ifood": 1542.62,
+   "desc_loja_ifood": 1236.79,
+   "receita_ifood": 12035.73,
+   "proprios": 18300.4,
+   "entregas_delivery": 281,
+   "canais": {
+    "Salão": [
+     44,
+     2332.62,
+     0
+    ],
+    "App": [
+     153,
+     15785.78,
+     0
+    ],
+    "iFood": [
+     142,
+     11418.58,
+     0
+    ],
+    "PDV delivery": [
+     2,
+     182.0,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     99,
+     8989.65
+    ],
+    "Pizzaria 2.0": [
+     8,
+     702.5
+    ],
+    "Burguer": [
+     35,
+     1726.43
+    ]
+   },
+   "motoboys": {
+    "LuisMatheus Timotio dos santos": 14,
+    "Kaique Franscico braga": 20,
+    "Cauan D": 11,
+    "Claudio Da Costa Nolasso": 22,
+    "AdrianoSantos de Assis Junior": 19,
+    "Luis Augusto Batista Silva": 21,
+    "Pedrohenrique nunes": 14,
+    "Nivaldo Lima Brandao Junior": 22,
+    "Kalyson de Oliveira Santos": 15,
+    "Breno Jesus de Souza": 30,
+    "Johnmichael teixeira dos santos": 22,
+    "Gustavo Cardoso Carvalho": 23,
+    "Mesaque D": 29,
+    "Jefferson Lima Chargas": 17
+   },
+   "tempos": {
+    "prod": [
+     18.0,
+     250
+    ],
+    "rua": [
+     17.0,
+     280
+    ],
+    "vida": [
+     42.0,
+     250
+    ]
+   },
+   "atrasos": 115
+  },
+  "sushi": {
+   "pedidos": 78,
+   "cancelados": 0,
+   "vendas": 4809.03,
+   "receita": 4839.71,
+   "desc_loja": 132.97,
+   "desc_plataforma": 43.94,
+   "desc_manual": 0.0,
+   "comissao_ifood": 65.11,
+   "desc_loja_ifood": 132.97,
+   "receita_ifood": 508.65,
+   "proprios": 4331.06,
+   "entregas_delivery": 27,
+   "pecas": 1135,
+   "temakis": 23,
+   "canais": {
+    "iFood": [
+     9,
+     477.97,
+     83
+    ],
+    "App": [
+     20,
+     1860.11,
+     388
+    ],
+    "Salão": [
+     49,
+     2470.95,
+     664
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     9,
+     477.97
+    ]
+   },
+   "motoboys": {
+    "Johnmichael teixeira dos santos": 4,
+    "Kalyson de Oliveira Santos": 5,
+    "AdrianoSantos de Assis Junior": 4,
+    "LuisMatheus Timotio dos santos": 3,
+    "Gustavo Cardoso Carvalho": 3,
+    "Cauan D": 1,
+    "Jefferson Lima Chargas": 2,
+    "Luis Augusto Batista Silva": 1,
+    "Claudio Da Costa Nolasso": 3,
+    "Mesaque D": 1
+   },
+   "tempos": {
+    "prod": [
+     16.0,
+     18
+    ],
+    "rua": [
+     19.0,
+     27
+    ],
+    "vida": [
+     49.0,
+     18
+    ]
+   },
+   "atrasos": 9
+  }
+ }
+}

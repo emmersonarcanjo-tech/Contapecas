@@ -486,9 +486,9 @@ python3 monitor/fechamento_semanal.py --whatsapp             # envia painel + te
 - **Mês até agora:** do dia 1 até o domingo da semana, com projeção simples (média diária × dias do mês).
 - **Destaques:** o indicador que mais melhorou e o que mais piorou contra a semana anterior, e uma recomendação por regra (atrasos > 10% → reforço de motoboy no pior dia; custo iFood > 25%; cancelamento > 2%; ticket < R$ 75; preparo > 20 min; senão, promoção no dia mais fraco).
 
-## Rotina de segunda às 09:00
+## Rotina de segunda às 08:51
 
-Cron `CRON_TZ=America/Bahia 0 9 * * 1`, sessão nova a cada disparo, ambiente Contapecas, conector Gmail para o e-mail de reserva. Roda `--whatsapp` e faz commit de `monitor/semanal/`.
+Cron `CRON_TZ=America/Bahia 51 8 * * 1` (Rotina "Fechamento semanal Tili (segunda)"; a coleta leva ~10 min, o painel chega por volta das 09:00), sessão nova a cada disparo, ambiente Contapecas, conector Gmail para o e-mail de reserva. Roda `--whatsapp` e faz commit de `monitor/semanal/`.
 
 ---
 

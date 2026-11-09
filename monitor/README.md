@@ -388,14 +388,16 @@ Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1`
 
 # Auditoria do atendimento da IA no WhatsApp (`atendimento_ia.py`)
 
-Todo dia às 03:30 (Bahia) audita as conversas do WhatsApp da **Tili Pizzaria (loja 150)** no turno que fechou: **16:00 de D até 01:00 de D+1**. Só lê o ALIV. Nunca responde cliente, não marca conversa como atendida e não liga/desliga a IA. Reaproveita o login e o envio por WhatsApp do `monitor.py` e a leitura do chat do `despesas.py`.
+Todo dia às 03:30 (Bahia) audita as conversas do WhatsApp da **Tili Pizzaria (loja 150)** e da **Tili Sushi & Poke (loja 155)** no turno que fechou: **16:00 de D até 01:00 de D+1**. Só lê o ALIV. Nunca responde cliente, não marca conversa como atendida e não liga/desliga a IA. Reaproveita o login e o envio por WhatsApp do `monitor.py` e a leitura do chat do `despesas.py`.
 
 ```bash
 python3 monitor/atendimento_ia.py --data 2026-11-07 --sem-gravar   # teste: mostra, não grava, não envia
 python3 monitor/atendimento_ia.py --whatsapp                        # rodada normal: turno de ontem
 ```
 
-- Grava `monitor/atendimento/AAAA-MM-DD.md` (relatório) e `AAAA-MM-DD.json` (só números e pares, usado na comparação de 7 dias). **Nenhum nome, telefone ou endereço** de cliente: os trechos passam pela função `anonimiza`.
+- `--loja pizzaria|sushi|todas` (padrão: todas). Cada loja usa o seu login (`ALIV_USER`/`ALIV_PASS` e `ALIV_USER_SUSHI`/`ALIV_PASS_SUSHI`). O WhatsApp sai sempre pelo número da Pizzaria.
+- `--painel ARQ.png`: salva os painéis (iPad e iPhone 1/2, por loja) sem enviar. Com `--whatsapp` manda os painéis e depois o texto com os pares.
+- Grava `monitor/atendimento/AAAA-MM-DD.md` (Pizzaria) e `AAAA-MM-DD_sushi.md` (Sushi), cada um com o seu `.json` (só números e pares, usado na comparação de 7 dias). **Nenhum nome, telefone ou endereço** de cliente: os trechos passam pela função `anonimiza`.
 - `--whatsapp`: manda o resumo curto com os pares propostos só para `WHATSAPP_EMERSON`.
 - Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` relatório gravado, WhatsApp não enviado.
 
@@ -419,7 +421,7 @@ Depois lê `GET /admin/api/chat/messages/{phone}?limit=500` de cada um. Conversa
 
 ## Campo de treinamento da IA (investigado em 08/11/2026, só leitura)
 
-Tela: **Configurações da loja → IA → "Ensine o jeito da sua loja (opcional)"**. Campos "Cliente pergunta" e "Resposta ideal (seu tom)". **Limite: 5 exemplos** (hoje estão os 5 ocupados).
+Mesma tela e mesmos endpoints nas duas lojas (Sushi: `/admin/api/stores/155/ai-config`). Tela: **Configurações da loja → IA → "Ensine o jeito da sua loja (opcional)"**. Campos "Cliente pergunta" e "Resposta ideal (seu tom)". **Limite: 5 exemplos** (em 08/11: Pizzaria 5 de 5, Sushi 3 de 5).
 
 | Ação | Endpoint | Observação |
 |---|---|---|
@@ -429,7 +431,7 @@ Tela: **Configurações da loja → IA → "Ensine o jeito da sua loja (opcional
 ### Comando `aprovar` (só com ordem do Emerson na sessão)
 
 ```bash
-python3 monitor/atendimento_ia.py aprovar --data 2026-11-07 --par 1 --no-lugar-de 3            # mostra o antes/depois
+python3 monitor/atendimento_ia.py aprovar --loja pizzaria --data 2026-11-07 --par 1 --no-lugar-de 3   # mostra o antes/depois
 python3 monitor/atendimento_ia.py aprovar --data 2026-11-07 --par 1 --no-lugar-de 3 --confirmo # grava
 ```
 - Sem `--confirmo` não grava nada.

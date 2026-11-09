@@ -109,8 +109,8 @@ def _comparacao(r: dict, hist: list[dict]) -> str:
 def html_painel(dia: date, dados: dict, hist: list[dict], formato: str = "ipad") -> str:
     r = dados["resumo"]
     P = [f'<div class="faixa"></div><div class="topo"><div class="logo"><img src="{_logo_src()}"></div>'
-         f'<div><div class="titulo">Atendimento <span>IA</span></div>'
-         f'<div class="sub">WhatsApp Pizzaria · turno {dia:%d/%m} (16:00–01:00)</div></div></div>']
+         f'<div><div class="titulo">Atendimento <span>IA</span> · {_e(dados.get("loja", "Pizzaria"))}</div>'
+         f'<div class="sub">WhatsApp · turno {dia:%d/%m} (16:00–01:00)</div></div></div>']
     P.append('<div class="colunas"><div>')
 
     # Coluna 1: números do turno

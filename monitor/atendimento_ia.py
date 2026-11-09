@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Auditoria do atendimento da IA no WhatsApp da Tili Pizzaria (loja 150) — só leitura.
+"""Auditoria do atendimento da IA no WhatsApp da Tili Pizzaria (loja 150) e da Tili Sushi (loja 155) — só leitura.
 
 Uso normal (Rotina das 03:30, fuso da Bahia):
     python3 monitor/atendimento_ia.py --whatsapp
@@ -41,8 +41,24 @@ from monitor import Aliv, AlivError, lista_pedidos, parse_dt  # noqa: E402
 from painel import ROTULOS  # noqa: E402
 
 TZ = ZoneInfo("America/Bahia")
-LOJA = 150
 PASTA = Path(__file__).resolve().parent / "atendimento"
+# Cada loja tem o seu login no ALIV. Arquivos: AAAA-MM-DD.md (Pizzaria) e AAAA-MM-DD_sushi.md (Sushi).
+LOJAS = {
+    "pizzaria": {"id": 150, "nome": "Tili Pizzaria", "curto": "Pizzaria", "user": "ALIV_USER",
+                 "senha": "ALIV_PASS", "sufixo": "", "emoji": "🍕"},
+    "sushi": {"id": 155, "nome": "Tili Sushi & Poke", "curto": "Sushi", "user": "ALIV_USER_SUSHI",
+              "senha": "ALIV_PASS_SUSHI", "sufixo": "_sushi", "emoji": "🍣"},
+}
+LOJA = 150
+SUFIXO = ""
+LOJA_INFO = LOJAS["pizzaria"]
+
+
+def usar_loja(chave: str) -> dict:
+    global LOJA, SUFIXO, LOJA_INFO
+    LOJA_INFO = LOJAS[chave]
+    LOJA, SUFIXO = LOJA_INFO["id"], LOJA_INFO["sufixo"]
+    return LOJA_INFO
 INICIO_H, FIM_H = 16, 1                 # turno: 16:00 de D até 01:00 de D+1
 DEMORA_MIN = 5                           # resposta acima disso = "demora"
 MAX_EXEMPLOS = 5                         # limite do campo no ALIV
@@ -394,13 +410,17 @@ def analisa(phone: str, nome: str, msgs: list[dict], dia: date, peds_fone: list[
 
 # ------------------------------------------------------------------ correções
 def fatos(api: Aliv) -> dict:
-    f = {"horario": "16:30 às 23:45", "pagamentos": [], "taxa": None}
+    f = {"horario": "16:30 às 23:45", "dias": "todos os dias", "pagamentos": [], "taxa": None}
     try:
         sch = api.get(f"/admin/api/stores/{LOJA}/schedule-config").get("operating_schedule") or []
         hs = {(d.get("start"), d.get("end")) for d in sch}
         if len(hs) == 1:
             a, b = hs.pop()
+            dias = {d.get("day") for d in sch}
+            nomes = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"]
+            fechado = [nomes[i] for i in range(7) if i not in dias]
             f["horario"] = f"{a} às {b}"
+            f["dias"] = "todos os dias" if not fechado else "menos " + " e ".join(fechado)
     except (AlivError, AttributeError):
         pass
     try:
@@ -421,7 +441,7 @@ def propostas(cont: Counter, topicos: Counter, perguntas: dict[str, str], itens:
     pag = ", ".join(fx["pagamentos"]) if fx["pagamentos"] else "Pix, cartão e dinheiro"
     modelos = {
         "horário": ("Vocês estão funcionando agora?",
-                    f"Estamos sim! 🍕 Nosso horário é das {fx['horario']}, todos os dias. Me fala o que vai querer que eu já anoto 🛵"),
+                    f"Estamos sim! {LOJA_INFO['emoji']} Nosso horário é das {fx['horario']}, {fx.get('dias', 'todos os dias')}. Me fala o que vai querer que eu já anoto 🛵"),
         "promoção": ("Tem alguma promoção hoje?",
                      "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?"),
         "pagamento": ("Vocês aceitam cartão ou pix?",
@@ -504,7 +524,7 @@ def carregar_historico(dia: date) -> list[dict]:
     out = []
     for i in range(1, 8):
         d = dia - timedelta(days=i)
-        f = PASTA / f"{d.isoformat()}.json"
+        f = PASTA / f"{d.isoformat()}{SUFIXO}.json"
         if f.exists():
             try:
                 out.append(json.loads(f.read_text())["resumo"] | {"dia": d.isoformat()})
@@ -545,8 +565,8 @@ def gerar(dia: date, convs: list[dict], pares, regras, itens, hist, existentes, 
     r = resumo_num(convs)
     ini, fim = janela(dia)
     top5 = Counter(r["problemas"]).most_common(5)
-    L = [f"# Atendimento da IA — Tili Pizzaria — turno {dia:%d/%m/%Y}",
-         "", f"Janela: {ini:%d/%m %H:%M} até {fim:%d/%m %H:%M} (horário da Bahia). Só WhatsApp da loja 150; iFood fica de fora.",
+    L = [f"# Atendimento da IA — {LOJA_INFO['nome']} — turno {dia:%d/%m/%Y}",
+         "", f"Janela: {ini:%d/%m %H:%M} até {fim:%d/%m %H:%M} (horário da Bahia). Só WhatsApp da loja {LOJA}; iFood fica de fora.",
          "", "## 1) Resumo do dia", "",
          f"- Conversas com cliente: **{r['conversas']}**",
          f"- Pedidos fechados: **{r['pedidos']}** — {r['pedidos_ia']} montados pela IA · "
@@ -600,14 +620,14 @@ def gerar(dia: date, convs: list[dict], pares, regras, itens, hist, existentes, 
     L += ["", "## 4) Comparação com os últimos 7 dias", ""] + tendencia(r, hist)
     L += ["", "---", f"Telefones verificados: {n_fones}. Classificação automática por palavras-chave; "
           "confira os exemplos antes de aprovar qualquer par."]
-    dados = {"dia": dia.isoformat(), "resumo": r, "pares": pares, "regras": regras,
+    dados = {"dia": dia.isoformat(), "loja": LOJA_INFO["curto"], "resumo": r, "pares": pares, "regras": regras,
              "itens_faltando": [t for t, _ in cont_itens]}
     return "\n".join(L) + "\n", dados
 
 
 def resumo_whatsapp(dia: date, dados: dict, hist: list[dict]) -> str:
     r = dados["resumo"]
-    L = [f"*Atendimento IA — turno {dia:%d/%m}*",
+    L = [f"*Atendimento IA {LOJA_INFO['curto']} — turno {dia:%d/%m}*",
          f"{r['conversas']} conversas · {r['pedidos']} pedidos ({pct(r['conversao'])}) · "
          f"abandono {pct(r['abandono'])} · resposta média {r['tempo_medio_min'] if r['tempo_medio_min'] is not None else '—'} min"]
     L.append(f"Pedidos: {r['pedidos_ia']} pela IA · {r['pedidos_link']} pelo link · {r.get('pedidos_outro', 0)} balcão. "
@@ -628,19 +648,33 @@ def resumo_whatsapp(dia: date, dados: dict, hist: list[dict]) -> str:
                 continue
             L.append(f"{i}) P: {p['user']}\nR: {corta(p['assistant'], 160)}")
     L.append("")
-    L.append(f"Relatório completo: monitor/atendimento/{dia.isoformat()}.md")
+    L.append(f"Relatório completo: monitor/atendimento/{dia.isoformat()}{SUFIXO}.md")
     return "\n".join(L)
 
 
 # ------------------------------------------------------------------ rodada
 def auditar(a) -> int:
-    user, pwd = os.environ.get("ALIV_USER"), os.environ.get("ALIV_PASS")
-    if not user or not pwd:
-        print("Faltam ALIV_USER/ALIV_PASS", file=sys.stderr)
-        return 2
+    """Roda as lojas pedidas. O WhatsApp sai sempre pelo número da Pizzaria (como o monitor.py)."""
     agora = datetime.now(TZ)
     dia = date.fromisoformat(a.data) if a.data else agora.date() - timedelta(days=1)   # turno que fechou
-    api = AlivLeitura(user, pwd)
+    lojas = list(LOJAS) if a.loja == "todas" else [a.loja]
+    remetente = None
+    if a.whatsapp and os.environ.get("ALIV_USER") and os.environ.get("ALIV_PASS"):
+        remetente = AlivLeitura(os.environ["ALIV_USER"], os.environ["ALIV_PASS"])
+    codigos = []
+    for chave in lojas:
+        info = usar_loja(chave)
+        if not os.environ.get(info["user"]) or not os.environ.get(info["senha"]):
+            print(f"{info['curto']}: faltam {info['user']}/{info['senha']}", file=sys.stderr)
+            codigos.append(2)
+            continue
+        print(f"\n######## {info['nome']} ########\n")
+        codigos.append(auditar_loja(a, dia, remetente))
+    return max(codigos) if codigos else 2
+
+
+def auditar_loja(a, dia: date, remetente) -> int:
+    api = AlivLeitura(os.environ[LOJA_INFO["user"]], os.environ[LOJA_INFO["senha"]])
     try:
         cfg = api.get(f"/admin/api/stores/{LOJA}/ai-config")
         cfg = cfg.get("config", cfg)
@@ -654,7 +688,7 @@ def auditar(a) -> int:
                 f"/admin/api/chat/messages/{urllib.parse.quote(p)}", {"limit": LIMITE_MSGS}) or [], fones)))
         fx = fatos(api)
     except (AlivError, OSError) as e:
-        print(f"Atendimento IA — erro no ALIV: {e}")
+        print(f"Atendimento IA {LOJA_INFO['curto']} — erro no ALIV: {e}")
         return 1
 
     por_fone: dict[str, list[dict]] = {}
@@ -695,8 +729,8 @@ def auditar(a) -> int:
 
     if not a.sem_gravar:
         PASTA.mkdir(parents=True, exist_ok=True)
-        (PASTA / f"{dia.isoformat()}.md").write_text(md, encoding="utf-8")
-        (PASTA / f"{dia.isoformat()}.json").write_text(json.dumps(dados, ensure_ascii=False, indent=1), encoding="utf-8")
+        (PASTA / f"{dia.isoformat()}{SUFIXO}.md").write_text(md, encoding="utf-8")
+        (PASTA / f"{dia.isoformat()}{SUFIXO}.json").write_text(json.dumps(dados, ensure_ascii=False, indent=1), encoding="utf-8")
     texto = resumo_whatsapp(dia, dados, hist)
     print(texto)
     print("\n" + "=" * 60 + "\n")
@@ -706,10 +740,12 @@ def auditar(a) -> int:
         import tempfile
         from painel_atendimento import gerar_paineis
         base = a.painel or Path(tempfile.mkdtemp()) / "atendimento.png"
+        base = base.with_name(f"{base.stem}{SUFIXO}{base.suffix}")
         paineis = gerar_paineis(base, dia, dados, hist)
         for rot, arq in paineis.items():
             print(f"Painel {rot}: {arq}", file=sys.stderr)
     if a.whatsapp:
+        api = remetente or api
         fone = digitos(os.environ.get("WHATSAPP_EMERSON", ""))
         if not fone:
             print("WhatsApp não enviado: falta WHATSAPP_EMERSON")
@@ -720,7 +756,7 @@ def auditar(a) -> int:
                 print(f"Painel {rot} não gerado: {arq}", file=sys.stderr)
                 continue
             try:
-                api.enviar_whatsapp(fone, f"Atendimento IA ({ROTULOS.get(rot, rot)}) — turno {dia:%d/%m}", arquivo=arq)
+                api.enviar_whatsapp(fone, f"Atendimento IA {LOJA_INFO['curto']} ({ROTULOS.get(rot, rot)}) — turno {dia:%d/%m}", arquivo=arq)
                 print(f"WhatsApp: painel {rot} enviado.")
             except AlivError as e:
                 print(f"WhatsApp: painel {rot} não enviado — {e}")
@@ -767,7 +803,8 @@ def form_config(cfg: dict, exemplos: list[dict]) -> list[tuple[str, str]]:
 
 
 def aprovar(a) -> int:
-    f = PASTA / f"{a.data}.json"
+    usar_loja(a.loja)
+    f = PASTA / f"{a.data}{SUFIXO}.json"
     if not f.exists():
         print(f"Não achei {f}. Rode a auditoria desse dia primeiro.")
         return 2
@@ -783,7 +820,7 @@ def aprovar(a) -> int:
     if "[" in par["assistant"]:
         print("A resposta ainda tem trecho entre colchetes para completar. Use --resposta \"texto final\".")
         return 2
-    api = AlivLeitura(os.environ["ALIV_USER"], os.environ["ALIV_PASS"])
+    api = AlivLeitura(os.environ[LOJA_INFO["user"]], os.environ[LOJA_INFO["senha"]])
     cfg = api.get(f"/admin/api/stores/{LOJA}/ai-config")
     cfg = cfg.get("config", cfg)
     atuais = list(cfg.get("few_shot_examples") or [])
@@ -840,6 +877,7 @@ def main() -> int:
     if len(sys.argv) > 1 and sys.argv[1] == "aprovar":
         ap = argparse.ArgumentParser(prog="atendimento_ia.py aprovar")
         ap.add_argument("--data", required=True, help="dia do relatório (AAAA-MM-DD)")
+        ap.add_argument("--loja", choices=list(LOJAS), default="pizzaria")
         ap.add_argument("--par", type=int, required=True, help="número do par no relatório")
         ap.add_argument("--no-lugar-de", type=int, help="exemplo atual que sai (1 a 5)")
         ap.add_argument("--pergunta", help="troca o texto da pergunta antes de gravar")
@@ -848,7 +886,8 @@ def main() -> int:
         return aprovar(ap.parse_args(sys.argv[2:]))
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--data", help="turno a auditar (AAAA-MM-DD). Padrão: ontem (o turno que fechou à 01:00)")
-    ap.add_argument("--whatsapp", action="store_true", help="manda o resumo para WHATSAPP_EMERSON")
+    ap.add_argument("--whatsapp", action="store_true", help="manda painel e resumo para WHATSAPP_EMERSON")
+    ap.add_argument("--loja", choices=["todas", *LOJAS], default="todas", help="padrão: Pizzaria e Sushi")
     ap.add_argument("--sem-gravar", action="store_true", help="não grava os arquivos")
     ap.add_argument("--painel", type=Path, help="salva os painéis em ARQ_ipad.png, ARQ_iphone_1.png e ARQ_iphone_2.png")
     ap.add_argument("--sem-painel", action="store_true", help="não gera nem envia o painel")

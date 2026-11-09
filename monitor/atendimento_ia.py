@@ -27,6 +27,7 @@ import os
 import re
 import statistics
 import sys
+import time
 import unicodedata
 import urllib.parse
 from collections import Counter
@@ -37,6 +38,7 @@ from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from monitor import Aliv, AlivError, lista_pedidos, parse_dt  # noqa: E402
+from painel import ROTULOS  # noqa: E402
 
 TZ = ZoneInfo("America/Bahia")
 LOJA = 150
@@ -59,6 +61,19 @@ PROBLEMAS = {
     "nao_soube": "Pergunta que a IA não soube responder",
     "cancelado": "Pedido cancelado depois de montado",
 }
+
+
+class AlivLeitura(Aliv):
+    """Aliv do monitor.py + nova tentativa quando o ALIV derruba a conexão (só em GET)."""
+
+    def _send(self, req):
+        for tentativa in range(5):
+            try:
+                return super()._send(req)
+            except OSError:
+                if req.get_method() != "GET" or tentativa == 4:
+                    raise
+                time.sleep(2 ** tentativa)
 
 
 # ------------------------------------------------------------------ texto
@@ -191,7 +206,7 @@ def pedidos(api: Aliv, dia: date) -> list[dict]:
         r = api.get(f"/admin/api/orders/{oid}")
         return r.get("order", r) if isinstance(r, dict) else {}
 
-    with ThreadPoolExecutor(max_workers=6) as ex:
+    with ThreadPoolExecutor(max_workers=4) as ex:
         detalhes = dict(zip(alvo, ex.map(det, alvo)))
     out = []
     for oid, o in alvo.items():
@@ -224,7 +239,7 @@ def fones_candidatos(api: Aliv, peds: list[dict], max_busca: int, dia: date) -> 
         recentes.add(d.strftime("%d/%m"))
         d += timedelta(days=1)
     nivel, chamadas = list(BUSCA_PREFIXOS), 0
-    with ThreadPoolExecutor(max_workers=6) as ex:
+    with ThreadPoolExecutor(max_workers=4) as ex:
         while nivel and chamadas < max_busca:
             nivel = nivel[: max_busca - chamadas]
             chamadas += len(nivel)
@@ -611,7 +626,7 @@ def auditar(a) -> int:
         return 2
     agora = datetime.now(TZ)
     dia = date.fromisoformat(a.data) if a.data else agora.date() - timedelta(days=1)   # turno que fechou
-    api = Aliv(user, pwd)
+    api = AlivLeitura(user, pwd)
     try:
         cfg = api.get(f"/admin/api/stores/{LOJA}/ai-config")
         cfg = cfg.get("config", cfg)
@@ -620,11 +635,11 @@ def auditar(a) -> int:
         peds = pedidos(api, dia)
         fones = fones_candidatos(api, peds, a.busca, dia)
         fones = {p: n for p, n in fones.items() if chave_fone(p) not in excluir}
-        with ThreadPoolExecutor(max_workers=6) as ex:
+        with ThreadPoolExecutor(max_workers=4) as ex:
             msgs = dict(zip(fones, ex.map(lambda p: api.get(
                 f"/admin/api/chat/messages/{urllib.parse.quote(p)}", {"limit": LIMITE_MSGS}) or [], fones)))
         fx = fatos(api)
-    except AlivError as e:
+    except (AlivError, OSError) as e:
         print(f"Atendimento IA — erro no ALIV: {e}")
         return 1
 
@@ -672,16 +687,37 @@ def auditar(a) -> int:
     print(texto)
     print("\n" + "=" * 60 + "\n")
     print(md)
+    paineis: dict = {}
+    if not a.sem_painel and (a.painel or a.whatsapp):
+        import tempfile
+        from painel_atendimento import gerar_paineis
+        base = a.painel or Path(tempfile.mkdtemp()) / "atendimento.png"
+        paineis = gerar_paineis(base, dia, dados, hist)
+        for rot, arq in paineis.items():
+            print(f"Painel {rot}: {arq}", file=sys.stderr)
     if a.whatsapp:
         fone = digitos(os.environ.get("WHATSAPP_EMERSON", ""))
         if not fone:
             print("WhatsApp não enviado: falta WHATSAPP_EMERSON")
             return 3
+        falhou = False
+        for rot, arq in paineis.items():
+            if isinstance(arq, Exception):
+                print(f"Painel {rot} não gerado: {arq}", file=sys.stderr)
+                continue
+            try:
+                api.enviar_whatsapp(fone, f"Atendimento IA ({ROTULOS.get(rot, rot)}) — turno {dia:%d/%m}", arquivo=arq)
+                print(f"WhatsApp: painel {rot} enviado.")
+            except AlivError as e:
+                print(f"WhatsApp: painel {rot} não enviado — {e}")
+                falhou = True
         try:
             api.enviar_whatsapp(fone, texto)
-            print("WhatsApp enviado.")
+            print("WhatsApp: resumo com os pares enviado.")
         except AlivError as e:
             print(f"WhatsApp não enviado: {e}")
+            return 3
+        if falhou:
             return 3
     return 0
 
@@ -733,7 +769,7 @@ def aprovar(a) -> int:
     if "[" in par["assistant"]:
         print("A resposta ainda tem trecho entre colchetes para completar. Use --resposta \"texto final\".")
         return 2
-    api = Aliv(os.environ["ALIV_USER"], os.environ["ALIV_PASS"])
+    api = AlivLeitura(os.environ["ALIV_USER"], os.environ["ALIV_PASS"])
     cfg = api.get(f"/admin/api/stores/{LOJA}/ai-config")
     cfg = cfg.get("config", cfg)
     atuais = list(cfg.get("few_shot_examples") or [])
@@ -800,6 +836,8 @@ def main() -> int:
     ap.add_argument("--data", help="turno a auditar (AAAA-MM-DD). Padrão: ontem (o turno que fechou à 01:00)")
     ap.add_argument("--whatsapp", action="store_true", help="manda o resumo para WHATSAPP_EMERSON")
     ap.add_argument("--sem-gravar", action="store_true", help="não grava os arquivos")
+    ap.add_argument("--painel", type=Path, help="salva os painéis em ARQ_ipad.png, ARQ_iphone_1.png e ARQ_iphone_2.png")
+    ap.add_argument("--sem-painel", action="store_true", help="não gera nem envia o painel")
     ap.add_argument("--busca", type=int, default=BUSCA_MAX_CHAMADAS, help="máx. de buscas por prefixo de telefone")
     return auditar(ap.parse_args())
 

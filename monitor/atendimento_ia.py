@@ -144,7 +144,7 @@ I_NAO_ENTENDEU = [r"nao (entendi|consegui entender|compreendi)", r"pode(ria)? (r
 I_NAO_SOUBE = [r"nao (sei|tenho essa informacao|tenho como (informar|saber|confirmar)|consigo (informar|confirmar|ver|saber))",
                r"vou (verificar|confirmar|consultar|checar) (com|e)", r"(um|uma) (atendente|pessoa da equipe|colaborador)",
                r"vou (te )?passar (para|pra)", r"(ligue|entre em contato|consulte)", r"nao tenho acesso"]
-I_SEM_ITEM = [r"nao (encontrei|achei|temos|trabalhamos com|tem)\b.*(cardapio|esse|essa|item|sabor|opcao|disponivel)",
+I_SEM_ITEM = [r"nao (encontrei|achei|temos|trabalhamos com|tem)\b(?!.*\bpedido\b).*\b(cardapio|esse|essa|esses|item|itens|sabor|opcao|disponivel)\b",
               r"nao (esta|ta) disponivel", r"(esgotad|em falta|acabou)", r"nao consta"]
 I_FORA_AREA = [r"nao (entregamos|atendemos|fazemos entrega)", r"fora da (nossa )?(area|regiao)",
                r"nao consegui (calcular|localizar|achar) (a taxa|o endereco|seu endereco)"]
@@ -157,8 +157,8 @@ RE_EMAIL = re.compile(r"\S+@\S+")
 RE_CEP = re.compile(r"\b\d{5}-?\d{3}\b")
 RE_ENDERECO = re.compile(
     r"(?i)\b(rua|r\.|av\.?|avenida|travessa|tv\.?|alameda|estrada|rodovia|br-?\d+|quadra|qd\.?|lote|lt\.?|"
-    r"condom[ií]nio|cond\.?|residencial|loteamento|bairro|casa|apto?\.?|apartamento|bloco|n[ºo°]\.?|numero|número)"
-    r"\b[^\n,.;!?]*")
+    r"condom[ií]nio|cond\.?|residencial|loteamento|bairro|apto?\.?|apartamento|bloco)"
+    r"\b[^\n,.;!?]*|\bn[º°]\s*\d+")
 RE_LINHA_ENTREGA = re.compile(r"(?im)^.*(📍|entrega:|endere[cç]o:|refer[eê]ncia:).*$")
 RE_NEGRITO_NOME = re.compile(r"\*([A-ZÀ-Ú][a-zà-ú]+(?: [A-ZÀ-Ú][a-zà-ú]+)*)\*")
 RE_SAUDACAO_NOME = re.compile(r"(?i)\b(oi|ol[aá]|obrigad[oa]|valeu|boa noite|boa tarde|bom dia),? ([A-ZÀ-Ú][a-zà-ú]{2,})\b")
@@ -177,6 +177,7 @@ def anonimiza(texto: str, nomes: set[str]) -> str:
         if len(n) >= 3:
             t = re.sub(rf"(?i)\b{re.escape(n)}\b", "[nome]", t)
     t = re.sub(r"\b\d{3,}\b", "[nº]", t)
+    t = re.sub(r"\[endereço\]\s*\d+", "[endereço]", t)
     t = re.sub(r"(\[endereço\][\s,]*)+", "[endereço] ", t)
     return re.sub(r"\s+", " ", t).strip()
 
@@ -361,8 +362,9 @@ def analisa(phone: str, nome: str, msgs: list[dict], dia: date, peds_fone: list[
         if tem(corpo, I_SEM_ITEM):
             ant = next((x for x in reversed(conv[:i]) if x.get("direction") == "incoming"
                         and (x.get("body") or "").strip()), None)
-            if ant:
-                itens_faltando.append(corta(anonimiza(ant["body"], nomes), 80))
+            item = corta(anonimiza(ant["body"], nomes), 80) if ant else ""
+            if len(re.sub(r"\[[^\]]*\]|\W", "", item)) >= 5 and norm(item) not in {"pix", "sim", "nao", "ok", "dinheiro", "cartao"}:
+                itens_faltando.append(item)
             marca("item_preco", i)
         if tem(corpo, I_FORA_AREA):
             marca("endereco_taxa", i)
@@ -425,8 +427,9 @@ def fatos(api: Aliv) -> dict:
         pass
     try:
         pay = api.get(f"/admin/api/stores/{LOJA}/payments-config").get("payments") or []
+        fora = ("ifood", "fiado", "carteira", "boleto", "folha", "dda")
         f["pagamentos"] = [p["name"] for p in pay if p.get("is_active") and p.get("show_in_delivery_app")
-                           and "ifood" not in norm(p.get("name"))]
+                           and not any(x in norm(p.get("name")) for x in fora)]
     except (AlivError, AttributeError):
         pass
     return f
@@ -516,6 +519,10 @@ def resumo_num(convs: list[dict]) -> dict:
             "problemas": dict(prob)}
 
 
+def fmin(v) -> str:
+    return "—" if v is None else f"{v:.1f}".replace(".", ",")
+
+
 def pct(v) -> str:
     return "—" if v is None else f"{v * 100:.0f}%"
 
@@ -575,9 +582,8 @@ def gerar(dia: date, convs: list[dict], pares, regras, itens, hist, existentes, 
          f"- Abandono (sem pedido em nenhum canal): **{r['abandonadas']}** ({pct(r['abandono'])}) — "
          f"{r['abandono_com_link']} receberam o link e não pediram · {r['abandono_sem_link']} sem link",
          f"- Conversas em que a IA mandou o link do cardápio: {r['receberam_link']}",
-         f"- Tempo médio de resposta: **{r['tempo_medio_min'] if r['tempo_medio_min'] is not None else '—'} min** "
-         f"(mediana {r['tempo_mediana_min'] if r['tempo_mediana_min'] is not None else '—'} min)",
-         f"- Conversas que terminaram sem resposta: {r['sem_resposta']}",
+         f"- Tempo médio de resposta: **{fmin(r['tempo_medio_min'])} min** (mediana {fmin(r['tempo_mediana_min'])} min)",
+         f"- Conversas em que a última mensagem foi do cliente (sem resposta da loja): {r['sem_resposta']}",
          f"- Pedidos da IA cancelados depois de montados: {r['cancelados_ia']}",
          "", "**5 problemas mais frequentes** (nº de conversas):", ""]
     L += [f"{i}. {PROBLEMAS[k]} — {v}" for i, (k, v) in enumerate(top5, 1)] or ["Nenhum problema encontrado."]
@@ -629,7 +635,7 @@ def resumo_whatsapp(dia: date, dados: dict, hist: list[dict]) -> str:
     r = dados["resumo"]
     L = [f"*Atendimento IA {LOJA_INFO['curto']} — turno {dia:%d/%m}*",
          f"{r['conversas']} conversas · {r['pedidos']} pedidos ({pct(r['conversao'])}) · "
-         f"abandono {pct(r['abandono'])} · resposta média {r['tempo_medio_min'] if r['tempo_medio_min'] is not None else '—'} min"]
+         f"abandono {pct(r['abandono'])} · resposta média {fmin(r['tempo_medio_min'])} min"]
     L.append(f"Pedidos: {r['pedidos_ia']} pela IA · {r['pedidos_link']} pelo link · {r.get('pedidos_outro', 0)} balcão. "
              f"Abandono real: {r['abandono_com_link']} com link · {r['abandono_sem_link']} sem link")
     if hist:

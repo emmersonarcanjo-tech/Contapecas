@@ -1,0 +1,44 @@
+{
+ "dia": "2026-10-31",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 16,
+  "pedidos": 7,
+  "pedidos_ia": 2,
+  "abandonadas": 8,
+  "conversao": 0.438,
+  "abandono": 0.5,
+  "tempo_medio_min": 2.1,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 1,
+  "cancelados_ia": 1,
+  "pedidos_link": 5,
+  "pedidos_outro": 0,
+  "receberam_link": 13,
+  "abandono_com_link": 8,
+  "abandono_sem_link": 0,
+  "problemas": {
+   "demora": 3,
+   "cancelado": 1,
+   "item_preco": 1,
+   "reclamou_humano": 1,
+   "repetiu": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [],
+ "pedidos_ia_sem_chat": 0
+}

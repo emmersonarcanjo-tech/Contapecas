@@ -610,6 +610,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Previsão de motoboys do dia (ALIV, só leitura)")
     ap.add_argument("--data", help="dia da previsão (AAAA-MM-DD); padrão: hoje")
     ap.add_argument("--promo", action="store_true", help="considera promoção hoje")
+    ap.add_argument("--correcao", metavar="MOTIVO",
+                    help="reenvio corrigido: a legenda sai como '⚠️ CORREÇÃO … desconsidere o anterior' (regra do Emerson, 09/11/2026)")
     ap.add_argument("--whatsapp", action="store_true",
                     help="envia para WHATSAPP_EMERSON, WHATSAPP_JOSUE e WHATSAPP_CAMILO")
     ap.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (diagnóstico, não commitar)")
@@ -693,6 +695,9 @@ def main() -> int:
     legenda = f"Motoboys hoje {hoje:%d/%m}: chamar {rec['lo']} a {rec['hi']}"
     if chuva["status"] in ("chuva", "forte"):
         legenda += f" · com chuva +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE}"
+    if args.correcao:
+        legenda = f"⚠️ CORREÇÃO — {legenda}. O painel anterior estava errado ({args.correcao}), desconsidere."
+        texto = f"⚠️ CORREÇÃO ({args.correcao}) — desconsidere a mensagem anterior.\n\n" + texto
     enviados = 0
     for var in DESTINOS:
         fone = re.sub(r"\D", "", os.environ.get(var, "")) or fone_remetente(var)

@@ -610,7 +610,7 @@ def gerar(dia: date, convs: list[dict], pares, regras, itens, hist, existentes, 
     for i, p in enumerate(pares, 1):
         aviso = f" — ⚠️ já existe parecido (exemplo {p['ja_existe_parecido']}), não proposto" if p["ja_existe_parecido"] else ""
         falta = " — ✏️ completar o trecho entre colchetes antes de aprovar" if p["falta_preencher"] else ""
-        L.append(f"**Par {i}** ({p['tema']}){aviso}{falta}")
+        L.append(f"**Par {i}** ({PROBLEMAS.get(p['tema'], p['tema'])}){aviso}{falta}")
         L.append(f"- Cliente pergunta: {p['user']}")
         L.append(f"- Resposta ideal: {p['assistant']}")
         if p.get("exemplo_cliente"):

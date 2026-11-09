@@ -1,0 +1,43 @@
+{
+ "dia": "2026-11-05",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 56,
+  "pedidos": 33,
+  "pedidos_ia": 17,
+  "abandonadas": 23,
+  "conversao": 0.589,
+  "abandono": 0.411,
+  "tempo_medio_min": 1.2,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 15,
+  "cancelados_ia": 0,
+  "pedidos_link": 15,
+  "pedidos_outro": 1,
+  "receberam_link": 42,
+  "abandono_com_link": 17,
+  "abandono_sem_link": 6,
+  "problemas": {
+   "item_preco": 8,
+   "repetiu": 5,
+   "demora": 8
+  }
+ },
+ "pares": [],
+ "regras": [
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Meia cada",
+  "O pedido confirmou ?",
+  "2 temaki hot",
+  "Tem promoçao",
+  "3 queijos e carne seca com banana da terra",
+  "1 coca cola de 1 [endereço]",
+  "Tem alguma promoção de pizza?",
+  "Cardápio do sushi",
+  "Nesse número msm",
+  "Uma coca normal de 1,5l"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

@@ -534,7 +534,9 @@ def carregar_historico(dia: date) -> list[dict]:
         f = PASTA / f"{d.isoformat()}{SUFIXO}.json"
         if f.exists():
             try:
-                out.append(json.loads(f.read_text())["resumo"] | {"dia": d.isoformat()})
+                r = json.loads(f.read_text())["resumo"]
+                if r.get("pedidos"):           # dia sem pedido (loja fechada) não entra na média
+                    out.append(r | {"dia": d.isoformat()})
             except (ValueError, KeyError):
                 pass
     return out
@@ -681,6 +683,14 @@ def auditar(a) -> int:
 
 def auditar_loja(a, dia: date, remetente) -> int:
     api = AlivLeitura(os.environ[LOJA_INFO["user"]], os.environ[LOJA_INFO["senha"]])
+    try:
+        sch = api.get(f"/admin/api/stores/{LOJA}/schedule-config").get("operating_schedule") or []
+        dia_semana = (dia.weekday() + 1) % 7          # ALIV: 0 = domingo
+        if sch and dia_semana not in {d.get("day") for d in sch}:
+            print(f"{LOJA_INFO['curto']}: fechada em {dia:%d/%m} pelo horário do ALIV — sem auditoria.")
+            return 0
+    except (AlivError, OSError, AttributeError):
+        pass
     try:
         cfg = api.get(f"/admin/api/stores/{LOJA}/ai-config")
         cfg = cfg.get("config", cfg)

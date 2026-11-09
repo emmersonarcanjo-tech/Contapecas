@@ -63,7 +63,7 @@ def _tem(n: str, *chaves: str) -> bool:
 
 # A ordem importa: a primeira regra que bater define a área.
 REGRAS = [
-    (OUTROS, ("prateleira", "abracadeira", "acendedor", "aguarras", "algicida", "barrilha", "clarificante",
+    (OUTROS, ("prateleira", "abracadeira", "acendedor", "aguarr", "algicida", "barrilha", "clarificante",
               "cloro gran", "bandeja retangular", "bandeja servir", "kit 10 bandeja", "kit com 10 bandeja",
               "kit 12 cuba", "barra magnetic", "barramento", "batedor", "broca", "bucha", "cabo ", "caixa de luz",
               "caixa gordura", "caixa p/guardar", "campainha", "cap esg", "capacitor", "cervejeira", "chaira",

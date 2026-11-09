@@ -65,9 +65,8 @@ def fmt(v: float) -> str:
 def ler_planilha(arq: Path) -> tuple[list[dict], list[str]]:
     from openpyxl import load_workbook
     wb = load_workbook(arq, data_only=True)
-    if "Contagem" not in wb.sheetnames:
-        raise ValueError("a planilha não tem a aba 'Contagem'")
-    ws = wb["Contagem"]
+    # aba "Contagem"; se veio do Google Planilhas com outro nome, usa a 1ª aba
+    ws = wb["Contagem"] if "Contagem" in wb.sheetnames else wb.worksheets[0]
     cab, ini = None, None
     for r in range(1, 11):
         vals = [norm(c.value) for c in ws[r]]
@@ -181,6 +180,8 @@ def main() -> int:
             recusados.append((it, "não existe mais no ALIV"))
         elif x.get("is_paused"):
             recusados.append((it, "insumo pausado no ALIV"))
+        elif it["nome"] and norm(it["nome"]) not in {norm(x.get("display_name")), norm(x.get("name"))}:
+            recusados.append((it, f"nome não bate com o ALIV ({x.get('display_name') or x.get('name')})"))
         elif it["unidade"] and norm(it["unidade"]) != norm(x.get("unit")):
             recusados.append((it, f"unidade mudou no ALIV ({it['unidade']} → {x.get('unit')}); gere a planilha de novo"))
         else:

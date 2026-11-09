@@ -493,7 +493,7 @@ python3 monitor/contagem_lancar.py manuais/Folha_de_Contagem_Tili_Pizzaria.xlsx 
 
 - Quantidade em branco = não lança. `0` = contado e zerado. "zerar" na aba Decidir lança 0.
 - Quantidade enviada = contada × "Fator p/ estoque ALIV" (padrão 1). Ex.: contou 3 caixas de 12 de um item que o ALIV controla em UN → fator 12 → lança 36 UN.
-- Confere antes: insumo existe, não está pausado e a unidade do ALIV não mudou desde que a planilha foi gerada. Com linha inválida na planilha, `--confirmar` não lança nada.
+- Confere antes: insumo existe, não está pausado, o nome da linha bate com o ALIV e a unidade não mudou desde que a planilha foi gerada. Aceita também a planilha baixada do Google Planilhas como .xlsx (usa a 1ª aba). Com linha inválida na planilha, `--confirmar` não lança nada.
 - Usa a Conferência de Estoque do ALIV: abre uma (`check/start`) se não houver, e grava cada item com `check/update-item` (zera e soma, igual aos botões da tela). Item que já tem contagem na sessão só é regravado com `--sobrescrever`.
 - **Não finaliza.** O ajuste do estoque é feito pelo Emerson na tela: Estoque → Conferência → Finalizar (responsável + senha).
 - Testado em dry-run contra o ALIV real em 09/11/2026. O modo `--confirmar` ainda não foi rodado (grava no ALIV).

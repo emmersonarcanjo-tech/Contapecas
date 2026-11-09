@@ -17,7 +17,7 @@ fórmula do monitor); melhor e pior dia. Compara com a semana anterior e com a m
 do mês passado (4 semanas antes, mesmos dias da semana). Fecha o mês até o domingo, com
 projeção linear. Três destaques no topo: melhorou, piorou e recomendação.
 
-Saídas: painel PNG iPad (2360×1640) e celular (1290 px, 2 telas), texto resumido e o
+Saídas: painel PNG do iPad (2360×1640), texto resumido e o
 relatório completo em monitor/semanal/AAAA-MM-DD.md (data = segunda da semana). O commit
 fica a cargo da Rotina. Cache dos dias fechados em monitor/semanal/dias/ (só números e
 apelido do motoboy como aparece no pedido; dígitos são removidos — nunca CPF/CNPJ).
@@ -518,7 +518,7 @@ def main() -> int:
     ap.add_argument("--sem-painel", action="store_true", help="não gera o painel")
     ap.add_argument("--sem-salvar", action="store_true", help="não grava monitor/semanal/AAAA-MM-DD.md")
     ap.add_argument("--sem-cache", action="store_true", help="ignora o cache dos dias e busca tudo no ALIV")
-    ap.add_argument("--whatsapp", action="store_true", help="envia painéis + texto para WHATSAPP_EMERSON")
+    ap.add_argument("--whatsapp", action="store_true", help="envia o painel do iPad + texto para WHATSAPP_EMERSON")
     args = ap.parse_args()
 
     user, pwd = os.environ.get("ALIV_USER"), os.environ.get("ALIV_PASS")

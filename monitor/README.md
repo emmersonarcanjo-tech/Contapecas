@@ -467,11 +467,11 @@ Toda **segunda às 09:00** (America/Bahia) fecha a semana que terminou, **segund
 python3 monitor/fechamento_semanal.py                        # semana passada, imprime e NÃO envia
 python3 monitor/fechamento_semanal.py --semana 2026-11-02    # semana (seg–dom) que contém o dia
 python3 monitor/fechamento_semanal.py --inicio 2026-10-27    # 7 dias a partir do dia exato (teste)
-python3 monitor/fechamento_semanal.py --whatsapp             # envia painéis + texto para WHATSAPP_EMERSON
+python3 monitor/fechamento_semanal.py --whatsapp             # envia painel + texto para WHATSAPP_EMERSON
 ```
 
-- Saídas: texto resumido no terminal, relatório completo em `monitor/semanal/AAAA-MM-DD.md` (data = 1º dia da semana) e painéis PNG (`--painel PASTA` para guardar; senão vão para uma pasta temporária). O commit fica com a Rotina.
-- Painéis: **iPad 2360×1640** (uma tela, 4 colunas) e **celular 1290 px** em 2 telas (1/2 destaques, consolidado, lojas e dia a dia; 2/2 canais, motoboys, tempos e mês).
+- Saídas: texto resumido no terminal, relatório completo em `monitor/semanal/AAAA-MM-DD.md` (data = 1º dia da semana) e painel PNG (`--painel PASTA` para guardar; senão vai para uma pasta temporária). O commit fica com a Rotina.
+- Painel: **só iPad, 2360×1640** (resolução nativa do iPad deitado, uma tela, 4 colunas). Emerson pediu sem a versão de celular em 09/11/2026.
 - Cache: cada dia fechado vira `monitor/semanal/dias/AAAA-MM-DD.json` (só números e o apelido do motoboy como aparece no pedido, sem dígitos — nunca CPF/CNPJ). Um dia leva ~1–5 min no ALIV; com o cache, a segunda só busca os 7 dias novos. `--sem-cache` refaz tudo.
 - Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis · `3` WhatsApp não aceitou (a Rotina manda por e-mail).
 

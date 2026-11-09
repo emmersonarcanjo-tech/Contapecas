@@ -1,31 +1,24 @@
 """Painel em PNG do fechamento semanal (fechamento_semanal.py) — mesmo estilo do painel.py.
 
 Cores da Tili (vermelho #C8102E, dourado #D4A017, fundo #1A1A1A), logo no topo e o mesmo
-Chromium headless do painel do monitor. Dois formatos:
-  ipad    — 2360×1640 (iPad deitado), uma tela só, 4 colunas
-  celular — 1290 px de largura (iPhone), em 2 telas: 1/2 destaques, consolidado, lojas e
-            dia a dia; 2/2 canais, motoboys, tempos e mês.
-
-Todo tamanho é em rem: o iPad usa a raiz pequena e o celular a raiz grande, com o mesmo HTML.
+Chromium headless do painel do monitor. Só o formato iPad (pedido do Emerson, 09/11/2026):
+2360×1640, a resolução nativa do iPad deitado, uma tela só, 4 colunas. Desenhado em
+1180×820 px CSS e fotografado em escala 2 (nítido). Tamanhos em rem.
 """
 
 from __future__ import annotations
 
 import html
-import re
 import subprocess
 import tempfile
-from datetime import timedelta
 from pathlib import Path
 
 from diaristas import _logo_src
 from monitor import META_CANCEL, META_CUSTO_IFOOD, META_ENTREGA, META_PREPARO, META_TICKET, brl, pct
-from painel import DOURADO, FUNDO, VERMELHO, _chrome, html_para_png
+from painel import DOURADO, FUNDO, VERMELHO, _chrome
 from previsao_motoboys import DIAS_CURTO
 
-QUEBRA = "<!--QUEBRA-->"
 IPAD = {"largura": 1180, "altura": 820, "escala": 2.0, "raiz": 12.6}       # 2360×1640
-CEL = {"largura": 1080, "escala": 1290 / 1080, "raiz": 25, "altura_min": round(2796 / (1290 / 1080))}
 VERDE, VERMELHO_CLARO = "#4cd17d", "#ff5a6e"
 
 CSS = f"""
@@ -118,15 +111,6 @@ body {{ font-family: "Inter", "Liberation Sans", "DejaVu Sans", Arial, sans-seri
 /* iPad: altura fixa, rodapé colado embaixo */
 body.ipad {{ height: {IPAD['altura']}px; display: flex; flex-direction: column; overflow: hidden }}
 body.ipad .fim {{ margin-top: auto }}
-/* celular: uma coluna */
-body.cel {{ min-height: {CEL['altura_min']}px; display: flex; flex-direction: column; padding-bottom: 0 }}
-body.cel .fim {{ margin-top: auto }}
-body.cel .dest {{ grid-template-columns: 1fr; gap: .5rem }}
-body.cel .kpis {{ grid-template-columns: 1fr 1fr }}
-body.cel .kpis .card:first-child {{ grid-column: 1 / -1 }}
-body.cel .cols {{ display: block }}
-body.cel .topo .selo {{ display: none }}
-body.cel .graf {{ height: 9rem }}
 """
 
 
@@ -268,10 +252,9 @@ def _mes(R: dict) -> str:
             f'<div>Lucro proj. <b>{_e(brl(pj["lucro"]))}</b></div></div></div>')
 
 
-def html_painel(R: dict, formato: str) -> str:
+def html_painel(R: dict) -> str:
     c, a, m = R["cur"], R["ant"], R["mes"]
     t, ta, tm = c["tot"], a["tot"], m["tot"]
-    ipad = formato == "ipad"
     topo = (f'<div class="faixa"></div><div class="topo"><div class="logo"><img src="{_logo_src()}"></div>'
             f'<div><div class="titulo">Fechamento semanal <span>Tili</span></div>'
             f'<div class="sub">{DIAS_CURTO[R["seg"].weekday()]} {R["seg"]:%d/%m} a {DIAS_CURTO[R["dom"].weekday()]} '
@@ -294,32 +277,23 @@ def html_painel(R: dict, formato: str) -> str:
     if c["sushi"]:
         lojas.append(_loja("Sushi", c["sushi"], a["sushi"], True))
         canais.append(_canais(c["sushi"], "Sushi", True))
-    moto = _motoboys(t, c["turnos_moto"], 11 if ipad else 14)
+    moto = _motoboys(t, c["turnos_moto"], 11)
     fim = ('<div class="fim"><div class="rodape">Dados do ALIV (só leitura) · lucro é ESTIMATIVA '
            '(CMV 26,5% · imposto 9,45% · iFood 12,8% · cartão 1,6% · motoboys)</div><div class="faixa"></div></div>')
-    if ipad:
-        corpo = (topo + dest + kpis + '<div class="cols">'
-                 f'<div><div class="sec">PIZZARIA</div>{lojas[0]}{canais[0]}</div>'
-                 f'<div><div class="sec">SUSHI</div>{lojas[1] if len(lojas) > 1 else "<div class=loja>indisponível</div>"}'
-                 f'{canais[1] if len(canais) > 1 else ""}</div>'
-                 f'<div><div class="sec">MOTOBOYS</div>{moto}</div>'
-                 f'<div><div class="sec">TEMPOS</div>{_tempos(c)}<div class="sec">DIA A DIA</div>{_dias(c, R["melhor"], R["pior"])}'
-                 f'<div class="sec">MÊS</div>{_mes(R)}</div></div>' + fim)
-        return _pagina(corpo, "ipad")
-    um = (topo + dest + kpis + '<div class="cols"><div class="sec">LOJAS</div>' + "".join(
-        f'<div style="margin-bottom:.6rem">{x}</div>' for x in lojas) + '<div class="sec">DIA A DIA</div>'
-        + _dias(c, R["melhor"], R["pior"]) + "</div>" + fim)
-    dois = (topo + '<div class="cols"><div class="sec">CANAIS</div>' + "".join(canais)
-            + '<div class="sec">MOTOBOYS</div>' + moto + '<div class="sec">TEMPOS</div>' + _tempos(c) + '<div class="sec">MÊS</div>' + _mes(R) + "</div>" + fim)
-    return QUEBRA.join([_pagina(um, "cel"), _pagina(dois, "cel")])
+    corpo = (topo + dest + kpis + '<div class="cols">'
+             f'<div><div class="sec">PIZZARIA</div>{lojas[0]}{canais[0]}</div>'
+             f'<div><div class="sec">SUSHI</div>{lojas[1] if len(lojas) > 1 else "<div class=loja>indisponível</div>"}'
+             f'{canais[1] if len(canais) > 1 else ""}</div>'
+             f'<div><div class="sec">MOTOBOYS</div>{moto}</div>'
+             f'<div><div class="sec">TEMPOS</div>{_tempos(c)}<div class="sec">DIA A DIA</div>{_dias(c, R["melhor"], R["pior"])}'
+             f'<div class="sec">MÊS</div>{_mes(R)}</div></div>' + fim)
+    return _pagina(corpo)
 
 
-def _pagina(corpo: str, cls: str) -> str:
-    raiz = IPAD["raiz"] if cls == "ipad" else CEL["raiz"]
-    larg = IPAD["largura"] if cls == "ipad" else CEL["largura"]
-    css = CSS + f"html {{ font-size: {raiz}px }} html, body {{ width: {larg}px }}"
+def _pagina(corpo: str) -> str:
+    css = CSS + f"html {{ font-size: {IPAD['raiz']}px }} html, body {{ width: {IPAD['largura']}px }}"
     return (f'<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><style>{css}</style></head>'
-            f'<body class="{cls}">{corpo}</body></html>')
+            f'<body class="ipad">{corpo}</body></html>')
 
 
 def foto_fixa(pagina: str, destino: Path, largura: int, altura: int, escala: float) -> Path:
@@ -337,19 +311,10 @@ def foto_fixa(pagina: str, destino: Path, largura: int, altura: int, escala: flo
 
 
 def gerar_paineis(R: dict, base: Path) -> list[tuple[str, Path | Exception]]:
-    """[(rótulo, arquivo ou exceção)]: iPad, Celular 1/2, Celular 2/2."""
+    """[("iPad", arquivo ou exceção)] — base_ipad.png, 2360×1640."""
     base.parent.mkdir(parents=True, exist_ok=True)
-    out: list = []
     try:
-        out.append(("iPad", foto_fixa(html_painel(R, "ipad"), base.with_name(base.name + "_ipad.png"),
-                                      IPAD["largura"], IPAD["altura"], IPAD["escala"])))
+        return [("iPad", foto_fixa(html_painel(R), base.with_name(base.name + "_ipad.png"),
+                                   IPAD["largura"], IPAD["altura"], IPAD["escala"]))]
     except Exception as e:
-        out.append(("iPad", e))
-    try:
-        paginas = html_painel(R, "cel").split(QUEBRA)
-        for i, p in enumerate(paginas, 1):
-            out.append((f"Celular {i}/{len(paginas)}",
-                         html_para_png(p, base.with_name(f"{base.name}_celular_{i}.png"), CEL["largura"], CEL["escala"])))
-    except Exception as e:
-        out.append(("Celular", e))
-    return out
+        return [("iPad", e)]

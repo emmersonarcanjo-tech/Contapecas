@@ -77,6 +77,22 @@
       "ingrediente": "cebolinha",
       "g": "1 g",
       "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Joy"
+      ],
+      "ingrediente": "lâmina de salmão",
+      "g": "12 g/peça",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Joy"
+      ],
+      "ingrediente": "arroz",
+      "g": "12 g/peça",
+      "informado": "2026-11-10"
     }
   ],
   "itens": {

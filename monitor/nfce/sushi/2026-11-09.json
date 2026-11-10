@@ -1,0 +1,15 @@
+{
+ "data": "2026-11-09",
+ "loja": 155,
+ "lista": {
+  "gerada_em": "2026-11-10T02:08:09-03:00",
+  "pedidos": [],
+  "contagem": {
+   "cancelados": 0,
+   "abertos": 0,
+   "ja_emitidos": 0,
+   "outra_loja": 0,
+   "outro_dia": 0
+  }
+ }
+}

@@ -251,6 +251,52 @@
       "ingrediente": "alho poró",
       "g": "1 g",
       "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "*"
+      ],
+      "ingrediente": "cebolinha",
+      "g": "1 g",
+      "exceto": [
+        "tataki"
+      ],
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Joy",
+        "Niguiri"
+      ],
+      "ingrediente": "cebolinha",
+      "g": "1 g/peça",
+      "exceto": [
+        "tataki"
+      ],
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "*"
+      ],
+      "ingrediente": "alho poró",
+      "g": "1 g",
+      "exceto": [
+        "tataki"
+      ],
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Joy",
+        "Niguiri"
+      ],
+      "ingrediente": "alho poró",
+      "g": "1 g/peça",
+      "exceto": [
+        "tataki"
+      ],
+      "informado": "2026-11-10"
     }
   ],
   "itens": {

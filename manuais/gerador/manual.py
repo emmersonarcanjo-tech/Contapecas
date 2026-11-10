@@ -528,7 +528,7 @@ for it in ITENS:
     for i in it.get("ings", []):
         nm = i["nome"].lower()
         for r in GRAM.get("regras", []):
-            if ("*" in r["categorias"] or it["cat"] in r["categorias"]) and r["ingrediente"].lower() in nm:
+            if ("*" in r["categorias"] or it["cat"] in r["categorias"]) and r["ingrediente"].lower() in nm and not any(x in nm for x in r.get("exceto", [])):
                 i["g"] = r["g"]
         if any(t.lower() in nm for t in GRAM.get("topo", {}).get(it["name"], [])):
             i["topo"] = True

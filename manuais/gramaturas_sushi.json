@@ -305,13 +305,22 @@
       "ingrediente": "panko",
       "g": "20 g",
       "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "*"
+      ],
+      "ingrediente": "gergelim",
+      "g": "1 g",
+      "informado": "2026-11-10",
+      "obs": "1 g por ficha"
     }
   ],
   "itens": {
     "Ura Fila ( 10 Un )": {
       "salmão": "50 g",
       "cream cheese": "20 g",
-      "gergelim": "2 g",
+      "gergelim": "1 g",
       "cebolinha": "1 g"
     },
     "Ura Salmão Grelhado ( 10 Un )": {

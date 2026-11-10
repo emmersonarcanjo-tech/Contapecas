@@ -7,7 +7,7 @@ MAP = [("tataki de salmão", 23889, 1000), ("atum", 24147, 1000), ("morango", 24
        ("skin", 24151, 1000), ("pepino", 24152, 1000), ("limão", 24153, 1000), ("alho poró", 24150, 1000), ("lâmina de salmão", 23889, 1000), ("salmão grelhado", 23638, 1000),
        ("salmão", 23889, 1000), ("camarão", 23917, 1000), ("cream cheese", 23907, 1000), ("arroz", 23639, 1000),
        ("gergelim", 23641, 1000), ("kani", 23871, 250), ("panko", 23882, 1000), ("geleia de pimenta", 23900, 1000),
-       ("tarê", 9433, 5000), ("cebolinha", 23642, None), ("alga", 9443, "folha"), ("nori", 9443, "folha")]
+       ("tarê", 9433, 5000), ("cebolinha", 23642, 100), ("alga", 9443, "folha"), ("nori", 9443, "folha")]
 def mapear(n):
     n = n.lower()
     for k, i, f in MAP:

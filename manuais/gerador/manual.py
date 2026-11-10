@@ -292,6 +292,17 @@ def pg_orient(n):
             f'</div>{rodape(n)}</div>')
 
 
+def pg_base(b, n):
+    h = '<div class="ings">' + "".join(
+        f'<div class="ing"><div class="ph">' + (f'<img src="{IMG[ilus(a)]}">' if ilus(a) in IMG else f'<span>{esc(a[0])}</span>') +
+        f'</div><div class="nm">{esc(a)}</div><span class="g">{esc(q)}</span></div>' for a, q in b["ingredientes"]) + "</div>"
+    return (f'<div class="pg">{topo("Base da casa")}<div class="corpo"><h1>{esc(b["titulo"])}</h1>'
+            f'<div class="sub">{b["sub"]}</div><h2>Ingredientes</h2>{h}<h2>Modo de preparo</h2><ol>'
+            + "".join(f"<li>{esc(x)}</li>" for x in b["passos"]) + "</ol>"
+            + (f'<div class="dupla" style="grid-template-columns:1fr"><div class="box"><b>PROPORÇÃO</b>{esc(b["obs"])}</div></div>' if b.get("obs") else "")
+            + f'</div>{rodape(n)}</div>')
+
+
 def pg_su(n):
     itens = [("Tempero para sushi", "5 litros"), ("Vinagre de arroz", "5 litros"),
              ("Suco de laranja coado", "1 litro"), ("Saquê", "1 litro"), ("Açúcar", "10 quilos"),
@@ -532,6 +543,8 @@ ITENS[:] = [it for it in ITENS if it["name"] not in REMOVER and it["cat"] not in
 ITENS.sort(key=lambda v: (ORDEM.index(v["cat"]), v["tipo"] == "derivado", v["name"]))
 
 pages = [pg_capa(), pg_orient(2), pg_su(3)]
+for b in GRAM.get("bases", []):
+    pages.append(pg_base(b, len(pages) + 1))
 for it in ITENS:
     n = len(pages) + 1
     f = {"combo": pg_combo, "poke": pg_poke_monte}.get(it["tipo"], pg_item)
@@ -540,7 +553,7 @@ pages += pgs_pendencias(len(pages) + 1)
 
 if PREVIEW:
     alvo = ["Gunkan Capão", "Hot Kuruba", "Acarajapa", "Yakisoba de Frango", "Monte seu Poke", "Combinado Salmão 25 Peças", "Especial Pack (23 peças)"]
-    want = [ITENS.index(next(it for it in ITENS if it["name"].startswith(a))) + 3 for a in alvo]
+    want = [ITENS.index(next(it for it in ITENS if it["name"].startswith(a))) + 3 + len(GRAM.get('bases', [])) for a in alvo]
     want += [len(pages) - 2, len(pages) - 1]
     pages = [pages[i] for i in want]
 

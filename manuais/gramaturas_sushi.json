@@ -251,5 +251,29 @@
   },
   "remover_categorias": [
     "Gunkan"
+  ],
+  "bases": [
+    {
+      "titulo": "Salmão grelhado com cream cheese",
+      "sub": "Mistura base da casa · rende <b>1,2 kg</b>",
+      "ingredientes": [
+        [
+          "Salmão grelhado",
+          "1 kg"
+        ],
+        [
+          "Cream cheese",
+          "200 g"
+        ]
+      ],
+      "passos": [
+        "Grelhar o salmão e deixar esfriar.",
+        "Desfiar ou picar o salmão grelhado.",
+        "Misturar com o cream cheese até ficar homogêneo.",
+        "Guardar em pote fechado, na geladeira."
+      ],
+      "obs": "5 partes de salmão grelhado para 1 de cream cheese. Ex.: 60 g da mistura = 50 g de salmão + 10 g de cream cheese.",
+      "informado": "2026-11-10"
+    }
   ]
 }

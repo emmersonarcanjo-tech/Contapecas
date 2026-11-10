@@ -202,6 +202,10 @@
     },
     "Hosso Salmão ( 10 un)": {
       "salmão": "70 g"
+    },
+    "Hot Salmão c/ Camarão ( 10 Un )": {
+      "salmão": "30 g",
+      "camarão": "20 g"
     }
   },
   "peso_final": {

@@ -78,7 +78,7 @@ def ingredientes(desc: str | None):
 
 
 # ------------------------------------------------- montagem / corte / prato
-def recheio(ings, sem=("arroz", "alga", "nori", "gergelim")):
+def recheio(ings, sem=("arroz", "alga", "nori", "gergelim", "panko")):
     r = [i["nome"].lower() for i in ings if not any(s in i["nome"].lower() for s in sem)]
     return ", ".join(r[:-1]) + (" e " + r[-1] if len(r) > 1 else (r[0] if r else ""))
 
@@ -507,6 +507,9 @@ for it in ITENS:
     for r in GRAM.get("tirar_ingrediente", []):
         if "ings" in it and ("*" in r["categorias"] or it["cat"] in r["categorias"]):
             it["ings"] = [i for i in it["ings"] if r["ingrediente"].lower() not in i["nome"].lower()]
+    if it["name"] in GRAM.get("ingredientes", {}):
+        it["ings"] = [{"nome": n, "g": g, "img": ilus(n)} for n, g in GRAM["ingredientes"][it["name"]]]
+        it.setdefault("obs", []).append("ingredientes informados pelo Emerson (ALIV sem descrição)")
     for extra in GRAM.get("adicionar", {}).get(it["name"], []):
         if not any(extra["nome"].lower() in i["nome"].lower() for i in it["ings"]):
             pos = 1 if it["ings"] and "alga" in it["ings"][0]["nome"].lower() else 0

@@ -330,5 +330,25 @@
       "obs": "5 partes de salmão grelhado para 1 de cream cheese. Ex.: 60 g da mistura = 50 g de salmão + 10 g de cream cheese.",
       "informado": "2026-11-10"
     }
-  ]
+  ],
+  "ingredientes": {
+    "Temaki Hot ( 01 Un )": [
+      [
+        "Alga",
+        null
+      ],
+      [
+        "Arroz",
+        "60 g"
+      ],
+      [
+        "Salmão grelhado",
+        null
+      ],
+      [
+        "Farinha panko (empanar)",
+        null
+      ]
+    ]
+  }
 }

@@ -502,7 +502,7 @@ for it in ITENS:
     for i in it.get("ings", []):
         nm = i["nome"].lower()
         for r in GRAM.get("regras", []):
-            if it["cat"] in r["categorias"] and r["ingrediente"].lower() in nm:
+            if ("*" in r["categorias"] or it["cat"] in r["categorias"]) and r["ingrediente"].lower() in nm:
                 i["g"] = r["g"]
         for ing, g in (GRAM.get("itens", {}).get(it["name"]) or {}).items():
             if ing.lower() in nm:

@@ -222,7 +222,7 @@ def html_painel(hoje: date, base: list, rec: dict, motivos: list[str], semana: l
         p2 = (f"Sem atraso, cada motoboy faz até <b>{_f1(rec['cap'])} entregas/h</b> no pico "
               f"(como em {b.dia:%d/%m}, com {b.motos_pico} na rua).")
     else:
-        p2 = f"Nenhum dia sem atraso com movimento parecido: usei <b>{_f1(rec['cap'])} entregas/motoboy/h</b>, o ritmo que funcionou."
+        p2 = f"Ritmo seguro: <b>{_f1(rec['cap'])} entregas/motoboy/h</b> no pico (o que já funcionou sem atraso)."
     sobre = [x for x in rec["ruins"] if x.eph > rec["cap"]]
     if rec.get("por_saida"):
         pass

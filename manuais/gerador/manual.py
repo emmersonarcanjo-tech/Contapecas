@@ -359,7 +359,7 @@ def pg_combo(it, n):
             f'<h2>Montagem da embalagem</h2><ol>'
             f'<li>Conferir a comanda e o total de {total} peças.</li>'
             f'<li>Montar cada tipo de peça conforme a página do item neste manual.</li>'
-            f'<li>Arrumar por tipo, em fileiras: sashimi, niguiri/gunkan, uramaki/hot/hossomaki e joy por último (mais frágil).</li>'
+            f'<li>Arrumar por tipo, em fileiras: sashimi, niguiri, uramaki/hot/hossomaki e joy por último (mais frágil).</li>'
             f'<li>Conferir acompanhamentos (shoyu, gengibre, wasabi) e fechar a embalagem.</li></ol>'
             f'</div>{rodape(n)}</div>')
 
@@ -527,7 +527,7 @@ for alvo, origem in GRAM.get("espelho", {}).items():
                 break
 
 REMOVER = set(GRAM.get("remover", []))
-ITENS[:] = [it for it in ITENS if it["name"] not in REMOVER]
+ITENS[:] = [it for it in ITENS if it["name"] not in REMOVER and it["cat"] not in GRAM.get("remover_categorias", [])]
 
 ITENS.sort(key=lambda v: (ORDEM.index(v["cat"]), v["tipo"] == "derivado", v["name"]))
 

@@ -248,5 +248,8 @@
     "Niguiri Atum ( 04 Un )": "Niguiri Salmão ( 04 Un )",
     "Temaki Atum ( 01 Un )": "Temaki Salmão",
     "Joy Atum ( 02 Un )": "Joy Fila ( 02 Un )"
-  }
+  },
+  "remover_categorias": [
+    "Gunkan"
+  ]
 }

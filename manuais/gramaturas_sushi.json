@@ -162,6 +162,22 @@
       "g": "40 g",
       "informado": "2026-11-10",
       "obs": "mesmos pesos do hossomaki"
+    },
+    {
+      "categorias": [
+        "*"
+      ],
+      "ingrediente": "kani",
+      "g": "16 g",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Niguiri"
+      ],
+      "ingrediente": "kani",
+      "g": "16 g/peça",
+      "informado": "2026-11-10"
     }
   ],
   "itens": {

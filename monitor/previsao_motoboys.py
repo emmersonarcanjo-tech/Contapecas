@@ -15,9 +15,9 @@ dia do mês passado), janela 16:00–00:00 de cada dia:
   • Pico = hora com mais entregas (Pizzaria + Sushi). Entregas por motoboy por
     hora no pico = entregas da hora ÷ motoboys em turno nessa hora.
   • Dia "estourado" = mais de 10% das entregas acima de 45 min ou vida média > 45.
-  • Capacidade segura = o melhor ritmo (entregas/motoboy/hora no pico) de um dia
-    que NÃO estourou e teve movimento parecido (pico ≥75% do previsto); sem dia assim,
-    6,0 entregas/motoboy/h (o que funcionou em 08/10/2026). Nunca abaixo de 4,0. Recomendação = pico previsto ÷ capacidade, arredondado em
+  • Capacidade segura = o maior entre 6,0 entregas/motoboy/h (o que funcionou em 08/10/2026)
+    e o ritmo de um dia que NÃO estourou e teve movimento parecido (pico ≥75% do previsto).
+  • Dia do mês passado fora do padrão (pico fora de 1/1,5–1,5× as semanas, ou rua > 60 min) não entra. Recomendação = pico previsto ÷ capacidade, arredondado em
     faixa; nunca abaixo do nº de motoboys de um dia que estourou com movimento parecido.
   • Limite de entregas por saída (MAX_POR_SAIDA, hoje desligado): ritmo máximo = N × 60 ÷ (2 × rua média + 5 min);
     vale o menor entre esse e o ritmo dos dias sem atraso.
@@ -503,18 +503,41 @@ def atraso_semana(api: Aliv, hoje: date) -> list[tuple[date, int, int, float]]:
 
 
 # ---------------------------------------------------------------- previsão
+RUA_MAX_VALIDA = 60                  # rua média acima disso = dado quebrado no ALIV (pedidos não finalizados)
+MES_FORA = 1.5                       # dia do mês passado fora de 1/1,5 a 1,5× a média das semanas = fora do padrão
+
+
+def descartar_mes(base: list[tuple[str, Dia]]) -> set:
+    """O dia do mês passado só entra se parecer com as 4 semanas. Em 10/11/2026 ele caiu num sábado com
+    915 entregas e rua de 213 min (dado quebrado) e levou a previsão de 9–10 para 13–14."""
+    sem = [x.entregas_pico / x.fator for k, x in base if k != "mês" and x.entregas_pico > 0]
+    out = set()
+    for k, x in base:
+        if k != "mês":
+            continue
+        media = sum(sem) / len(sem) if sem else 0
+        r = (x.entregas_pico / x.fator) / media if media else 1
+        if x.rua > RUA_MAX_VALIDA or x.vida > 3 * RUA_MAX_VALIDA or not (1 / MES_FORA <= r <= MES_FORA):
+            out.add(k)
+    return out
+
+
 def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
     pesos = {f"-{i + 1}sem": p for i, p in enumerate(PESOS)} | {"mês": PESO_MES}
-    usados = [(pesos[k], x) for k, x in base if x.entregas_pico > 0]
+    usados = [(pesos[k], x) for k, x in base if x.entregas_pico > 0 and k not in descartar_mes(base)]
     tot = sum(p for p, _ in usados) or 1.0
     pico_prev = sum(p * x.entregas_pico / x.fator for p, x in usados) / tot * fator
     dia_prev = sum(p * sum(x.total_h.values()) / x.fator for p, x in usados) / tot * fator
     horas_prev = {h: sum(p * x.total_h[h] / x.fator for p, x in usados) / tot * fator
                   for h in range(HORA_INI, HORA_FIM)}
 
-    bons = [x for _, x in base if not x.estourou and x.eph > 0 and x.entregas_pico >= pico_prev * MOVIMENTO_MIN]
-    ruins = [x for _, x in base if x.estourou and x.eph > 0]
-    cap = max(x.eph for x in bons) if bons else CAPACIDADE_PADRAO
+    fora = descartar_mes(base)
+    bons = [x for k, x in base if k not in fora and not x.estourou and x.eph > 0
+            and x.entregas_pico >= pico_prev * MOVIMENTO_MIN]
+    ruins = [x for k, x in base if k not in fora and x.estourou and x.eph > 0]
+    # Um dia no tempo prova que o motoboy aguenta PELO MENOS aquele ritmo (dia fraco tem ritmo baixo por falta
+    # de pedido, não de fôlego). Por isso vale o maior entre o ritmo que já funcionou (6,0) e o desses dias.
+    cap = max([CAPACIDADE_PADRAO] + [x.eph for x in bons])
     cap_hist = max(cap, CAPACIDADE_MIN)
     # Regra das 2 entregas por saída: ciclo = ida e volta (2 × tempo médio de rua) + espera na loja.
     ruas = [(pesos[k], x.rua) for k, x in base if x.rua > 0]
@@ -539,7 +562,7 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
     if hi - lo > 1:
         lo = hi - 1
     return {"pico_prev": pico_prev, "dia_prev": dia_prev, "cap": cap, "lo": lo, "hi": hi,
-            "base_cap": bons and max(bons, key=lambda x: x.eph) or None, "ruins": ruins,
+            "base_cap": next((x for x in bons if x.eph > CAPACIDADE_PADRAO and x.eph == cap), None), "ruins": ruins,
             "horas_prev": horas_prev, "cap_hist": cap_hist, "rua": rua, "ciclo": ciclo,
             "por_saida": cap_saida < cap_hist}
 
@@ -572,8 +595,7 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
         porque2 = (f"Sem atraso, cada motoboy faz até {f1(rec['cap'])} entregas/h no pico "
                    f"(como em {b.dia:%d/%m}, com {b.motos_pico} em turno).")
     else:
-        porque2 = (f"Nenhum dia sem atraso com movimento parecido: usei {f1(rec['cap'])} entregas/motoboy/h, "
-                   f"o ritmo que funcionou sem atraso.")
+        porque2 = f"Ritmo seguro: {f1(rec['cap'])} entregas/motoboy/h no pico (o que já funcionou sem atraso)."
     c = rec.get("chuva")
     L += [porque1, porque2]
     if c:
@@ -588,7 +610,8 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
     L += [linha_hist(k, x) for k, x in base if k != "mês"]
     mes = [x for k, x in base if k == "mês"]
     if mes:
-        L.append("Mês passado: " + linha_hist("mês", mes[0]))
+        L.append("Mês passado: " + linha_hist("mês", mes[0])
+                 + (" — fora do padrão, não entrou na conta" if "mês" in descartar_mes(base) else ""))
     if semana is None:
         L += ["", "Atraso da semana passada: indisponível (o ALIV não respondeu)."]
     elif semana:

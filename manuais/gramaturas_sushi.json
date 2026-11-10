@@ -83,7 +83,7 @@
         "Joy"
       ],
       "ingrediente": "lâmina de salmão",
-      "g": "12 g/peça",
+      "g": "14 g/peça",
       "informado": "2026-11-10"
     },
     {
@@ -92,6 +92,14 @@
       ],
       "ingrediente": "arroz",
       "g": "12 g/peça",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Joy"
+      ],
+      "ingrediente": "lâmina de atum",
+      "g": "14 g/peça",
       "informado": "2026-11-10"
     }
   ],

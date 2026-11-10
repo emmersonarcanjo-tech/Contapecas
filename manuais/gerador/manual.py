@@ -387,7 +387,7 @@ def problemas(it):
         prob.append("descrição diz 'salad' (lido como salmão grelhado)")
     if "gralhado" in (it["desc"] or ""):
         prob.append("erro de digitação 'gralhado'")
-    if it["cat"] == "Uramaki" and pecas == 1:
+    if it["cat"] == "Uramaki" and pecas == 1 and it["name"] not in GRAM.get("pecas", {}):
         prob.append("nome diz 01 Un (confirmar nº de peças)")
     return prob
 
@@ -500,6 +500,8 @@ for it in ITENS:
         if not any(extra["nome"].lower() in i["nome"].lower() for i in it["ings"]):
             pos = 1 if it["ings"] and "alga" in it["ings"][0]["nome"].lower() else 0
             it["ings"].insert(pos, {"nome": extra["nome"], "g": extra.get("g"), "img": ilus(extra["nome"])})
+    if it["name"] in GRAM.get("pecas", {}):
+        it["unid"] = f"{GRAM['pecas'][it['name']]:02d} peças"
     if it["name"] in GRAM.get("peso_final", {}):
         it["peso"] = GRAM["peso_final"][it["name"]]
     for i in it.get("ings", []):

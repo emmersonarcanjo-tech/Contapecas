@@ -134,6 +134,10 @@
     },
     "Ura Salmão ( 10 Un )": {
       "salmão": "50 g"
+    },
+    "Ura Camarão Especial ( 10 Un )": {
+      "camarão empanado": "20 g",
+      "lâmina de salmão": "30 g"
     }
   },
   "peso_final": {

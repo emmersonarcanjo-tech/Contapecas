@@ -34,6 +34,22 @@
       "ingrediente": "salmão grelhado",
       "g": "50 g",
       "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Hossomaki"
+      ],
+      "ingrediente": "camarão empanado",
+      "g": "20 g",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Hossomaki"
+      ],
+      "ingrediente": "salmão",
+      "g": "50 g",
+      "informado": "2026-11-10"
     }
   ],
   "itens": {

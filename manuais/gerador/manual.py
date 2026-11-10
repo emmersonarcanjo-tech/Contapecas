@@ -86,7 +86,7 @@ def recheio(ings, sem=("arroz", "alga", "nori", "gergelim")):
 def passos(cat, nome, ings, desc, pecas):
     n = nome.lower(); rch = recheio(ings)
     if cat == "Hossomaki":
-        return ([ "Meia folha de nori na esteira, lado brilhante para baixo.",
+        return ([ "1 folha inteira de nori na esteira, lado brilhante para baixo.",
                   "Espalhar o arroz sem apertar, deixando 1 cm livre na borda de cima.",
                   f"Colocar o recheio em linha no centro: {rch}.",
                   "Enrolar com a esteira, apertando firme, e fechar na borda livre."],
@@ -95,7 +95,7 @@ def passos(cat, nome, ings, desc, pecas):
     if cat == "Uramaki":
         top = ("selada", "raspa", "tarê")
         rch = recheio([i for i in ings if not any(t in i["nome"].lower() for t in top)])
-        p = ["Nori na esteira (com filme), arroz cobrindo a folha inteira.",
+        p = ["Meia folha de nori na esteira (com filme), arroz cobrindo a folha toda.",
              "Polvilhar gergelim sobre o arroz.",
              "Virar a folha: arroz para baixo, nori para cima.",
              f"Recheio em linha no centro: {rch}.",
@@ -485,6 +485,10 @@ for cb in full["combos"]:
     if cb.get("is_active") and "Poke" in cb["name"]:
         ITENS.append({"cat": "Poke", "name": cb["name"], "active": True, "desc": cb["description"], "tipo": "poke",
                       "regras": cb["full_data"]["config"]["flexible_rules"]})
+
+for it in ITENS:
+    if it["cat"] == "Uramaki" and it.get("ings") and not any("alga" in i["nome"].lower() for i in it["ings"]):
+        it["ings"].insert(0, {"nome": "Alga", "g": None, "img": "nori"})
 
 GRAM = json.loads((Path(__file__).resolve().parent.parent / "gramaturas_sushi.json").read_text()) \
     if (Path(__file__).resolve().parent.parent / "gramaturas_sushi.json").exists() else {"regras": [], "itens": {}}

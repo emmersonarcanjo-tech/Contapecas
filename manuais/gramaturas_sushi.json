@@ -1,7 +1,32 @@
 {
   "_como_usar": "regras valem para todas as peças das categorias; 'itens' vale só para o item (nome como no ALIV) e tem prioridade.",
   "regras": [
-    {"categorias": ["Uramaki", "Hossomaki", "Hot Roll"], "ingrediente": "arroz", "g": "120 g", "informado": "2026-11-10"}
+    {
+      "categorias": [
+        "Uramaki",
+        "Hossomaki",
+        "Hot Roll"
+      ],
+      "ingrediente": "arroz",
+      "g": "120 g",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Hossomaki"
+      ],
+      "ingrediente": "alga",
+      "g": "1 folha",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Uramaki"
+      ],
+      "ingrediente": "alga",
+      "g": "½ folha",
+      "informado": "2026-11-10"
+    }
   ],
   "itens": {}
 }

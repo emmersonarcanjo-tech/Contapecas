@@ -79,7 +79,7 @@ def ingredientes(desc: str | None):
 
 # ------------------------------------------------- montagem / corte / prato
 def recheio(ings, sem=("arroz", "alga", "nori", "gergelim", "panko")):
-    r = [i["nome"].lower() for i in ings if not any(s in i["nome"].lower() for s in sem)]
+    r = [i["nome"].lower() for i in ings if not i.get("topo") and not any(s in i["nome"].lower() for s in sem)]
     return ", ".join(r[:-1]) + (" e " + r[-1] if len(r) > 1 else (r[0] if r else ""))
 
 
@@ -329,6 +329,9 @@ def pg_item(it, n):
         pecas = 1
     ings = it["ings"]
     st, corte, prato = passos(cat, nome, ings, it["desc"], pecas)
+    no_topo = [i["nome"].lower() for i in ings if i.get("topo")]
+    if no_topo and cat != "Joy":
+        st = st + [f"Depois de cortar, finalizar cada peça com {' e '.join(no_topo)} no topo."]
     unid = it.get("unid") or (f"{pecas:02d} {'peça' if pecas == 1 else 'peças'}" if pecas else "porção")
     aviso = it.get("aviso") or "Ficha técnica no ALIV: vazia — gramaturas a confirmar"
     peso = it.get("peso") or '<span style="color:#999">___ g</span>'
@@ -527,6 +530,8 @@ for it in ITENS:
         for r in GRAM.get("regras", []):
             if ("*" in r["categorias"] or it["cat"] in r["categorias"]) and r["ingrediente"].lower() in nm:
                 i["g"] = r["g"]
+        if any(t.lower() in nm for t in GRAM.get("topo", {}).get(it["name"], [])):
+            i["topo"] = True
         for ing, g in (GRAM.get("itens", {}).get(it["name"]) or {}).items():
             if ing.lower() in nm:
                 i["g"] = g

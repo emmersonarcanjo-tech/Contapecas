@@ -244,7 +244,8 @@
       "skin": "10 g/peça"
     },
     "Hosso Morango c/Nutella ( 10 Un )": {
-      "morango": "40 g"
+      "morango": "40 g",
+      "nutella": "4 g/peça"
     }
   },
   "peso_final": {
@@ -392,5 +393,10 @@
       ],
       "informado": "2026-11-10"
     }
-  ]
+  ],
+  "topo": {
+    "Hosso Morango c/Nutella ( 10 Un )": [
+      "nutella"
+    ]
+  }
 }

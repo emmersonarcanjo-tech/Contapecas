@@ -493,6 +493,8 @@ for it in ITENS:
 GRAM = json.loads((Path(__file__).resolve().parent.parent / "gramaturas_sushi.json").read_text()) \
     if (Path(__file__).resolve().parent.parent / "gramaturas_sushi.json").exists() else {"regras": [], "itens": {}}
 for it in ITENS:
+    if it["name"] in GRAM.get("peso_final", {}):
+        it["peso"] = GRAM["peso_final"][it["name"]]
     for i in it.get("ings", []):
         nm = i["nome"].lower()
         for r in GRAM.get("regras", []):

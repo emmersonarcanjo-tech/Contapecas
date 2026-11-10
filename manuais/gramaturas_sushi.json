@@ -117,6 +117,51 @@
       "ingrediente": "lâmina de salmão",
       "g": "10 g/peça",
       "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Hot Roll"
+      ],
+      "ingrediente": "alga",
+      "g": "1 folha",
+      "informado": "2026-11-10",
+      "obs": "mesmos pesos do hossomaki"
+    },
+    {
+      "categorias": [
+        "Hot Roll"
+      ],
+      "ingrediente": "salmão",
+      "g": "50 g",
+      "informado": "2026-11-10",
+      "obs": "mesmos pesos do hossomaki"
+    },
+    {
+      "categorias": [
+        "Hot Roll"
+      ],
+      "ingrediente": "cream cheese",
+      "g": "20 g",
+      "informado": "2026-11-10",
+      "obs": "mesmos pesos do hossomaki"
+    },
+    {
+      "categorias": [
+        "Hot Roll"
+      ],
+      "ingrediente": "cebolinha",
+      "g": "1 g",
+      "informado": "2026-11-10",
+      "obs": "mesmos pesos do hossomaki"
+    },
+    {
+      "categorias": [
+        "Hot Roll"
+      ],
+      "ingrediente": "camarão",
+      "g": "40 g",
+      "informado": "2026-11-10",
+      "obs": "mesmos pesos do hossomaki"
     }
   ],
   "itens": {

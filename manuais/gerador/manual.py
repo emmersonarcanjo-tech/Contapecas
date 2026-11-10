@@ -508,6 +508,9 @@ for it in ITENS:
             if ing.lower() in nm:
                 i["g"] = g
 
+REMOVER = set(GRAM.get("remover", []))
+ITENS[:] = [it for it in ITENS if it["name"] not in REMOVER]
+
 ITENS.sort(key=lambda v: (ORDEM.index(v["cat"]), v["tipo"] == "derivado", v["name"]))
 
 pages = [pg_capa(), pg_orient(2), pg_su(3)]

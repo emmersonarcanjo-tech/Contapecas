@@ -178,6 +178,14 @@
       "ingrediente": "kani",
       "g": "16 g/peça",
       "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Temaki"
+      ],
+      "ingrediente": "alga",
+      "g": "½ folha",
+      "informado": "2026-11-10"
     }
   ],
   "itens": {

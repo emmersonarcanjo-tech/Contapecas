@@ -1,0 +1,171 @@
+{
+ "v": 1,
+ "dia": "2026-10-11",
+ "lojas": {
+  "piz": {
+   "pedidos": 321,
+   "cancelados": 5,
+   "vendas": 26685.38,
+   "receita": 27981.96,
+   "desc_loja": 1612.92,
+   "desc_plataforma": 1641.02,
+   "desc_manual": 73.1,
+   "comissao_ifood": 1890.16,
+   "desc_loja_ifood": 1539.82,
+   "receita_ifood": 14766.9,
+   "proprios": 13215.06,
+   "entregas_delivery": 279,
+   "canais": {
+    "iFood": [
+     178,
+     13470.32,
+     0
+    ],
+    "Salão": [
+     32,
+     2762.69,
+     0
+    ],
+    "App": [
+     109,
+     10245.67,
+     0
+    ],
+    "PDV delivery": [
+     2,
+     206.7,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     51,
+     2442.1
+    ],
+    "Pizzaria": [
+     119,
+     10408.32
+    ],
+    "Pizzaria 2.0": [
+     8,
+     619.9
+    ]
+   },
+   "motoboys": {
+    "Lohran Alcântara Rodrigues": 8,
+    "Claudio Da Costa Nolasso": 11,
+    "Agnaldo Lima D": 10,
+    "Marcos Alexandre de Sousa Batista": 1,
+    "Andre Vitor Silva dos Reis": 12,
+    "Gustavo Cardoso Carvalho": 12,
+    "Pedrohenrique nunes": 10,
+    "Victor Cardoso da Silva": 13,
+    "Nivaldo Lima Brandao Junior": 7,
+    "Beatriz Ribeiro Serafim Gonçalves D": 11,
+    "João Cosmo": 10,
+    "Claudio Oliveira D": 8,
+    "Guilherme Silva Nascimento": 16,
+    "Walisson Jesus D": 11,
+    "Breno Jesus de Souza": 13,
+    "Ricardo Gomes Camilo": 10,
+    "Matheus Emilio Ferreira": 14,
+    "LEONARDOPINTO DO BOMFIM": 9,
+    "Carlos Silva Dos Santos Junior": 11,
+    "Josue Manoel dos Santos": 10,
+    "Pedro Vinicius Nascimento de Jesus": 9,
+    "Mesaque D": 8,
+    "Ronalt Soares dos Santos D": 7,
+    "Gabriel Amorin D": 7,
+    "Emanuel dos Santos Guedes": 11,
+    "Marcos Vinicius silva de sousa": 8,
+    "Richard Dultra D": 5,
+    "Kalyson de Oliveira Santos": 6,
+    "Pablo Deivid D": 9
+   },
+   "tempos": {
+    "prod": [
+     17.0,
+     235
+    ],
+    "rua": [
+     20.0,
+     277
+    ],
+    "vida": [
+     42.0,
+     235
+    ]
+   },
+   "atrasos": 93
+  },
+  "sushi": {
+   "pedidos": 136,
+   "cancelados": 1,
+   "vendas": 7518.64,
+   "receita": 7635.98,
+   "desc_loja": 229.89,
+   "desc_plataforma": 151.49,
+   "desc_manual": 0.0,
+   "comissao_ifood": 168.28,
+   "desc_loja_ifood": 229.89,
+   "receita_ifood": 1314.69,
+   "proprios": 6321.29,
+   "entregas_delivery": 28,
+   "pecas": 2056,
+   "temakis": 18,
+   "canais": {
+    "Salão": [
+     107,
+     5253.19,
+     1528
+    ],
+    "iFood": [
+     19,
+     1197.35,
+     302
+    ],
+    "App": [
+     10,
+     1068.1,
+     226
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     19,
+     1197.35
+    ]
+   },
+   "motoboys": {
+    "Mesaque D": 1,
+    "Breno Jesus de Souza": 4,
+    "Lohran Alcântara Rodrigues": 2,
+    "Guilherme Silva Nascimento": 2,
+    "Emanuel dos Santos Guedes": 1,
+    "Ricardo Gomes Camilo": 1,
+    "Pedrohenrique nunes": 1,
+    "Matheus Emilio Ferreira": 4,
+    "Andre Vitor Silva dos Reis": 2,
+    "Kalyson de Oliveira Santos": 3,
+    "Walisson Jesus D": 2,
+    "Nivaldo Lima Brandao Junior": 3,
+    "Ronalt Soares dos Santos D": 1
+   },
+   "tempos": {
+    "prod": [
+     22.0,
+     9
+    ],
+    "rua": [
+     23.0,
+     28
+    ],
+    "vida": [
+     48.0,
+     9
+    ]
+   },
+   "atrasos": 4
+  }
+ }
+}

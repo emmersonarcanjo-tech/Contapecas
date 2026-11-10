@@ -1,0 +1,148 @@
+{
+ "v": 1,
+ "dia": "2026-10-08",
+ "lojas": {
+  "piz": {
+   "pedidos": 175,
+   "cancelados": 1,
+   "vendas": 11281.98,
+   "receita": 12193.78,
+   "desc_loja": 952.88,
+   "desc_plataforma": 1032.84,
+   "desc_manual": 0.0,
+   "comissao_ifood": 755.63,
+   "desc_loja_ifood": 952.88,
+   "receita_ifood": 5903.34,
+   "proprios": 6290.44,
+   "entregas_delivery": 149,
+   "canais": {
+    "iFood": [
+     93,
+     4991.54,
+     0
+    ],
+    "App": [
+     58,
+     4993.85,
+     0
+    ],
+    "Salão": [
+     17,
+     811.79,
+     0
+    ],
+    "PDV delivery": [
+     7,
+     484.8,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     23,
+     897.07
+    ],
+    "Pizzaria": [
+     64,
+     3729.68
+    ],
+    "Pizzaria 2.0": [
+     6,
+     364.79
+    ]
+   },
+   "motoboys": {
+    "Alexsandro Santana de Ecio": 10,
+    "Claudio Da Costa Nolasso": 15,
+    "Carlos Silva Dos Santos Junior": 12,
+    "Rodrigo Santana Massaranduba Filho": 15,
+    "Ricardo Gomes Camilo": 12,
+    "Isaac da Silva Mota Lisboa": 12,
+    "Matheus Emilio Ferreira": 16,
+    "Andre Vitor Silva dos Reis": 14,
+    "Gustavo Cardoso Carvalho": 12,
+    "Nivaldo Lima Brandao Junior": 14,
+    "Josue Manoel dos Santos": 17
+   },
+   "tempos": {
+    "prod": [
+     12.0,
+     116
+    ],
+    "rua": [
+     14.0,
+     149
+    ],
+    "vida": [
+     30.0,
+     116
+    ]
+   },
+   "atrasos": 11
+  },
+  "sushi": {
+   "pedidos": 119,
+   "cancelados": 0,
+   "vendas": 7010.49,
+   "receita": 7043.83,
+   "desc_loja": 188.94,
+   "desc_plataforma": 41.77,
+   "desc_manual": 104.0,
+   "comissao_ifood": 47.19,
+   "desc_loja_ifood": 84.94,
+   "receita_ifood": 368.66,
+   "proprios": 6675.17,
+   "entregas_delivery": 15,
+   "pecas": 1866,
+   "temakis": 14,
+   "canais": {
+    "Salão": [
+     104,
+     5627.27,
+     1607
+    ],
+    "iFood": [
+     7,
+     335.32,
+     57
+    ],
+    "App": [
+     8,
+     1047.9,
+     202
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     7,
+     335.32
+    ]
+   },
+   "motoboys": {
+    "Andre Vitor Silva dos Reis": 2,
+    "Carlos Silva Dos Santos Junior": 2,
+    "Josue Manoel dos Santos": 1,
+    "Nivaldo Lima Brandao Junior": 1,
+    "Matheus Emilio Ferreira": 2,
+    "Ricardo Gomes Camilo": 2,
+    "Alexsandro Santana de Ecio": 4,
+    "Isaac da Silva Mota Lisboa": 1
+   },
+   "tempos": {
+    "prod": [
+     35.0,
+     8
+    ],
+    "rua": [
+     14.0,
+     14
+    ],
+    "vida": [
+     54.0,
+     8
+    ]
+   },
+   "atrasos": 8
+  }
+ }
+}

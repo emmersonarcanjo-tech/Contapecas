@@ -1,0 +1,158 @@
+{
+ "v": 1,
+ "dia": "2026-11-07",
+ "lojas": {
+  "piz": {
+   "pedidos": 232,
+   "cancelados": 2,
+   "vendas": 16922.65,
+   "receita": 17766.93,
+   "desc_loja": 1111.46,
+   "desc_plataforma": 1021.34,
+   "desc_manual": 19.97,
+   "comissao_ifood": 956.97,
+   "desc_loja_ifood": 1091.49,
+   "receita_ifood": 7476.33,
+   "proprios": 10290.6,
+   "entregas_delivery": 180,
+   "canais": {
+    "Salão": [
+     40,
+     2159.88,
+     0
+    ],
+    "App": [
+     83,
+     7971.82,
+     0
+    ],
+    "iFood": [
+     107,
+     6632.05,
+     0
+    ],
+    "PDV delivery": [
+     2,
+     158.9,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     59,
+     3822.91
+    ],
+    "Burguer": [
+     30,
+     1325.53
+    ],
+    "Pizzaria 2.0": [
+     18,
+     1483.61
+    ]
+   },
+   "motoboys": {
+    "Ricardo Gomes Camilo": 14,
+    "Alexsandro Santana de Ecio": 12,
+    "Guilherme Silva Nascimento": 24,
+    "Andre Vitor Silva dos Reis": 11,
+    "Gustavo Cardoso Carvalho": 9,
+    "Matheus Emilio Ferreira": 15,
+    "Jefferson Lima Chargas": 10,
+    "Emanuel dos Santos Guedes": 10,
+    "Marcos Vinicius silva de sousa": 12,
+    "Claudio Da Costa Nolasso": 13,
+    "Kalyson de Oliveira Santos": 11,
+    "Adriano Santos de Assis Junior": 17,
+    "Rodrigo Santana Massaranduba Filho": 10,
+    "João Vitor Muniz Lago": 10
+   },
+   "tempos": {
+    "prod": [
+     13.0,
+     125
+    ],
+    "rua": [
+     14.0,
+     180
+    ],
+    "vida": [
+     34.0,
+     125
+    ]
+   },
+   "atrasos": 20
+  },
+  "sushi": {
+   "pedidos": 152,
+   "cancelados": 1,
+   "vendas": 8861.92,
+   "receita": 8897.75,
+   "desc_loja": 186.52,
+   "desc_plataforma": 78.38,
+   "desc_manual": 0.0,
+   "comissao_ifood": 172.42,
+   "desc_loja_ifood": 186.52,
+   "receita_ifood": 1347.03,
+   "proprios": 7550.72,
+   "entregas_delivery": 27,
+   "pecas": 2122,
+   "temakis": 28,
+   "canais": {
+    "Salão": [
+     123,
+     6217.58,
+     1690
+    ],
+    "App": [
+     15,
+     1224.45,
+     192
+    ],
+    "iFood": [
+     13,
+     1311.2,
+     230
+    ],
+    "PDV delivery": [
+     1,
+     108.69,
+     10
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     13,
+     1311.2
+    ]
+   },
+   "motoboys": {
+    "Claudio Da Costa Nolasso": 2,
+    "Ricardo Gomes Camilo": 2,
+    "Kalyson de Oliveira Santos": 1,
+    "Rodrigo Santana Massaranduba Filho": 3,
+    "Matheus Emilio Ferreira": 3,
+    "Emanuel dos Santos Guedes": 4,
+    "Andre Vitor Silva dos Reis": 5,
+    "Marcos Vinicius silva de sousa": 2,
+    "João Vitor Muniz Lago": 2,
+    "Gustavo Cardoso Carvalho": 3
+   },
+   "tempos": {
+    "prod": [
+     29.0,
+     14
+    ],
+    "rua": [
+     14.0,
+     27
+    ],
+    "vida": [
+     49.0,
+     14
+    ]
+   },
+   "atrasos": 9
+  }
+ }
+}

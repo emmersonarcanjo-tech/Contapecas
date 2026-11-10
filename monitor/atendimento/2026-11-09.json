@@ -1,0 +1,52 @@
+{
+ "dia": "2026-11-09",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 56,
+  "pedidos": 36,
+  "pedidos_ia": 23,
+  "abandonadas": 20,
+  "conversao": 0.643,
+  "abandono": 0.357,
+  "tempo_medio_min": 0.7,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 17,
+  "cancelados_ia": 0,
+  "pedidos_link": 12,
+  "pedidos_outro": 1,
+  "receberam_link": 46,
+  "abandono_com_link": 14,
+  "abandono_sem_link": 6,
+  "problemas": {
+   "item_preco": 8,
+   "demora": 3,
+   "repetiu": 8,
+   "reclamou_humano": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Vcs ainda tem sushi?",
+  "Ainda tem aquela promoção de comprar uma pizza e ganhar outra ?",
+  "Tem guaraná",
+  "Refriquero coca cola 1 litro",
+  "Quanto está o temake frito ?",
+  "Nesta unidade serve shushi tbm?",
+  "Tem alguma promoção de pizza pra hoje ?",
+  "Tem sushi hj ?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

@@ -1,0 +1,179 @@
+{
+ "v": 1,
+ "dia": "2026-10-10",
+ "lojas": {
+  "piz": {
+   "pedidos": 783,
+   "cancelados": 110,
+   "vendas": 60583.2,
+   "receita": 60891.25,
+   "desc_loja": 757.51,
+   "desc_plataforma": 458.82,
+   "desc_manual": 35.0,
+   "comissao_ifood": 656.33,
+   "desc_loja_ifood": 722.51,
+   "receita_ifood": 5127.54,
+   "proprios": 55763.71,
+   "entregas_delivery": 549,
+   "canais": {
+    "App": [
+     623,
+     49681.42,
+     0
+    ],
+    "Salão": [
+     80,
+     5904.29,
+     0
+    ],
+    "iFood": [
+     78,
+     4819.49,
+     0
+    ],
+    "PDV delivery": [
+     2,
+     178.0,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     26,
+     878.15
+    ],
+    "Pizzaria": [
+     52,
+     3941.34
+    ]
+   },
+   "motoboys": {
+    "João Cosmo": 10,
+    "Carlos Silva Dos Santos Junior": 15,
+    "Victor Cardoso da Silva": 9,
+    "Emanuel dos Santos Guedes": 10,
+    "Mesaque D": 10,
+    "Ian Mendes dos Santos": 7,
+    "Cleison Santos da Luz": 8,
+    "Agnaldo Lima D": 12,
+    "Luan Victor oliveira": 8,
+    "Pedrohenrique nunes": 9,
+    "Deivisson Santos D": 10,
+    "Rodrigo Santana Massaranduba Filho": 6,
+    "Lohran Alcântara Rodrigues": 5,
+    "Breno Jesus de Souza": 8,
+    "Joãovitor dos Anjos": 8,
+    "nicolasfilippo da cruz": 5,
+    "Richard Dultra D": 11,
+    "Anderson nascimento": 8,
+    "gabrielsouza santos": 6,
+    "Walisson Jesus D": 14,
+    "Gustavo Cardoso Carvalho": 11,
+    "Luanphilippe francy oliveira": 7,
+    "Adriano Santos de Assis Junior": 8,
+    "Kalyson de Oliveira Santos": 10,
+    "Beatriz Ribeiro Serafim Gonçalves D": 8,
+    "Guilherme Silva Nascimento": 15,
+    "Alexsandro Santana de Ecio": 8,
+    "Pablo santos moronari": 5,
+    "George Gomes da Silva": 8,
+    "Marcos Vinicius silva de sousa": 6,
+    "Andre Vitor Silva dos Reis": 11,
+    "Ronalt Soares dos Santos D": 2,
+    "Josue Manoel dos Santos": 3,
+    "Claudio Oliveira D": 8,
+    "Pedro Vinicius Nascimento de Jesus": 11,
+    "Matheus Emilio Ferreira": 2,
+    "Nivaldo Lima Brandao Junior": 9,
+    "Gabriel Amorin D": 7,
+    "Claudio Da Costa Nolasso": 12,
+    "Pablo Deivid D": 1,
+    "Ricardo Gomes Camilo": 7,
+    "Marcos Alexandre de Sousa Batista": 3
+   },
+   "tempos": {
+    "prod": [
+     281.0,
+     349
+    ],
+    "rua": [
+     212.0,
+     547
+    ],
+    "vida": [
+     446.0,
+     349
+    ]
+   },
+   "atrasos": 336
+  },
+  "sushi": {
+   "pedidos": 140,
+   "cancelados": 0,
+   "vendas": 7566.35,
+   "receita": 7630.6,
+   "desc_loja": 221.87,
+   "desc_plataforma": 89.46,
+   "desc_manual": 0.0,
+   "comissao_ifood": 153.18,
+   "desc_loja_ifood": 221.87,
+   "receita_ifood": 1196.72,
+   "proprios": 6433.88,
+   "entregas_delivery": 28,
+   "pecas": 1812,
+   "temakis": 26,
+   "canais": {
+    "Salão": [
+     111,
+     5034.52,
+     1296
+    ],
+    "iFood": [
+     14,
+     1132.47,
+     190
+    ],
+    "App": [
+     15,
+     1399.36,
+     326
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     14,
+     1132.47
+    ]
+   },
+   "motoboys": {
+    "Matheus Emilio Ferreira": 11,
+    "Pedrohenrique nunes": 2,
+    "Rodrigo Santana Massaranduba Filho": 1,
+    "Emanuel dos Santos Guedes": 1,
+    "Guilherme Silva Nascimento": 1,
+    "Nivaldo Lima Brandao Junior": 1,
+    "George Gomes da Silva": 1,
+    "Alexsandro Santana de Ecio": 1,
+    "Marcos Alexandre de Sousa Batista": 1,
+    "Pablo santos moronari": 1,
+    "Ian Mendes dos Santos": 2,
+    "Breno Jesus de Souza": 4
+   },
+   "tempos": {
+    "prod": [
+     24.0,
+     14
+    ],
+    "rua": [
+     106.0,
+     28
+    ],
+    "vida": [
+     147.0,
+     14
+    ]
+   },
+   "atrasos": 11
+  }
+ }
+}

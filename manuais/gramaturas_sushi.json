@@ -50,6 +50,33 @@
       "ingrediente": "salmão",
       "g": "50 g",
       "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Uramaki",
+        "Hossomaki"
+      ],
+      "ingrediente": "gergelim",
+      "g": "1 g",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Uramaki",
+        "Hossomaki"
+      ],
+      "ingrediente": "cream cheese",
+      "g": "20 g",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Uramaki",
+        "Hossomaki"
+      ],
+      "ingrediente": "cebolinha",
+      "g": "1 g",
+      "informado": "2026-11-10"
     }
   ],
   "itens": {
@@ -93,5 +120,14 @@
     "Hosso Tomate Seco ( 10 Un )",
     "Ura Alaska ( 10 Un )",
     "Ura California ( 10 Un )"
+  ],
+  "tirar_ingrediente": [
+    {
+      "categorias": [
+        "Uramaki",
+        "Hossomaki"
+      ],
+      "ingrediente": "alface"
+    }
   ]
 }

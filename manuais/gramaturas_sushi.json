@@ -235,6 +235,22 @@
       "ingrediente": "cream cheese",
       "g": "20 g",
       "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Temaki"
+      ],
+      "ingrediente": "cebolinha",
+      "g": "1 g",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Temaki"
+      ],
+      "ingrediente": "alho poró",
+      "g": "1 g",
+      "informado": "2026-11-10"
     }
   ],
   "itens": {
@@ -295,6 +311,10 @@
     "Temaki Camarão Empanado ( 01 Un )": {
       "camarão empanado": "70 g",
       "cream cheese": "20 g"
+    },
+    "Temaki Camarão Tailandês ( 01 Un )": {
+      "camarão empanado": "70 g",
+      "geleia de pimenta": "4 g"
     }
   },
   "peso_final": {
@@ -320,7 +340,8 @@
     "Hot Capão",
     "Hot Kuruba",
     "Hot Tayo",
-    "Ura Goiabada Morango ( 10 Un )"
+    "Ura Goiabada Morango ( 10 Un )",
+    "Temaki California ( 01 Un )"
   ],
   "tirar_ingrediente": [
     {

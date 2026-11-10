@@ -233,11 +233,6 @@
     },
     "Niguiri Skin ( 04 Un )": {
       "skin": "10 g/peça"
-    },
-    "Ura Goiabada Morango ( 10 Un )": {
-      "arroz": "120 g",
-      "morango": "20 g",
-      "cream cheese": "20 g"
     }
   },
   "peso_final": {
@@ -355,5 +350,34 @@
         null
       ]
     ]
-  }
+  },
+  "novos": [
+    {
+      "categoria": "Uramaki",
+      "nome": "Ura Morango c/ Cream Cheese ( 10 Un )",
+      "ingredientes": [
+        [
+          "Alga",
+          null
+        ],
+        [
+          "Arroz",
+          "120 g"
+        ],
+        [
+          "Gergelim",
+          null
+        ],
+        [
+          "Cream cheese",
+          "20 g"
+        ],
+        [
+          "Morango",
+          "20 g"
+        ]
+      ],
+      "informado": "2026-11-10"
+    }
+  ]
 }

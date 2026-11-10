@@ -503,6 +503,10 @@ for it in ITENS:
 
 GRAM = json.loads((Path(__file__).resolve().parent.parent / "gramaturas_sushi.json").read_text()) \
     if (Path(__file__).resolve().parent.parent / "gramaturas_sushi.json").exists() else {"regras": [], "itens": {}}
+for nv in GRAM.get("novos", []):
+    ITENS.append({"cat": nv["categoria"], "name": nv["nome"], "active": True, "desc": None, "tipo": "item",
+                  "ings": [{"nome": n, "g": g, "img": ilus(n)} for n, g in nv["ingredientes"]],
+                  "aviso": "Item novo da casa — ainda não cadastrado no ALIV", "obs": ["não cadastrado no ALIV"]})
 for it in ITENS:
     for r in GRAM.get("tirar_ingrediente", []):
         if "ings" in it and ("*" in r["categorias"] or it["cat"] in r["categorias"]):

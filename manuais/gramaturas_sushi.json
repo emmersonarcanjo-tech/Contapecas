@@ -186,6 +186,15 @@
       "ingrediente": "alga",
       "g": "½ folha",
       "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Joy"
+      ],
+      "ingrediente": "cream cheese",
+      "g": "4 g/peça",
+      "informado": "2026-11-10",
+      "obs": "finalização no topo"
     }
   ],
   "itens": {

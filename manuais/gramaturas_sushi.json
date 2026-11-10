@@ -195,6 +195,14 @@
       "g": "4 g/peça",
       "informado": "2026-11-10",
       "obs": "finalização no topo"
+    },
+    {
+      "categorias": [
+        "Sashimi"
+      ],
+      "ingrediente": "salmão",
+      "g": "20 g/peça",
+      "informado": "2026-11-10"
     }
   ],
   "itens": {

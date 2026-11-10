@@ -63,6 +63,31 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from monitor import Aliv, AlivError, TZ, lista_pedidos, num, parse_dt  # noqa: E402
 
+import http.client  # noqa: E402
+
+
+class AlivResiliente(Aliv):
+    """Aliv que tenta de novo quando a conexão cai (10/11/2026: o ALIV fechou a conexão sem responder
+    no meio da coleta e a previsão inteira não saiu). Só leitura, como o Aliv."""
+    ESPERAS = (3, 8, 15, 30)
+
+    def _tenta(self, f, *a, **k):
+        for i, espera in enumerate((0,) + self.ESPERAS):
+            time.sleep(espera)
+            try:
+                return f(*a, **k)
+            except (OSError, http.client.HTTPException) as e:
+                if i == len(self.ESPERAS):
+                    raise AlivError(f"ALIV não respondeu depois de {i + 1} tentativas: {e}") from e
+                print(f"aviso: ALIV caiu ({type(e).__name__}); tentando de novo em {self.ESPERAS[i]}s",
+                      file=sys.stderr)
+
+    def login(self) -> None:
+        self._tenta(super().login)
+
+    def get(self, path: str, params: dict | None = None):
+        return self._tenta(super().get, path, params)
+
 # ---------------------------------------------------------------- parâmetros
 HORA_INI, HORA_FIM = 16, 24          # janela analisada: 16:00 até 00:00
 LIMITE_MIN = 45                      # entrega acima disso = atrasada
@@ -564,7 +589,9 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
     mes = [x for k, x in base if k == "mês"]
     if mes:
         L.append("Mês passado: " + linha_hist("mês", mes[0]))
-    if semana:
+    if semana is None:
+        L += ["", "Atraso da semana passada: indisponível (o ALIV não respondeu)."]
+    elif semana:
         L += ["", f"⚠️ *Atraso na semana passada* ({len(semana)} de 7 dias, entregas >45min): " + " · ".join(
             f"{DIAS_CURTO[d.weekday()]} {d:%d/%m} {a}" for d, a, n, v in semana)]
     else:
@@ -579,7 +606,8 @@ def gravar_dados(arq: Path, base: list, semana: list) -> None:
         d["dia"] = x.dia.isoformat()
         return d
     arq.write_text(json.dumps({"base": [[k, dia(x)] for k, x in base],
-                               "semana": [[d.isoformat(), a, n, v] for d, a, n, v in semana]}), encoding="utf-8")
+                               "semana": [[d.isoformat(), a, n, v] for d, a, n, v in (semana or [])]}),
+                   encoding="utf-8")
 
 
 def ler_dados(arq: Path) -> tuple[list, list]:
@@ -629,11 +657,11 @@ def main() -> int:
         return 2
     hoje = date.fromisoformat(args.data) if args.data else datetime.now(TZ).date()
     raw = Path(args.raw) if args.raw else None
-    api = Aliv(user, pwd, raw_dir=raw)
+    api = AlivResiliente(user, pwd, raw_dir=raw)
     api_sushi = None
     us, ps = os.environ.get("ALIV_USER_SUSHI"), os.environ.get("ALIV_PASS_SUSHI")
     if us and ps:
-        api_sushi = Aliv(us, ps, raw_dir=raw / "sushi" if raw else None)
+        api_sushi = AlivResiliente(us, ps, raw_dir=raw / "sushi" if raw else None)
         try:
             api_sushi.login()
         except (AlivError, OSError) as e:
@@ -648,7 +676,11 @@ def main() -> int:
             dias = dias_base(hoje)
             with ThreadPoolExecutor(3) as ex:
                 base = list(zip([k for k, _ in dias], ex.map(lambda kd: coletar_dia(api, api_sushi, kd[1]), dias)))
-            semana = atraso_semana(api, hoje)
+            try:
+                semana = atraso_semana(api, hoje)
+            except (AlivError, OSError) as e:      # o alerta é extra: sem ele o painel sai do mesmo jeito
+                print(f"aviso: atraso da semana passada indisponível: {e}", file=sys.stderr)
+                semana = None
             if args.salvar_dados:
                 gravar_dados(Path(args.salvar_dados), base, semana)
     except AlivError as e:

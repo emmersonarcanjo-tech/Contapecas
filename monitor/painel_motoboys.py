@@ -244,7 +244,10 @@ def html_painel(hoje: date, base: list, rec: dict, motivos: list[str], semana: l
     P.append(_tempo_hoje(rec))
 
     # Alerta da semana passada
-    if semana and celular:
+    if semana is None:
+        P.append('<div class="semalerta" style="margin-top:20px;background:#333;border-color:#555">'
+                 'Atraso da semana passada: indisponível (o ALIV não respondeu)</div>')
+    elif semana and celular:
         P.append(f'<div class="alertas" style="margin-top:20px"><div class="cab">ATRASO NA SEMANA PASSADA '
                  f'· entregas &gt;45 min</div><ul class="mini">'
                  + "".join(f"<li>{DC[d.weekday()]} {d:%d/%m} <b>{a}</b>{f' ({a / n * 100:.0f}%)' if n else ''}</li>"
@@ -442,7 +445,10 @@ def html_ipad(hoje: date, base: list, rec: dict, motivos: list[str], semana: lis
 
     # Coluna 3: atraso da semana + histórico
     P.append('<div class="col">')
-    if semana:
+    if semana is None:
+        P.append('<div class="box" style="font-size:19px;font-weight:800">Atraso da semana passada: '
+                 'indisponível (o ALIV não respondeu)</div>')
+    elif semana:
         P.append(f'<div class="box alerta"><div class="t">ATRASO NA SEMANA PASSADA</div><ul>'
                  + "".join(f"<li>{DC[d.weekday()]} {d:%d/%m} · <b>{a}</b> acima de 45 min{f' ({a / n * 100:.0f}%)' if n else ''}</li>"
                            for d, a, n, v in semana) + "</ul></div>")

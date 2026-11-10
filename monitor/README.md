@@ -402,6 +402,8 @@ Leva uns 5 minutos (muitas consultas ao ALIV). Códigos de saída: `0` ok · `1`
 - Ajustes: feriado nacional/Bahia ou data forte (Mães, Pais, Namorados) +20% · véspera (inclui 24 e 31/12) +15% · promoção +10%. Os dias da base que eram feriado/véspera/promoção são descontados antes da média.
 - Promoções e feriados municipais: `monitor/assets/promocoes.json` (`dias_semana`, `datas`, `feriados_extra`). Hoje está vazio — é só pedir ao Claude para incluir.
 
+**Quedas do ALIV (10/11/2026):** se a conexão cair, o script tenta de novo até 5 vezes (espera 3, 8, 15 e 30 s). Se o alerta da semana passada não sair, o painel vai do mesmo jeito, com "indisponível" nesse quadro.
+
 **Correção (Emerson, 09/11/2026):** se uma previsão enviada estiver errada, a corrigida vai logo em seguida para os mesmos destinatários, com `--whatsapp --correcao "motivo"`. A legenda sai "⚠️ CORREÇÃO … desconsidere o anterior".
 
 **Painéis (pedido do Emerson, 08/11/2026):** no WhatsApp vai só a imagem, com uma legenda curta. O texto só vai se a imagem falhar.

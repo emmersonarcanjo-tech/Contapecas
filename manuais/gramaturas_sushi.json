@@ -325,8 +325,7 @@
   "tirar_ingrediente": [
     {
       "categorias": [
-        "Uramaki",
-        "Hossomaki"
+        "*"
       ],
       "ingrediente": "alface"
     }

@@ -91,7 +91,7 @@
         "Joy"
       ],
       "ingrediente": "arroz",
-      "g": "20 g/peça",
+      "g": "12 g/peça",
       "informado": "2026-11-10"
     },
     {
@@ -100,6 +100,22 @@
       ],
       "ingrediente": "lâmina de atum",
       "g": "14 g/peça",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Niguiri"
+      ],
+      "ingrediente": "arroz",
+      "g": "20 g/peça",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Niguiri"
+      ],
+      "ingrediente": "lâmina de salmão",
+      "g": "10 g/peça",
       "informado": "2026-11-10"
     }
   ],

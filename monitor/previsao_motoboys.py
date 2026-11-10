@@ -16,7 +16,8 @@ dia do mês passado), janela 16:00–00:00 de cada dia:
     hora no pico = entregas da hora ÷ motoboys em turno nessa hora.
   • Dia "estourado" = mais de 10% das entregas acima de 45 min ou vida média > 45.
   • Capacidade segura = o melhor ritmo (entregas/motoboy/hora no pico) de um dia
-    que NÃO estourou. Recomendação = pico previsto ÷ capacidade, arredondado em
+    que NÃO estourou e teve movimento parecido (pico ≥75% do previsto); sem dia assim,
+    6,0 entregas/motoboy/h (o que funcionou em 08/10/2026). Nunca abaixo de 4,0. Recomendação = pico previsto ÷ capacidade, arredondado em
     faixa; nunca abaixo do nº de motoboys de um dia que estourou com movimento parecido.
   • Limite de entregas por saída (MAX_POR_SAIDA, hoje desligado): ritmo máximo = N × 60 ÷ (2 × rua média + 5 min);
     vale o menor entre esse e o ritmo dos dias sem atraso.
@@ -62,6 +63,31 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from monitor import Aliv, AlivError, TZ, lista_pedidos, num, parse_dt  # noqa: E402
 
+import http.client  # noqa: E402
+
+
+class AlivResiliente(Aliv):
+    """Aliv que tenta de novo quando a conexão cai (10/11/2026: o ALIV fechou a conexão sem responder
+    no meio da coleta e a previsão inteira não saiu). Só leitura, como o Aliv."""
+    ESPERAS = (3, 8, 15, 30)
+
+    def _tenta(self, f, *a, **k):
+        for i, espera in enumerate((0,) + self.ESPERAS):
+            time.sleep(espera)
+            try:
+                return f(*a, **k)
+            except (OSError, http.client.HTTPException) as e:
+                if i == len(self.ESPERAS):
+                    raise AlivError(f"ALIV não respondeu depois de {i + 1} tentativas: {e}") from e
+                print(f"aviso: ALIV caiu ({type(e).__name__}); tentando de novo em {self.ESPERAS[i]}s",
+                      file=sys.stderr)
+
+    def login(self) -> None:
+        self._tenta(super().login)
+
+    def get(self, path: str, params: dict | None = None):
+        return self._tenta(super().get, path, params)
+
 # ---------------------------------------------------------------- parâmetros
 HORA_INI, HORA_FIM = 16, 24          # janela analisada: 16:00 até 00:00
 LIMITE_MIN = 45                      # entrega acima disso = atrasada
@@ -70,7 +96,11 @@ LIMITE_VIDA_MEDIA = 45               # ...ou vida média acima de 45 min
 PESOS = [0.35, 0.25, 0.15, 0.10]     # semanas -1, -2, -3, -4
 PESO_MES = 0.15                      # mesmo dia do mês passado
 AJ_FERIADO, AJ_VESPERA, AJ_PROMO = 1.20, 1.15, 1.10
-CAPACIDADE_PADRAO = 4.0              # entregas/motoboy/hora, se nenhum dia servir de base
+CAPACIDADE_PADRAO = 6.0              # entregas/motoboy/hora sem atraso quando nenhum dia serve de base
+                                     # (08/10/2026: 6,1 no pico, saindo com 3–4 entregas, vida 30 min)
+CAPACIDADE_MIN = 4.0                 # nunca supor menos que isso (evita chamar motoboy demais)
+MOVIMENTO_MIN = 0.75                 # dia "no tempo" só mede o ritmo se o pico dele for ≥75% do previsto:
+                                     # dia fraco não mostra quanto o motoboy aguenta (09/11/2026)
 MAX_POR_SAIDA = None                 # limite de entregas por saída (ex.: 2). Desligado: Emerson (08/11/2026)
                                      # preferiu o ritmo real do ALIV e acompanhar 30 dias antes de limitar.
 ESPERA_LOJA = 5                      # min na loja entre uma saída e outra (pegar o pedido)
@@ -482,15 +512,10 @@ def recomendar(base: list[tuple[str, Dia]], fator: float) -> dict:
     horas_prev = {h: sum(p * x.total_h[h] / x.fator for p, x in usados) / tot * fator
                   for h in range(HORA_INI, HORA_FIM)}
 
-    bons = [x for _, x in base if not x.estourou and x.eph > 0]
+    bons = [x for _, x in base if not x.estourou and x.eph > 0 and x.entregas_pico >= pico_prev * MOVIMENTO_MIN]
     ruins = [x for _, x in base if x.estourou and x.eph > 0]
-    if bons:
-        cap = max(x.eph for x in bons)
-    elif ruins:
-        cap = min(x.eph for x in ruins) * 0.85     # todos estouraram: ritmo 15% menor
-    else:
-        cap = CAPACIDADE_PADRAO
-    cap_hist = max(cap, 1.0)
+    cap = max(x.eph for x in bons) if bons else CAPACIDADE_PADRAO
+    cap_hist = max(cap, CAPACIDADE_MIN)
     # Regra das 2 entregas por saída: ciclo = ida e volta (2 × tempo médio de rua) + espera na loja.
     ruas = [(pesos[k], x.rua) for k, x in base if x.rua > 0]
     rua = sum(p * r for p, r in ruas) / sum(p for p, _ in ruas) if ruas else RUA_PADRAO
@@ -547,7 +572,8 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
         porque2 = (f"Sem atraso, cada motoboy faz até {f1(rec['cap'])} entregas/h no pico "
                    f"(como em {b.dia:%d/%m}, com {b.motos_pico} em turno).")
     else:
-        porque2 = f"Nenhum dia sem atraso na base: usei ritmo de {f1(rec['cap'])} entregas/motoboy/h para folgar."
+        porque2 = (f"Nenhum dia sem atraso com movimento parecido: usei {f1(rec['cap'])} entregas/motoboy/h, "
+                   f"o ritmo que funcionou sem atraso.")
     c = rec.get("chuva")
     L += [porque1, porque2]
     if c:
@@ -563,7 +589,9 @@ def mensagem(hoje: date, base: list[tuple[str, Dia]], rec: dict, motivos: list[s
     mes = [x for k, x in base if k == "mês"]
     if mes:
         L.append("Mês passado: " + linha_hist("mês", mes[0]))
-    if semana:
+    if semana is None:
+        L += ["", "Atraso da semana passada: indisponível (o ALIV não respondeu)."]
+    elif semana:
         L += ["", f"⚠️ *Atraso na semana passada* ({len(semana)} de 7 dias, entregas >45min): " + " · ".join(
             f"{DIAS_CURTO[d.weekday()]} {d:%d/%m} {a}" for d, a, n, v in semana)]
     else:
@@ -578,7 +606,8 @@ def gravar_dados(arq: Path, base: list, semana: list) -> None:
         d["dia"] = x.dia.isoformat()
         return d
     arq.write_text(json.dumps({"base": [[k, dia(x)] for k, x in base],
-                               "semana": [[d.isoformat(), a, n, v] for d, a, n, v in semana]}), encoding="utf-8")
+                               "semana": [[d.isoformat(), a, n, v] for d, a, n, v in (semana or [])]}),
+                   encoding="utf-8")
 
 
 def ler_dados(arq: Path) -> tuple[list, list]:
@@ -609,6 +638,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Previsão de motoboys do dia (ALIV, só leitura)")
     ap.add_argument("--data", help="dia da previsão (AAAA-MM-DD); padrão: hoje")
     ap.add_argument("--promo", action="store_true", help="considera promoção hoje")
+    ap.add_argument("--correcao", metavar="MOTIVO",
+                    help="reenvio corrigido: a legenda sai como '⚠️ CORREÇÃO … desconsidere o anterior' (regra do Emerson, 09/11/2026)")
     ap.add_argument("--whatsapp", action="store_true",
                     help="envia para WHATSAPP_EMERSON, WHATSAPP_JOSUE e WHATSAPP_CAMILO")
     ap.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (diagnóstico, não commitar)")
@@ -626,11 +657,11 @@ def main() -> int:
         return 2
     hoje = date.fromisoformat(args.data) if args.data else datetime.now(TZ).date()
     raw = Path(args.raw) if args.raw else None
-    api = Aliv(user, pwd, raw_dir=raw)
+    api = AlivResiliente(user, pwd, raw_dir=raw)
     api_sushi = None
     us, ps = os.environ.get("ALIV_USER_SUSHI"), os.environ.get("ALIV_PASS_SUSHI")
     if us and ps:
-        api_sushi = Aliv(us, ps, raw_dir=raw / "sushi" if raw else None)
+        api_sushi = AlivResiliente(us, ps, raw_dir=raw / "sushi" if raw else None)
         try:
             api_sushi.login()
         except (AlivError, OSError) as e:
@@ -645,7 +676,11 @@ def main() -> int:
             dias = dias_base(hoje)
             with ThreadPoolExecutor(3) as ex:
                 base = list(zip([k for k, _ in dias], ex.map(lambda kd: coletar_dia(api, api_sushi, kd[1]), dias)))
-            semana = atraso_semana(api, hoje)
+            try:
+                semana = atraso_semana(api, hoje)
+            except (AlivError, OSError) as e:      # o alerta é extra: sem ele o painel sai do mesmo jeito
+                print(f"aviso: atraso da semana passada indisponível: {e}", file=sys.stderr)
+                semana = None
             if args.salvar_dados:
                 gravar_dados(Path(args.salvar_dados), base, semana)
     except AlivError as e:
@@ -692,6 +727,9 @@ def main() -> int:
     legenda = f"Motoboys hoje {hoje:%d/%m}: chamar {rec['lo']} a {rec['hi']}"
     if chuva["status"] in ("chuva", "forte"):
         legenda += f" · com chuva +{EXTRA_CHUVA} a {EXTRA_CHUVA_FORTE}"
+    if args.correcao:
+        legenda = f"⚠️ CORREÇÃO — {legenda}. O painel anterior estava errado ({args.correcao}), desconsidere."
+        texto = f"⚠️ CORREÇÃO ({args.correcao}) — desconsidere a mensagem anterior.\n\n" + texto
     enviados = 0
     for var in DESTINOS:
         fone = re.sub(r"\D", "", os.environ.get(var, "")) or fone_remetente(var)

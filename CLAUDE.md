@@ -30,6 +30,7 @@ Se os horários na página de Rotinas divergirem deste arquivo, **os da página 
 ## Regras de segurança
 - ALIV: **só leitura**, exceto o que o script já faz.
 - **Nunca** emitir nota fiscal, lançar despesa ou enviar WhatsApp sem o Emerson pedir na sessão.
+  - Exceção (Emerson, 09/11/2026): se uma previsão de motoboys já enviada estiver errada, mande **logo em seguida** a corrigida, para os mesmos destinatários, com `python3 monitor/previsao_motoboys.py --whatsapp --correcao "o que estava errado"`. Depois avise o Emerson do que mudou.
 - **Nunca** gravar credenciais, CPF, CNPJ, chave de nota ou senha em código, log ou commit.
 - Antes de alterar qualquer rotina, **resumir o que vai mudar e esperar o ok**.
 

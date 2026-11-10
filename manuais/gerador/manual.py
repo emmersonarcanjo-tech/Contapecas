@@ -299,7 +299,7 @@ def pg_base(b, n):
     return (f'<div class="pg">{topo("Base da casa")}<div class="corpo"><h1>{esc(b["titulo"])}</h1>'
             f'<div class="sub">{b["sub"]}</div><h2>Ingredientes</h2>{h}<h2>Modo de preparo</h2><ol>'
             + "".join(f"<li>{esc(x)}</li>" for x in b["passos"]) + "</ol>"
-            + (f'<div class="dupla" style="grid-template-columns:1fr"><div class="box"><b>PROPORÇÃO</b>{esc(b["obs"])}</div></div>' if b.get("obs") else "")
+            + (f'<div class="dupla" style="grid-template-columns:1fr"><div class="box"><b>{esc(b.get("obs_titulo", "RENDIMENTO" if "Rende" in b["sub"] or "rendem" in b["sub"] else "PROPORÇÃO"))}</b>{esc(b["obs"])}</div></div>' if b.get("obs") else "")
             + f'</div>{rodape(n)}</div>')
 
 

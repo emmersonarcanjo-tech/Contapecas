@@ -254,6 +254,33 @@
   ],
   "bases": [
     {
+      "titulo": "Arroz de sushi",
+      "sub": "5 kg de arroz cru rendem <b>14,372 kg</b> de arroz pronto",
+      "ingredientes": [
+        [
+          "Arroz japonês cru",
+          "5 kg"
+        ],
+        [
+          "Água",
+          "___"
+        ],
+        [
+          "Molho Su",
+          "___"
+        ]
+      ],
+      "passos": [
+        "Lavar o arroz até a água sair clara e escorrer bem.",
+        "Cozinhar com a água medida.",
+        "Ainda quente, passar para a bacia e regar com o Molho Su.",
+        "Misturar cortando com a espátula, sem amassar os grãos.",
+        "Cobrir com pano úmido e usar em temperatura ambiente."
+      ],
+      "obs": "Cada 1 kg de arroz cru rende ≈ 2,87 kg pronto. A leva de 14,372 kg dá ≈ 119 rolos (120 g), 239 temakis (60 g) ou 718 niguiris (20 g).",
+      "informado": "2026-11-10"
+    },
+    {
       "titulo": "Salmão grelhado com cream cheese",
       "sub": "Mistura base da casa · rende <b>1,2 kg</b>",
       "ingredientes": [

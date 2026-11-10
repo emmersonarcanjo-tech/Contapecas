@@ -23,9 +23,10 @@ Fonte: pedidos do ALIV (loja 155, turnos de 01 a 31/10, 4.059 pedidos, 24 cancel
 | (−) Motoboys: R$ 2 × 785 entregas | 1.570,00 | 1.570,00 |
 | **= Margem de contribuição** | **130.438,41** | **122.322,80** |
 | (−) Folha | 30.670,55 | 30.670,55 |
+| (−) Encargos trabalhistas (29% sobre R$ 26.370,55 CLT) | 7.647,48 | 7.647,48 |
 | (−) Aluguel | 10.000,00 | 10.000,00 |
 | (−) Luz | 2.900,00 | 2.900,00 |
-| **= Resultado** | **86.867,86 (35,6%)** | **78.752,25 (32,2%)** |
+| **= Resultado** | **79.220,38 (32,4%)** | **71.104,77 (29,1%)** |
 
 ### Folha usada
 
@@ -38,6 +39,18 @@ Fonte: pedidos do ALIV (loja 155, turnos de 01 a 31/10, 4.059 pedidos, 24 cancel
 | 4 atendentes × R$ 1.644,11 | 6.576,44 |
 | Diarista R$ 700/semana (31 dias) | 3.100,00 |
 | **Total** | **30.670,55** |
+
+### Encargos (Simples Nacional, Anexo I: INSS patronal já está no DAS)
+
+| Encargo | % | Valor |
+|---|---|---|
+| FGTS | 8,00% | 2.109,64 |
+| 13º (provisão) | 8,33% | 2.196,67 |
+| Férias + 1/3 (provisão) | 11,11% | 2.929,79 |
+| FGTS sobre 13º e férias | 1,56% | 411,38 |
+| **Total** | **29,0%** | **7.647,48** |
+
+Base: sushimen, Luiz, Djalma (sem o vale), auxiliar e atendentes, todos considerados com carteira. A diarista não entra. Não incluída a provisão de multa de 40% do FGTS em demissão (≈ R$ 844/mês).
 
 ## Como o CMV foi calculado
 
@@ -52,4 +65,4 @@ Fonte: pedidos do ALIV (loja 155, turnos de 01 a 31/10, 4.059 pedidos, 24 cancel
 
 ## Não entrou
 
-Encargos trabalhistas (FGTS, férias, 13º), gás, água, internet, contador, marketing, embalagem de delivery (se não estiver nas compras), diárias de motoboy rateadas com a Pizzaria e pró-labore.
+Gás, água, internet, contador, marketing, embalagem de delivery (se não estiver nas compras), diárias de motoboy rateadas com a Pizzaria e pró-labore.

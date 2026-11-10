@@ -211,6 +211,30 @@
       "ingrediente": "tataki de salmão",
       "g": "7 g/peça",
       "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Temaki"
+      ],
+      "ingrediente": "arroz",
+      "g": "70 g",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Temaki"
+      ],
+      "ingrediente": "salmão",
+      "g": "70 g",
+      "informado": "2026-11-10"
+    },
+    {
+      "categorias": [
+        "Temaki"
+      ],
+      "ingrediente": "cream cheese",
+      "g": "20 g",
+      "informado": "2026-11-10"
     }
   ],
   "itens": {
@@ -335,7 +359,7 @@
         "Misturar cortando com a espátula, sem amassar os grãos.",
         "Cobrir com pano úmido e usar em temperatura ambiente."
       ],
-      "obs": "Cada 1 kg de arroz cru rende ≈ 2,87 kg pronto. A leva de 14,372 kg dá ≈ 119 rolos (120 g), 239 temakis (60 g) ou 718 niguiris (20 g).",
+      "obs": "Cada 1 kg de arroz cru rende ≈ 2,87 kg pronto. A leva de 14,372 kg dá ≈ 119 rolos (120 g), 205 temakis (70 g) ou 718 niguiris (20 g).",
       "informado": "2026-11-10"
     },
     {
@@ -377,6 +401,54 @@
       ],
       [
         "Farinha panko (empanar)",
+        null
+      ]
+    ],
+    "Temaki Filadélfia": [
+      [
+        "Alga",
+        null
+      ],
+      [
+        "Arroz",
+        null
+      ],
+      [
+        "Salmão em cubos",
+        null
+      ],
+      [
+        "Cream cheese",
+        null
+      ],
+      [
+        "Cebolinha",
+        null
+      ]
+    ],
+    "Temaki Salmão grelhado ( 01 Un )": [
+      [
+        "Alga",
+        null
+      ],
+      [
+        "Arroz",
+        null
+      ],
+      [
+        "Salmão grelhado",
+        null
+      ],
+      [
+        "Cream cheese",
+        null
+      ],
+      [
+        "Pepino em fios",
+        null
+      ],
+      [
+        "Gergelim",
         null
       ]
     ]

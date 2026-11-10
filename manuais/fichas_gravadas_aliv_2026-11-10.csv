@@ -1,5 +1,5 @@
 categoria;item;produto_id;linhas;custo_ingredientes;preco_venda;custo_%;fora_da_ficha
-Hossomaki;Hossomaki Atum;11670;3;1,45;24,90;5,8;
+Hossomaki;Hossomaki Atum;11670;3;4,37;24,90;17,6;
 Hossomaki;Hossomaki Camarão Cozido;11668;3;4,65;24,90;18,7;
 Hossomaki;Hossomaki Camarão Empanado;11666;3;3,05;24,90;12,2;
 Hossomaki;Hossomaki Fila;11664;5;6,25;24,90;25,1;
@@ -16,7 +16,7 @@ Uramaki;Uramaki Skin;11653;4;1,09;22,90;4,8;
 Hot Roll;Hot Camarão;11673;5;5,99;29,90;20,0;
 Hot Roll;Hot Fila;11672;5;6,50;29,90;21,7;
 Hot Roll;Hot Salmão c/ Camarão;11674;7;7,13;32,90;21,7;
-Niguiri;Niguiri Atum;11648;2;0,43;14,90;2,9;
+Niguiri;Niguiri Atum;11648;2;2,10;14,90;14,1;
 Niguiri;Niguiri Kani;11650;2;2,48;12,90;19,2;Alga (sem peso)
 Niguiri;Niguiri Salmão;11646;2;3,39;16,90;20,1;
 Niguiri;Niguiri Salmão Selado;11649;2;3,39;16,90;20,1;
@@ -24,7 +24,7 @@ Niguiri;Niguiri Salmão Selado c/ Geleia de Pimenta;11647;2;3,39;16,90;20,1;
 Niguiri;Niguiri Skin;11645;2;0,43;12,90;3,3;Alga (sem peso)
 Sashimi;Sashimi;30757;1;1,48;4,99;29,7;
 Joy;Joy Alho Poró;11631;2;3,24;16,90;19,2;
-Joy;Joy Atum;11635;4;0,66;15,90;4,2;
+Joy;Joy Atum;11635;4;2,41;15,90;15,2;
 Joy;Joy Camarão;11639;5;2,78;17,90;15,5;Camarão cozido (sem peso)
 Joy;Joy Camarão s/ Arroz;11638;1;2,08;19,90;10,5;Camarão cozido (sem peso)
 Joy;Joy Capão;11641;4;3,65;16,90;21,6;
@@ -32,7 +32,7 @@ Joy;Joy Fila;11632;4;3,77;16,90;22,3;
 Joy;Joy Selado c/ Geleia;11636;2;3,24;16,90;19,2;
 Joy;Joy Tili;11637;5;3,81;16,90;22,5;
 Joy;Joy especial Tili;11640;2;3,53;16,90;20,9;Camarão (sem peso) | Limão (sem peso) | Tarê (sem peso)
-Temaki;Temaki Atum;11688;3;0,78;32,99;2,4;
+Temaki;Temaki Atum;11688;3;3,70;32,99;11,2;
 Temaki;Temaki Camarão Cozido;11677;5;6,66;32,99;20,2;
 Temaki;Temaki Camarão Empanado;11678;4;7,40;35,99;20,6;
 Temaki;Temaki Camarão Tailandês;11676;5;6,57;35,90;18,3;

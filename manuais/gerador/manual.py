@@ -349,7 +349,7 @@ def pg_poke_monte(it, n):
     regras = "".join(
         f'<div class="ing" style="align-items:flex-start;min-height:0;padding:1.5mm 0"><div class="nm" style="flex:none;width:52mm">'
         f'<b style="color:{VERM}">{esc(r["name"])}</b></div><div style="font:400 12pt/1.4 Inter">'
-        f'{esc(", ".join(re.sub(r" \(dobro de salmão\)$", "", i["name"]) for i in r["items"]))}</div></div>'
+        f'{esc(", ".join(re.sub(r" \(dobro de salmão\)$", "", i["name"]) for i in r["items"] if i["name"] not in GRAM.get("tirar_opcao_poke", [])))}</div></div>'
         for r in it["regras"] if "Potencialize" not in r["name"])
     return (f'<div class="pg">{topo("Poke")}<div class="corpo"><h1>{esc(it["name"])}</h1>'
             f'<div class="sub"><b>Monte o seu</b> · {esc(it["desc"])}</div>'

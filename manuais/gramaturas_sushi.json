@@ -184,9 +184,6 @@
     "Ura Camarão Cozido ( 10 Un )": {
       "camarão": "40 g"
     },
-    "Hosso Atum ( 10 Un )": {
-      "atum": "50 g"
-    },
     "Ura Camarão Empanado ( 01 Un )": {
       "camarão empanado": "20 g",
       "salmão": "40 g",
@@ -245,5 +242,11 @@
   ],
   "pecas": {
     "Ura Camarão Empanado ( 01 Un )": 10
+  },
+  "espelho": {
+    "Hosso Atum ( 10 Un )": "Hosso Salmão ( 10 un)",
+    "Niguiri Atum ( 04 Un )": "Niguiri Salmão ( 04 Un )",
+    "Temaki Atum ( 01 Un )": "Temaki Salmão",
+    "Joy Atum ( 02 Un )": "Joy Fila ( 02 Un )"
   }
 }

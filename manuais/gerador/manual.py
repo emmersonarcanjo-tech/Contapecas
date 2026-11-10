@@ -513,6 +513,19 @@ for it in ITENS:
             if ing.lower() in nm:
                 i["g"] = g
 
+# Espelho: o item de atum copia as gramaturas do item de salmão equivalente
+POR_NOME = {it["name"]: it for it in ITENS}
+for alvo, origem in GRAM.get("espelho", {}).items():
+    a, o = POR_NOME.get(alvo), POR_NOME.get(origem)
+    if not a or not o:
+        continue
+    for i in a.get("ings", []):
+        pal = lambda s: set(s.lower().replace("atum", "salmão").split()) - {"de", "em", "c/", "com"}
+        for j in o["ings"]:
+            if j["g"] and pal(i["nome"]) == pal(j["nome"]):
+                i["g"] = j["g"]
+                break
+
 REMOVER = set(GRAM.get("remover", []))
 ITENS[:] = [it for it in ITENS if it["name"] not in REMOVER]
 

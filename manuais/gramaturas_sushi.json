@@ -101,6 +101,12 @@
     },
     "Hosso Atum ( 10 Un )": {
       "atum": "50 g"
+    },
+    "Ura Camarão Empanado ( 01 Un )": {
+      "camarão empanado": "20 g",
+      "salmão": "40 g",
+      "cream cheese": "20 g",
+      "gergelim": "1 g"
     }
   },
   "peso_final": {

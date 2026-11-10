@@ -79,7 +79,7 @@ for p in ped:
             from datetime import date as _d
             qua = _d.fromisoformat(p["_dia"]).weekday() == 2 if p.get("_dia") else True
             if pr < 2.5: c, o = PECA["rolo"], "média rolos/peça"
-            elif qua: c, o = PECA["joy_niguiri"], "quarta: joy+niguiri"
+            elif qua or nt == "sunomono": c, o = PECA["joy_niguiri"], "joy+niguiri"
             else: c, o = PECA["avulsa"], "peça avulsa 2,99 (mix)"
         elif nt.startswith("acarajapa"):
             c, o = PECA["acarajapa"], "estimado"

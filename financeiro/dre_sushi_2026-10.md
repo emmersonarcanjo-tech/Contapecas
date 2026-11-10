@@ -17,15 +17,15 @@ Fonte: pedidos do ALIV (loja 155, turnos de 01 a 31/10, 4.059 pedidos, 24 cancel
 |---|---|---|
 | Faturamento | 244.225,86 | 244.225,86 |
 | (−) Imposto 11% | 26.864,84 | 26.864,84 |
-| (−) CMV | 72.124,14 (29,5%) | 83.991,40 (34,4%) |
+| (−) CMV | 75.875,79 (31,1%) | 83.991,40 (34,4%) |
 | (−) Comissão iFood (estimada 25%) | 4.991,63 | 4.991,63 |
 | (−) Taxa de cartão (estimada 2% salão+app) | 4.485,19 | 4.485,19 |
 | (−) Motoboys: R$ 2 × 785 entregas | 1.570,00 | 1.570,00 |
-| **= Margem de contribuição** | **134.190,06** | **122.322,80** |
+| **= Margem de contribuição** | **130.438,41** | **122.322,80** |
 | (−) Folha | 30.670,55 | 30.670,55 |
 | (−) Aluguel | 10.000,00 | 10.000,00 |
 | (−) Luz | 2.900,00 | 2.900,00 |
-| **= Resultado** | **90.619,51 (37,1%)** | **78.752,25 (32,2%)** |
+| **= Resultado** | **86.867,86 (35,6%)** | **78.752,25 (32,2%)** |
 
 ### Folha usada
 
@@ -43,8 +43,8 @@ Fonte: pedidos do ALIV (loja 155, turnos de 01 a 31/10, 4.059 pedidos, 24 cancel
 
 - Itens com ficha técnica no ALIV: custo da ficha (salmão com perda de 30%, atum com perda de 40%).
 - Peça a R$ 1,99 (Quarta Maluca): R$ 0,62 por peça.
-- Peça a R$ 2,99 na quarta: Joy e niguiri, R$ 1,30 por peça.
-- Peça a R$ 2,99 nos outros dias ("PEÇA SUSHI" e "Sunomono"): mistura, R$ 0,85 por peça.
+- Peça a R$ 2,99 na quarta e todo "Sunomono" a R$ 2,99: Joy e niguiri, R$ 1,30 por peça (as atendentes lançavam Joy e niguiri no Sunomono).
+- "PEÇA SUSHI" a R$ 2,99 nos outros dias: mistura, R$ 0,85 por peça.
 - Combinados e packs: soma das peças.
 - Cervejas e picolés: custo do estoque.
 - Itens sem ficha (refrigerante, suco, yakisoba, poke, ceviche, combos sem descrição): 35% do preço.

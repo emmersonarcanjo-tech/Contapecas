@@ -286,6 +286,11 @@
     "Hosso Morango c/Nutella ( 10 Un )": {
       "morango": "40 g",
       "nutella": "4 g/peça"
+    },
+    "Temaki Camarão Cozido ( 01 Un )": {
+      "camarão": "60 g",
+      "cream cheese": "20 g",
+      "cebolinha": "1 g"
     }
   },
   "peso_final": {

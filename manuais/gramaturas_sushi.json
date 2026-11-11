@@ -507,15 +507,15 @@
     },
     {
       "titulo": "Limpeza do salmão",
-      "sub": "1 kg de salmão inteiro rende <b>≈ 700 g limpo</b> (perda média de 30%)",
+      "sub": "1 kg de salmão eviscerado rende <b>≈ 725 g limpo</b> (medido em 11/11/2026: 72,5%)",
       "ingredientes": [
         [
-          "Salmão inteiro",
+          "Salmão eviscerado",
           "1 kg"
         ],
         [
           "Salmão limpo (lombo + barriga)",
-          "≈ 700 g"
+          "≈ 725 g"
         ]
       ],
       "passos": [
@@ -530,7 +530,7 @@
         "Pesar o salmão limpo e anotar o rendimento.",
         "Embalar em filme, etiquetar com a data e guardar entre 0 e 2 °C."
       ],
-      "obs": "Custo do salmão limpo ≈ R$ 74,14/kg (R$ 51,90 ÷ 0,70). Se o rendimento cair abaixo de 65%, avisar o Emerson.",
+      "obs": "Caixa de 11/11/2026: 6 peixes, 34,954 kg → descarte 9,624 kg → 25,330 kg limpos (72,5%). Custo do limpo ≈ R$ 72,02/kg (R$ 51,90/kg na nota). Abaixo de 68%, avisar o Emerson.",
       "obs_titulo": "RENDIMENTO E CUSTO",
       "informado": "2026-11-11"
     },
@@ -720,5 +720,27 @@
   },
   "incluir_inativos": [
     14326
+  ],
+  "rendimentos": [
+    {
+      "data": "2026-11-11",
+      "item": "Salmão eviscerado Cooke Chile 12-14 lb",
+      "pecas": 6,
+      "pesos_kg": [
+        5.492,
+        6.044,
+        6.206,
+        6.002,
+        5.774,
+        5.436
+      ],
+      "etiqueta_kg": 35.15,
+      "recebido_kg": 34.954,
+      "descarte_kg": 9.624,
+      "limpo_kg": 25.33,
+      "rendimento": 0.7247,
+      "preco_kg": 51.9,
+      "custo_limpo_kg": 72.02
+    }
   ]
 }

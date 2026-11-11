@@ -479,14 +479,14 @@
     },
     {
       "titulo": "Massa de Acarajapa",
-      "sub": "Rende <b>≈ 4,13 kg</b> · ≈ 137 bolinhos de 30 g",
+      "sub": "Rende <b>≈ 3,83 kg</b> · ≈ 128 bolinhos de 30 g",
       "ingredientes": [
         [
           "Arroz de sushi pronto",
           "3 kg"
         ],
         [
-          "Peixe grelhado",
+          "Filé de tilápia (cru)",
           "1 kg"
         ],
         [
@@ -507,12 +507,13 @@
         ]
       ],
       "passos": [
-        "Picar ou desfiar bem o peixe grelhado.",
-        "Juntar todos os ingredientes ao arroz de sushi.",
+        "Grelhar o filé de tilápia e deixar esfriar (1 kg cru vira ≈ 700 g).",
+        "Desfiar ou picar bem o peixe.",
+        "Juntar ao arroz de sushi a cebolinha, o hondashi, a sriracha e o gergelim.",
         "Misturar até ficar homogêneo.",
         "Porcionar bolinhos de 30 g."
       ],
-      "obs": "Custo da receita ≈ R$ 72,89 (sem a pimenta) · ≈ R$ 0,53 por bolinho de 30 g.",
+      "obs": "Custo da receita ≈ R$ 63,45 · ≈ R$ 0,50 por bolinho de 30 g (17% do preço de R$ 2,99).",
       "obs_titulo": "RENDIMENTO",
       "informado": "2026-11-11"
     }

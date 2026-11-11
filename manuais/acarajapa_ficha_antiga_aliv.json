@@ -1,0 +1,93 @@
+[
+ {
+  "id": 187888,
+  "ingredient_id": 23638,
+  "ingredient_name": "Peixe grelhado",
+  "ingredient_raw_name": "Peixe grelhado (aparas salmão/branco/atum)",
+  "ingredient_unit": "KG",
+  "quantity": 0.006263,
+  "size_name": "Padrão",
+  "total_cost": 0.31315000000000004,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 187889,
+  "ingredient_id": 23639,
+  "ingredient_name": "Arroz de sushi",
+  "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+  "ingredient_unit": "KG",
+  "quantity": 0.018789,
+  "size_name": "Padrão",
+  "total_cost": 0.10052114999999999,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 187890,
+  "ingredient_id": 9450,
+  "ingredient_name": "Cream Cheese Philadelphia Bisnaga 1,5kg",
+  "ingredient_raw_name": "Cream Cheese Philadelphia Bisnaga 1,5kg",
+  "ingredient_unit": "UN",
+  "quantity": 0.002505,
+  "size_name": "Padrão",
+  "total_cost": 0.14246332058666666,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 187891,
+  "ingredient_id": 9440,
+  "ingredient_name": "Pimenta Sweet Chili Red Maki 6kg",
+  "ingredient_raw_name": "Pimenta Sweet Chili Red Maki 6kg",
+  "ingredient_unit": "UN",
+  "quantity": 5.2e-05,
+  "size_name": "Padrão",
+  "total_cost": 0.0087308,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 187892,
+  "ingredient_id": 23640,
+  "ingredient_name": "Hondashi",
+  "ingredient_raw_name": "Hondashi Ajinomoto 500g",
+  "ingredient_unit": "UN",
+  "quantity": 0.000501,
+  "size_name": "Padrão",
+  "total_cost": 0.022008930000000003,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 187893,
+  "ingredient_id": 23641,
+  "ingredient_name": "Gergelim",
+  "ingredient_raw_name": "Gergelim torrado",
+  "ingredient_unit": "KG",
+  "quantity": 0.000376,
+  "size_name": "Padrão",
+  "total_cost": 0.01504,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 187894,
+  "ingredient_id": 23642,
+  "ingredient_name": "Cebolinha",
+  "ingredient_raw_name": "Cebolinha (maço)",
+  "ingredient_unit": "UN",
+  "quantity": 0.002505,
+  "size_name": "Padrão",
+  "total_cost": 0.015029999999999998,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ }
+]

@@ -1,0 +1,80 @@
+[
+ {
+  "id": 187889,
+  "ingredient_id": 23639,
+  "ingredient_name": "Arroz de sushi",
+  "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+  "ingredient_unit": "KG",
+  "quantity": 0.021792,
+  "size_name": "Padrão",
+  "total_cost": 0.11658719999999999,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 187892,
+  "ingredient_id": 23640,
+  "ingredient_name": "Hondashi",
+  "ingredient_raw_name": "Hondashi Ajinomoto 500g",
+  "ingredient_unit": "UN",
+  "quantity": 0.000436,
+  "size_name": "Padrão",
+  "total_cost": 0.01915348,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 187893,
+  "ingredient_id": 23641,
+  "ingredient_name": "Gergelim",
+  "ingredient_raw_name": "Gergelim torrado",
+  "ingredient_unit": "KG",
+  "quantity": 0.000218,
+  "size_name": "Padrão",
+  "total_cost": 0.00872,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 187894,
+  "ingredient_id": 23642,
+  "ingredient_name": "Cebolinha",
+  "ingredient_raw_name": "Cebolinha (maço)",
+  "ingredient_unit": "UN",
+  "quantity": 0.003632,
+  "size_name": "Padrão",
+  "total_cost": 0.021792,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 219071,
+  "ingredient_id": 24165,
+  "ingredient_name": "Filé de tilápia",
+  "ingredient_raw_name": "Filé de tilápia",
+  "ingredient_unit": "KG",
+  "quantity": 0.010377,
+  "size_name": "Padrão",
+  "total_cost": 0.41404230000000003,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ },
+ {
+  "id": 219072,
+  "ingredient_id": 23898,
+  "ingredient_name": "Pimenta Sriracha Hot Chili Sauce",
+  "ingredient_raw_name": "Pimenta Sriracha Hot Chili Sauce",
+  "ingredient_unit": "UN",
+  "quantity": 0.000291,
+  "size_name": "Padrão",
+  "total_cost": 0.0048015,
+  "is_base": false,
+  "sort_order": 0,
+  "removal_discount_cents": 0
+ }
+]

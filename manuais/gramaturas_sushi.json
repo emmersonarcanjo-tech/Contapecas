@@ -558,7 +558,7 @@
     },
     {
       "titulo": "Massa de Acarajapa",
-      "sub": "Rende <b>≈ 4,13 kg</b> · ≈ 137 bolinhos de 30 g",
+      "sub": "Rende <b>≈ 5,53 kg</b> · ≈ 184 bolinhos de 30 g",
       "ingredientes": [
         [
           "Arroz de sushi pronto",
@@ -567,6 +567,14 @@
         [
           "Tilápia grelhada",
           "1 kg"
+        ],
+        [
+          "Salmão limpo",
+          "1 kg"
+        ],
+        [
+          "Cream cheese",
+          "400 g"
         ],
         [
           "Cebolinha",
@@ -587,12 +595,12 @@
       ],
       "passos": [
         "Grelhar ≈ 1,43 kg de filé de tilápia cru para ter 1 kg grelhado; deixar esfriar.",
-        "Desfiar ou picar bem o peixe.",
-        "Juntar ao arroz de sushi a cebolinha, o hondashi, a sriracha e o gergelim.",
-        "Misturar até ficar homogêneo.",
-        "Porcionar bolinhos de 30 g."
+        "Desfiar a tilápia e picar bem o salmão limpo.",
+        "Recheio: misturar tilápia, salmão e cream cheese até ficar homogêneo.",
+        "Massa: juntar ao arroz de sushi a cebolinha, o hondashi, a sriracha e o gergelim.",
+        "Montar e porcionar bolinhos de 30 g com o recheio."
       ],
-      "obs": "Custo da receita ≈ R$ 80,55 · ≈ R$ 0,59 por bolinho de 30 g (20% do preço de R$ 2,99).",
+      "obs": "Custo da receita ≈ R$ 172,73 · ≈ R$ 0,94 por bolinho de 30 g (31% do preço de R$ 2,99).",
       "obs_titulo": "RENDIMENTO",
       "informado": "2026-11-11"
     }
@@ -709,7 +717,7 @@
     "Cogumelos"
   ],
   "avisos": {
-    "Acarajapa": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo ≈ R$ 0,59",
+    "Acarajapa": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo ≈ R$ 0,94",
     "Yakisoba de Frango": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo R$ 14,43",
     "Yakisoba de Camarão": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo R$ 20,46",
     "Yakisoba Mix": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo R$ 17,25",

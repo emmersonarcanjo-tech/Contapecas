@@ -9,13 +9,15 @@ def produto(pid):
         for p in c["products"]:
             if p["id"] == pid: return p
 pid, nova = int(sys.argv[1]), sys.argv[2]
+SEM_AUTOPAUSA = "--sem-autopausa" in sys.argv
 p = produto(pid); fd = p["full_data"]; cfg = fd.get("config") or {}
+if nova == "=": nova = fd.get("description") or ""
 json.dump(p, open(f"{sys.argv[3]}/produto_{pid}_antes.json", "w"), ensure_ascii=False, indent=1)
 b = lambda v: "true" if v else "false"
 campos = {"prod_id": pid, "name": fd["name"], "description": nova, "category_id": fd["category_id"], "price": fd["price"],
     "price_in_points": fd.get("price_in_points") or 0, "channel_prices_json": json.dumps(fd.get("channel_prices") or {}),
     "compare_at_price": fd.get("compare_at_price") or 0, "allows_flavors": b(fd.get("allows_flavors")), "max_flavors": fd.get("max_flavors") or 1,
-    "is_pizza": b(fd.get("is_pizza")), "auto_disable_on_stock_zero": b(fd.get("auto_disable_on_stock_zero")), "sold_by_weight": b(fd.get("sold_by_weight")),
+    "is_pizza": b(fd.get("is_pizza")), "auto_disable_on_stock_zero": "false" if SEM_AUTOPAUSA else b(fd.get("auto_disable_on_stock_zero")), "sold_by_weight": b(fd.get("sold_by_weight")),
     "kitchen_alert_active": b(fd.get("kitchen_alert_active")), "kitchen_alert_text": fd.get("kitchen_alert_text") or "",
     "show_in_kiosk": b(fd.get("show_in_kiosk")), "show_in_pdv": b(fd.get("show_in_pdv")), "show_in_waiter": b(fd.get("show_in_waiter")),
     "show_in_ia": b(fd.get("show_in_ia")), "show_in_delivery": b(fd.get("show_in_delivery")), "show_in_print_menu": b(fd.get("show_in_print_menu", True)),

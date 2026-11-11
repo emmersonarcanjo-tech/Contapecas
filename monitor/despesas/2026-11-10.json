@@ -1,0 +1,71 @@
+{
+ "dia": "2026-11-10",
+ "despesas": [
+  {
+   "wamid": "3AFB5B9CA4C8EF2F572A",
+   "id": 1261804,
+   "data": "2026-11-10",
+   "hora": "17:11",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria\n[comprovante_pagamento do cliente]: Cupom fiscal da Comporto Festas e Descartáveis, de 10/11/2026, de R$ 110,00 pago no cartão de crédito por 1 item (embalagem Galvanotek P 40).",
+   "descricao": "pizzaria [comprovante_pagamento do cliente]: Cupom fiscal da Comporto Festas e Descartáveis, de 10/11/2026, de R$ 110,00 pago no cartão de crédito por 1 item (embalagem Galvanotek P 40).",
+   "valor": 10.0,
+   "fotos": [
+    {
+     "wamid": "3AFB5B9CA4C8EF2F572A",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/78fd1379bf1842b8991bb2cb0054a10a.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-10/2026-11-10_1711_josue-ruas_2F572A_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 110.0,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "G 302 Galvanotek P 40"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2146 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  },
+  {
+   "wamid": "ACE36029AED9844219A4BC7450B80EDE",
+   "id": 1270617,
+   "data": "2026-11-10",
+   "hora": "23:54",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria pix Josué\n[comprovante_pagamento do cliente]: Cupom fiscal (NFC-e) do Cambuí Supermercados, de 10/11/2026, com 9 itens e valor pago de R$ 132,12 via PIX.",
+   "descricao": "pizzaria pix Josué [comprovante_pagamento do cliente]: Cupom fiscal (NFC-e) do Cambuí Supermercados, de 10/11/2026, com 9 itens e valor pago de R$ 132,12 via PIX.",
+   "valor": 10.0,
+   "fotos": [
+    {
+     "wamid": "ACE36029AED9844219A4BC7450B80EDE",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/15607274a7834628a01ad1b779e3ae4e.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-10/2026-11-10_2354_josue-ruas_B80EDE_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 132.12,
+    "forma": "Pix",
+    "estoque": [],
+    "sem_insumo": [
+     "Morango Bd",
+     "Cenoura Kg",
+     "Cafe 3coracoes 250",
+     "Manga Palmer Kg",
+     "Sab Barra Razzo 90"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2147 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  }
+ ],
+ "total": 20.0,
+ "atualizado": "2026-11-11T00:08-03:00"
+}

@@ -1,0 +1,65 @@
+{
+ "dia": "2026-11-10",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 102,
+  "pedidos": 81,
+  "pedidos_ia": 50,
+  "abandonadas": 21,
+  "conversao": 0.794,
+  "abandono": 0.206,
+  "tempo_medio_min": 1.4,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 35,
+  "cancelados_ia": 1,
+  "pedidos_link": 28,
+  "pedidos_outro": 3,
+  "receberam_link": 90,
+  "abandono_com_link": 17,
+  "abandono_sem_link": 4,
+  "problemas": {
+   "reclamou_humano": 3,
+   "repetiu": 16,
+   "demora": 21,
+   "nao_soube": 2,
+   "item_preco": 4,
+   "cancelado": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "Eu gostaria que confirmasse meu cupom por favor",
+   "ja_existe_parecido": null,
+   "falta_preencher": true
+  },
+  {
+   "tema": "tempo de entrega",
+   "user": "Quanto tempo demora pra chegar?",
+   "assistant": "Hoje está saindo em média em [XX] a [YY] minutos 🛵 Assim que sair pra entrega eu te aviso aqui!",
+   "exemplo_cliente": "Já saiu a coca",
+   "ja_existe_parecido": null,
+   "falta_preencher": true
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Informar um tempo médio de entrega (ex.: 40–50 min) e avisar quando o pedido sair.",
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Cardápio por favor"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

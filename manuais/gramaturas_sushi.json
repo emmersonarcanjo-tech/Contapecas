@@ -383,13 +383,13 @@
       "legumes": "120 g",
       "frango": "90 g",
       "macarrão": "80 g",
-      "molho": "400 g"
+      "molho": "400 ml"
     },
     "Yakisoba de Camarão": {
       "legumes": "120 g",
       "camarão": "90 g",
       "macarrão": "80 g",
-      "molho": "400 g"
+      "molho": "400 ml"
     },
     "Yakisoba Mix": {
       "legumes": "120 g",
@@ -397,7 +397,13 @@
       "filé": "30 g",
       "frango": "30 g",
       "macarrão": "80 g",
-      "molho": "400 g"
+      "molho": "400 ml"
+    },
+    "Yakisoba de Filé": {
+      "legumes": "120 g",
+      "filé": "90 g",
+      "macarrão": "80 g",
+      "molho": "400 ml"
     }
   },
   "peso_final": {
@@ -410,6 +416,30 @@
       {
         "nome": "Arroz",
         "g": "120 g"
+      }
+    ],
+    "Yakisoba de Frango": [
+      {
+        "nome": "Vasilha (embalagem)",
+        "g": "1 un"
+      }
+    ],
+    "Yakisoba de Camarão": [
+      {
+        "nome": "Vasilha (embalagem)",
+        "g": "1 un"
+      }
+    ],
+    "Yakisoba Mix": [
+      {
+        "nome": "Vasilha (embalagem)",
+        "g": "1 un"
+      }
+    ],
+    "Yakisoba de Filé": [
+      {
+        "nome": "Vasilha (embalagem)",
+        "g": "1 un"
       }
     ]
   },
@@ -650,9 +680,16 @@
     "Cogumelos"
   ],
   "avisos": {
-    "Acarajapa": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo ≈ R$ 0,59"
+    "Acarajapa": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo ≈ R$ 0,59",
+    "Yakisoba de Frango": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo R$ 14,43",
+    "Yakisoba de Camarão": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo R$ 20,46",
+    "Yakisoba Mix": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo R$ 17,25",
+    "Yakisoba de Filé": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo R$ 16,86 · inativo no cardápio"
   },
   "unid": {
     "Acarajapa": "01 unidade"
-  }
+  },
+  "incluir_inativos": [
+    14326
+  ]
 }

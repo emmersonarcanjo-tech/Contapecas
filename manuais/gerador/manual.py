@@ -78,7 +78,7 @@ def ingredientes(desc: str | None):
 
 
 # ------------------------------------------------- montagem / corte / prato
-def recheio(ings, sem=("arroz", "alga", "nori", "gergelim", "panko")):
+def recheio(ings, sem=("arroz", "alga", "nori", "gergelim", "panko", "vasilha", "embalagem")):
     r = [i["nome"].lower() for i in ings if not i.get("topo") and not any(s in i["nome"].lower() for s in sem)]
     return ", ".join(r[:-1]) + (" e " + r[-1] if len(r) > 1 else (r[0] if r else ""))
 
@@ -467,16 +467,20 @@ PRATOS = {  # id: (ingredientes, observação, peso)
     14325: (["Macarrão de yakisoba", "Frango", "Legumes", "Molho yakisoba da casa"], None, "600 g"),
     14328: (["Macarrão de yakisoba", "Camarão", "Legumes", "Molho yakisoba da casa"], None, "600 g"),
     14329: (["Macarrão de yakisoba", "Camarão", "Filé", "Frango", "Legumes", "Molho yakisoba da casa"], None, "600 g"),
+    14326: (["Macarrão de yakisoba", "Filé", "Legumes", "Molho yakisoba da casa"], None, "600 g"),
 }
+_G = json.loads((Path(__file__).resolve().parent.parent / "gramaturas_sushi.json").read_text())
+INCLUIR = set(_G.get("incluir_inativos", []))
 prods = {p["id"]: p for c in full["categories"] for p in c["products"]}
 for pid, (ings, obs, peso) in PRATOS.items():
     p = prods[pid]; fd = p.get("full_data") or {}
-    if not p.get("is_active"):
-        INATIVOS.append(p["name"]); continue
+    if not p.get("is_active") and pid not in INCLUIR:
+        if p["name"] not in INATIVOS: INATIVOS.append(p["name"])
+        continue
     nome = re.sub(r"\s*\(600g\)", "", p["name"]).title() if p["name"].isupper() else re.sub(r"\s*\(600g\)", "", p["name"])
     ITENS.append({"cat": "Pratos", "name": nome, "active": True, "desc": fd.get("description"), "tipo": "item",
                   "ings": ing_manual(*ings), "peso": peso, "unid": "porção", "obs": [obs] if obs else []})
-INATIVOS.append(prods[14326]["name"]) if not prods[14326].get("is_active") and prods[14326]["name"] not in INATIVOS else None
+
 
 for c in full["categories"]:
     if c["id"] not in (937, 938):
@@ -519,7 +523,8 @@ for it in ITENS:
         it.setdefault("obs", []).append("ingredientes informados pelo Emerson (ALIV sem descrição)")
     for extra in GRAM.get("adicionar", {}).get(it["name"], []):
         if not any(extra["nome"].lower() in i["nome"].lower() for i in it["ings"]):
-            pos = 1 if it["ings"] and "alga" in it["ings"][0]["nome"].lower() else 0
+            pos = (len(it["ings"]) if any(w in extra["nome"].lower() for w in ("vasilha", "embalagem"))
+                   else 1 if it["ings"] and "alga" in it["ings"][0]["nome"].lower() else 0)
             it["ings"].insert(pos, {"nome": extra["nome"], "g": extra.get("g"), "img": ilus(extra["nome"])})
     if it["name"] in GRAM.get("pecas", {}):
         it["unid"] = f"{GRAM['pecas'][it['name']]:02d} peças"

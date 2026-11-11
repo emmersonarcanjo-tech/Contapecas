@@ -322,6 +322,22 @@ def pg_su(n):
             f'</div>{rodape(n)}</div>')
 
 
+_CP = Path(__file__).resolve().parent.parent / "custos_aliv.json"
+CUSTOS = json.loads(_CP.read_text()) if _CP.exists() else {}
+PRECOS = {p["name"]: p.get("price") for c in full["categories"] for p in c["products"]}
+
+
+def aviso_custo(it):
+    nome = it["name"]
+    cands = [k for k in CUSTOS if k == nome or k.startswith(nome + " (") or re.sub(r"\s*\(.*?\)", "", k).strip() == nome]
+    if not cands or not CUSTOS[cands[0]]:
+        return None
+    k = cands[0]; c = CUSTOS[k]; pr = PRECOS.get(k)
+    txt = f"Ficha técnica no ALIV · custo R$ {c:.2f}".replace(".", ",")
+    if pr: txt += f" · preço R$ {pr:.2f} · CMV {100*c/pr:.0f}%".replace(".", ",")
+    return txt
+
+
 def pg_item(it, n):
     nome, pecas = limpa_nome(it["name"])
     cat = it["cat"]
@@ -333,7 +349,7 @@ def pg_item(it, n):
     if no_topo and cat != "Joy":
         st = st + [f"Depois de cortar, finalizar cada peça com {' e '.join(no_topo)} no topo."]
     unid = it.get("unid") or (f"{pecas:02d} {'peça' if pecas == 1 else 'peças'}" if pecas else "porção")
-    aviso = it.get("aviso") or "Ficha técnica no ALIV: vazia — gramaturas a confirmar"
+    aviso = it.get("aviso") or aviso_custo(it) or "Ficha técnica no ALIV: vazia — gramaturas a confirmar"
     peso = it.get("peso") or '<span style="color:#999">___ g</span>'
     return (f'<div class="pg">{topo(cat)}<div class="corpo"><h1>{esc(nome)}</h1>'
             f'<div class="sub"><b>{unid}</b> · Peso final: {peso}</div>'
@@ -387,8 +403,8 @@ def problemas(it):
         return ["sem ficha técnica; gramaturas das porções não cadastradas"]
     if it["tipo"] == "derivado":
         prob.insert(0, "sem cadastro próprio no ALIV (só aparece dentro de combo)")
-    else:
-        prob.insert(0, "ficha técnica vazia")
+    elif not aviso_custo(it):
+        prob.insert(0, "ficha técnica vazia no ALIV")
     if not it["desc"]:
         prob.append("sem descrição no cardápio")
     elif not any(i["g"] for i in it["ings"]):
@@ -412,8 +428,8 @@ def pgs_pendencias(n0):
     out = []; por = 24
     for k in range(0, len(L), por):
         rows = "".join(f"<tr><td>{esc(c)}</td><td><b>{esc(nm)}</b></td><td>{esc(p)}</td></tr>" for c, nm, p in L[k:k + por])
-        cab = ('<h1>Itens sem ficha ou incompletos</h1><div class="sub">Nenhum item do Sushi tem '
-               '<b>ficha técnica preenchida</b> no ALIV (loja 155)</div>') if k == 0 else "<h1>Pendências (cont.)</h1>"
+        cab = ('<h1>Itens sem ficha ou incompletos</h1><div class="sub">O que ainda falta para a ficha ficar '
+               '<b>completa</b> no manual e no ALIV (loja 155)</div>') if k == 0 else "<h1>Pendências (cont.)</h1>"
         out.append(f'<div class="pg">{topo("Pendências")}<div class="corpo">{cab}<table class="lista" style="width:100%;margin-top:5mm;border-collapse:collapse">'
                    f'<tr><th>Categoria</th><th>Item</th><th>O que falta</th></tr>{rows}</table></div>{rodape(n0 + len(out))}</div>')
     return out

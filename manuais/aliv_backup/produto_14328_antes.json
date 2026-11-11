@@ -1,0 +1,62 @@
+{
+ "id": 14328,
+ "name": "Yakisoba de Camarão (600g)",
+ "image_url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/menu/tilisushipoke/1788749395_yakisoba-camarao.webp",
+ "price": 46.9,
+ "channel_prices": {
+  "indicacao": 51.59
+ },
+ "price_in_points": 0.0,
+ "is_pizza": false,
+ "is_active": true,
+ "external_code": "",
+ "barcode": null,
+ "size_prices": [],
+ "integrations": [],
+ "mappings": [],
+ "full_data": {
+  "id": 14328,
+  "name": "Yakisoba de Camarão (600g)",
+  "description": "Camarão e legumes refogados no molho yakisoba da casa.",
+  "detailed_description": "450g: 100g de massa yakisoba, 150g de legumes, 70g de camarão e 110g de molho yakisoba. Feito na hora.",
+  "category_id": 1160,
+  "price": 46.9,
+  "channel_prices": {
+   "indicacao": 51.59
+  },
+  "compare_at_price": null,
+  "price_in_points": 0.0,
+  "image_url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/menu/tilisushipoke/1788749395_yakisoba-camarao.webp",
+  "is_pizza": false,
+  "sold_by_weight": false,
+  "kitchen_alert_active": false,
+  "kitchen_alert_text": null,
+  "barcode": null,
+  "ncm": "21069090",
+  "cfop": "5102",
+  "uom": "UN",
+  "cest": null,
+  "auto_disable_on_stock_zero": false,
+  "image_bank_id": null,
+  "image_bank_name": null,
+  "allows_flavors": false,
+  "max_flavors": 1,
+  "preparation_method": null,
+  "show_in_kiosk": true,
+  "show_in_pdv": true,
+  "show_in_waiter": true,
+  "show_in_delivery": true,
+  "show_in_ia": true,
+  "menu_ids": [],
+  "show_in_print_menu": true,
+  "is_highlighted": false,
+  "schedule_rules": [],
+  "size_prices": [],
+  "mappings": [],
+  "config": {
+   "allowed_addons": [],
+   "blocked_addons": [],
+   "additional_categories": []
+  }
+ }
+}

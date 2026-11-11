@@ -487,7 +487,7 @@
         ],
         [
           "Tilápia grelhada",
-          "1 kg (≈ 1,43 kg de filé cru)"
+          "1 kg"
         ],
         [
           "Cebolinha",
@@ -628,5 +628,11 @@
   },
   "tirar_opcao_poke": [
     "Cogumelos"
-  ]
+  ],
+  "avisos": {
+    "Acarajapa": "Ficha técnica no ALIV: atualizada em 11/11/2026 · custo ≈ R$ 0,59"
+  },
+  "unid": {
+    "Acarajapa": "01 unidade"
+  }
 }

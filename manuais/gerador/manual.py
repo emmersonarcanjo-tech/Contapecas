@@ -186,7 +186,7 @@ def passos(cat, nome, ings, desc, pecas):
                      "Moldar o bolinho com as mãos úmidas, firme e sem rachar.",
                      "Arrumar na bandeja, sem encostar um no outro."],
                     "Massa já pronta; peixe bem picado para o bolinho não abrir.",
-                    "Bolinhos lado a lado, finalização por cima.")
+                    "Bolinhos lado a lado na bandeja, sem encostar.")
     if cat == "Sashimi":
         return (["Peixe limpo, sem pele e sem espinhas, gelado.",
                  "Cortar as lâminas e arrumar na hora de servir."],
@@ -523,6 +523,10 @@ for it in ITENS:
             it["ings"].insert(pos, {"nome": extra["nome"], "g": extra.get("g"), "img": ilus(extra["nome"])})
     if it["name"] in GRAM.get("pecas", {}):
         it["unid"] = f"{GRAM['pecas'][it['name']]:02d} peças"
+    if it["name"] in GRAM.get("avisos", {}):
+        it["aviso"] = GRAM["avisos"][it["name"]]
+    if it["name"] in GRAM.get("unid", {}):
+        it["unid"] = GRAM["unid"][it["name"]]
     if it["name"] in GRAM.get("peso_final", {}):
         it["peso"] = GRAM["peso_final"][it["name"]]
     for i in it.get("ings", []):

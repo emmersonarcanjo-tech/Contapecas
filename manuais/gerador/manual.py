@@ -182,10 +182,10 @@ def passos(cat, nome, ings, desc, pecas):
                      "Juntar os demais ingredientes (receita a cadastrar)."],
                     "Cubos de cerca de 1,5 cm.", "Pote gelado, caldo junto.")
         if "acarajapa" in n:
-            return (["Moldar o bolinho com o arroz de sushi.",
-                     "Rechear/cobrir com o peixe grelhado e o cream cheese.",
-                     "Finalizar com cebolinha e gergelim."],
-                    "Peixe grelhado desfiado ou em cubos pequenos.",
+            return (["Pesar 30 g da massa de acarajapa (receita na página de bases).",
+                     "Moldar o bolinho com as mãos úmidas, firme e sem rachar.",
+                     "Arrumar na bandeja, sem encostar um no outro."],
+                    "Massa já pronta; peixe bem picado para o bolinho não abrir.",
                     "Bolinhos lado a lado, finalização por cima.")
     if cat == "Sashimi":
         return (["Peixe limpo, sem pele e sem espinhas, gelado.",

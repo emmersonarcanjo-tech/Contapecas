@@ -382,7 +382,8 @@
   },
   "peso_final": {
     "Ura Fila ( 10 Un )": "192 g",
-    "Hosso Fila ( 10 Un )": "190 g"
+    "Hosso Fila ( 10 Un )": "190 g",
+    "Acarajapa": "30 g"
   },
   "adicionar": {
     "Hot Salmão c/ Camarão ( 10 Un )": [
@@ -475,6 +476,45 @@
       ],
       "obs": "5 partes de salmão grelhado para 1 de cream cheese. Ex.: 60 g da mistura = 50 g de salmão + 10 g de cream cheese.",
       "informado": "2026-11-10"
+    },
+    {
+      "titulo": "Massa de Acarajapa",
+      "sub": "Rende <b>≈ 4,13 kg</b> · ≈ 137 bolinhos de 30 g",
+      "ingredientes": [
+        [
+          "Arroz de sushi pronto",
+          "3 kg"
+        ],
+        [
+          "Peixe grelhado",
+          "1 kg"
+        ],
+        [
+          "Cebolinha",
+          "50 g"
+        ],
+        [
+          "Hondashi",
+          "30 g"
+        ],
+        [
+          "Pimenta",
+          "20 g"
+        ],
+        [
+          "Gergelim",
+          "30 g"
+        ]
+      ],
+      "passos": [
+        "Picar ou desfiar bem o peixe grelhado.",
+        "Juntar todos os ingredientes ao arroz de sushi.",
+        "Misturar até ficar homogêneo.",
+        "Porcionar bolinhos de 30 g."
+      ],
+      "obs": "Custo da receita ≈ R$ 72,89 (sem a pimenta) · ≈ R$ 0,53 por bolinho de 30 g.",
+      "obs_titulo": "RENDIMENTO",
+      "informado": "2026-11-11"
     }
   ],
   "ingredientes": {
@@ -542,6 +582,12 @@
       [
         "Gergelim",
         null
+      ]
+    ],
+    "Acarajapa": [
+      [
+        "Massa de Acarajapa",
+        "30 g"
       ]
     ]
   },

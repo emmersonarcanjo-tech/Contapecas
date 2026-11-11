@@ -506,6 +506,35 @@
       "informado": "2026-11-10"
     },
     {
+      "titulo": "Limpeza do salmão",
+      "sub": "1 kg de salmão inteiro rende <b>≈ 700 g limpo</b> (perda média de 30%)",
+      "ingredientes": [
+        [
+          "Salmão inteiro",
+          "1 kg"
+        ],
+        [
+          "Salmão limpo (lombo + barriga)",
+          "≈ 700 g"
+        ]
+      ],
+      "passos": [
+        "Higienizar bancada, tábua e faca; usar luvas.",
+        "Lavar o peixe em água corrente bem fria e secar com papel.",
+        "Tirar a cabeça com um corte logo atrás das guelras.",
+        "Abrir pelo dorso e soltar os dois filés da espinha central, rente ao osso.",
+        "Limpar a barriga: tirar membranas, restos de vísceras e excesso de gordura.",
+        "Tirar as espinhas com a pinça, no sentido delas.",
+        "Tirar a pele inteira (a pele vai para o skin).",
+        "Separar: lombo para sashimi, niguiri e lâminas; barriga e aparas para tataki, cubos e grelhado.",
+        "Pesar o salmão limpo e anotar o rendimento.",
+        "Embalar em filme, etiquetar com a data e guardar entre 0 e 2 °C."
+      ],
+      "obs": "Custo do salmão limpo ≈ R$ 74,14/kg (R$ 51,90 ÷ 0,70). Se o rendimento cair abaixo de 65%, avisar o Emerson.",
+      "obs_titulo": "RENDIMENTO E CUSTO",
+      "informado": "2026-11-11"
+    },
+    {
       "titulo": "Salmão grelhado com cream cheese",
       "sub": "Mistura base da casa · rende <b>1,2 kg</b>",
       "ingredientes": [

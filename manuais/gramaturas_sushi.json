@@ -378,6 +378,20 @@
     "Temaki Camarão Tailandês ( 01 Un )": {
       "camarão empanado": "70 g",
       "geleia de pimenta": "4 g"
+    },
+    "Yakisoba de Frango": {
+      "legumes": "120 g",
+      "frango": "90 g"
+    },
+    "Yakisoba de Camarão": {
+      "legumes": "120 g",
+      "camarão": "90 g"
+    },
+    "Yakisoba Mix": {
+      "legumes": "120 g",
+      "camarão": "90 g",
+      "filé": "90 g",
+      "frango": "90 g"
     }
   },
   "peso_final": {

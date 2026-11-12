@@ -8,11 +8,10 @@ IMP = 0.11
 def c(nome, pecas):
     k = next(k for k in C if k.startswith(nome)); return C[k] / pecas
 FAIXAS = [
- ("R$ 1,49", 1.49, "Grelhados, atum e camarão no hossomaki", [
+ ("R$ 1,99", 1.99, "Todos os rolos: hossomaki, uramaki e hot", [
    ("Hossomaki Camarão Empanado", c("Hosso Camarão Empanado", 10)), ("Uramaki Salmão Grelhado", c("Ura Salmão Grelhado", 10)),
    ("Hossomaki Salmão Grelhado", c("Hosso Salmão grelhado", 10)), ("Hossomaki Atum", c("Hosso Atum", 10)),
-   ("Hossomaki Camarão Cozido", c("Hosso Camarão Cozido", 10))]),
- ("R$ 1,99", 1.99, "Salmão cru, hot e uramakis de camarão", [
+   ("Hossomaki Camarão Cozido", c("Hosso Camarão Cozido", 10)),
    ("Uramaki Camarão Cozido", c("Ura Camarão Cozido", 10)), ("Uramaki Filadélfia", c("Ura Fila", 10)), ("Uramaki Salmão", c("Ura Salmão (", 10)),
    ("Hossomaki Filadélfia", c("Hosso Fila", 10)), ("Hossomaki Salmão", c("Hosso Salmão (", 10)), ("Hot Camarão", c("Hot Camarão", 10)),
    ("Hot Filadélfia", c("Hot Fila", 10)), ("Uramaki Camarão Empanado", c("Ura Camarão Empanado", 10)),
@@ -52,10 +51,12 @@ td{{font:400 11pt Inter;padding:1.5mm 2mm;border-bottom:.3mm solid #ddd}}th:not(
 .leg span{{font-weight:800}}
 </style></head><body><div class="pg"><div class="top"><img src="{LOGO}"><div class="t">QUARTA MALUCA · TILI SUSHI</div></div>
 <div class="corpo"><h1>Preço sugerido por peça</h1>
-<div class="intro">Custo de ingredientes pelas fichas técnicas gravadas no ALIV em 11/11/2026 (salmão com rendimento medido de 72,5%, atum com 40% de perda). Sobra = preço − custo − 11% de imposto, antes de equipe e custos fixos.</div>
+<div class="intro">Custo de ingredientes pelas fichas técnicas do ALIV em 12/11/2026 (salmão com rendimento medido de 72,0%, atum com 40% de perda). Sobra = preço − custo − 11% de imposto, antes de equipe e custos fixos.</div>
 {blocos}
 <div class="nota leg">CMV: <span style="color:#1E7D32">verde até 35%</span> · <span style="color:#B7791F">amarelo até 40%</span> · <span style="color:#C8102E">vermelho acima de 40%</span>.<br>
 * Joy Capão: alho-poró ainda com custo zero no estoque. Fora da lista até ter preço: Uramaki Skin, Niguiri Skin e Hossomaki Morango c/ Nutella (skin, morango e Nutella sem custo) e Joy Camarão (peso do camarão não informado).<br>
-Lançar cada peça pelo produto certo no PDV para acompanhar no ALIV quanto sai de cada uma.</div>
+<b>Rolo a R$ 1,49 não compensa:</b> pela quarta de 11/11, baixar 40% das peças de R$ 1,99 para R$ 1,49 tira cerca de R$ 413 por noite mesmo vendendo 20% a mais; só empata se essas peças venderem 48% a mais. Por isso todos os rolos ficam a R$ 1,99.<br>
+<b>Joy e niguiri:</b> com o volume de 11/11 (1.152 peças), a tabela nova rende cerca de R$ 700 a mais por quarta se o Joy vender 30% menos; com o Joy a R$ 3,99, cerca de R$ 490. Acompanhar o movimento do salão por 4 quartas.<br>
+Lançar cada peça em botão separado no PDV (rolo, niguiri, Joy) para o ALIV mostrar quanto sai de cada uma.</div>
 </div></div></body></html>"""
 out = R / "financeiro/quarta_maluca_precos_sugeridos.html"; out.write_text(doc, encoding="utf-8"); print(out)

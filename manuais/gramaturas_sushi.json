@@ -751,7 +751,8 @@
       "limpo_kg": 25.33,
       "rendimento": 0.7247,
       "preco_kg": 51.9,
-      "custo_limpo_kg": 72.02
+      "custo_limpo_kg": 72.02,
+      "caixa": 1
     },
     {
       "data": "2026-11-11",
@@ -770,7 +771,8 @@
       "descarte_kg": 8.292,
       "limpo_kg": 20.662,
       "rendimento": 0.7136,
-      "preco_kg": 51.9
+      "preco_kg": 51.9,
+      "caixa_numero": "46302111640"
     },
     {
       "data": "2026-11-12",
@@ -789,7 +791,8 @@
       "descarte_kg": 7.968,
       "limpo_kg": 20.762,
       "rendimento": 0.7227,
-      "preco_kg": 51.9
+      "preco_kg": 51.9,
+      "caixa_numero": "46302111639"
     },
     {
       "data": "2026-11-12",
@@ -808,7 +811,8 @@
       "descarte_kg": 9.042,
       "limpo_kg": 20.164,
       "rendimento": 0.6904,
-      "preco_kg": 51.9
+      "preco_kg": 51.9,
+      "caixa_numero": "46302111645"
     }
   ],
   "sem_custo": [

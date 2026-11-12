@@ -121,7 +121,13 @@ class Aliv:
             self.login()
         url = BASE_URL + path + ("?" + urllib.parse.urlencode(params) if params else "")
         for tentativa in range(3):
-            status, data = self._send(urllib.request.Request(url))
+            try:
+                status, data = self._send(urllib.request.Request(url))
+            except OSError as e:                  # conexão caiu/timeout: tenta de novo
+                if tentativa < 2:
+                    time.sleep(3 * (tentativa + 1))
+                    continue
+                raise AlivError(f"GET {path} → conexão falhou: {e}") from e
             if status == 401 and tentativa < 2:      # "Sessão expirada" → relogin
                 self.login()
                 continue
@@ -710,6 +716,16 @@ def coletar_sushi(raw_dir: Path | None, dia: date, agora: datetime, com_semana: 
     user, pwd = os.environ.get("ALIV_USER_SUSHI"), os.environ.get("ALIV_PASS_SUSHI")
     if not user or not pwd:
         return None
+    for tentativa in range(2):      # 11/11 21:08: falha passageira deixou o Sushi de fora
+        out = _coletar_sushi(user, pwd, raw_dir, dia, agora, com_semana)
+        if not out.get("erro") or tentativa:
+            return out
+        print("aviso: Sushi falhou, tentando de novo em 10 s", file=sys.stderr)
+        time.sleep(10)
+    return out
+
+
+def _coletar_sushi(user, pwd, raw_dir, dia, agora, com_semana) -> dict:
     api = Aliv(user, pwd, raw_dir=raw_dir / "sushi" if raw_dir else None)
     try:
         api.login()

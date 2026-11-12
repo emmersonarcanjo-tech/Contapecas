@@ -54,7 +54,7 @@ No Claude Code na nuvem:
 
 ## Rotina
 
-Ativa: **Monitor da Tili (hora em hora)**, cron `CRON_TZ=America/Bahia 0 0,18-23 * * *` (18:00 a 00:00), sessão nova a cada disparo, conector Gmail. O script fica no branch `claude/zealous-bohr-ufzjww` até o merge na `main`; a Rotina usa esse branch e grava os snapshots nele.
+Ativa: **Monitor da Tili (hora em hora)**, cron `CRON_TZ=America/Bahia 55 17-23 * * *` (17:55 a 23:55), sessão nova a cada disparo, conector Gmail. Usa a `main` e grava os snapshots nela. Roda 5 min antes da hora cheia porque na hora cheia as Rotinas disparavam com 7–14 min de atraso (mudança de 11/11/2026); o painel chega perto da hora cheia.
 
 Códigos de saída: `0` ok (WhatsApp enviado, se pedido) · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` relatório ok, WhatsApp não enviado.
 

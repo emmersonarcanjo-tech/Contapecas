@@ -548,7 +548,7 @@
     },
     {
       "titulo": "Tempero do peixe",
-      "sub": "Por quilo de peixe: <b>10 g de hondashi</b> + <b>4 g de realçador de sabor</b>",
+      "sub": "Para todo peixe que vai para a <b>grelha</b>: salmão, peixe branco e atum. Por quilo de peixe cru: <b>10 g de hondashi</b> + <b>4 g de realçador de sabor</b>",
       "ingredientes": [
         [
           "Hondashi",
@@ -620,9 +620,10 @@
         ]
       },
       "passos": [
-        "Pesar o peixe na balança.",
+        "Pesar o peixe cru na balança.",
         "Pesar o hondashi e o realçador de sabor conforme a tabela.",
-        "Temperar o peixe por igual."
+        "Temperar o peixe por igual.",
+        "Levar para a grelha."
       ],
       "obs": "Pesar sempre na balança. Esta tabela vale no lugar do cartaz antigo, que usava o dobro (20 g + 8 g por quilo).",
       "obs_titulo": "ATENÇÃO",
@@ -642,6 +643,7 @@
         ]
       ],
       "passos": [
+        "Temperar o salmão cru com o Tempero do peixe: 10 g de hondashi + 4 g de realçador de sabor por quilo.",
         "Grelhar o salmão e deixar esfriar.",
         "Desfiar ou picar o salmão grelhado.",
         "Misturar com o cream cheese até ficar homogêneo.",
@@ -688,13 +690,13 @@
         ]
       ],
       "passos": [
-        "Grelhar ≈ 1,43 kg de filé de tilápia cru para ter 1 kg grelhado; deixar esfriar.",
+        "Temperar ≈ 1,43 kg de filé de tilápia cru com o Tempero do peixe (14 g de hondashi + 6 g de realçador de sabor) e grelhar para ter 1 kg grelhado; deixar esfriar.",
         "Desfiar a tilápia e picar bem o salmão limpo.",
         "Recheio: misturar tilápia, salmão e cream cheese até ficar homogêneo.",
         "Massa: juntar ao arroz de sushi a cebolinha, o hondashi, a sriracha e o gergelim.",
         "Montar e porcionar bolinhos de 30 g com o recheio."
       ],
-      "obs": "Custo da receita ≈ R$ 173,69 · ≈ R$ 0,94 por bolinho de 30 g (32% do preço de R$ 2,99).",
+      "obs": "Custo da receita ≈ R$ 175,06 · ≈ R$ 0,95 por bolinho de 30 g (32% do preço de R$ 2,99).",
       "obs_titulo": "RENDIMENTO",
       "informado": "2026-11-11"
     }

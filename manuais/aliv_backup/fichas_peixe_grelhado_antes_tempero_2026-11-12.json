@@ -1,0 +1,406 @@
+[
+ {
+  "product_id": 11686,
+  "produto": "Temaki Salmão grelhado ( 01 Un )",
+  "ativo": true,
+  "preco": 32.99,
+  "categoria": "SEXTA DO TEMAKI NA TILI",
+  "custo": 5.3473,
+  "linhas": [
+   {
+    "recipe_id": 219029,
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5,
+    "custo": 0.40493749999999995
+   },
+   {
+    "recipe_id": 219030,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07,
+    "custo": 0.3745
+   },
+   {
+    "recipe_id": 219031,
+    "ingredient_id": 23638,
+    "ingrediente": "Peixe grelhado (aparas salmão/branco/atum)",
+    "quantity": 0.07,
+    "custo": 3.5000000000000004
+   },
+   {
+    "recipe_id": 219032,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "quantity": 0.02,
+    "custo": 1.0279
+   },
+   {
+    "recipe_id": 219033,
+    "ingredient_id": 23641,
+    "ingrediente": "Gergelim torrado",
+    "quantity": 0.001,
+    "custo": 0.04
+   }
+  ]
+ },
+ {
+  "product_id": 11689,
+  "produto": "Temaki Hot ( 01 Un )",
+  "ativo": true,
+  "preco": 33.9,
+  "categoria": "SEXTA DO TEMAKI NA TILI",
+  "custo": 4.5972,
+  "linhas": [
+   {
+    "recipe_id": 219022,
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5,
+    "custo": 0.40493749999999995
+   },
+   {
+    "recipe_id": 219023,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07,
+    "custo": 0.3745
+   },
+   {
+    "recipe_id": 219024,
+    "ingredient_id": 23638,
+    "ingrediente": "Peixe grelhado (aparas salmão/branco/atum)",
+    "quantity": 0.07,
+    "custo": 3.5000000000000004
+   },
+   {
+    "recipe_id": 219025,
+    "ingredient_id": 23882,
+    "ingrediente": "FARINHA PANKO ROMARIZ 1 KG",
+    "quantity": 0.02,
+    "custo": 0.3178
+   }
+  ]
+ },
+ {
+  "product_id": 11670,
+  "produto": "Hosso Atum ( 10 Un )",
+  "ativo": true,
+  "preco": 24.9,
+  "categoria": "Promoção do Dia",
+  "custo": 4.3694,
+  "linhas": [
+   {
+    "recipe_id": 218891,
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 1.0,
+    "custo": 0.8098749999999999
+   },
+   {
+    "recipe_id": 218892,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.12,
+    "custo": 0.6419999999999999
+   },
+   {
+    "recipe_id": 218893,
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "quantity": 0.1167,
+    "custo": 2.9175
+   }
+  ]
+ },
+ {
+  "product_id": 11667,
+  "produto": "Hosso Salmão grelhado ( 10 Un )",
+  "ativo": true,
+  "preco": 19.9,
+  "categoria": "Promoção do Dia",
+  "custo": 3.9519,
+  "linhas": [
+   {
+    "recipe_id": 218911,
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 1.0,
+    "custo": 0.8098749999999999
+   },
+   {
+    "recipe_id": 218912,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.12,
+    "custo": 0.6419999999999999
+   },
+   {
+    "recipe_id": 218913,
+    "ingredient_id": 23638,
+    "ingrediente": "Peixe grelhado (aparas salmão/branco/atum)",
+    "quantity": 0.05,
+    "custo": 2.5
+   }
+  ]
+ },
+ {
+  "product_id": 11635,
+  "produto": "Joy Atum ( 02 Un )",
+  "ativo": true,
+  "preco": 15.9,
+  "categoria": "Promoção do Dia",
+  "custo": 2.4096,
+  "linhas": [
+   {
+    "recipe_id": 218975,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.024,
+    "custo": 0.1284
+   },
+   {
+    "recipe_id": 218976,
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "quantity": 0.07,
+    "custo": 1.7500000000000002
+   },
+   {
+    "recipe_id": 218977,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "quantity": 0.008,
+    "custo": 0.41116
+   },
+   {
+    "recipe_id": 219037,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "quantity": 0.02,
+    "custo": 0.12
+   }
+  ]
+ },
+ {
+  "product_id": 11648,
+  "produto": "Niguiri Atum ( 04 Un )",
+  "ativo": true,
+  "preco": 14.9,
+  "categoria": "Promoção do Dia",
+  "custo": 2.428,
+  "linhas": [
+   {
+    "recipe_id": 218960,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.08,
+    "custo": 0.428
+   },
+   {
+    "recipe_id": 218961,
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "quantity": 0.08,
+    "custo": 2.0
+   }
+  ]
+ },
+ {
+  "product_id": 32379,
+  "produto": "Acarajapa",
+  "ativo": true,
+  "preco": 2.99,
+  "categoria": "Promoção do Dia",
+  "custo": 0.9429,
+  "linhas": [
+   {
+    "recipe_id": 187889,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.016275,
+    "custo": 0.08707125
+   },
+   {
+    "recipe_id": 187892,
+    "ingredient_id": 23640,
+    "ingrediente": "Hondashi Ajinomoto 500g",
+    "quantity": 0.000325,
+    "custo": 0.01427725
+   },
+   {
+    "recipe_id": 187893,
+    "ingredient_id": 23641,
+    "ingrediente": "Gergelim torrado",
+    "quantity": 0.000163,
+    "custo": 0.00652
+   },
+   {
+    "recipe_id": 187894,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "quantity": 0.002712,
+    "custo": 0.016272000000000002
+   },
+   {
+    "recipe_id": 219071,
+    "ingredient_id": 24165,
+    "ingrediente": "Filé de tilápia",
+    "quantity": 0.00775,
+    "custo": 0.30922499999999997
+   },
+   {
+    "recipe_id": 219072,
+    "ingredient_id": 23898,
+    "ingrediente": "Pimenta Sriracha Hot Chili Sauce",
+    "quantity": 0.000217,
+    "custo": 0.0035805
+   },
+   {
+    "recipe_id": 220075,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "quantity": 0.0076,
+    "custo": 0.39444
+   },
+   {
+    "recipe_id": 220076,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "quantity": 0.00217,
+    "custo": 0.11152715
+   }
+  ]
+ },
+ {
+  "product_id": 11651,
+  "produto": "Ura Salmão Grelhado ( 10 Un )",
+  "ativo": true,
+  "preco": 24.9,
+  "categoria": "Uramaki",
+  "custo": 3.5869,
+  "linhas": [
+   {
+    "recipe_id": 218935,
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5,
+    "custo": 0.40493749999999995
+   },
+   {
+    "recipe_id": 218936,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.12,
+    "custo": 0.6419999999999999
+   },
+   {
+    "recipe_id": 218937,
+    "ingredient_id": 23641,
+    "ingrediente": "Gergelim torrado",
+    "quantity": 0.001,
+    "custo": 0.04
+   },
+   {
+    "recipe_id": 218938,
+    "ingredient_id": 23638,
+    "ingrediente": "Peixe grelhado (aparas salmão/branco/atum)",
+    "quantity": 0.05,
+    "custo": 2.5
+   }
+  ]
+ },
+ {
+  "product_id": 11688,
+  "produto": "Temaki Atum ( 01 Un )",
+  "ativo": true,
+  "preco": 32.99,
+  "categoria": "Temaki",
+  "custo": 3.6969,
+  "linhas": [
+   {
+    "recipe_id": 218998,
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5,
+    "custo": 0.40493749999999995
+   },
+   {
+    "recipe_id": 218999,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07,
+    "custo": 0.3745
+   },
+   {
+    "recipe_id": 219000,
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "quantity": 0.1167,
+    "custo": 2.9175
+   }
+  ]
+ },
+ {
+  "product_id": 30117,
+  "produto": "Niguiri Atum (1 peça)",
+  "ativo": true,
+  "preco": 2.99,
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "custo": 0.607,
+  "linhas": [
+   {
+    "recipe_id": 221155,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.02,
+    "custo": 0.107
+   },
+   {
+    "recipe_id": 221156,
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "quantity": 0.02,
+    "custo": 0.5
+   }
+  ]
+ },
+ {
+  "product_id": 30125,
+  "produto": "Joy Atum (1 peça)",
+  "ativo": true,
+  "preco": 5.99,
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "custo": 1.2048,
+  "linhas": [
+   {
+    "recipe_id": 221178,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.012,
+    "custo": 0.0642
+   },
+   {
+    "recipe_id": 221179,
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "quantity": 0.035,
+    "custo": 0.8750000000000001
+   },
+   {
+    "recipe_id": 221180,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "quantity": 0.004,
+    "custo": 0.20558
+   },
+   {
+    "recipe_id": 221181,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "quantity": 0.01,
+    "custo": 0.06
+   }
+  ]
+ }
+]

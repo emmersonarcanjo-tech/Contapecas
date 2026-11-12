@@ -29,9 +29,9 @@ for p in plano:
     atual = linha(p["product_id"], p["recipe_id"])
     if atual is None:
         pulos.append((p["produto"], "linha não encontrada")); continue
-    if abs(atual["quantity"] - p["nova_quantity"]) < 0.00005:
+    if abs(atual["quantity"] - p["nova_quantity"]) < 0.000001:
         ok += 1; continue                                    # já está no valor novo
-    if abs(atual["quantity"] - p["quantity"]) > 0.00005:
+    if abs(atual["quantity"] - p["quantity"]) > 0.000001:
         pulos.append((p["produto"], f"quantidade mudou: {atual['quantity']} (plano esperava {p['quantity']})")); continue
     if not gravar:
         print(f"mudaria {p['produto'][:44]:44s} {p['quantity']:.4f} -> {p['nova_quantity']:.4f}"); continue
@@ -40,7 +40,7 @@ for p in plano:
     st, _ = api._send(urllib.request.Request(BASE_URL + f"/admin/menu/recipe/{p['recipe_id']}/update_quantity", data=body, method="POST",
                       headers={"Content-Type": f"multipart/form-data; boundary={b}", "Accept": "application/json"}))
     depois = linha(p["product_id"], p["recipe_id"])
-    if st == 200 and depois and abs(depois["quantity"] - p["nova_quantity"]) < 0.00005:
+    if st == 200 and depois and abs(depois["quantity"] - p["nova_quantity"]) < 0.000001:
         ok += 1
     else:
         erros.append((p["produto"], st, depois and depois["quantity"]))

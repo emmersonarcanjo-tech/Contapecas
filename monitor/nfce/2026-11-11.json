@@ -881,5 +881,238 @@
    "outra_loja": 0,
    "outro_dia": 0
   }
- }
+ },
+ "emissoes": [
+  {
+   "executada_em": "2026-11-12T09:54:07-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 343732,
+     "codigo": "iF-6822",
+     "hora": "17:35",
+     "valor": 30.99,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 343735,
+     "codigo": "iF-1076",
+     "hora": "17:39",
+     "valor": 104.25,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 343739,
+     "codigo": "iF-1807",
+     "hora": "17:47",
+     "valor": 44.08,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 343880,
+     "codigo": "iF-3686",
+     "hora": "18:37",
+     "valor": 170.71,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 344034,
+     "codigo": "iF-3062",
+     "hora": "19:08",
+     "valor": 88.71,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 344042,
+     "codigo": "iF-5032",
+     "hora": "19:09",
+     "valor": 49.1,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 344174,
+     "codigo": "iF-5502",
+     "hora": "19:28",
+     "valor": 32.98,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 344413,
+     "codigo": "iF-5315",
+     "hora": "20:00",
+     "valor": 31.98,
+     "pagamento": "iFood Online (Sodexo)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 344632,
+     "codigo": "iF-0854",
+     "hora": "20:28",
+     "valor": 84.2,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 344713,
+     "codigo": "iF-0181",
+     "hora": "20:39",
+     "valor": 79.2,
+     "pagamento": "iFood Online (Mastercard_Maestro)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 344855,
+     "codigo": "iF-5390",
+     "hora": "21:00",
+     "valor": 31.98,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 345247,
+     "codigo": "iF-9937",
+     "hora": "21:58",
+     "valor": 15.89,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 345500,
+     "codigo": "iF-8153",
+     "hora": "22:53",
+     "valor": 35.99,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    },
+    {
+     "id": 345602,
+     "codigo": "iF-6946",
+     "hora": "23:29",
+     "valor": 96.06,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "perfil Tili Pizzaria 2.0",
+     "perfil_ok": true,
+     "perfil_esperado": "perfil Tili Pizzaria 2.0"
+    }
+   ],
+   "avisos": []
+  }
+ ]
 }

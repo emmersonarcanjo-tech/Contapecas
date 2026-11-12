@@ -331,5 +331,142 @@
    "outra_loja": 0,
    "outro_dia": 0
   }
- }
+ },
+ "emissoes": [
+  {
+   "executada_em": "2026-11-12T09:55:06-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 344371,
+     "codigo": "iF-7504",
+     "hora": "19:55",
+     "valor": 49.1,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ principal",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ principal"
+    },
+    {
+     "id": 344537,
+     "codigo": "iF-3555",
+     "hora": "20:15",
+     "valor": 43.97,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ principal",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ principal"
+    },
+    {
+     "id": 344613,
+     "codigo": "iF-1932",
+     "hora": "20:24",
+     "valor": 25.15,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ principal",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ principal"
+    },
+    {
+     "id": 344658,
+     "codigo": "iF-4572",
+     "hora": "20:31",
+     "valor": 39.89,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ principal",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ principal"
+    },
+    {
+     "id": 344836,
+     "codigo": "iF-7369",
+     "hora": "20:58",
+     "valor": 104.7,
+     "pagamento": "iFood Online (Visa_Electron)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ principal",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ principal"
+    },
+    {
+     "id": 345253,
+     "codigo": "iF-4109",
+     "hora": "21:59",
+     "valor": 84.07,
+     "pagamento": "iFood Online (Mastercard_Maestro)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ principal",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ principal"
+    },
+    {
+     "id": 345393,
+     "codigo": "iF-8793",
+     "hora": "22:25",
+     "valor": 86.07,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ principal",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ principal"
+    },
+    {
+     "id": 345574,
+     "codigo": "iF-5961",
+     "hora": "23:18",
+     "valor": 100.72,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "CPF do pedido"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ principal",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ principal"
+    }
+   ],
+   "avisos": []
+  }
+ ]
 }

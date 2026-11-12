@@ -39,6 +39,7 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 import unicodedata
@@ -77,7 +78,6 @@ ORDEM_LOJAS = ["Loja (app próprio)", "Loja (PDV/balcão)", "iFood Tili Pizzaria
                "iFood Tili Burguer", "iFood Tili Pizzaria 2.0",
                "Sushi (app próprio)", "Sushi (PDV/balcão)", "iFood Tili Sushi"]
 
-RE_REJ_CPF = re.compile(r"(cpf|cnpj|documento)[^.]{0,40}(destinat[aá]rio|inv[aá]lid)|destinat[aá]rio[^.]{0,30}inv[aá]lid", re.I)
 RE_REJ_TROCO = re.compile(r"aus[eê]ncia de troco", re.I)
 
 
@@ -419,10 +419,11 @@ def checar(api: Aliv, oid) -> dict:
 
 
 def emitir_um(api: Aliv, p: dict) -> dict:
-    """Uma emissão: CPF do pedido; se a SEFAZ recusar o CPF, de novo com espaço (sem CPF)."""
+    """Uma emissão, sempre SEM CPF (Emerson, 12/11/2026): customer_document = " ".
+    ("" faria o ALIV usar o CPF gravado no pedido.)"""
     res = {"id": p["id"], "codigo": p["codigo"], "hora": p["hora"], "valor": p["valor"],
            "pagamento": p["pagamento"], "loja": p["loja"], "tentativas": []}
-    for doc, rotulo in (("", "CPF do pedido"), (" ", "sem CPF")):
+    for doc, rotulo in ((" ", "sem CPF"),):
         try:
             status, r = post_form(api, f"/admin/api/orders/{p['id']}/emit-fiscal", {"customer_document": doc})
         except OSError as e:     # timeout: não reenviar às cegas — consulta o status
@@ -446,12 +447,32 @@ def emitir_um(api: Aliv, p: dict) -> dict:
                     "motivo": f"{m} (bug do ALIV: borda/adicional como desconto negativo — não insistir)"}
         if status == 0:
             return {**res, "resultado": "ATENCAO", "motivo": m + " — conferir no ALIV antes de tentar de novo"}
-        if doc == "" and RE_REJ_CPF.search(m):
-            res["motivo_cpf"] = m
-            time.sleep(1)
-            continue
         return {**res, "resultado": "REJEITADA", "motivo": m}
-    return {**res, "resultado": "REJEITADA", "motivo": res.get("motivo_cpf", "rejeitada")}
+    return {**res, "resultado": "REJEITADA", "motivo": "rejeitada"}
+
+
+def danfe_sem_cpf(api: Aliv, det: dict) -> bool | None:
+    """Lê o cupom (DANFE) da nota e diz se saiu sem CPF ("CONSUMIDOR NÃO IDENTIFICADO").
+    None quando não deu para conferir. Nada do cupom é gravado."""
+    url = str(det.get("fiscal_url") or "")
+    if not url:
+        return None
+    url = url if url.startswith("http") else BASE_URL + url
+    try:
+        with api.opener.open(urllib.request.Request(url), timeout=60) as r:
+            raw = r.read()
+        if raw[:4] != b"%PDF":
+            return None
+        texto = subprocess.run(["pdftotext", "-", "-"], input=raw, capture_output=True,
+                               timeout=60).stdout.decode("utf-8", "replace")
+    except (OSError, subprocess.SubprocessError):
+        return None
+    t = sem_acento(texto)
+    if "consumidor nao identificado" in t:
+        return True
+    if re.search(r"consumidor\s*-\s*(cpf|cnpj)", t):
+        return False
+    return None
 
 
 def texto_emissao(dia: date, resumo: dict, dry: bool, loja_id: int = PIZZARIA) -> str:
@@ -471,6 +492,13 @@ def texto_emissao(dia: date, resumo: dict, dry: bool, loja_id: int = PIZZARIA) -
         for perfil in sorted({r.get("perfil_emitido", "?") for r in aut}):
             g = [r for r in aut if r.get("perfil_emitido") == perfil]
             L.append(f"• {perfil}: {len(g)} / {brl(_soma(g))}")
+        com_cpf = [r for r in aut if r.get("sem_cpf") is False]
+        if com_cpf:
+            L.append(f"⚠ {len(com_cpf)} nota(s) saíram COM CPF: " + ", ".join(f"#{r['codigo']}" for r in com_cpf))
+        nao_conf = [r for r in aut if "sem_cpf" in r and r["sem_cpf"] is None]
+        if nao_conf:
+            L.append(f"⚠ {len(nao_conf)} nota(s) de pedido com CPF: não consegui ler o cupom para conferir: "
+                     + ", ".join(f"#{r['codigo']}" for r in nao_conf))
         errados = [r for r in aut if r.get("perfil_ok") is False]
         if errados:
             L.append(f"⚠ {len(errados)} nota(s) saíram no CNPJ errado: "
@@ -596,6 +624,8 @@ def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int) -> in
                     det = api.get(f"/admin/api/orders/{p['id']}")
                     det = det.get("order", det) if isinstance(det, dict) else {}
                     r["perfil_emitido"], r["perfil_ok"] = fiscal.conferir(det.get("fiscal_key"), p["merchant"])
+                    if dig(det.get("customer_document")):      # pedido tem CPF: confere no cupom
+                        r["sem_cpf"] = danfe_sem_cpf(api, det)
                 except AlivError as e:
                     r["perfil_emitido"], r["perfil_ok"] = f"não conferido ({e})", None
             print(f"[{i}/{len(fila)}] #{p['codigo']} {brl(p['valor'])} → {r['resultado']} {r.get('motivo', '')}",

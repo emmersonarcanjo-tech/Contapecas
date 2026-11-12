@@ -61,9 +61,18 @@ A promoção sozinha (5.232 peças, R$ 11.679,68) deixou R$ 6.286,28 depois de m
 - Os 247 pedidos de salão saíram em um único login, sem mesa nem comanda.
 - Pedido 345183: cartão de crédito cobrado R$ 37,83 em pedido de R$ 31,85 (troco de R$ 5,98).
 - Pedidos 344924 e 344932: dois pedidos idênticos de R$ 17,92 no mesmo minuto.
-- Pedido de app 344466: R$ 134,15 em dinheiro, com preços 10% acima da tabela (parece pedido interno ou teste).
+- Pedido de app 344466 (R$ 134,15, em dinheiro): **consumo do Emerson**, confirmado por ele em 12/11. Sem esse pedido, o faturamento real da noite é **R$ 14.866,64** e o resultado central fica em torno de **R$ 5.680** (a comida foi produzida, então o custo continua).
 - Um pedido do iFood de R$ 19,89 pago em dinheiro.
 - As 20 notas fiscais pendentes de salão e app (R$ 1.217,87) são exatamente os pedidos pagos só em dinheiro.
+
+## Taxa de 10% — conferido em 12/11
+
+- **Salão: não houve cobrança de 10%.** Nos 247 pedidos, a taxa de serviço é zero e as 527 linhas de item estão no preço de tabela.
+- Pedido 345183: a diferença de R$ 5,98 é exatamente 2 peças de R$ 2,99 (foi cobrado por 4 e ficaram 2 no pedido), não 10%.
+- Pedidos 344924 e 344932: R$ 17,92 = 6 peças a R$ 1,99 + 2 acarajapas a R$ 2,99, sem acréscimo.
+- iFood: os 15 pedidos têm a taxa de serviço do próprio iFood (R$ 22,21 no total), cobrada pela plataforma.
+- O único pedido com +10% foi o 344466 (consumo do Emerson). Ele entrou pelo canal **"Indicação (QR)"** do ALIV, que tem tabela própria: 191 dos 203 produtos com preço de indicação estão 10% acima da tabela normal.
+- Em 4.628 pedidos (outubro inteiro, 04/11 e 11/11), só esse pedido usou a tabela de indicação.
 
 ## Fora da conta
 

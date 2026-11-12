@@ -6,9 +6,34 @@ from monitor import Aliv, BASE_URL
 api = Aliv(os.environ["ALIV_USER_SUSHI"], os.environ["ALIV_PASS_SUSHI"]); api.login()
 DRY = "--dry" in sys.argv
 PECA = {"sashimi": (30757, 1), "uramaki": (11660, 10), "niguiri": (11646, 4), "joy": (11632, 2), "hot": (11672, 10)}
+# Ficha por unidade: se a ficha do produto aponta para um item produzido ("Niguiri Salmão (unidade)"), abre a receita do item
+# (1 nível) para o combinado receber os ingredientes de verdade, e não o item.
+_inv = api.get("/admin/inventory/api/ingredients")["ingredients"]
+_ITEM = {i["id"]: i for i in _inv if i.get("is_recipe")}
+_ID_POR_NOME = {}
+for i in _inv:
+    _ID_POR_NOME[i["name"]] = i["id"]
+    if i.get("display_name"): _ID_POR_NOME.setdefault(i["display_name"], i["id"])
+
+
+def linhas_diretas(pid):
+    """{ingredient_id: quantidade} da ficha do produto, com itens produzidos abertos na receita deles."""
+    out = {}
+    for r in api.get(f"/admin/menu/product/{pid}/recipes"):
+        if r["ingredient_id"] in _ITEM:
+            rend = _ITEM[r["ingredient_id"]].get("final_yield") or 1
+            for l in api.get(f"/admin/inventory/ingredient/{r['ingredient_id']}/recipe"):
+                cid = _ID_POR_NOME.get(l["child_name"])
+                if cid is None: raise SystemExit(f"não achei o insumo '{l['child_name']}' da receita do item {r['ingredient_id']}")
+                out[cid] = out.get(cid, 0) + r["quantity"] * l["qty"] / rend
+        else:
+            out[r["ingredient_id"]] = out.get(r["ingredient_id"], 0) + r["quantity"]
+    return out
+
+
 por_peca = {}
 for k, (pid, n) in PECA.items():
-    por_peca[k] = {r["ingredient_id"]: r["quantity"] / n for r in api.get(f"/admin/menu/product/{pid}/recipes")}
+    por_peca[k] = {iid: q / n for iid, q in linhas_diretas(pid).items()}
 full = api.get("/admin/api/menu/full_data")
 prods = {p["id"]: p for c in full["categories"] for p in c["products"]}
 COMBOS = [11697, 11698, 11699, 11700, 11701, 11702, 11703, 11704]

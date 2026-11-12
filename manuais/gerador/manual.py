@@ -281,7 +281,7 @@ def g_unidade(g, n_porcao):
 def peso_html(g, n_porcao, custo=None):
     """Niguiri e Joy: mostra o peso de UMA unidade e, embaixo, quanto esse ingrediente custa na unidade."""
     if not g:
-        return '<span class="g vazio">___ g' + ('<small>na unidade</small>' if n_porcao else '') + '</span>'
+        return '<span class="g vazio">___ g' + ('<small>peso não informado</small>' if n_porcao else '') + '</span>'
     if n_porcao:
         v = g_unidade(g, n_porcao)
         if v is not None:
@@ -386,16 +386,19 @@ def custos_ing(it, n_porcao):
         tot = sum(g for _, g in membros)
         for j, g in membros:
             res[j] = d["linhas"][li]["custo"] * g / tot
-    # arredonda a centavos de modo que a soma mostrada feche com o custo da unidade (ajusta o maior item)
-    usados = [j for j, v in enumerate(res) if v is not None]
-    if usados and abs(sum(res[j] for j in usados) - d["custo_unidade"]) < 0.0005:
-        cent = {j: round(res[j], 2) for j in usados}
-        dif = round(round(d["custo_unidade"], 2) - sum(cent.values()), 2)
-        if dif:
-            cent[max(usados, key=lambda j: res[j])] += dif
-        for j in usados:
-            res[j] = round(cent[j], 2)
-    return res
+    return [None if v is None else round(v, 2) for v in res]
+
+
+def custo_unidade_mostrado(it, n_porcao):
+    """Custo de 1 unidade como aparece na página: a soma dos custos dos ingredientes (já em centavos), para a conta
+    fechar na calculadora. Se algum custo do ALIV não couber em um ingrediente da página, usa o total do ALIV."""
+    d = CUNI.get(chave_custo(it) or "")
+    if not d:
+        return None
+    partes = [v for v in (custos_ing(it, n_porcao) or []) if v is not None]
+    if partes and abs(sum(partes) - d["custo_unidade"]) < 0.006 * len(partes):
+        return round(sum(partes), 2)
+    return round(d["custo_unidade"], 2)
 
 
 def falta_custo(it):
@@ -403,6 +406,10 @@ def falta_custo(it):
     sem_preco = [x.lower() for x in GRAM.get("sem_custo", [])]
     f = [i["nome"].lower() for i in it.get("ings", []) if not i["g"]]
     f += [f"preço do {x}" for x in sem_preco if any(x in i["nome"].lower() for i in it.get("ings", []) if i["g"])]
+    d = CUNI.get(chave_custo(it) or "")
+    texto = (it["name"] + " " + " ".join(i["nome"] for i in it.get("ings", []))).lower()
+    if d and "geleia" in texto and not any("geleia" in l["ingrediente"].lower() for l in d["linhas"]):
+        f.append("geleia de pimenta")
     return (" · custo parcial, falta: " + ", ".join(f)) if f else ""
 
 
@@ -415,8 +422,11 @@ def aviso_custo(it):
     m = re.search(r"\(\s*0?(\d+)\s*un\s*\)", k, re.I)
     if it.get("cat") in ("Niguiri", "Joy") and m and int(m.group(1)) > 1:
         n = int(m.group(1))
-        txt = f"Custo de 1 unidade no ALIV: R$ {c/n:.2f} · porção de {n} unidades: R$ {c:.2f}".replace(".", ",")
-        if pr: txt += f" · preço da porção R$ {pr:.2f} · CMV {100*c/pr:.0f}%".replace(".", ",")
+        un = custo_unidade_mostrado(it, n)
+        if un is None: un = round(c / n, 2)
+        porc = round(un * n, 2)
+        txt = f"Custo de 1 unidade no ALIV: R$ {un:.2f} · porção de {n} unidades: R$ {porc:.2f}".replace(".", ",")
+        if pr: txt += f" · preço da porção R$ {pr:.2f} · CMV {100*porc/pr:.0f}%".replace(".", ",")
         return txt + falta_custo(it)
     txt = f"Ficha técnica no ALIV · custo R$ {c:.2f}".replace(".", ",")
     if pr: txt += f" · preço R$ {pr:.2f} · CMV {100*c/pr:.0f}%".replace(".", ",")

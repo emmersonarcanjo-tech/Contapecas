@@ -73,6 +73,7 @@ A promoção sozinha (5.232 peças, R$ 11.679,68) deixou R$ 6.286,28 depois de m
 - iFood: os 15 pedidos têm a taxa de serviço do próprio iFood (R$ 22,21 no total), cobrada pela plataforma.
 - O único pedido com +10% foi o 344466 (consumo do Emerson). Ele entrou pelo canal **"Indicação (QR)"** do ALIV, que tem tabela própria: 191 dos 203 produtos com preço de indicação estão 10% acima da tabela normal.
 - Em 4.628 pedidos (outubro inteiro, 04/11 e 11/11), só esse pedido usou a tabela de indicação.
+- **A tabela de indicação é intencional** (confirmado pelo Emerson em 12/11): o preço é maior para pagar a comissão dos recepcionistas que indicam pelo QR. Nada a corrigir.
 
 ## Fora da conta
 

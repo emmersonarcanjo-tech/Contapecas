@@ -547,6 +547,88 @@
       "informado": "2026-11-11"
     },
     {
+      "titulo": "Tempero do peixe",
+      "sub": "Por quilo de peixe: <b>10 g de hondashi</b> + <b>4 g de realçador de sabor</b>",
+      "ingredientes": [
+        [
+          "Hondashi",
+          "10 g por kg"
+        ],
+        [
+          "Realçador de sabor",
+          "4 g por kg"
+        ]
+      ],
+      "tabela": {
+        "titulo": "Quanto usar",
+        "cab": [
+          "Peixe",
+          "Hondashi",
+          "Realçador de sabor"
+        ],
+        "linhas": [
+          [
+            "1 kg",
+            "10 g",
+            "4 g"
+          ],
+          [
+            "2 kg",
+            "20 g",
+            "8 g"
+          ],
+          [
+            "3 kg",
+            "30 g",
+            "12 g"
+          ],
+          [
+            "4 kg",
+            "40 g",
+            "16 g"
+          ],
+          [
+            "5 kg",
+            "50 g",
+            "20 g"
+          ],
+          [
+            "6 kg",
+            "60 g",
+            "24 g"
+          ],
+          [
+            "7 kg",
+            "70 g",
+            "28 g"
+          ],
+          [
+            "8 kg",
+            "80 g",
+            "32 g"
+          ],
+          [
+            "9 kg",
+            "90 g",
+            "36 g"
+          ],
+          [
+            "10 kg",
+            "100 g",
+            "40 g"
+          ]
+        ]
+      },
+      "passos": [
+        "Pesar o peixe na balança.",
+        "Pesar o hondashi e o realçador de sabor conforme a tabela.",
+        "Temperar o peixe por igual."
+      ],
+      "obs": "Pesar sempre na balança. Esta tabela vale no lugar do cartaz antigo, que usava o dobro (20 g + 8 g por quilo).",
+      "obs_titulo": "ATENÇÃO",
+      "informado": "2026-11-12"
+    },
+    {
       "titulo": "Salmão grelhado com cream cheese",
       "sub": "Mistura base da casa · rende <b>1,2 kg</b>",
       "ingredientes": [

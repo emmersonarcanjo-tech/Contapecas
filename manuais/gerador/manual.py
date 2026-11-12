@@ -325,7 +325,12 @@ def pg_base(b, n):
         f'<div class="ing"><div class="ph">' + (f'<img src="{IMG[ilus(a)]}">' if ilus(a) in IMG else f'<span>{esc(a[0])}</span>') +
         f'</div><div class="nm">{esc(a)}</div><span class="g">{esc(q)}</span></div>' for a, q in b["ingredientes"]) + "</div>"
     return (f'<div class="pg">{topo("Base da casa")}<div class="corpo"><h1>{esc(b["titulo"])}</h1>'
-            f'<div class="sub">{b["sub"]}</div><h2>Ingredientes</h2>{h}<h2>Modo de preparo</h2><ol>'
+            f'<div class="sub">{b["sub"]}</div><h2>Ingredientes</h2>{h}'
+            + (f'<h2>{esc(b["tabela"].get("titulo", "Tabela"))}</h2><table class="lista" style="width:100%;border-collapse:collapse">'
+               + "<tr>" + "".join(f"<th>{esc(c)}</th>" for c in b["tabela"]["cab"]) + "</tr>"
+               + "".join("<tr>" + "".join(f'<td style="font-weight:{700 if k == 0 else 500};font-size:14pt">{esc(c)}</td>' for k, c in enumerate(l)) + "</tr>" for l in b["tabela"]["linhas"])
+               + "</table>" if b.get("tabela") else "")
+            + '<h2>Modo de preparo</h2><ol>'
             + "".join(f"<li>{esc(x)}</li>" for x in b["passos"]) + "</ol>"
             + (f'<div class="dupla" style="grid-template-columns:1fr"><div class="box"><b>{esc(b.get("obs_titulo", "RENDIMENTO" if "Rende" in b["sub"] or "rendem" in b["sub"] else "PROPORÇÃO"))}</b>{esc(b["obs"])}</div></div>' if b.get("obs") else "")
             + f'</div>{rodape(n)}</div>')

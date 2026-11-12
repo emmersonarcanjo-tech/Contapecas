@@ -51,7 +51,7 @@ td{{font:400 11pt Inter;padding:1.5mm 2mm;border-bottom:.3mm solid #ddd}}th:not(
 .leg span{{font-weight:800}}
 </style></head><body><div class="pg"><div class="top"><img src="{LOGO}"><div class="t">QUARTA MALUCA · TILI SUSHI</div></div>
 <div class="corpo"><h1>Preço sugerido por peça</h1>
-<div class="intro">Custo de ingredientes pelas fichas técnicas do ALIV em 12/11/2026 (salmão com rendimento medido de 72,0%, atum com 40% de perda). Sobra = preço − custo − 11% de imposto, antes de equipe e custos fixos.</div>
+<div class="intro">Custo de ingredientes pelas fichas técnicas do ALIV em 12/11/2026 (salmão com rendimento medido de 72,0%, atum com 40% de perda). Custo por peça = ficha da porção ÷ nº de peças (rolo ÷ 10, niguiri ÷ 4, Joy ÷ 2). Sobra = preço − custo − 11% de imposto, antes de equipe e custos fixos.</div>
 {blocos}
 <div class="nota leg">CMV: <span style="color:#1E7D32">verde até 35%</span> · <span style="color:#B7791F">amarelo até 40%</span> · <span style="color:#C8102E">vermelho acima de 40%</span>.<br>
 * Joy Capão: alho-poró ainda com custo zero no estoque. Fora da lista até ter preço: Uramaki Skin, Niguiri Skin e Hossomaki Morango c/ Nutella (skin, morango e Nutella sem custo) e Joy Camarão (peso do camarão não informado).<br>

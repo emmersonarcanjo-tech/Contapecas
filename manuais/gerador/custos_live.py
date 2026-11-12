@@ -8,5 +8,5 @@ for c in full["categories"]:
     for p in c["products"]:
         if p["name"] in out: continue
         r = api.get(f"/admin/menu/product/{p['id']}/recipes")
-        if r: out[p["name"]] = round(sum(x["total_cost"] for x in r), 2)
+        if r: out[p["name"]] = round(sum(x["total_cost"] for x in r), 4)
 json.dump(out, open(sys.argv[1], "w"), ensure_ascii=False, indent=1); print(len(out))

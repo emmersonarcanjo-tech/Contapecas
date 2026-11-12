@@ -772,5 +772,9 @@
       "rendimento": 0.7136,
       "preco_kg": 51.9
     }
+  ],
+  "sem_custo": [
+    "skin",
+    "alho poró"
   ]
 }

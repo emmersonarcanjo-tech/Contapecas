@@ -127,9 +127,10 @@ def passos(cat, nome, ings, desc, pecas):
         return (p, "Lâmina cortada em diagonal, contra a fibra, cobrindo todo o bolinho.",
                 f"{pecas or 4} peças em fileira, todas viradas para o mesmo lado.")
     if cat == "Joy":
-        sem_arroz = "s/ arroz" in nome.lower() or "sem arroz" in n
+        sem_arroz = not any("arroz" in i["nome"].lower() for i in ings)
+        lam = "lâmina de atum" if any("lâmina de atum" in i["nome"].lower() for i in ings) else "lâmina de salmão"
         p = ([] if sem_arroz else ["Moldar bolinho de arroz redondo."]) + [
-            "Envolver com a lâmina de salmão" + (" " if sem_arroz else " em volta do arroz, ") +
+            f"Envolver com a {lam}" + (" " if sem_arroz else " em volta do arroz, ") +
             "formando um anel um pouco mais alto que a base."]
         tops = [i["nome"].lower() for i in ings if "arroz" not in i["nome"].lower() and "lâmina" not in i["nome"].lower()]
         if tops:
@@ -228,6 +229,8 @@ h2::after {{ content: ''; flex: 1; height: .8mm; background: {OURO} }}
         display: inline-block; width: 6.5mm; height: 6.5mm; line-height: 6.5mm; text-align: center; margin-right: 2mm }}
 .ing .g {{ font: 800 15pt Inter; color: {VERM}; white-space: nowrap }}
 .ing .g.vazio {{ color: #999; font-weight: 500 }}
+.ing .g {{ text-align: right }}
+.ing .g small {{ display: block; font: 600 8.5pt/1.25 Inter; color: #555; text-align: right; white-space: nowrap }}
 ol {{ list-style: none; counter-reset: s }}
 ol li {{ counter-increment: s; font: 400 14pt/1.35 Inter; padding: 1.3mm 0 1.3mm 11mm; position: relative }}
 ol li::before {{ content: counter(s); position: absolute; left: 0; top: 1.2mm; width: 7.5mm; height: 7.5mm;
@@ -262,11 +265,27 @@ def rodape(n):
     return f'<div class="rod"><span>Manual de Montagem — Tili Sushi</span><span>pág. {n}</span></div>'
 
 
-def bloco_ing(ings, numerar=False):
+def peso_html(g, n_porcao):
+    """Mostra o peso por peça e, embaixo, o total da porção (niguiri e Joy)."""
+    if not g:
+        return '<span class="g vazio">___ g' + ('<small>por peça</small>' if n_porcao else '') + '</span>'
+    if n_porcao:
+        m = re.match(r"([\d,.]+)\s*g/peça", g)
+        if m:
+            v = float(m.group(1).replace(",", ".")); tot = f"{v * n_porcao:g}".replace(".", ",")
+            return f'<span class="g">{esc(m.group(1))} g<small>por peça<br>{tot} g na porção</small></span>'
+        m = re.match(r"([\d,.]+)\s*g na porção", g)
+        if m:
+            v = float(m.group(1).replace(",", ".")); cada = f"{v / n_porcao:g}".replace(".", ",")
+            return f'<span class="g">{esc(m.group(1))} g<small>na porção<br>{cada} g por peça</small></span>'
+    return f'<span class="g">{esc(g.replace("/peça", " por peça"))}</span>'
+
+
+def bloco_ing(ings, numerar=False, n_porcao=0):
     h = f'<div class="ings{" col" if numerar else ""}" style="grid-template-rows: repeat({(len(ings) + 1) // 2}, auto)">'
     for k, i in enumerate(ings):
         ph = f'<img src="{IMG[i["img"]]}">' if i["img"] in IMG else f'<span>{esc(i["nome"][0])}</span>'
-        g = f'<span class="g">{esc(i["g"].replace("/peça", "/un."))}</span>' if i["g"] else '<span class="g vazio">___ g</span>'
+        g = peso_html(i["g"], n_porcao)
         h += f'<div class="ing"><div class="ph">{ph}</div><div class="nm">{f'<i class="num">{k+1}</i>' if numerar else ''}{esc(i["nome"])}</div>{g}</div>'
     return h + "</div>"
 
@@ -327,6 +346,14 @@ CUSTOS = json.loads(_CP.read_text()) if _CP.exists() else {}
 PRECOS = {p["name"]: p.get("price") for c in full["categories"] for p in c["products"]}
 
 
+def falta_custo(it):
+    """Avisa quando o custo está parcial: ingrediente sem peso ou sem preço no estoque."""
+    sem_preco = [x.lower() for x in GRAM.get("sem_custo", [])]
+    f = [i["nome"].lower() for i in it.get("ings", []) if not i["g"]]
+    f += [f"preço do {x}" for x in sem_preco if any(x in i["nome"].lower() for i in it.get("ings", []) if i["g"])]
+    return (" · custo parcial, falta: " + ", ".join(f)) if f else ""
+
+
 def aviso_custo(it):
     nome = it["name"]
     cands = [k for k in CUSTOS if k == nome or k.startswith(nome + " (") or re.sub(r"\s*\(.*?\)", "", k).strip() == nome]
@@ -336,9 +363,9 @@ def aviso_custo(it):
     m = re.search(r"\(\s*0?(\d+)\s*un\s*\)", k, re.I)
     if it.get("cat") in ("Niguiri", "Joy") and m and int(m.group(1)) > 1:
         n = int(m.group(1))
-        txt = f"ALIV · custo por unidade R$ {c/n:.2f} · porção de {n}: custo R$ {c:.2f}".replace(".", ",")
-        if pr: txt += f", preço R$ {pr:.2f}, CMV {100*c/pr:.0f}%".replace(".", ",")
-        return txt
+        txt = f"Custo no ALIV: R$ {c/n:.2f} por peça · R$ {c:.2f} na porção de {n}".replace(".", ",")
+        if pr: txt += f" · preço da porção R$ {pr:.2f} · CMV {100*c/pr:.0f}%".replace(".", ",")
+        return txt + falta_custo(it)
     txt = f"Ficha técnica no ALIV · custo R$ {c:.2f}".replace(".", ",")
     if pr: txt += f" · preço R$ {pr:.2f} · CMV {100*c/pr:.0f}%".replace(".", ",")
     return txt
@@ -358,11 +385,12 @@ def pg_item(it, n):
     aviso = it.get("aviso") or aviso_custo(it) or "Ficha técnica no ALIV: vazia — gramaturas a confirmar"
     peso = it.get("peso") or '<span style="color:#999">___ g</span>'
     return (f'<div class="pg">{topo(cat)}<div class="corpo"><h1>{esc(nome)}</h1>'
-            + (f'<div class="sub"><b>{unid}</b> · gramaturas <b>por unidade</b></div>' if cat in ("Niguiri", "Joy")
+            + (f'<div class="sub"><b>Porção de {unid}</b> · gramatura de <b>cada peça</b></div>' if cat in ("Niguiri", "Joy") and pecas and pecas > 1
+               else f'<div class="sub"><b>{unid}</b> · gramatura de <b>cada peça</b></div>' if cat in ("Niguiri", "Joy")
                else f'<div class="sub"><b>{unid}</b> · Peso final: {peso}</div>') +
             f''
             f'<div class="aviso">{esc(aviso)}</div>'
-            f'<h2>Ingredientes</h2>{bloco_ing(ings, cat == "Poke") if ings else "<p style=font-size:14pt>Sem descrição no cardápio.</p>"}'
+            f'<h2>Ingredientes</h2>{bloco_ing(ings, cat == "Poke", (pecas or 0) if cat in ("Niguiri", "Joy") and it.get("tipo") != "derivado" else 0) if ings else "<p style=font-size:14pt>Sem descrição no cardápio.</p>"}'
             f'<h2>Ordem de montagem</h2><ol>' + "".join(f"<li>{esc(s)}</li>" for s in st) +
             f'</ol><div class="dupla"><div class="box"><b>CORTE</b>{esc(corte)}</div>'
             f'<div class="box"><b>APRESENTAÇÃO</b>{esc(prato)}</div></div>'

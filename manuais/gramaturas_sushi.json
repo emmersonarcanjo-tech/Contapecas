@@ -539,7 +539,7 @@
         "Pesar o salmão limpo e anotar o rendimento.",
         "Embalar em filme, etiquetar com a data e guardar entre 0 e 2 °C."
       ],
-      "obs": "Caixa 1 (11/11): 34,954 kg → 25,330 kg limpos (72,5%) · Caixa 2 (11/11): 28,954 → 20,662 kg (71,4%) · Caixa 3 (12/11): 28,730 → 20,762 kg (72,3%) · Média das 3: 72,1%, Custo do limpo ≈ R$ 72,14/kg (R$ 51,90/kg na nota). Abaixo de 68%, avisar o Emerson.",
+      "obs": "Caixa 1 (11/11): 34,954 kg → 25,330 kg limpos (72,5%) · Caixa 2 (11/11): 28,954 → 20,662 kg (71,4%) · Caixa 3 (12/11): 28,730 → 20,762 kg (72,3%) · Média das 3: 72,1%. Custo do limpo ≈ R$ 72,14/kg (R$ 51,90/kg na nota). Abaixo de 68%, avisar o Emerson.",
       "obs_titulo": "RENDIMENTO E CUSTO",
       "informado": "2026-11-11"
     },

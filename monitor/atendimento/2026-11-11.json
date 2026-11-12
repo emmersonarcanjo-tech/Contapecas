@@ -1,0 +1,63 @@
+{
+ "dia": "2026-11-11",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 79,
+  "pedidos": 50,
+  "pedidos_ia": 36,
+  "abandonadas": 29,
+  "conversao": 0.633,
+  "abandono": 0.367,
+  "tempo_medio_min": 1.7,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 26,
+  "cancelados_ia": 0,
+  "pedidos_link": 12,
+  "pedidos_outro": 2,
+  "receberam_link": 70,
+  "abandono_com_link": 24,
+  "abandono_sem_link": 5,
+  "problemas": {
+   "nao_entendeu": 2,
+   "demora": 15,
+   "repetiu": 13,
+   "item_preco": 17,
+   "nao_soube": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "quero essa da promoção [foto de produto do cliente]: Tela do app com o anúncio do Combo Dupla da Ca…",
+   "ja_existe_parecido": null,
+   "falta_preencher": true
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Queria coca normal",
+  "Adiciona tbm um refri lata guaraná",
+  "Vou querer um grande metade de frango com catupiry e a outra metade de carne se…",
+  "1 grande dessa de bacon e borda mussarela [foto de produto do cliente]: Print d…",
+  "Boa noite, [nome] pedido foi confirmado?",
+  "Entrega ???",
+  "Sushi😋",
+  "A peça sai a 1,99 tambem no delivery?",
+  "Tô pedindo pelo link vi que não tem a opção de guanara 2litros",
+  "cozinha vem oq"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

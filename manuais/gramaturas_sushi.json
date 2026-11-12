@@ -314,6 +314,14 @@
       "g": "1 g",
       "informado": "2026-11-10",
       "obs": "1 g por ficha"
+    },
+    {
+      "categorias": [
+        "Joy"
+      ],
+      "ingrediente": "gergelim",
+      "g": "1 g na porção",
+      "informado": "2026-11-12"
     }
   ],
   "itens": {

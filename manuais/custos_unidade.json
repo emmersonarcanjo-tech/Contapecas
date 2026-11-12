@@ -1,0 +1,413 @@
+{
+ "Joy Alho Poró ( 02 Un )": {
+  "n": 2,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 1.592655,
+  "custo_porcao": 3.18531,
+  "preco_porcao": 16.9,
+  "preco_peca": 5.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.012,
+    "unidade": "KG",
+    "custo": 0.0642
+   },
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.02945,
+    "unidade": "KG",
+    "custo": 1.528455
+   }
+  ]
+ },
+ "Joy Atum ( 02 Un )": {
+  "n": 2,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 1.20478,
+  "custo_porcao": 2.40956,
+  "preco_porcao": 15.9,
+  "preco_peca": 5.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.012,
+    "unidade": "KG",
+    "custo": 0.0642
+   },
+   {
+    "ingrediente": "Atum",
+    "quantidade": 0.035,
+    "unidade": "KG",
+    "custo": 0.875
+   },
+   {
+    "ingrediente": "Cream Cheese",
+    "quantidade": 0.004,
+    "unidade": "KG",
+    "custo": 0.20558
+   },
+   {
+    "ingrediente": "Cebolinha (maço)",
+    "quantidade": 0.01,
+    "unidade": "UN",
+    "custo": 0.06
+   }
+  ]
+ },
+ "Joy Camarão ( 02 Un )": {
+  "n": 2,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 1.369615,
+  "custo_porcao": 2.73923,
+  "preco_porcao": 17.9,
+  "preco_peca": 5.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.012,
+    "unidade": "KG",
+    "custo": 0.0642
+   },
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.01965,
+    "unidade": "KG",
+    "custo": 1.019835
+   },
+   {
+    "ingrediente": "Cream Cheese",
+    "quantidade": 0.004,
+    "unidade": "KG",
+    "custo": 0.20558
+   },
+   {
+    "ingrediente": "Gergelim torrado",
+    "quantidade": 0.0005,
+    "unidade": "KG",
+    "custo": 0.02
+   },
+   {
+    "ingrediente": "Cebolinha (maço)",
+    "quantidade": 0.01,
+    "unidade": "UN",
+    "custo": 0.06
+   }
+  ]
+ },
+ "Joy Camarão s/ Arroz ( 02 Un )": {
+  "n": 2,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 1.019835,
+  "custo_porcao": 2.03967,
+  "preco_porcao": 19.9,
+  "preco_peca": 6.99,
+  "linhas": [
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.01965,
+    "unidade": "KG",
+    "custo": 1.019835
+   }
+  ]
+ },
+ "Joy Capão ( 02 Un )": {
+  "n": 2,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 1.798235,
+  "custo_porcao": 3.59647,
+  "preco_porcao": 16.9,
+  "preco_peca": 5.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.012,
+    "unidade": "KG",
+    "custo": 0.0642
+   },
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.02945,
+    "unidade": "KG",
+    "custo": 1.528455
+   },
+   {
+    "ingrediente": "Cream Cheese",
+    "quantidade": 0.004,
+    "unidade": "KG",
+    "custo": 0.20558
+   },
+   {
+    "ingrediente": "Alho-poró",
+    "quantidade": 0.001,
+    "unidade": "KG",
+    "custo": 0.0
+   }
+  ]
+ },
+ "Joy especial Tili ( 02 Un )": {
+  "n": 2,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 1.734035,
+  "custo_porcao": 3.46807,
+  "preco_porcao": 16.9,
+  "preco_peca": 5.99,
+  "linhas": [
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.02945,
+    "unidade": "KG",
+    "custo": 1.528455
+   },
+   {
+    "ingrediente": "Cream Cheese",
+    "quantidade": 0.004,
+    "unidade": "KG",
+    "custo": 0.20558
+   }
+  ]
+ },
+ "Joy Fila ( 02 Un )": {
+  "n": 2,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 1.858235,
+  "custo_porcao": 3.71647,
+  "preco_porcao": 16.9,
+  "preco_peca": 5.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.012,
+    "unidade": "KG",
+    "custo": 0.0642
+   },
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.02945,
+    "unidade": "KG",
+    "custo": 1.528455
+   },
+   {
+    "ingrediente": "Cream Cheese",
+    "quantidade": 0.004,
+    "unidade": "KG",
+    "custo": 0.20558
+   },
+   {
+    "ingrediente": "Cebolinha (maço)",
+    "quantidade": 0.01,
+    "unidade": "UN",
+    "custo": 0.06
+   }
+  ]
+ },
+ "Joy Selado c/ Geleia ( 02 Un )": {
+  "n": 2,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 1.592655,
+  "custo_porcao": 3.18531,
+  "preco_porcao": 16.9,
+  "preco_peca": 5.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.012,
+    "unidade": "KG",
+    "custo": 0.0642
+   },
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.02945,
+    "unidade": "KG",
+    "custo": 1.528455
+   }
+  ]
+ },
+ "Joy Tili ( 02 Un )": {
+  "n": 2,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 1.878235,
+  "custo_porcao": 3.75647,
+  "preco_porcao": 16.9,
+  "preco_peca": 5.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.012,
+    "unidade": "KG",
+    "custo": 0.0642
+   },
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.02945,
+    "unidade": "KG",
+    "custo": 1.528455
+   },
+   {
+    "ingrediente": "Cream Cheese",
+    "quantidade": 0.004,
+    "unidade": "KG",
+    "custo": 0.20558
+   },
+   {
+    "ingrediente": "Gergelim torrado",
+    "quantidade": 0.0005,
+    "unidade": "KG",
+    "custo": 0.02
+   },
+   {
+    "ingrediente": "Cebolinha (maço)",
+    "quantidade": 0.01,
+    "unidade": "UN",
+    "custo": 0.06
+   }
+  ]
+ },
+ "Niguiri Atum ( 04 Un )": {
+  "n": 4,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 0.607,
+  "custo_porcao": 2.428,
+  "preco_porcao": 14.9,
+  "preco_peca": 2.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.02,
+    "unidade": "KG",
+    "custo": 0.107
+   },
+   {
+    "ingrediente": "Atum",
+    "quantidade": 0.02,
+    "unidade": "KG",
+    "custo": 0.5
+   }
+  ]
+ },
+ "Niguiri Kani ( 04 Un )": {
+  "n": 4,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 0.619,
+  "custo_porcao": 2.476,
+  "preco_porcao": 12.9,
+  "preco_peca": 2.49,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.02,
+    "unidade": "KG",
+    "custo": 0.107
+   },
+   {
+    "ingrediente": "KANI KAMA (BASTONES SURIMI) JETFISH 250G",
+    "quantidade": 0.064,
+    "unidade": "UN",
+    "custo": 0.512
+   }
+  ]
+ },
+ "Niguiri Salmão ( 04 Un )": {
+  "n": 4,
+  "item_aliv": "Niguiri Salmão (unidade)",
+  "por_unidade_no_aliv": true,
+  "custo_unidade": 0.980217,
+  "custo_porcao": 3.92087,
+  "preco_porcao": 16.9,
+  "preco_peca": 2.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi",
+    "quantidade": 0.02,
+    "unidade": "KG",
+    "custo": 0.107
+   },
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.016825,
+    "unidade": "KG",
+    "custo": 0.873217
+   }
+  ]
+ },
+ "Niguiri Salmão Selado ( 04 Un )": {
+  "n": 4,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 0.980217,
+  "custo_porcao": 3.92087,
+  "preco_porcao": 16.9,
+  "preco_peca": 2.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.02,
+    "unidade": "KG",
+    "custo": 0.107
+   },
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.016825,
+    "unidade": "KG",
+    "custo": 0.873217
+   }
+  ]
+ },
+ "Niguiri Salmão Selado c/ Geleia de Pimenta ( 04 Un )": {
+  "n": 4,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 0.980217,
+  "custo_porcao": 3.92087,
+  "preco_porcao": 16.9,
+  "preco_peca": 2.99,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.02,
+    "unidade": "KG",
+    "custo": 0.107
+   },
+   {
+    "ingrediente": "Salmão Premium Fresco",
+    "quantidade": 0.016825,
+    "unidade": "KG",
+    "custo": 0.873217
+   }
+  ]
+ },
+ "Niguiri Skin ( 04 Un )": {
+  "n": 4,
+  "item_aliv": null,
+  "por_unidade_no_aliv": false,
+  "custo_unidade": 0.107,
+  "custo_porcao": 0.428,
+  "preco_porcao": 12.9,
+  "preco_peca": 2.49,
+  "linhas": [
+   {
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantidade": 0.02,
+    "unidade": "KG",
+    "custo": 0.107
+   },
+   {
+    "ingrediente": "Skin de salmão",
+    "quantidade": 0.01,
+    "unidade": "KG",
+    "custo": 0.0
+   }
+  ]
+ }
+}

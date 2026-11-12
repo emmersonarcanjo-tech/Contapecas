@@ -265,27 +265,36 @@ def rodape(n):
     return f'<div class="rod"><span>Manual de Montagem — Tili Sushi</span><span>pág. {n}</span></div>'
 
 
-def peso_html(g, n_porcao):
-    """Mostra o peso por peça e, embaixo, o total da porção (niguiri e Joy)."""
+def g_unidade(g, n_porcao):
+    """Gramas de UMA unidade (niguiri e Joy): '12 g/peça' -> 12; '1 g na porção' -> 1 ÷ nº de peças."""
     if not g:
-        return '<span class="g vazio">___ g' + ('<small>por peça</small>' if n_porcao else '') + '</span>'
+        return None
+    m = re.match(r"([\d,.]+)\s*g/peça", g)
+    if m:
+        return float(m.group(1).replace(",", "."))
+    m = re.match(r"([\d,.]+)\s*g na porção", g)
+    if m and n_porcao:
+        return float(m.group(1).replace(",", ".")) / n_porcao
+    return None
+
+
+def peso_html(g, n_porcao, custo=None):
+    """Niguiri e Joy: mostra o peso de UMA unidade e, embaixo, quanto esse ingrediente custa na unidade."""
+    if not g:
+        return '<span class="g vazio">___ g' + ('<small>na unidade</small>' if n_porcao else '') + '</span>'
     if n_porcao:
-        m = re.match(r"([\d,.]+)\s*g/peça", g)
-        if m:
-            v = float(m.group(1).replace(",", ".")); tot = f"{v * n_porcao:g}".replace(".", ",")
-            return f'<span class="g">{esc(m.group(1))} g<small>por peça<br>{tot} g na porção</small></span>'
-        m = re.match(r"([\d,.]+)\s*g na porção", g)
-        if m:
-            v = float(m.group(1).replace(",", ".")); cada = f"{v / n_porcao:g}".replace(".", ",")
-            return f'<span class="g">{esc(m.group(1))} g<small>na porção<br>{cada} g por peça</small></span>'
+        v = g_unidade(g, n_porcao)
+        if v is not None:
+            sub = "" if custo is None else ("sem preço no estoque" if custo == 0 else f"R$ {custo:.2f}".replace(".", ","))
+            return f'<span class="g">{f"{v:g}".replace(".", ",")} g' + (f'<small>{sub}</small>' if sub else '') + '</span>'
     return f'<span class="g">{esc(g.replace("/peça", " por peça"))}</span>'
 
 
-def bloco_ing(ings, numerar=False, n_porcao=0):
+def bloco_ing(ings, numerar=False, n_porcao=0, custos=None):
     h = f'<div class="ings{" col" if numerar else ""}" style="grid-template-rows: repeat({(len(ings) + 1) // 2}, auto)">'
     for k, i in enumerate(ings):
         ph = f'<img src="{IMG[i["img"]]}">' if i["img"] in IMG else f'<span>{esc(i["nome"][0])}</span>'
-        g = peso_html(i["g"], n_porcao)
+        g = peso_html(i["g"], n_porcao, custos[k] if custos else None)
         h += f'<div class="ing"><div class="ph">{ph}</div><div class="nm">{f'<i class="num">{k+1}</i>' if numerar else ''}{esc(i["nome"])}</div>{g}</div>'
     return h + "</div>"
 
@@ -346,6 +355,49 @@ CUSTOS = json.loads(_CP.read_text()) if _CP.exists() else {}
 PRECOS = {p["name"]: p.get("price") for c in full["categories"] for p in c["products"]}
 
 
+_CU = Path(__file__).resolve().parent.parent / "custos_unidade.json"
+CUNI = json.loads(_CU.read_text()) if _CU.exists() else {}
+_MAPA_CUSTO = [("skin", "skin"), ("atum", "atum"), ("salm", "salmão premium"), ("arroz", "arroz"), ("cream", "cream cheese"),
+               ("cebolinha", "cebolinha"), ("gergelim", "gergelim"), ("kani", "kani"), ("alho", "alho"), ("geleia", "geleia"), ("camar", "camarão")]
+
+
+def chave_custo(it):
+    nome = it["name"]
+    cands = [k for k in CUSTOS if k == nome or k.startswith(nome + " (") or re.sub(r"\s*\(.*?\)", "", k).strip() == nome]
+    return cands[0] if cands else None
+
+
+def custos_ing(it, n_porcao):
+    """Custo de cada ingrediente em UMA unidade. Cada linha da ficha do ALIV é repartida entre os ingredientes
+    do manual que saem dela (ex.: lâmina + tataki saem da mesma linha de salmão), na proporção das gramas."""
+    d = CUNI.get(chave_custo(it) or "")
+    if not d:
+        return None
+    res = [None] * len(it["ings"]); grupos = {}
+    for j, i in enumerate(it["ings"]):
+        nm = i["nome"].lower(); alvo = next((b for a, b in _MAPA_CUSTO if a in nm), None)
+        gu = g_unidade(i["g"], n_porcao)
+        if alvo is None or gu is None:
+            continue
+        li = next((q for q, l in enumerate(d["linhas"]) if alvo in l["ingrediente"].lower()), None)
+        if li is not None:
+            grupos.setdefault(li, []).append((j, gu))
+    for li, membros in grupos.items():
+        tot = sum(g for _, g in membros)
+        for j, g in membros:
+            res[j] = d["linhas"][li]["custo"] * g / tot
+    # arredonda a centavos de modo que a soma mostrada feche com o custo da unidade (ajusta o maior item)
+    usados = [j for j, v in enumerate(res) if v is not None]
+    if usados and abs(sum(res[j] for j in usados) - d["custo_unidade"]) < 0.0005:
+        cent = {j: round(res[j], 2) for j in usados}
+        dif = round(round(d["custo_unidade"], 2) - sum(cent.values()), 2)
+        if dif:
+            cent[max(usados, key=lambda j: res[j])] += dif
+        for j in usados:
+            res[j] = round(cent[j], 2)
+    return res
+
+
 def falta_custo(it):
     """Avisa quando o custo está parcial: ingrediente sem peso ou sem preço no estoque."""
     sem_preco = [x.lower() for x in GRAM.get("sem_custo", [])]
@@ -363,7 +415,7 @@ def aviso_custo(it):
     m = re.search(r"\(\s*0?(\d+)\s*un\s*\)", k, re.I)
     if it.get("cat") in ("Niguiri", "Joy") and m and int(m.group(1)) > 1:
         n = int(m.group(1))
-        txt = f"Custo no ALIV: R$ {c/n:.2f} por peça · R$ {c:.2f} na porção de {n}".replace(".", ",")
+        txt = f"Custo de 1 unidade no ALIV: R$ {c/n:.2f} · porção de {n} unidades: R$ {c:.2f}".replace(".", ",")
         if pr: txt += f" · preço da porção R$ {pr:.2f} · CMV {100*c/pr:.0f}%".replace(".", ",")
         return txt + falta_custo(it)
     txt = f"Ficha técnica no ALIV · custo R$ {c:.2f}".replace(".", ",")
@@ -385,12 +437,12 @@ def pg_item(it, n):
     aviso = it.get("aviso") or aviso_custo(it) or "Ficha técnica no ALIV: vazia — gramaturas a confirmar"
     peso = it.get("peso") or '<span style="color:#999">___ g</span>'
     return (f'<div class="pg">{topo(cat)}<div class="corpo"><h1>{esc(nome)}</h1>'
-            + (f'<div class="sub"><b>Porção de {unid}</b> · gramatura de <b>cada peça</b></div>' if cat in ("Niguiri", "Joy") and pecas and pecas > 1
-               else f'<div class="sub"><b>{unid}</b> · gramatura de <b>cada peça</b></div>' if cat in ("Niguiri", "Joy")
+            + (f'<div class="sub"><b>Ficha de 1 unidade</b> · a porção leva {unid}</div>' if cat in ("Niguiri", "Joy") and pecas and pecas > 1
+               else f'<div class="sub"><b>{unid}</b> · ficha de <b>1 unidade</b></div>' if cat in ("Niguiri", "Joy")
                else f'<div class="sub"><b>{unid}</b> · Peso final: {peso}</div>') +
             f''
             f'<div class="aviso">{esc(aviso)}</div>'
-            f'<h2>Ingredientes</h2>{bloco_ing(ings, cat == "Poke", (pecas or 0) if cat in ("Niguiri", "Joy") and it.get("tipo") != "derivado" else 0) if ings else "<p style=font-size:14pt>Sem descrição no cardápio.</p>"}'
+            f'<h2>Ingredientes</h2>{bloco_ing(ings, cat == "Poke", (pecas or 0) if cat in ("Niguiri", "Joy") and it.get("tipo") != "derivado" else 0, custos_ing(it, pecas or 0) if cat in ("Niguiri", "Joy") and it.get("tipo") != "derivado" else None) if ings else "<p style=font-size:14pt>Sem descrição no cardápio.</p>"}'
             f'<h2>Ordem de montagem</h2><ol>' + "".join(f"<li>{esc(s)}</li>" for s in st) +
             f'</ol><div class="dupla"><div class="box"><b>CORTE</b>{esc(corte)}</div>'
             f'<div class="box"><b>APRESENTAÇÃO</b>{esc(prato)}</div></div>'

@@ -19,6 +19,15 @@ for c in full["categories"]:
                             "recipe_id": r["id"], "quantity": r["quantity"], "custo_linha": r["total_cost"], "custo_ficha": tot,
                             "linhas_na_ficha": len(rec)})
 ing = [i for i in api.get("/admin/inventory/api/ingredients")["ingredients"] if i["id"] == SAL] if True else []
-json.dump({"linhas": out, "estoque_salmao": ing}, open(sys.argv[1], "w"), ensure_ascii=False, indent=1)
+# Itens produzidos (ficha por unidade) também podem levar salmão: este script NÃO grava neles — só avisa.
+itens = []
+for i in api.get("/admin/inventory/api/ingredients")["ingredients"]:
+    if i.get("is_recipe") and SAL in (i.get("recipe_base_ids") or []):
+        rec = api.get(f"/admin/inventory/ingredient/{i['id']}/recipe")
+        itens.append({"item_id": i["id"], "item": i["name"], "linhas": [l for l in rec if "salm" in l["child_name"].lower()]})
+if itens:
+    print("ATENÇÃO:", len(itens), "item(ns) produzido(s) com salmão na receita, fora deste plano (ajustar pela rota recipe-item/{id}/update-qty):")
+    for x in itens: print("   ", x["item"], [(l["id"], l["qty"]) for l in x["linhas"]])
+json.dump({"linhas": out, "estoque_salmao": ing, "itens_produzidos_com_salmao": itens}, open(sys.argv[1], "w"), ensure_ascii=False, indent=1)
 print("produtos lidos", nprod, "| linhas de salmão", len(out), "| produtos com salmão", len({x["product_id"] for x in out}))
 print("estoque:", [(i.get("name"), i.get("cost"), i.get("unit")) for i in ing])

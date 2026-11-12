@@ -10,6 +10,14 @@ Uso (sem --gravar só mostra o que faria):
   python3 unidade_itens.py plano_unidade.json ligar  <tipo|todos> [--gravar]   troca a ficha dos produtos pelo item
   python3 unidade_itens.py plano_unidade.json desfazer <tipo|todos> [--gravar] volta os produtos às linhas originais do plano
 O plano (unidade_plano.py) guarda as linhas originais de cada produto; ele é a cópia de segurança.
+
+SITUAÇÃO EM 12/11/2026: só o Niguiri Salmão está ligado (piloto). NÃO expandir para os outros tipos antes de:
+  1. ver numa venda real que o estoque baixa arroz e salmão (auto-baixa) e não o item — a prévia de saída manual do ALIV
+     mostrou a baixa no próprio item "Niguiri Salmão (unidade)";
+  2. decidir com o Emerson se os Joy podem perder o "retirar cebolinha/cream cheese" do cliente (a ficha vira 1 linha);
+  3. adaptar os scripts que leem a ficha do produto (rendimento do salmão, combos_fichas.py, custos) para ler a receita do item;
+  4. rodar fora do horário de venda (a loja abre às 18h), nunca em terça à noite ou quarta.
+Os itens criados não podem ser apagados por script (o ALIV pede a senha do dono).
 """
 import sys, os, json, urllib.parse, urllib.request
 sys.path.insert(0, "/workspace/Contapecas/monitor")

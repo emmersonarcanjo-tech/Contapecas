@@ -515,7 +515,7 @@
     },
     {
       "titulo": "Limpeza do salmão",
-      "sub": "1 kg de salmão eviscerado rende <b>≈ 713 g limpo</b> (média medida de 4 caixas: 71,3%)",
+      "sub": "1 kg de salmão eviscerado rende <b>≈ 713 g limpo</b> (média medida de 5 caixas: 71,3%)",
       "ingredientes": [
         [
           "Salmão eviscerado",
@@ -539,7 +539,7 @@
         "Pesar o salmão limpo e anotar o rendimento.",
         "Embalar em filme, etiquetar com a data e guardar entre 0 e 2 °C."
       ],
-      "obs": "Caixa 1 (11/11): 34,954 kg → 25,330 kg limpos (72,5%) · Caixa 2 (11/11): 28,954 → 20,662 kg (71,4%) · Caixa 3 (12/11): 28,730 → 20,762 kg (72,3%) · Caixa 4 (12/11): 29,206 → 20,164 kg (69,0%) · Média das 4: 71,3%. Custo do limpo ≈ R$ 72,75/kg (R$ 51,90/kg na nota). Abaixo de 68%, avisar o Emerson.",
+      "obs": "Caixa 1 (11/11): 72,5% · Caixa 2 (11/11): 71,4% · Caixa 3 (12/11): 72,3% · Caixa 4 (12/11): 69,0% · Caixa 5 (12/11): 71,0% · Média das 5 (152,754 kg recebidos → 108,856 kg limpos): 71,3%. Custo do limpo ≈ R$ 72,83/kg (R$ 51,90/kg na nota). Abaixo de 68%, avisar o Emerson.",
       "obs_titulo": "RENDIMENTO E CUSTO",
       "informado": "2026-11-11"
     },
@@ -813,6 +813,26 @@
       "rendimento": 0.6904,
       "preco_kg": 51.9,
       "caixa_numero": "46302111645"
+    },
+    {
+      "data": "2026-11-12",
+      "caixa": 5,
+      "caixa_numero": "46303111999",
+      "item": "Salmão eviscerado Cooke Chile 12-14 lb",
+      "pecas": 5,
+      "pesos_kg": [
+        6.262,
+        5.914,
+        6.218,
+        6.184,
+        6.332
+      ],
+      "etiqueta_kg": 30.95,
+      "recebido_kg": 30.91,
+      "descarte_kg": 8.972,
+      "limpo_kg": 21.938,
+      "rendimento": 0.7097,
+      "preco_kg": 51.9
     }
   ],
   "sem_custo": [

@@ -1,0 +1,1767 @@
+[
+ {
+  "product_id": 11631,
+  "produto": "Joy Alho Poró ( 02 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 16.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218973,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.024,
+    "total_cost": 0.1284,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218974,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0589,
+    "total_cost": 3.05691,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 3.1853
+ },
+ {
+  "product_id": 11635,
+  "produto": "Joy Atum ( 02 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 15.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218975,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.024,
+    "total_cost": 0.1284,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218976,
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "unidade": "KG",
+    "quantity": 0.07,
+    "total_cost": 1.7500000000000002,
+    "outros": {
+     "ingredient_name": "Atum",
+     "ingredient_raw_name": "Atum",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218977,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.008,
+    "total_cost": 0.41116,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 219037,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "unidade": "UN",
+    "quantity": 0.02,
+    "total_cost": 0.12,
+    "outros": {
+     "ingredient_name": "Cebolinha",
+     "ingredient_raw_name": "Cebolinha (maço)",
+     "ingredient_unit": "UN",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 2.4096
+ },
+ {
+  "product_id": 11639,
+  "produto": "Joy Camarão ( 02 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 17.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218978,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.024,
+    "total_cost": 0.1284,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218979,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0393,
+    "total_cost": 2.03967,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218980,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.008,
+    "total_cost": 0.41116,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218981,
+    "ingredient_id": 23641,
+    "ingrediente": "Gergelim torrado",
+    "unidade": "KG",
+    "quantity": 0.001,
+    "total_cost": 0.04,
+    "outros": {
+     "ingredient_name": "Gergelim",
+     "ingredient_raw_name": "Gergelim torrado",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 219038,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "unidade": "UN",
+    "quantity": 0.02,
+    "total_cost": 0.12,
+    "outros": {
+     "ingredient_name": "Cebolinha",
+     "ingredient_raw_name": "Cebolinha (maço)",
+     "ingredient_unit": "UN",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 2.7392
+ },
+ {
+  "product_id": 11638,
+  "produto": "Joy Camarão s/ Arroz ( 02 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 19.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218982,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0393,
+    "total_cost": 2.03967,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 2.0397
+ },
+ {
+  "product_id": 11641,
+  "produto": "Joy Capão ( 02 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 16.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218983,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.024,
+    "total_cost": 0.1284,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218984,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0589,
+    "total_cost": 3.05691,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218985,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.008,
+    "total_cost": 0.41116,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218986,
+    "ingredient_id": 24150,
+    "ingrediente": "Alho-poró",
+    "unidade": "KG",
+    "quantity": 0.002,
+    "total_cost": 0.0,
+    "outros": {
+     "ingredient_name": "Alho-poró",
+     "ingredient_raw_name": "Alho-poró",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 3.5965
+ },
+ {
+  "product_id": 11640,
+  "produto": "Joy especial Tili ( 02 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 16.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218996,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0589,
+    "total_cost": 3.05691,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218997,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.008,
+    "total_cost": 0.41116,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 3.4681
+ },
+ {
+  "product_id": 11632,
+  "produto": "Joy Fila ( 02 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 16.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218987,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.024,
+    "total_cost": 0.1284,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218988,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0589,
+    "total_cost": 3.05691,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218989,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.008,
+    "total_cost": 0.41116,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 219039,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "unidade": "UN",
+    "quantity": 0.02,
+    "total_cost": 0.12,
+    "outros": {
+     "ingredient_name": "Cebolinha",
+     "ingredient_raw_name": "Cebolinha (maço)",
+     "ingredient_unit": "UN",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 3.7165
+ },
+ {
+  "product_id": 11636,
+  "produto": "Joy Selado c/ Geleia ( 02 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 16.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218990,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.024,
+    "total_cost": 0.1284,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218991,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0589,
+    "total_cost": 3.05691,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 3.1853
+ },
+ {
+  "product_id": 11634,
+  "produto": "Joy Shimeji ( 02 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 16.9,
+  "ativo": false,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [],
+  "custo_total": 0
+ },
+ {
+  "product_id": 11637,
+  "produto": "Joy Tili ( 02 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 16.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218992,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.024,
+    "total_cost": 0.1284,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218993,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0589,
+    "total_cost": 3.05691,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218994,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.008,
+    "total_cost": 0.41116,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218995,
+    "ingredient_id": 23641,
+    "ingrediente": "Gergelim torrado",
+    "unidade": "KG",
+    "quantity": 0.001,
+    "total_cost": 0.04,
+    "outros": {
+     "ingredient_name": "Gergelim",
+     "ingredient_raw_name": "Gergelim torrado",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 219040,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "unidade": "UN",
+    "quantity": 0.02,
+    "total_cost": 0.12,
+    "outros": {
+     "ingredient_name": "Cebolinha",
+     "ingredient_raw_name": "Cebolinha (maço)",
+     "ingredient_unit": "UN",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 3.7565
+ },
+ {
+  "product_id": 11648,
+  "produto": "Niguiri Atum ( 04 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 14.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218960,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.08,
+    "total_cost": 0.428,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218961,
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "unidade": "KG",
+    "quantity": 0.08,
+    "total_cost": 2.0,
+    "outros": {
+     "ingredient_name": "Atum",
+     "ingredient_raw_name": "Atum",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 2.428
+ },
+ {
+  "product_id": 11650,
+  "produto": "Niguiri Kani ( 04 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 12.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218962,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.08,
+    "total_cost": 0.428,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218963,
+    "ingredient_id": 23871,
+    "ingrediente": "KANI KAMA (BASTONES SURIMI) JETFISH 250G",
+    "unidade": "UN",
+    "quantity": 0.256,
+    "total_cost": 2.048,
+    "outros": {
+     "ingredient_name": "KANI KAMA (BASTONES SURIMI) JETFISH 250G",
+     "ingredient_raw_name": "KANI KAMA (BASTONES SURIMI) JETFISH 250G",
+     "ingredient_unit": "UN",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 2.476
+ },
+ {
+  "product_id": 11646,
+  "produto": "Niguiri Salmão ( 04 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 16.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218964,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.08,
+    "total_cost": 0.428,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218965,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0673,
+    "total_cost": 3.49287,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 3.9209
+ },
+ {
+  "product_id": 11649,
+  "produto": "Niguiri Salmão Selado ( 04 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 16.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218966,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.08,
+    "total_cost": 0.428,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218967,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0673,
+    "total_cost": 3.49287,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 3.9209
+ },
+ {
+  "product_id": 11647,
+  "produto": "Niguiri Salmão Selado c/ Geleia de Pimenta ( 04 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 16.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218968,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.08,
+    "total_cost": 0.428,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218969,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.0673,
+    "total_cost": 3.49287,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 3.9209
+ },
+ {
+  "product_id": 11645,
+  "produto": "Niguiri Skin ( 04 Un )",
+  "categoria": "Promoção do Dia",
+  "preco": 12.9,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 218970,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.08,
+    "total_cost": 0.428,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 218971,
+    "ingredient_id": 24151,
+    "ingrediente": "Skin de salmão",
+    "unidade": "KG",
+    "quantity": 0.04,
+    "total_cost": 0.0,
+    "outros": {
+     "ingredient_name": "Skin de salmão",
+     "ingredient_raw_name": "Skin de salmão",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 0.428
+ },
+ {
+  "product_id": 30114,
+  "produto": "Niguiri Kani (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 2.49,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221149,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.02,
+    "total_cost": 0.107,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221150,
+    "ingredient_id": 23871,
+    "ingrediente": "KANI KAMA (BASTONES SURIMI) JETFISH 250G",
+    "unidade": "UN",
+    "quantity": 0.064,
+    "total_cost": 0.512,
+    "outros": {
+     "ingredient_name": "KANI KAMA (BASTONES SURIMI) JETFISH 250G",
+     "ingredient_raw_name": "KANI KAMA (BASTONES SURIMI) JETFISH 250G",
+     "ingredient_unit": "UN",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 0.619
+ },
+ {
+  "product_id": 30115,
+  "produto": "Niguiri Skin (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 2.49,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221151,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.02,
+    "total_cost": 0.107,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221152,
+    "ingredient_id": 24151,
+    "ingrediente": "Skin de salmão",
+    "unidade": "KG",
+    "quantity": 0.01,
+    "total_cost": 0.0,
+    "outros": {
+     "ingredient_name": "Skin de salmão",
+     "ingredient_raw_name": "Skin de salmão",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 0.107
+ },
+ {
+  "product_id": 30116,
+  "produto": "Niguiri Salmão (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 2.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221153,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.02,
+    "total_cost": 0.107,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221154,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.016825,
+    "total_cost": 0.8732175,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 0.9802
+ },
+ {
+  "product_id": 30117,
+  "produto": "Niguiri Atum (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 2.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221155,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.02,
+    "total_cost": 0.107,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221156,
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "unidade": "KG",
+    "quantity": 0.02,
+    "total_cost": 0.5,
+    "outros": {
+     "ingredient_name": "Atum",
+     "ingredient_raw_name": "Atum",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 0.607
+ },
+ {
+  "product_id": 30118,
+  "produto": "Niguiri Salmão Selado (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 2.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221157,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.02,
+    "total_cost": 0.107,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221158,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.016825,
+    "total_cost": 0.8732175,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 0.9802
+ },
+ {
+  "product_id": 30119,
+  "produto": "Niguiri Salmão Selado c/ Geleia de Pimenta (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 2.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221159,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.02,
+    "total_cost": 0.107,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221160,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.016825,
+    "total_cost": 0.8732175,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 0.9802
+ },
+ {
+  "product_id": 30120,
+  "produto": "Joy Fila (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 5.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221161,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.012,
+    "total_cost": 0.0642,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221162,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.02945,
+    "total_cost": 1.528455,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221163,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.004,
+    "total_cost": 0.20558,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221164,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "unidade": "UN",
+    "quantity": 0.01,
+    "total_cost": 0.06,
+    "outros": {
+     "ingredient_name": "Cebolinha",
+     "ingredient_raw_name": "Cebolinha (maço)",
+     "ingredient_unit": "UN",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 1.8582
+ },
+ {
+  "product_id": 30121,
+  "produto": "Joy Tili (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 5.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221165,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.012,
+    "total_cost": 0.0642,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221166,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.02945,
+    "total_cost": 1.528455,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221167,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.004,
+    "total_cost": 0.20558,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221168,
+    "ingredient_id": 23641,
+    "ingrediente": "Gergelim torrado",
+    "unidade": "KG",
+    "quantity": 0.0005,
+    "total_cost": 0.02,
+    "outros": {
+     "ingredient_name": "Gergelim",
+     "ingredient_raw_name": "Gergelim torrado",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221169,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "unidade": "UN",
+    "quantity": 0.01,
+    "total_cost": 0.06,
+    "outros": {
+     "ingredient_name": "Cebolinha",
+     "ingredient_raw_name": "Cebolinha (maço)",
+     "ingredient_unit": "UN",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 1.8782
+ },
+ {
+  "product_id": 30122,
+  "produto": "Joy Especial Tili (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 5.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221170,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.02945,
+    "total_cost": 1.528455,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221171,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.004,
+    "total_cost": 0.20558,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 1.734
+ },
+ {
+  "product_id": 30123,
+  "produto": "Joy Capão (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 5.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221172,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.012,
+    "total_cost": 0.0642,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221173,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.02945,
+    "total_cost": 1.528455,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221174,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.004,
+    "total_cost": 0.20558,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221175,
+    "ingredient_id": 24150,
+    "ingrediente": "Alho-poró",
+    "unidade": "KG",
+    "quantity": 0.001,
+    "total_cost": 0.0,
+    "outros": {
+     "ingredient_name": "Alho-poró",
+     "ingredient_raw_name": "Alho-poró",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 1.7982
+ },
+ {
+  "product_id": 30124,
+  "produto": "Joy Alho Poró (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 5.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221176,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.012,
+    "total_cost": 0.0642,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221177,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.02945,
+    "total_cost": 1.528455,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 1.5927
+ },
+ {
+  "product_id": 30125,
+  "produto": "Joy Atum (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 5.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221178,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.012,
+    "total_cost": 0.0642,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221179,
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "unidade": "KG",
+    "quantity": 0.035,
+    "total_cost": 0.8750000000000001,
+    "outros": {
+     "ingredient_name": "Atum",
+     "ingredient_raw_name": "Atum",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221180,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.004,
+    "total_cost": 0.20558,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221181,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "unidade": "UN",
+    "quantity": 0.01,
+    "total_cost": 0.06,
+    "outros": {
+     "ingredient_name": "Cebolinha",
+     "ingredient_raw_name": "Cebolinha (maço)",
+     "ingredient_unit": "UN",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 1.2048
+ },
+ {
+  "product_id": 30126,
+  "produto": "Joy Selado c/ Geleia (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 5.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221182,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.012,
+    "total_cost": 0.0642,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221183,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.02945,
+    "total_cost": 1.528455,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 1.5927
+ },
+ {
+  "product_id": 30127,
+  "produto": "Joy Camarão (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 5.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221184,
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "unidade": "KG",
+    "quantity": 0.012,
+    "total_cost": 0.0642,
+    "outros": {
+     "ingredient_name": "Arroz de sushi",
+     "ingredient_raw_name": "Arroz de sushi pronto (Koshihikari + tempero)",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221185,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.01965,
+    "total_cost": 1.019835,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221186,
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "unidade": "KG",
+    "quantity": 0.004,
+    "total_cost": 0.20558,
+    "outros": {
+     "ingredient_name": "Cream Cheese",
+     "ingredient_raw_name": "Cream Cheese",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221187,
+    "ingredient_id": 23641,
+    "ingrediente": "Gergelim torrado",
+    "unidade": "KG",
+    "quantity": 0.0005,
+    "total_cost": 0.02,
+    "outros": {
+     "ingredient_name": "Gergelim",
+     "ingredient_raw_name": "Gergelim torrado",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   },
+   {
+    "recipe_id": 221188,
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "unidade": "UN",
+    "quantity": 0.01,
+    "total_cost": 0.06,
+    "outros": {
+     "ingredient_name": "Cebolinha",
+     "ingredient_raw_name": "Cebolinha (maço)",
+     "ingredient_unit": "UN",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 1.3696
+ },
+ {
+  "product_id": 30128,
+  "produto": "Joy Camarão s/ Arroz (1 peça)",
+  "categoria": "Quarta Maluca – Peças (oculto)",
+  "preco": 6.99,
+  "ativo": true,
+  "pausado": null,
+  "auto_disable_on_stock_zero": null,
+  "ficha": [
+   {
+    "recipe_id": 221189,
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "unidade": "KG",
+    "quantity": 0.01965,
+    "total_cost": 1.019835,
+    "outros": {
+     "ingredient_name": "Salmão Premium Fresco",
+     "ingredient_raw_name": "Salmão Premium Fresco",
+     "ingredient_unit": "KG",
+     "size_name": "Padrão",
+     "is_base": false,
+     "sort_order": 0,
+     "removal_discount_cents": 0
+    }
+   }
+  ],
+  "custo_total": 1.0198
+ }
+]

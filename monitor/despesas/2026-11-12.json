@@ -1,0 +1,67 @@
+{
+ "dia": "2026-11-12",
+ "despesas": [
+  {
+   "wamid": "3A1FE82E8A47928767DD",
+   "id": 1281485,
+   "data": "2026-11-12",
+   "hora": "17:19",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pano de prato pizzaria\n[comprovante_pagamento do cliente]: Comprovante de compra no crédito Visa via PagBank, de R$ 60,00, datado de 12/11/2026 às 17:17, no nome de Rodolfo Silva Rodrigues.",
+   "descricao": "pano de prato pizzaria [comprovante_pagamento do cliente]: Comprovante de compra no crédito Visa via PagBank, de R$ 60,00, datado de 12/11/2026 às 17:17, no nome de Rodolfo Silva Rodrigues.",
+   "valor": 60.0,
+   "fotos": [
+    {
+     "wamid": "3A1FE82E8A47928767DD",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/56a25fbccdf848c0a3e11663baa9112f.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-12/2026-11-12_1719_josue-ruas_8767DD_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 60.0,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "pano de prato"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2148 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  },
+  {
+   "wamid": "3A63A1AC2899440F89BF",
+   "id": 1281499,
+   "data": "2026-11-12",
+   "hora": "17:22",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria banana prata\n[comprovante_pagamento do cliente]: Comprovante de pagamento no cartão de crédito Visa, total R$ 12,70, aprovado, em 12/11/26 às 17:21, estabelecimento O verdurão (Porto Seguro-BA).",
+   "descricao": "pizzaria banana prata [comprovante_pagamento do cliente]: Comprovante de pagamento no cartão de crédito Visa, total R$ 12,70, aprovado, em 12/11/26 às 17:21, estabelecimento O verdurão (Porto Seguro-B",
+   "valor": 12.7,
+   "fotos": [
+    {
+     "wamid": "3A63A1AC2899440F89BF",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/3ac10668ce134c9a98ac518cbd8a2e2d.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-12/2026-11-12_1722_josue-ruas_0F89BF_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 12.7,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "banana prata"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2149 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  }
+ ],
+ "total": 72.7,
+ "atualizado": "2026-11-13T00:08-03:00"
+}

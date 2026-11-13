@@ -1,0 +1,14 @@
+{
+  "selo": "BLACK FRIDAY",
+  "titulo": "COMBO <b>22 PEÇAS</b>",
+  "rodape": "4 Niguiri  ·  2 Joy  ·  8 Hossomaki  ·  8 Uramaki",
+  "logo": "../../monitor/assets/logo_tili.png",
+  "pecas": [
+    { "foto": "../fotos/niguiri-salmao.webp", "qtd": 4, "nome": "Niguiri Salmão" },
+    { "foto": "../fotos/joy-fila.webp", "qtd": 2, "nome": "Joy Fila" },
+    { "foto": "../fotos/hosso-fila.webp", "qtd": 4, "nome": "Hossomaki Fila" },
+    { "foto": "../fotos/hosso-salmao-grelhado.webp", "qtd": 4, "nome": "Hossomaki Salmão Grelhado" },
+    { "foto": "../fotos/ura-fila.webp", "qtd": 4, "nome": "Uramaki Fila" },
+    { "foto": "../fotos/ura-salmao-grelhado.webp", "qtd": 4, "nome": "Uramaki Salmão Grelhado" }
+  ]
+}

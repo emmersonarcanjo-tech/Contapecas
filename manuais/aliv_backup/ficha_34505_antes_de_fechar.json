@@ -1,0 +1,63 @@
+{
+ "produto": "Combo 22 Peças",
+ "product_id": 34505,
+ "linhas": [
+  {
+   "recipe_id": 221202,
+   "ingredient_id": 23639,
+   "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+   "quantity": 0.296,
+   "custo": 1.5836
+  },
+  {
+   "recipe_id": 221203,
+   "ingredient_id": 23889,
+   "ingrediente": "Salmão Premium Fresco",
+   "quantity": 0.18228,
+   "custo": 9.460332
+  },
+  {
+   "recipe_id": 221204,
+   "ingredient_id": 23907,
+   "ingrediente": "Cream Cheese",
+   "quantity": 0.024,
+   "custo": 1.2334800000000001
+  },
+  {
+   "recipe_id": 221205,
+   "ingredient_id": 23642,
+   "ingrediente": "Cebolinha (maço)",
+   "quantity": 0.028,
+   "custo": 0.168
+  },
+  {
+   "recipe_id": 221206,
+   "ingredient_id": 9443,
+   "ingrediente": "Alga Nori Gold Yumart (folha)",
+   "quantity": 1.2,
+   "custo": 0.9718499999999999
+  },
+  {
+   "recipe_id": 221207,
+   "ingredient_id": 23638,
+   "ingrediente": "Peixe grelhado (aparas salmão/branco/atum)",
+   "quantity": 0.04,
+   "custo": 2.0
+  },
+  {
+   "recipe_id": 221208,
+   "ingredient_id": 23640,
+   "ingrediente": "Hondashi Ajinomoto 500g",
+   "quantity": 0.001143,
+   "custo": 0.05021199
+  },
+  {
+   "recipe_id": 221209,
+   "ingredient_id": 23641,
+   "ingrediente": "Gergelim torrado",
+   "quantity": 0.0008,
+   "custo": 0.032
+  }
+ ],
+ "custo": 15.499473989999998
+}

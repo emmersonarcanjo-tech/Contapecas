@@ -15,12 +15,13 @@ Depois de um "desfazer", gere o plano de novo antes de ligar outra vez (os núme
 O script PARA no primeiro problema e diz em que produto parou. "ligar" inclui a linha do item, confere, e só então apaga
 as linhas antigas; "desfazer" recria as linhas originais, confere, e só então apaga a linha do item.
 
-SITUAÇÃO EM 12/11/2026: só o Niguiri Salmão está ligado (piloto). Antes de expandir para os outros tipos:
-  1. ver numa venda real que o estoque baixa arroz e salmão (auto-baixa) e não o item — a prévia de saída manual do ALIV
-     mostrou a baixa no próprio item "Niguiri Salmão (unidade)";
-  2. os Joy ficam sem o "retirar cebolinha/cream cheese" do cliente (a ficha vira 1 linha) — o Emerson aceitou em 12/11;
-  3. scripts que leem a ficha do produto precisam abrir o item (combos_fichas.py já abre; o do rendimento do salmão só avisa);
-  4. rodar com a loja fechada (abre às 18h), nunca em terça à noite ou quarta.
+SITUAÇÃO EM 13/11/2026: os 15 tipos (6 niguiris e 9 Joy, 30 produtos) estão ligados aos itens "(unidade)".
+  - Prova da auto-baixa: venda #347237 de 12/11 21:18 baixou arroz e salmão "(via Niguiri Salmão (unidade))"; o saldo do item fica 0.
+  - Custo de cada produto ficou igual ao de antes (registro em manuais/aliv_backup/unidade_ligados_2026-11-13.json).
+  - Os Joy e niguiris ficam sem o "retirar ingrediente" do cliente (a ficha é 1 linha) — o Emerson aceitou em 12/11.
+  - Mudou o rendimento do salmão? As quantidades agora moram na receita dos ITENS (rota recipe-item/{id}/update-qty);
+    salmao_snapshot.py lista esses itens. Scripts que leem a ficha do produto precisam abrir o item (combos_fichas.py já abre).
+  - Para mexer de novo: loja fechada (abre às 18h), nunca em terça à noite ou quarta.
 Os itens criados não podem ser apagados por script (o ALIV pede a senha do dono).
 """
 import sys, os, json, urllib.parse, urllib.request

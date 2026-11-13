@@ -1,15 +1,15 @@
 {
  "Joy Alho Poró ( 02 Un )": {
   "n": 2,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Joy Alho Poró (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 1.592655,
   "custo_porcao": 3.18531,
   "preco_porcao": 16.9,
   "preco_peca": 5.99,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.012,
     "unidade": "KG",
     "custo": 0.0642
@@ -24,15 +24,15 @@
  },
  "Joy Atum ( 02 Un )": {
   "n": 2,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Joy Atum (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 1.20478,
   "custo_porcao": 2.40956,
   "preco_porcao": 15.9,
   "preco_peca": 5.99,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.012,
     "unidade": "KG",
     "custo": 0.0642
@@ -50,7 +50,7 @@
     "custo": 0.20558
    },
    {
-    "ingrediente": "Cebolinha (maço)",
+    "ingrediente": "Cebolinha",
     "quantidade": 0.01,
     "unidade": "UN",
     "custo": 0.06
@@ -59,15 +59,15 @@
  },
  "Joy Camarão ( 02 Un )": {
   "n": 2,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Joy Camarão (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 1.369615,
   "custo_porcao": 2.73923,
   "preco_porcao": 17.9,
   "preco_peca": 5.99,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.012,
     "unidade": "KG",
     "custo": 0.0642
@@ -85,13 +85,13 @@
     "custo": 0.20558
    },
    {
-    "ingrediente": "Gergelim torrado",
+    "ingrediente": "Gergelim",
     "quantidade": 0.0005,
     "unidade": "KG",
     "custo": 0.02
    },
    {
-    "ingrediente": "Cebolinha (maço)",
+    "ingrediente": "Cebolinha",
     "quantidade": 0.01,
     "unidade": "UN",
     "custo": 0.06
@@ -100,8 +100,8 @@
  },
  "Joy Camarão s/ Arroz ( 02 Un )": {
   "n": 2,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Joy Camarão s/ Arroz (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 1.019835,
   "custo_porcao": 2.03967,
   "preco_porcao": 19.9,
@@ -117,15 +117,15 @@
  },
  "Joy Capão ( 02 Un )": {
   "n": 2,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Joy Capão (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 1.798235,
   "custo_porcao": 3.59647,
   "preco_porcao": 16.9,
   "preco_peca": 5.99,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.012,
     "unidade": "KG",
     "custo": 0.0642
@@ -152,8 +152,8 @@
  },
  "Joy especial Tili ( 02 Un )": {
   "n": 2,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Joy Especial Tili (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 1.734035,
   "custo_porcao": 3.46807,
   "preco_porcao": 16.9,
@@ -175,15 +175,15 @@
  },
  "Joy Fila ( 02 Un )": {
   "n": 2,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Joy Fila (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 1.858235,
   "custo_porcao": 3.71647,
   "preco_porcao": 16.9,
   "preco_peca": 5.99,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.012,
     "unidade": "KG",
     "custo": 0.0642
@@ -201,7 +201,7 @@
     "custo": 0.20558
    },
    {
-    "ingrediente": "Cebolinha (maço)",
+    "ingrediente": "Cebolinha",
     "quantidade": 0.01,
     "unidade": "UN",
     "custo": 0.06
@@ -210,15 +210,15 @@
  },
  "Joy Selado c/ Geleia ( 02 Un )": {
   "n": 2,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Joy Selado c/ Geleia (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 1.592655,
   "custo_porcao": 3.18531,
   "preco_porcao": 16.9,
   "preco_peca": 5.99,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.012,
     "unidade": "KG",
     "custo": 0.0642
@@ -233,15 +233,15 @@
  },
  "Joy Tili ( 02 Un )": {
   "n": 2,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Joy Tili (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 1.878235,
   "custo_porcao": 3.75647,
   "preco_porcao": 16.9,
   "preco_peca": 5.99,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.012,
     "unidade": "KG",
     "custo": 0.0642
@@ -259,13 +259,13 @@
     "custo": 0.20558
    },
    {
-    "ingrediente": "Gergelim torrado",
+    "ingrediente": "Gergelim",
     "quantidade": 0.0005,
     "unidade": "KG",
     "custo": 0.02
    },
    {
-    "ingrediente": "Cebolinha (maço)",
+    "ingrediente": "Cebolinha",
     "quantidade": 0.01,
     "unidade": "UN",
     "custo": 0.06
@@ -274,15 +274,15 @@
  },
  "Niguiri Atum ( 04 Un )": {
   "n": 4,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Niguiri Atum (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 0.607,
   "custo_porcao": 2.428,
   "preco_porcao": 14.9,
   "preco_peca": 2.99,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.02,
     "unidade": "KG",
     "custo": 0.107
@@ -297,15 +297,15 @@
  },
  "Niguiri Kani ( 04 Un )": {
   "n": 4,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Niguiri Kani (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 0.619,
   "custo_porcao": 2.476,
   "preco_porcao": 12.9,
   "preco_peca": 2.49,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.02,
     "unidade": "KG",
     "custo": 0.107
@@ -343,15 +343,15 @@
  },
  "Niguiri Salmão Selado ( 04 Un )": {
   "n": 4,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Niguiri Salmão Selado (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 0.980217,
   "custo_porcao": 3.92087,
   "preco_porcao": 16.9,
   "preco_peca": 2.99,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.02,
     "unidade": "KG",
     "custo": 0.107
@@ -366,15 +366,15 @@
  },
  "Niguiri Salmão Selado c/ Geleia de Pimenta ( 04 Un )": {
   "n": 4,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Niguiri Salmão Selado c/ Geleia de Pimenta (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 0.980217,
   "custo_porcao": 3.92087,
   "preco_porcao": 16.9,
   "preco_peca": 2.99,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.02,
     "unidade": "KG",
     "custo": 0.107
@@ -389,15 +389,15 @@
  },
  "Niguiri Skin ( 04 Un )": {
   "n": 4,
-  "item_aliv": null,
-  "por_unidade_no_aliv": false,
+  "item_aliv": "Niguiri Skin (unidade)",
+  "por_unidade_no_aliv": true,
   "custo_unidade": 0.107,
   "custo_porcao": 0.428,
   "preco_porcao": 12.9,
   "preco_peca": 2.49,
   "linhas": [
    {
-    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "ingrediente": "Arroz de sushi",
     "quantidade": 0.02,
     "unidade": "KG",
     "custo": 0.107

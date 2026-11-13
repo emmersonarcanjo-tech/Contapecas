@@ -1,7 +1,7 @@
 """Cardápio do ALIV: criar categoria (copiando a configuração de outra) e salvar produto mudando só o que foi pedido.
 
   python3 cardapio_aliv.py categoria "<nome>" --modelo <id da categoria modelo> [--primeira] [--gravar]
-  python3 cardapio_aliv.py produto <id> [--categoria <id>] [--imagem <arquivo>] [--gravar]
+  python3 cardapio_aliv.py produto <id> [--categoria <id>] [--imagem <arquivo>] [--descricao "<texto>"] [--gravar]
 Sem --gravar só mostra o que faria. O produto é regravado com TODOS os campos atuais (a tela do ALIV faz igual) e, depois,
 relido: o script acusa qualquer campo que tenha mudado sem ser pedido. Não mexe em iFood."""
 import sys, os, json, uuid, mimetypes, urllib.request
@@ -58,8 +58,8 @@ if sys.argv[1] == "categoria":
 
 elif sys.argv[1] == "produto":
     pid = int(sys.argv[2]); p = produto(pid); fd = p["full_data"]; cfg = fd.get("config") or {}
-    nova_cat = arg("--categoria"); img = arg("--imagem")
-    campos = {"prod_id": pid, "name": fd["name"], "description": fd.get("description") or "", "category_id": int(nova_cat) if nova_cat else fd["category_id"], "price": fd["price"],
+    nova_cat = arg("--categoria"); img = arg("--imagem"); nova_desc = arg("--descricao")
+    campos = {"prod_id": pid, "name": fd["name"], "description": nova_desc if nova_desc is not None else (fd.get("description") or ""), "category_id": int(nova_cat) if nova_cat else fd["category_id"], "price": fd["price"],
         "price_in_points": fd.get("price_in_points") or 0, "channel_prices_json": json.dumps(fd.get("channel_prices") or {}),
         "compare_at_price": fd.get("compare_at_price") or 0, "allows_flavors": b(fd.get("allows_flavors")), "max_flavors": fd.get("max_flavors") or 1,
         "is_pizza": b(fd.get("is_pizza")), "auto_disable_on_stock_zero": b(fd.get("auto_disable_on_stock_zero")), "sold_by_weight": b(fd.get("sold_by_weight")),
@@ -67,7 +67,7 @@ elif sys.argv[1] == "produto":
         "show_in_kiosk": b(fd.get("show_in_kiosk")), "show_in_pdv": b(fd.get("show_in_pdv")), "show_in_waiter": b(fd.get("show_in_waiter")),
         "show_in_ia": b(fd.get("show_in_ia")), "show_in_delivery": b(fd.get("show_in_delivery")), "show_in_print_menu": b(fd.get("show_in_print_menu", True)),
         "menu_ids_json": json.dumps(fd.get("menu_ids") or []), "schedule_rules_json": json.dumps(fd.get("schedule_rules") or []),
-        "size_prices_json": json.dumps(fd.get("size_prices") or []),
+        "size_prices_json": json.dumps(fd.get("size_prices") or []), "pausa_horario_ligada": b((fd.get("pausa_horario") or {}).get("ligada")),
         "config_json": json.dumps({"additional_categories": cfg.get("additional_categories") or [], "allowed_addons": cfg.get("allowed_addons") or [], "blocked_addons": cfg.get("blocked_addons") or []})}
     for k in ("detailed_description", "preparation_method", "barcode", "ncm", "cfop", "uom", "cest"):
         if fd.get(k) is not None: campos[k] = fd[k]
@@ -76,12 +76,14 @@ elif sys.argv[1] == "produto":
         if fd.get("image_bank_id") is not None: campos["image_bank_id"] = fd["image_bank_id"]
         elif fd.get("image_url"): campos["image_url"] = fd["image_url"]
     print(f"produto {pid} {fd['name']} | categoria {fd['category_id']} -> {campos['category_id']} | imagem: {'nova: ' + img if img else 'mantém ' + str(fd.get('image_url'))}")
+    if nova_desc is not None: print(f"descrição: {fd.get('description')!r} -> {nova_desc!r}")
     if not GRAVAR:
         print("modo: dry-run (nada gravado)"); sys.exit()
     st, r = multipart(campos, ("image_file", img) if img else None, path="/admin/menu/product/save"); print("salvar produto:", st, str(r)[:200])
     if st != 200: raise SystemExit("PAREI: não salvou o produto")
     d = produto(pid); fd2 = d["full_data"]; esperado_mudar = {"category_id"} if nova_cat else set()
     if img: esperado_mudar |= {"image_url", "image_bank_id", "image_bank_name"}
+    if nova_desc is not None: esperado_mudar |= {"description"}
     mudou = {k: (fd.get(k), fd2.get(k)) for k in set(fd) | set(fd2) if fd.get(k) != fd2.get(k)}
     print("campos que mudaram:", {k: v for k, v in mudou.items()})
     fora = [k for k in mudou if k not in esperado_mudar]

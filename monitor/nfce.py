@@ -250,6 +250,8 @@ def coletar(api: Aliv, dia: date, loja_id: int = PIZZARIA) -> dict:
             "pagamento": str(det.get("payment_method") or item.get("payment") or ""),
             "loja": loja,
             "merchant": merchant,
+            "canal": str(det.get("platform_slug") or "").lower(),
+            "delivery": str(det.get("delivery_type") or "").lower() == "delivery",
             "grupo": grupo,
             "regra": regra,
         })
@@ -336,39 +338,85 @@ def enviar(api: Aliv, texto: str) -> str | None:
 
 # ---------------------------------------------------------------- fiscal
 class Fiscal:
-    """Perfis fiscais lidos ao vivo. CNPJs ficam só em memória, nunca saem."""
+    """Em qual CNPJ cada nota DEVE sair e em qual o ALIV VAI emitir. CNPJs só em memória.
 
-    def __init__(self, api: Aliv, loja_id: int = PIZZARIA):
+    Regra (Emerson, 13/11/2026) — CNPJ único = CNPJ principal da loja 150:
+      Pizzaria (150): tudo no CNPJ único (Pizzaria, Burguer e Pizzaria 2.0).
+      Sushi (155): delivery (iFood, app, IA ou PDV com entrega) no CNPJ único;
+                   balcão / PDV no CNPJ do Sushi (fiscal-config da 155).
+    Quem escolhe o CNPJ na hora de emitir é o ALIV (fiscal-config + perfis da loja).
+    Antes de cada nota o script prevê o CNPJ do ALIV; se não bater com a regra, não emite.
+    """
+
+    UNICO, SUSHI_NOME = "CNPJ único (Pizzaria)", "CNPJ do Sushi"
+
+    def __init__(self, api: Aliv, loja_id: int, cnpj_unico: str):
         fc = api.get(f"/admin/api/stores/{loja_id}/fiscal-config") or {}
         fp = api.get(f"/admin/api/stores/{loja_id}/fiscal-profiles") or {}
         campos = fc.get("fields") or {}
+        self.loja_id = loja_id
         self.ativo = bool(campos.get("fiscal_active"))
-        self._principal = dig(campos.get("cnpj"))
-        self._por_merchant: dict[str, tuple[str, str]] = {}
-        self._nomes: dict[str, str] = {self._principal: "CNPJ principal"} if self._principal else {}
+        self._principal = dig(campos.get("cnpj"))           # CNPJ da própria loja no ALIV
+        self._unico = cnpj_unico
+        self._nomes: dict[str, str] = {}
+        if self._unico:
+            self._nomes[self._unico] = self.UNICO
+        if loja_id == SUSHI and self._principal:
+            self._nomes.setdefault(self._principal, self.SUSHI_NOME)
+        self._perfis = []                                   # (cnpj, nome, regras) dos perfis ativos
         for p in fp.get("profiles") or []:
             cnpj = dig(p.get("cnpj"))
             if not cnpj:
                 continue
             self._nomes.setdefault(cnpj, f"perfil {p.get('name')}")
-            if not p.get("active"):
-                continue
-            for r in p.get("match_rules") or []:
-                if str(r.get("platform")).lower() == "ifood" and r.get("account_id"):
-                    self._por_merchant[r["account_id"]] = (cnpj, f"perfil {p.get('name')}")
+            if p.get("active"):
+                self._perfis.append((cnpj, f"perfil {p.get('name')}", p.get("match_rules") or []))
 
-    def esperado(self, merchant: str | None) -> str:
-        """Nome do perfil em que a nota deve sair (sem CNPJ)."""
-        return self._por_merchant.get(merchant or "", (None, "CNPJ principal"))[1]
+    def nome(self, cnpj: str) -> str:
+        return self._nomes.get(cnpj, "CNPJ desconhecido")
 
-    def conferir(self, chave: str, merchant: str | None) -> tuple[str, bool]:
-        """(perfil em que a nota saiu, bateu com o esperado?). Usa as posições 7 a 20 da chave."""
+    def _esperado_cnpj(self, p: dict) -> str:
+        if self.loja_id == SUSHI and not p.get("delivery"):
+            return self._principal
+        return self._unico
+
+    def esperado(self, p: dict) -> str:
+        return self.nome(self._esperado_cnpj(p))
+
+    def previsto(self, p: dict) -> str:
+        """CNPJ em que o ALIV vai emitir: perfil ativo cuja regra bate com o pedido, senão o da loja."""
+        for cnpj, _nome, regras in self._perfis:
+            for r in regras:
+                plat = str(r.get("platform") or "").lower()
+                conta = r.get("account_id")
+                if plat and plat == p.get("canal") and (not conta or conta == p.get("merchant")):
+                    return cnpj
+        return self._principal
+
+    def bloqueio(self, p: dict) -> str | None:
+        """Motivo para NÃO emitir (o ALIV emitiria no CNPJ errado), ou None."""
+        esp, prev = self._esperado_cnpj(p), self.previsto(p)
+        if not esp:
+            return "não consegui ler o CNPJ único (fiscal-config da loja 150)"
+        if prev != esp:
+            return (f"o ALIV emitiria no {self.nome(prev)}, a regra pede {self.nome(esp)} — "
+                    "ajustar o perfil fiscal no ALIV antes de emitir")
+        return None
+
+    def conferir(self, chave: str, p: dict) -> tuple[str, bool]:
+        """(onde a nota saiu, bateu com a regra?). Usa as posições 7 a 20 da chave."""
         k = dig(chave)
         if len(k) != 44:
             return "chave ausente", False
-        emitente = k[6:20]
-        esperado = self._por_merchant.get(merchant or "", (self._principal, ""))[0]
-        return self._nomes.get(emitente, "CNPJ desconhecido"), emitente == esperado
+        return self.nome(k[6:20]), k[6:20] == self._esperado_cnpj(p)
+
+
+def cnpj_unico(api_loja: Aliv, loja_id: int, raw: str | None) -> str:
+    """CNPJ principal da loja 150, lido ao vivo (com o login da Pizzaria). Só em memória."""
+    api = api_loja if loja_id == PIZZARIA else login_loja(PIZZARIA, raw)
+    if api is None:
+        return ""
+    return dig(((api.get(f"/admin/api/stores/{PIZZARIA}/fiscal-config") or {}).get("fields") or {}).get("cnpj"))
 
 
 def post_form(api: Aliv, path: str, campos: dict, timeout: int = 120):
@@ -483,10 +531,15 @@ def texto_emissao(dia: date, resumo: dict, dry: bool, loja_id: int = PIZZARIA) -
     titulo = "SIMULAÇÃO (dry-run) — " if dry else ""
     L = [f"*{titulo}{LOJAS[loja_id]['assunto']} — {dm(dia)} — resultado*", ""]
     if dry:
-        L.append(f"Seriam emitidas {len(rs)} notas / {brl(_soma(rs))} (nenhum POST feito).")
-        for perfil in sorted({r['perfil_esperado'] for r in rs}):
-            g = [r for r in rs if r["perfil_esperado"] == perfil]
+        sim = [r for r in rs if r["resultado"] == "SIMULADA"]
+        L.append(f"Seriam emitidas {len(sim)} notas / {brl(_soma(sim))} (nenhum POST feito).")
+        for perfil in sorted({r['perfil_esperado'] for r in sim}):
+            g = [r for r in sim if r["perfil_esperado"] == perfil]
             L.append(f"• {perfil}: {len(g)} / {brl(_soma(g))}")
+        if aten:
+            L += ["", f"*Travadas (o ALIV emitiria no CNPJ errado) — {len(aten)} / {brl(_soma(aten))}*"]
+            for r in aten:
+                L.append(f"• #{r['codigo']} {r['hora']} {brl(r['valor'])} — {r['loja']} — {r['motivo']}")
     else:
         L.append(f"*Autorizadas — {len(aut)} / {brl(_soma(aut))}*")
         for perfil in sorted({r.get("perfil_emitido", "?") for r in aut}):
@@ -576,7 +629,7 @@ def cmd_listar(lojas: list[int], dia: date, dry: bool, raw: str | None) -> int:
     return 0
 
 
-def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int) -> int:
+def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int, raw: str | None = None) -> int:
     dados = ler_arquivo(dia, loja_id)
     aprovada = dados.get("lista")
     avisos = []
@@ -607,14 +660,20 @@ def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int) -> in
         avisos.append(f"Fila com {len(fila)} notas: só as primeiras {limite} entram nesta execução. Rode de novo para o resto.")
         fila = fila[:limite]
 
-    fiscal = Fiscal(api, loja_id)
+    fiscal = Fiscal(api, loja_id, cnpj_unico(api, loja_id, raw))
     if not fiscal.ativo:
         avisos.append(f"fiscal_active = false no fiscal-config da loja {loja_id}.")
 
     resultados, interrompido = [], False
     for i, p in enumerate(fila, 1):
-        base = {"perfil_esperado": fiscal.esperado(p["merchant"])}
-        if dry:
+        base = {"perfil_esperado": fiscal.esperado(p)}
+        trava = fiscal.bloqueio(p)
+        if trava:                                   # não emite: o ALIV usaria o CNPJ errado
+            r = {"id": p["id"], "codigo": p["codigo"], "hora": p["hora"], "valor": p["valor"],
+                 "pagamento": p["pagamento"], "loja": p["loja"], "resultado": "ATENCAO",
+                 "motivo": "NÃO EMITIDA — " + trava}
+            print(f"[{i}/{len(fila)}] #{p['codigo']} {brl(p['valor'])} → não emitida: {trava}", file=sys.stderr)
+        elif dry:
             r = {"id": p["id"], "codigo": p["codigo"], "hora": p["hora"], "valor": p["valor"],
                  "pagamento": p["pagamento"], "loja": p["loja"], "resultado": "SIMULADA", "motivo": ""}
         else:
@@ -623,7 +682,7 @@ def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int) -> in
                 try:
                     det = api.get(f"/admin/api/orders/{p['id']}")
                     det = det.get("order", det) if isinstance(det, dict) else {}
-                    r["perfil_emitido"], r["perfil_ok"] = fiscal.conferir(det.get("fiscal_key"), p["merchant"])
+                    r["perfil_emitido"], r["perfil_ok"] = fiscal.conferir(det.get("fiscal_key"), p)
                     if dig(det.get("customer_document")):      # pedido tem CPF: confere no cupom
                         r["sem_cpf"] = danfe_sem_cpf(api, det)
                 except AlivError as e:
@@ -689,7 +748,7 @@ def main() -> int:
         api = login_loja(args.loja, args.raw)
         if api is None:
             return 2
-        return cmd_emitir(api, args.loja, dia, args.dry_run, max(1, min(args.limite, MAX_POR_EXECUCAO)))
+        return cmd_emitir(api, args.loja, dia, args.dry_run, max(1, min(args.limite, MAX_POR_EXECUCAO)), args.raw)
     except (AlivError, OSError) as e:
         print(f"{LOJAS[args.loja]['assunto']} — {dm(dia)} — ERRO no ALIV\n\n{e}")
         return 1

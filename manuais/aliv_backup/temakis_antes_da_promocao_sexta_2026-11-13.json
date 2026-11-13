@@ -1,0 +1,440 @@
+[
+ {
+  "id": 11688,
+  "nome": "Temaki Atum ( 01 Un )",
+  "preco": 32.99,
+  "ativo": true,
+  "custo": 3.6969,
+  "ficha": [
+   {
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5
+   },
+   {
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 24147,
+    "ingrediente": "Atum",
+    "quantity": 0.1167
+   }
+  ],
+  "regras_hoje": [],
+  "adicionais_hoje": [],
+  "adicionais_novo": [],
+  "canais_hoje": {
+   "indicacao": 36.29
+  },
+  "canais_novo": {
+   "indicacao": 36.29
+  },
+  "sexta": {
+   "nome": "Temaki Atum (Sexta)",
+   "id": null,
+   "preco": 24.9,
+   "preco_de": 32.99,
+   "indicacao": 27.39
+  }
+ },
+ {
+  "id": 11689,
+  "nome": "Temaki Hot ( 01 Un )",
+  "preco": 33.9,
+  "ativo": true,
+  "custo": 4.6851,
+  "ficha": [
+   {
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5
+   },
+   {
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23638,
+    "ingrediente": "Peixe grelhado (aparas salmão/branco/atum)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23882,
+    "ingrediente": "FARINHA PANKO ROMARIZ 1 KG",
+    "quantity": 0.02
+   },
+   {
+    "ingredient_id": 23640,
+    "ingrediente": "Hondashi Ajinomoto 500g",
+    "quantity": 0.002
+   }
+  ],
+  "regras_hoje": [],
+  "adicionais_hoje": [
+   1006
+  ],
+  "adicionais_novo": [],
+  "canais_hoje": {
+   "indicacao": 27.39
+  },
+  "canais_novo": {
+   "indicacao": 37.29
+  },
+  "sexta": {
+   "nome": "Temaki Hot (Sexta)",
+   "id": null,
+   "preco": 24.9,
+   "preco_de": 33.9,
+   "indicacao": 27.39
+  }
+ },
+ {
+  "id": 11686,
+  "nome": "Temaki Salmão grelhado ( 01 Un )",
+  "preco": 32.99,
+  "ativo": true,
+  "custo": 5.4352,
+  "ficha": [
+   {
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5
+   },
+   {
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23638,
+    "ingrediente": "Peixe grelhado (aparas salmão/branco/atum)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "quantity": 0.02
+   },
+   {
+    "ingredient_id": 23641,
+    "ingrediente": "Gergelim torrado",
+    "quantity": 0.001
+   },
+   {
+    "ingredient_id": 23640,
+    "ingrediente": "Hondashi Ajinomoto 500g",
+    "quantity": 0.002
+   }
+  ],
+  "regras_hoje": [],
+  "adicionais_hoje": [
+   1006
+  ],
+  "adicionais_novo": [],
+  "canais_hoje": {
+   "indicacao": 27.39
+  },
+  "canais_novo": {
+   "indicacao": 36.29
+  },
+  "sexta": {
+   "nome": "Temaki Salmão grelhado (Sexta)",
+   "id": null,
+   "preco": 24.9,
+   "preco_de": 32.99,
+   "indicacao": 27.39
+  }
+ },
+ {
+  "id": 11683,
+  "nome": "Temaki Salmão",
+  "preco": 35.9,
+  "ativo": true,
+  "custo": 5.8708,
+  "ficha": [
+   {
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5
+   },
+   {
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "quantity": 0.0981
+   }
+  ],
+  "regras_hoje": [],
+  "adicionais_hoje": [
+   1006
+  ],
+  "adicionais_novo": [],
+  "canais_hoje": {
+   "indicacao": 27.39
+  },
+  "canais_novo": {
+   "indicacao": 39.49
+  },
+  "sexta": {
+   "nome": "Temaki Salmão (Sexta)",
+   "id": null,
+   "preco": 24.9,
+   "preco_de": 35.9,
+   "indicacao": 27.39
+  }
+ },
+ {
+  "id": 11679,
+  "nome": "Temaki Capão ( 01 Un )",
+  "preco": 35.9,
+  "ativo": true,
+  "custo": 6.8987,
+  "ficha": [
+   {
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5
+   },
+   {
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "quantity": 0.0981
+   },
+   {
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "quantity": 0.02
+   },
+   {
+    "ingredient_id": 24150,
+    "ingrediente": "Alho-poró",
+    "quantity": 0.001
+   }
+  ],
+  "regras_hoje": [],
+  "adicionais_hoje": [],
+  "adicionais_novo": [],
+  "canais_hoje": {
+   "indicacao": 39.49
+  },
+  "canais_novo": {
+   "indicacao": 39.49
+  },
+  "sexta": {
+   "nome": "Temaki Capão (Sexta)",
+   "id": null,
+   "preco": 24.9,
+   "preco_de": 35.9,
+   "indicacao": 27.39
+  }
+ },
+ {
+  "id": 11676,
+  "nome": "Temaki Camarão Tailandês ( 01 Un )",
+  "preco": 35.9,
+  "ativo": true,
+  "custo": 6.9224,
+  "ficha": [
+   {
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5
+   },
+   {
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23917,
+    "ingrediente": "Camarão Santana Descascado",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23900,
+    "ingrediente": "Geleia de Pimenta Vermelha",
+    "quantity": 0.004
+   },
+   {
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "quantity": 0.01
+   }
+  ],
+  "regras_hoje": [],
+  "adicionais_hoje": [],
+  "adicionais_novo": [],
+  "canais_hoje": {
+   "indicacao": 39.49
+  },
+  "canais_novo": {
+   "indicacao": 39.49
+  },
+  "sexta": {
+   "nome": "Temaki Camarão Tailandês (Sexta)",
+   "id": null,
+   "preco": 24.9,
+   "preco_de": 35.9,
+   "indicacao": 27.39
+  }
+ },
+ {
+  "id": 11684,
+  "nome": "Temaki Filadélfia",
+  "preco": 35.9,
+  "ativo": true,
+  "custo": 6.9587,
+  "ficha": [
+   {
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5
+   },
+   {
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23889,
+    "ingrediente": "Salmão Premium Fresco",
+    "quantity": 0.0981
+   },
+   {
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "quantity": 0.02
+   },
+   {
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "quantity": 0.01
+   }
+  ],
+  "regras_hoje": [],
+  "adicionais_hoje": [
+   1006
+  ],
+  "adicionais_novo": [],
+  "canais_hoje": {
+   "indicacao": 27.39
+  },
+  "canais_novo": {
+   "indicacao": 39.49
+  },
+  "sexta": {
+   "nome": "Temaki Filadélfia (Sexta)",
+   "id": null,
+   "preco": 24.9,
+   "preco_de": 35.9,
+   "indicacao": 27.39
+  }
+ },
+ {
+  "id": 11677,
+  "nome": "Temaki Camarão Cozido ( 01 Un )",
+  "preco": 32.99,
+  "ativo": true,
+  "custo": 6.9673,
+  "ficha": [
+   {
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5
+   },
+   {
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23917,
+    "ingrediente": "Camarão Santana Descascado",
+    "quantity": 0.06
+   },
+   {
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "quantity": 0.02
+   },
+   {
+    "ingredient_id": 23642,
+    "ingrediente": "Cebolinha (maço)",
+    "quantity": 0.01
+   }
+  ],
+  "regras_hoje": [],
+  "adicionais_hoje": [],
+  "adicionais_novo": [],
+  "canais_hoje": {
+   "indicacao": 36.29
+  },
+  "canais_novo": {
+   "indicacao": 36.29
+  },
+  "sexta": {
+   "nome": "Temaki Camarão Cozido (Sexta)",
+   "id": null,
+   "preco": 24.9,
+   "preco_de": 32.99,
+   "indicacao": 27.39
+  }
+ },
+ {
+  "id": 11678,
+  "nome": "Temaki Camarão Empanado ( 01 Un )",
+  "preco": 35.99,
+  "ativo": true,
+  "custo": 7.7573,
+  "ficha": [
+   {
+    "ingredient_id": 9443,
+    "ingrediente": "Alga Nori Gold Yumart (folha)",
+    "quantity": 0.5
+   },
+   {
+    "ingredient_id": 23639,
+    "ingrediente": "Arroz de sushi pronto (Koshihikari + tempero)",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23917,
+    "ingrediente": "Camarão Santana Descascado",
+    "quantity": 0.07
+   },
+   {
+    "ingredient_id": 23907,
+    "ingrediente": "Cream Cheese",
+    "quantity": 0.02
+   }
+  ],
+  "regras_hoje": [],
+  "adicionais_hoje": [],
+  "adicionais_novo": [],
+  "canais_hoje": {
+   "indicacao": 39.59
+  },
+  "canais_novo": {
+   "indicacao": 39.59
+  },
+  "sexta": {
+   "nome": "Temaki Camarão Empanado (Sexta)",
+   "id": null,
+   "preco": 24.9,
+   "preco_de": 35.99,
+   "indicacao": 27.39
+  }
+ }
+]

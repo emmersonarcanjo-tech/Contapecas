@@ -1,11 +1,13 @@
 """Simulação: todos os temakis vendidos a um preço único. Custo = ficha técnica do ALIV (somente leitura).
-Sobra = preço − ingredientes − 11% de imposto; no iFood desconta também 25% de comissão (estimativa).
+Sobra = preço − ingredientes − 11% de imposto; no iFood desconta também 12,4% (medido no extrato de 06/10 a 12/11/2026:
+10% de comissão + 2,8% de taxa de pagamento nos pedidos pagos pelo app). Desconto pago pela loja no iFood NÃO entra aqui:
+simule com o preço que o cliente paga depois do desconto.
 Uso: python3 temakis_preco.py [preço, padrão 24.90] [saida.json]"""
 import sys, os, json
 sys.path.insert(0, "/workspace/Contapecas/monitor")
 from monitor import Aliv
 PRECO = float(sys.argv[1]) if len(sys.argv) > 1 else 24.90
-IMP, IFOOD = 0.11, 0.25
+IMP, IFOOD = 0.11, 0.124
 api = Aliv(os.environ["ALIV_USER_SUSHI"], os.environ["ALIV_PASS_SUSHI"]); api.login()
 inv = {i["id"]: i for i in api.get("/admin/inventory/api/ingredients")["ingredients"]}
 full = api.get("/admin/api/menu/full_data"); vistos = set(); out = []
@@ -19,7 +21,7 @@ for c in full["categories"]:
         out.append({"id": p["id"], "nome": p["name"], "categoria": c["name"], "ativo": p["is_active"], "preco_hoje": p["price"], "linhas": len(f), "custo": round(custo, 4),
                     "sem_preco": sem_preco, "ficha": [(l["ingredient_raw_name"], l["quantity"], l["ingredient_unit"], round(l["total_cost"], 4)) for l in f]})
 out.sort(key=lambda x: (not x["ativo"], x["linhas"] == 0, x["custo"]))
-print(f"preço simulado R$ {PRECO:.2f} | imposto {IMP:.0%} = R$ {PRECO*IMP:.2f} | comissão iFood {IFOOD:.0%} = R$ {PRECO*IFOOD:.2f}")
+print(f"preço simulado R$ {PRECO:.2f} | imposto {IMP:.0%} = R$ {PRECO*IMP:.2f} | taxas iFood {IFOOD:.1%} = R$ {PRECO*IFOOD:.2f}")
 print(f"{'temaki':38s} {'ativo':5s} {'hoje':>7s} {'custo':>7s} {'CMV':>6s} {'sobra':>7s} {'iFood':>7s}  obs")
 for x in out:
     if x["linhas"] == 0:

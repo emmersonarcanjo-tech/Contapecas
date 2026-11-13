@@ -8,6 +8,8 @@ const VERM = '#C8102E', OURO = '#D4A017';
 (async () => {
   const specPath = path.resolve(process.argv[2]), out = path.resolve(process.argv[3]); const fmt = process.argv[4] || 'quadrado';
   const spec = JSON.parse(fs.readFileSync(specPath, 'utf8')); const base = path.dirname(specPath);
+  const marca = JSON.parse(fs.readFileSync(path.join(__dirname, 'marca_tili_sushi.json'), 'utf8'));   // WhatsApp e assinatura da marca: um lugar só
+  spec.whatsapp = spec.whatsapp || marca.whatsapp; spec.assinatura = spec.assinatura || marca.assinatura;
   const uri = f => { const p = path.resolve(base, f); const m = /\.webp$/i.test(p) ? 'image/webp' : /\.png$/i.test(p) ? 'image/png' : 'image/jpeg';
                      return `data:${m};base64,${fs.readFileSync(p).toString('base64')}`; };
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');

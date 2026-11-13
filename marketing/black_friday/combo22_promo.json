@@ -6,12 +6,26 @@
   "foto": "../fotos/bandeja-combo-variado.webp",
   "nota": "Imagem ilustrativa",
   "logo": "../../monitor/assets/logo_tili.png",
-  "whatsapp": "(73) 99917-9941",
-  "assinatura": "Tili Sushi · Porto Seguro – BA",
   "pecas": [
-    ["4", "Niguiri", "salmão"],
-    ["2", "Joy", "Filadélfia"],
-    ["8", "Hossomaki", "Fila e salmão grelhado"],
-    ["8", "Uramaki", "Fila e salmão grelhado"]
+    [
+      "4",
+      "Niguiri",
+      "salmão"
+    ],
+    [
+      "2",
+      "Joy",
+      "Filadélfia"
+    ],
+    [
+      "8",
+      "Hossomaki",
+      "Fila e salmão grelhado"
+    ],
+    [
+      "8",
+      "Uramaki",
+      "Fila e salmão grelhado"
+    ]
   ]
 }

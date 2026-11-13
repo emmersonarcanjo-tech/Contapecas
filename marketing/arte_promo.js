@@ -14,7 +14,22 @@ const VERM = '#C8102E', OURO = '#D4A017';
   const W = 1080, H = fmt === 'story' ? 1920 : 1080;
   const k = fmt === 'story' ? { pad: 70, selo: 92, tit: 100, preco: 150, cent: 70, cham: 44, foto: 700, num: 96, nome: 44, det: 28, zap: 54, zapl: 30, logo: 180, gap: 44, ass: 30 }
                             : { pad: 40, selo: 56, tit: 82, preco: 100, cent: 48, cham: 31, foto: 392, num: 62, nome: 31, det: 20, zap: 38, zapl: 21, logo: 104, gap: 16, ass: 20 };
+  Object.assign(k, (spec.ajuste || {})[fmt] || {});                            // ajustes finos de tamanho por formato, vindos do spec
   const [reais, cent] = String(spec.preco).split(',');
+  // Bandeja montada com fotos das peças (da própria Tili), vista de cima, na mesma arrumação de um combinado:
+  // 2 colunas x 4 linhas de cada lado e, no centro, niguiri / niguiri / 2 joy / niguiri / niguiri.
+  const R = spec.recortes || {};
+  const bandeja = () => {
+    const bd = spec.bandeja; const g = Math.round(k.foto * .016), pad = Math.round(k.foto * .04);
+    const d = Math.floor((k.foto - 2 * pad - 3 * g) / 4);                      // diâmetro de cada rolo
+    const peca = (nome, w, h, raio) => { const c = R[nome]; const imgW = w / (2 * c.r);
+      return `<div class="pc" style="width:${w}px;height:${h}px;border-radius:${raio};background-image:url(${uri(c.foto)});background-size:${imgW}px ${imgW}px;background-position:${w / 2 - c.x * imgW}px ${h / 2 - c.y * imgW}px"></div>`; };
+    const bloco = lista => `<div class="bl" style="grid-template-columns:repeat(2,${d}px);gap:${g}px">${lista.map(n => peca(n, d, d, '50%')).join('')}</div>`;
+    const hn = Math.floor((4 * d + 3 * g - 4 * g - d) / 4), wn = Math.round(d * 2.05);    // niguiri: faixa larga e baixa (foto de lado)
+    const centro = bd.centro.map(l => Array.isArray(l) ? `<div style="display:flex;gap:${g}px;justify-content:center">${l.map(n => peca(n, d, d, '50%')).join('')}</div>`
+                                                       : peca(l, wn, hn, `${Math.round(hn * .5)}px`)).join('');
+    return `<div class="band" style="padding:${pad}px;gap:${g * 2}px;border-radius:${Math.round(d * .3)}px">${bloco(bd.esquerda)}<div class="ct" style="gap:${g}px;width:${wn}px">${centro}</div>${bloco(bd.direita)}</div>`;
+  };
   const html = `<!doctype html><html><head><meta charset="utf-8"><style>
     * { box-sizing: border-box; margin: 0; padding: 0 }
     body { width: ${W}px; height: ${H}px; font-family: Inter, Arial, sans-serif; color: #fff; overflow: hidden;
@@ -32,6 +47,11 @@ const VERM = '#C8102E', OURO = '#D4A017';
     .preco .c { font-size: ${k.cent}px; margin-top: ${k.preco * .14}px }
     .foto { width: ${Math.min(W - 2 * k.pad, Math.round(k.foto * 1.55))}px; height: ${k.foto}px; flex: none; position: relative; margin: ${-k.gap * .4}px 0 }
     .foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 52%; -webkit-mask-image: radial-gradient(ellipse closest-side, #000 86%, rgba(0,0,0,0) 100%); mask-image: radial-gradient(ellipse closest-side, #000 86%, rgba(0,0,0,0) 100%) }
+    .fotob { flex: none; position: relative; margin: ${-k.gap * .2}px 0 }
+    .band { display: flex; align-items: center; background: linear-gradient(160deg, #262626, #0b0b0b 60%); border: 3px solid #3d3d3d; box-shadow: inset 0 0 0 3px #050505, inset 0 0 26px rgba(0,0,0,.9), 0 22px 44px rgba(0,0,0,.65) }
+    .bl { display: grid }
+    .ct { display: flex; flex-direction: column; align-items: center }
+    .pc { flex: none; background-repeat: no-repeat; box-shadow: 0 4px 9px rgba(0,0,0,.75), inset 0 0 0 1px rgba(0,0,0,.25) }
     .nota { position: absolute; right: ${k.foto * .12}px; bottom: ${-k.det * .2}px; font-size: ${k.det * .9}px; color: rgba(255,255,255,.6); font-style: italic }
     .pecas { display: flex; align-items: stretch; justify-content: center; width: 100% }
     .p { flex: 1; text-align: center; padding: 0 ${k.nome * .25}px; border-left: 3px solid ${VERM} }
@@ -49,9 +69,10 @@ const VERM = '#C8102E', OURO = '#D4A017';
     <div class="selo">${esc(spec.selo)}</div>
     <h1>${spec.titulo}</h1>
     <div class="linha-preco"><div class="chamada">${spec.chamada}</div><div class="preco"><span class="rs">R$</span><span class="v">${esc(reais)}</span><span class="c">,${esc(cent)}</span></div></div>
-    <div class="foto"><img src="${uri(spec.foto)}">${spec.nota ? `<div class="nota">${esc(spec.nota)}</div>` : ''}</div>
+    ${spec.bandeja ? `<div class="fotob">${bandeja()}</div>`
+                   : `<div class="foto"><img src="${uri(spec.foto)}">${spec.nota ? `<div class="nota">${esc(spec.nota)}</div>` : ''}</div>`}
     <div class="pecas">${spec.pecas.map(p => `<div class="p"><div class="n">${esc(p[0])}</div><div class="nm">${esc(p[1])}</div>${p[2] ? `<div class="dt">${esc(p[2])}</div>` : ''}</div>`).join('')}</div>
-    <div class="rod"><div class="zap"><div class="l">Pedido pelo WhatsApp</div><div class="t">${esc(spec.whatsapp)}</div><div class="a">${esc(spec.assinatura)}</div></div>
+    <div class="rod"><div class="zap"><div class="l">Pedido pelo WhatsApp</div><div class="t">${esc(spec.whatsapp)}</div><div class="a">${esc(spec.assinatura)}${spec.bandeja && spec.nota ? ' · ' + esc(spec.nota) : ''}</div></div>
       <div class="logo"><img src="${uri(spec.logo)}"></div></div>
   </div></body></html>`;
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });

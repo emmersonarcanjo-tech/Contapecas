@@ -1,0 +1,122 @@
+{
+  "selo": "Black Friday",
+  "titulo": "Combo <b>22 Peças</b>",
+  "chamada": "22 peças<br>por",
+  "preco": "59,90",
+  "nota": "imagem ilustrativa",
+  "logo": "../../monitor/assets/logo_tili.png",
+  "whatsapp": "(73) 99917-9941",
+  "assinatura": "Tili Sushi · Porto Seguro – BA",
+  "pecas": [
+    [
+      "4",
+      "Niguiri",
+      "salmão"
+    ],
+    [
+      "2",
+      "Joy",
+      "Filadélfia"
+    ],
+    [
+      "8",
+      "Hossomaki",
+      "Fila e salmão grelhado"
+    ],
+    [
+      "8",
+      "Uramaki",
+      "Fila e salmão grelhado"
+    ]
+  ],
+  "recortes": {
+    "hosso-fila": {
+      "foto": "../fotos/hosso-fila.webp",
+      "x": 0.53,
+      "y": 0.57,
+      "r": 0.47
+    },
+    "hosso-grelhado": {
+      "foto": "../fotos/hosso-salmao-grelhado.webp",
+      "x": 0.55,
+      "y": 0.58,
+      "r": 0.46
+    },
+    "ura-fila": {
+      "foto": "../fotos/ura-fila.webp",
+      "x": 0.5,
+      "y": 0.51,
+      "r": 0.5
+    },
+    "ura-grelhado": {
+      "foto": "../fotos/ura-salmao-grelhado.webp",
+      "x": 0.5,
+      "y": 0.5,
+      "r": 0.5
+    },
+    "joy": {
+      "foto": "../fotos/joy-fila.webp",
+      "x": 0.5,
+      "y": 0.4,
+      "r": 0.47
+    },
+    "niguiri": {
+      "foto": "../fotos/niguiri-salmao.webp",
+      "x": 0.5,
+      "y": 0.47,
+      "r": 0.5
+    }
+  },
+  "bandeja": {
+    "esquerda": [
+      "hosso-fila",
+      "hosso-fila",
+      "hosso-fila",
+      "hosso-fila",
+      "hosso-grelhado",
+      "hosso-grelhado",
+      "hosso-grelhado",
+      "hosso-grelhado"
+    ],
+    "centro": [
+      "niguiri",
+      "niguiri",
+      [
+        "joy",
+        "joy"
+      ],
+      "niguiri",
+      "niguiri"
+    ],
+    "direita": [
+      "ura-fila",
+      "ura-fila",
+      "ura-fila",
+      "ura-fila",
+      "ura-grelhado",
+      "ura-grelhado",
+      "ura-grelhado",
+      "ura-grelhado"
+    ]
+  },
+  "ajuste": {
+    "quadrado": {
+      "foto": 468,
+      "selo": 48,
+      "tit": 72,
+      "preco": 86,
+      "cent": 42,
+      "cham": 28,
+      "num": 54,
+      "nome": 29,
+      "det": 19,
+      "logo": 96,
+      "zap": 36,
+      "gap": 13
+    },
+    "story": {
+      "foto": 630,
+      "gap": 56
+    }
+  }
+}

@@ -1,0 +1,258 @@
+{
+ "data": "2026-11-13",
+ "loja": 155,
+ "lista": {
+  "gerada_em": "2026-11-14T02:08:45-03:00",
+  "pedidos": [
+   {
+    "id": 348225,
+    "codigo": "M-6",
+    "hora": "18:08",
+    "valor": 75.3,
+    "pagamento": "Cartão Débito: 75.30",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 348236,
+    "codigo": "M-7",
+    "hora": "18:11",
+    "valor": 5.98,
+    "pagamento": "Cartão Débito: 5.98",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 348359,
+    "codigo": "iF-2449",
+    "hora": "18:35",
+    "valor": 24.89,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 348370,
+    "codigo": "iF-4546",
+    "hora": "18:36",
+    "valor": 54.22,
+    "pagamento": "iFood Online (Alelo)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 348520,
+    "codigo": "M-20",
+    "hora": "18:54",
+    "valor": 21.99,
+    "pagamento": "Dinheiro: 21.99",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 348594,
+    "codigo": "iF-8029",
+    "hora": "19:01",
+    "valor": 68.38,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 348596,
+    "codigo": "M-24",
+    "hora": "19:02",
+    "valor": 110.69,
+    "pagamento": "Dinheiro (Troco -> R$ 1.31): 110.69",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 348598,
+    "codigo": "M-25",
+    "hora": "19:02",
+    "valor": 23.92,
+    "pagamento": "Dinheiro (Troco -> R$ 6.08): 23.92",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 348658,
+    "codigo": "M-28",
+    "hora": "19:07",
+    "valor": 16.9,
+    "pagamento": "Dinheiro (Troco -> R$ 1.55): 8.45 | Dinheiro (Troco -> R$ 1.55): 8.45",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 348771,
+    "codigo": "M-34",
+    "hora": "19:16",
+    "valor": 14.99,
+    "pagamento": "Dinheiro (Troco -> R$ 5.01): 14.99",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 348898,
+    "codigo": "iF-9659",
+    "hora": "19:26",
+    "valor": 16.92,
+    "pagamento": "iFood Online (Visa)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 348936,
+    "codigo": "M-43",
+    "hora": "19:29",
+    "valor": 126.6,
+    "pagamento": "Dinheiro (Troco -> R$ 23.40): 126.60",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 349064,
+    "codigo": "M-48",
+    "hora": "19:36",
+    "valor": 62.79,
+    "pagamento": "Dinheiro (Troco -> R$ 37.21): 62.79",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 349092,
+    "codigo": "M-49",
+    "hora": "19:38",
+    "valor": 41.86,
+    "pagamento": "Dinheiro (Troco -> R$ 3.14): 41.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 349134,
+    "codigo": "M-53",
+    "hora": "19:41",
+    "valor": 15.5,
+    "pagamento": "Dinheiro (Troco -> R$ 4.50): 15.50",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 349158,
+    "codigo": "M-54",
+    "hora": "19:43",
+    "valor": 24.0,
+    "pagamento": "Dinheiro: 24.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 349701,
+    "codigo": "M-78",
+    "hora": "20:17",
+    "valor": 97.68,
+    "pagamento": "Dinheiro (Troco -> R$ 2.32): 97.68",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 349731,
+    "codigo": "M-79",
+    "hora": "20:19",
+    "valor": 24.43,
+    "pagamento": "Dinheiro (Troco -> R$ 25.57): 24.43",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 350002,
+    "codigo": "M-95",
+    "hora": "20:36",
+    "valor": 14.95,
+    "pagamento": "Dinheiro (Troco -> R$ 5.05): 14.95",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 350134,
+    "codigo": "iF-2082",
+    "hora": "20:44",
+    "valor": 20.77,
+    "pagamento": "iFood Online (Visa)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 350693,
+    "codigo": "iF-4949",
+    "hora": "21:23",
+    "valor": 49.1,
+    "pagamento": "iFood Online (Mastercard_Maestro)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 350996,
+    "codigo": "iF-9660",
+    "hora": "21:52",
+    "valor": 24.89,
+    "pagamento": "Cartão Crédito: 24.89",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "grupo": "EMITIR",
+    "regra": "ok"
+   }
+  ],
+  "contagem": {
+   "cancelados": 3,
+   "abertos": 0,
+   "ja_emitidos": 150,
+   "outra_loja": 0,
+   "outro_dia": 0
+  }
+ }
+}

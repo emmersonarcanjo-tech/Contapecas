@@ -518,7 +518,7 @@
     },
     {
       "titulo": "Limpeza do salmão",
-      "sub": "1 kg de salmão eviscerado rende <b>≈ 713 g limpo</b> (média medida de 5 caixas: 71,3%)",
+      "sub": "1 kg de salmão eviscerado rende <b>≈ 714 g limpo</b> (média medida de 7 caixas: 71,4%)",
       "ingredientes": [
         [
           "Salmão eviscerado",
@@ -526,7 +526,7 @@
         ],
         [
           "Salmão limpo (lombo + barriga)",
-          "≈ 713 g"
+          "≈ 714 g"
         ]
       ],
       "passos": [
@@ -542,9 +542,9 @@
         "Pesar o salmão limpo e anotar o rendimento.",
         "Embalar em filme, etiquetar com a data e guardar entre 0 e 2 °C."
       ],
-      "obs": "Caixa 1 (11/11): 72,5% · Caixa 2 (11/11): 71,4% · Caixa 3 (12/11): 72,3% · Caixa 4 (12/11): 69,0% · Caixa 5 (12/11): 71,0% · Média das 5 (152,754 kg recebidos → 108,856 kg limpos): 71,3%. Custo do limpo ≈ R$ 72,83/kg (R$ 51,90/kg na nota). Abaixo de 68%, avisar o Emerson.",
+      "obs": "Caixa 1 (11/11): 72,5% · Caixa 2 (11/11): 71,4% · Caixa 3 (12/11): 72,3% · Caixa 4 (12/11): 69,0% · Caixa 5 (12/11): 71,0% · Caixas 6 e 7 (14/11): 71,9% · Média das 7 (214,472 kg recebidos → 153,206 kg limpos): 71,4%. Custo do limpo ≈ R$ 72,65/kg (R$ 51,90/kg na nota). Abaixo de 68%, avisar o Emerson.",
       "obs_titulo": "RENDIMENTO E CUSTO",
-      "informado": "2026-11-11"
+      "informado": "2026-11-14"
     },
     {
       "titulo": "Tempero do peixe",
@@ -916,6 +916,40 @@
       "limpo_kg": 21.938,
       "rendimento": 0.7097,
       "preco_kg": 51.9
+    },
+    {
+      "data": "2026-11-14",
+      "caixa": "6 e 7",
+      "caixa_numero": "46303111984 e 46303111973",
+      "item": "Salmão eviscerado Cooke Chile 12-14 lb",
+      "pecas": 10,
+      "pesos_kg": [
+        6.29,
+        6.172,
+        5.914,
+        6.106,
+        6.17,
+        6.186,
+        6.314,
+        6.112,
+        6.156,
+        6.298
+      ],
+      "etiqueta_kg": 61.81,
+      "etiquetas_kg": [
+        30.97,
+        30.84
+      ],
+      "recebido_kg": 61.718,
+      "descarte_kg": 17.368,
+      "descartes_kg": [
+        8.94,
+        8.428
+      ],
+      "limpo_kg": 44.35,
+      "rendimento": 0.7186,
+      "preco_kg": 51.9,
+      "obs": "Duas caixas pesadas juntas: as fotos não dizem qual peixe nem qual descarte é de cada caixa. Preço por kg repetido da nota anterior (não informado nesta compra)."
     }
   ],
   "sem_custo": [

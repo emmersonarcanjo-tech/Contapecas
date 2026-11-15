@@ -547,3 +547,15 @@ python3 monitor/contagem_lancar.py manuais/Folha_de_Contagem_Tili_Pizzaria.xlsx 
 - **Não finaliza.** O ajuste do estoque é feito pelo Emerson na tela: Estoque → Conferência → Finalizar (responsável + senha).
 - Testado em dry-run contra o ALIV real em 09/11/2026. O modo `--confirmar` ainda não foi rodado (grava no ALIV).
 - Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis ou planilha inválida · `3` lançou com falhas.
+
+## Notas de fornecedor (`notas_entrada.py`)
+
+Rotina diária às 20:30. Lê as **Notas pendentes** do ALIV (as NF-e de fornecedor que a SEFAZ manda para a Pizzaria e o Sushi) e dá entrada como na tela "Conferência da Nota":
+
+- itens ligados aos insumos que o ALIV já memorizou pelo código de barras (fator "conferir" ou item sem insumo = a nota não entra e vai na lista para o Emerson);
+- custo com frete/IPI/ST/desconto rateados, para bater com o total da nota;
+- boletos do XML viram contas a pagar por parcela (Boleto via DDA); parcela vencida entra paga na data do vencimento, sem mexer em caixa/banco;
+- nota sem forma de pagamento: estoque com custo real e conta paga na data da nota, sem caixa/banco;
+- Norsa sem data no boleto: +4 dias (notas até 15/11/2026; as novas vão para a lista).
+
+Uso: `python3 monitor/notas_entrada.py` (só mostra) · `--confirmar` (lança) · `--whatsapp` (resumo para WHATSAPP_EMERSON) · `--loja Pizzaria|Sushi` · `--nota ID`.

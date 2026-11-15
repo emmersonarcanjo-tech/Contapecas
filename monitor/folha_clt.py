@@ -36,6 +36,7 @@ from monitor import BASE_URL, TZ, Aliv, AlivError, brl  # noqa: E402
 
 FORMA = "PAGAMENTO DE FOLHA - BRADESCO"
 BANCO = "BRADESCO"
+ADIC_GERENCIA = 0.40   # adicional de 40% de cargo de gerência (Josué e Thiago)
 LOJAS = [("Pizzaria", "ALIV_USER", "ALIV_PASS"), ("Sushi", "ALIV_USER_SUSHI", "ALIV_PASS_SUSHI")]
 
 
@@ -47,13 +48,18 @@ def linhas_clt(api: Aliv) -> list[dict]:
 def proxima_etapa(r: dict) -> dict | None:
     """(etapa, competência, vencimento, valor) que a tela de Folha ofereceria agora."""
     c = r["clt"]
+    e = None
     if c.get("stage") == "pagamento" and (c.get("adiantamento_pago") or 0) <= 0.01 and (c.get("adiantamento") or 0) > 0.01:
-        return {"stage": "adiantamento", "competence": c["competence"],
-                "due": f"{c['competence']}-{int(c.get('advance_day') or 20):02d}", "valor": float(c["adiantamento"])}
-    if c.get("stage") in ("pagamento", "adiantamento") and (c.get("a_pagar") or 0) > 0.01:
-        return {"stage": c["stage"], "competence": c["competence"], "due": str(c["due"])[:10],
-                "valor": float(c["a_pagar"])}
-    return None
+        e = {"stage": "adiantamento", "competence": c["competence"],
+             "due": f"{c['competence']}-{int(c.get('advance_day') or 20):02d}", "valor": float(c["adiantamento"])}
+    elif c.get("stage") in ("pagamento", "adiantamento") and (c.get("a_pagar") or 0) > 0.01:
+        e = {"stage": c["stage"], "competence": c["competence"], "due": str(c["due"])[:10],
+             "valor": float(c["a_pagar"])}
+    if e and e["stage"] == "adiantamento" and r.get("role") == "manager" and r.get("salary_base"):
+        # Emerson (15/11/2026): gerente tem salário = base + 40% de gerência; o vale (40%) é só
+        # sobre a base, e o adicional de gerência vem no saldo do dia 5.
+        e["valor"] = round(float(r["salary_base"]) / (1 + ADIC_GERENCIA) * 0.40, 2)
+    return e
 
 
 def pagar(api: Aliv, r: dict, e: dict, banco_id: int) -> tuple[bool, str]:

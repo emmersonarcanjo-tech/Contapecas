@@ -6,7 +6,7 @@ com vendas, descontos, comissão, taxas, anúncios, antecipação e repasse de c
 iFood — e a VERIFICAÇÃO DAS TAXAS contra o contrato (monitor/ifood/contrato.json):
   - comissão: % sobre (itens + entrega − desconto da loja), pedido a pedido;
   - taxa de transação: % sobre o valor pago online (cliente + subsídio do iFood),
-    por forma de pagamento. Pix online = 1% pelo contrato.
+    por forma de pagamento (2,73% em todas, igual à tabela de pagamentos do ALIV).
 Diferença cobrada a mais aparece em R$ (para contestar com o iFood).
 
 Fonte: conciliação iFood do ALIV (/admin/api/finance/ifood/{merchant}/vendas,
@@ -47,7 +47,7 @@ def contrato() -> dict:
     try:
         return json.loads(CONTRATO.read_text())
     except (OSError, json.JSONDecodeError):
-        return {"comissao_pct": None, "taxa_transacao_pct": {"PIX": 1.0}}
+        return {"comissao_pct": 10.0, "taxa_transacao_pct": {"padrao": 2.73}}
 
 
 def analisar(api: Aliv, mid: str, nome: str, ini: date, fim: date, ct: dict) -> dict:
@@ -83,12 +83,12 @@ def analisar(api: Aliv, mid: str, nome: str, ini: date, fim: date, ct: dict) -> 
             tx[k][2] += 1
     r["com_efetiva"] = 100 * com_cob / com_base if com_base else None
     c_pct = ct.get("comissao_pct")
-    r["com_excesso"] = (com_cob - com_base * c_pct / 100) if (c_pct and com_base) else None
+    r["com_excesso"] = (com_cob - com_base * (c_pct + 0.05) / 100) if (c_pct and com_base) else None
     r["taxas_metodo"] = []
     contr = ct.get("taxa_transacao_pct") or {}
     for k, (tv, base, n) in sorted(tx.items(), key=lambda x: -x[1][1]):
         alvo = contr.get(k, contr.get("padrao"))
-        exc = tv - base * alvo / 100 if alvo is not None else None
+        exc = tv - base * (alvo + 0.05) / 100 if alvo is not None else None   # 0,05 p.p. de arredondamento
         r["taxas_metodo"].append({"metodo": METODO.get(k, k), "pedidos": n, "base": base, "cobrado": tv,
                                   "efetiva": 100 * tv / base if base else 0, "contrato": alvo, "excesso": exc})
     # anúncios e outras ocorrências (lançamentos do período)

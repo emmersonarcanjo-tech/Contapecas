@@ -572,3 +572,7 @@ Uso: `python3 monitor/baixa_motoboys.py [--ate AAAA-MM-DD] [--confirmar] [--what
 - `boletos.py sexta --para FONE`: conferência — boletos da semana que ficaram de fora da lista de segunda e os que venceram sem baixa. Boletos vencidos antes de sábado ficam fora das listas (só aviso).
 - `comprovantes.py ler --de FONE`: baixa as fotos/PDFs novos do financeiro (o ALIV guarda mídia por 24 h). A Rotina lê cada comprovante e monta o JSON.
 - `comprovantes.py baixar ENTRADA.json --confirmar --whatsapp`: acha a conta pelo valor, data/vencimento e fornecedor e dá baixa saindo do Bradesco da loja. Sem certeza, não baixa e avisa o Emerson. Estado em `monitor/comprovantes/estado.json`.
+
+## iFood da semana (`ifood_semanal.py`)
+
+Toda segunda às 09:00, semana anterior. Lê a conciliação iFood do ALIV (vendas, lançamentos, antecipações) das 4 contas e gera um PDF com o resumo por loja, alertas (anúncios, antecipação, ocorrências) e a verificação das taxas contra `monitor/ifood/contrato.json`: comissão sobre itens + entrega − desconto da loja; taxa de transação sobre o valor pago online, por forma de pagamento. O que for cobrado acima do contrato aparece em R$. Uso: `python3 monitor/ifood_semanal.py [--inicio --fim] [--whatsapp]`.

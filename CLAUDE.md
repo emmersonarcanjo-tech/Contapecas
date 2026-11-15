@@ -24,6 +24,7 @@ Tudo roda como **Rotinas do Claude Code na nuvem**, ambiente **Contapecas**. As 
 | `monitor/baixa_motoboys.py` | Segunda às 17:00 | Baixa na folha do ALIV do saldo dos motoboys (diaristas e prestadores) até o domingo anterior, como Pix sem mexer em caixa/banco; o que é de depois fica adiado. Valor = saldo do ALIV. |
 | `monitor/boletos.py` | Segunda 07:00 e sexta 10:00 | PDFs de boletos (Pizzaria + Sushi) para o WhatsApp do financeiro: segunda = sáb–seg e ter–sex; sexta = conferência (fora da lista de segunda + vencidos sem baixa). |
 | `monitor/comprovantes.py` | Seg a sáb, 11:00, 15:00 e 19:00 | Lê os comprovantes que o financeiro manda no WhatsApp da Pizzaria e dá baixa no boleto certo, saindo do Bradesco da loja. Sem certeza, não baixa: avisa o Emerson. |
+| `monitor/ifood_semanal.py` | Segunda às 09:00 | PDF do iFood da semana (Pizzaria, Burguer, 2.0, Sushi) para o Emerson: vendas, descontos, comissão, taxas, anúncios, antecipação, repasse e verificação das taxas × contrato (`monitor/ifood/contrato.json`; Pix online = 1%). |
 
 Horários no fuso da Bahia, conferidos na página de Rotinas em 07/11/2026.
 

@@ -1,0 +1,5 @@
+{
+ "_leia": "Taxas do contrato do iFood (Emerson, 15/11/2026). Comissão: % sobre itens + entrega − desconto da loja. Taxa de transação: % sobre o valor pago online. Método sem valor aqui = só mostra o que foi cobrado.",
+ "comissao_pct": null,
+ "taxa_transacao_pct": {"PIX": 1.0}
+}

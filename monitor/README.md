@@ -295,7 +295,11 @@ python3 monitor/nfce.py emitir --data 2026-11-08 --loja pizzaria         # emite
 - **Toda nota sai SEM CPF**, nas duas lojas (Emerson, 12/11/2026): `POST /admin/api/orders/{id}/emit-fiscal` com FormData `customer_document=" "` (um espaço). `""` faria o ALIV usar o CPF gravado no pedido. Confirma em `GET /admin/api/orders/{id}/check-fiscal`. Uma por vez, máximo 200.
 - Conferência do CPF: quando o pedido tem CPF, o script lê o cupom (DANFE, com `pdftotext`) e confere se saiu "CONSUMIDOR NÃO IDENTIFICADO". Se sair com CPF, o resultado avisa "⚠ N nota(s) saíram COM CPF". Nada do cupom é gravado.
 - `LIMIT_REACHED`: para tudo e avisa (código 4). `MISSING_PAYMENT` ou rejeição SEFAZ: registra o motivo exato e segue. "Ausência de troco…": ATENÇÃO (bug do ALIV com borda/adicional como desconto negativo), não insiste. Timeout no POST: não reenvia, consulta o status e, se não confirmar, vai para ATENÇÃO.
-- Conferência de CNPJ: posições 7 a 20 da chave de 44 dígitos, comparadas **em memória** com `/admin/api/stores/{loja}/fiscal-profiles` (perfil ativo cuja regra iFood bate com o merchant — hoje só o 2.0 da Pizzaria) e `fiscal-config` da loja (CNPJ principal). O Sushi não tem perfis extras: tudo deve sair no CNPJ principal da loja 155. O relatório mostra só o nome do perfil.
+- **CNPJ único (Emerson, 13/11/2026).** CNPJ único = CNPJ principal da loja 150.
+  - Pizzaria (150): tudo no CNPJ único — Pizzaria, Burguer e iFood Tili Pizzaria 2.0 (o perfil 2.0 deixa de ser usado).
+  - Sushi (155): **delivery** (iFood, app, IA ou PDV com `delivery_type = delivery`) no CNPJ único; **balcão/PDV** no CNPJ do Sushi.
+  - Quem escolhe o CNPJ ao emitir é o ALIV (fiscal-config + perfis fiscais da loja). Antes de cada nota o script prevê o CNPJ que o ALIV vai usar (perfil ativo cuja regra bate com o canal/merchant do pedido, senão o CNPJ da loja). **Se não bater com a regra, a nota não é emitida** e vai para ATENÇÃO ("Travadas") com o motivo.
+  - Depois de emitir, confere as posições 7 a 20 da chave de 44 dígitos contra a regra, **em memória** (fiscal-config da 150 e da 155 e perfis). O relatório mostra só "CNPJ único (Pizzaria)", "CNPJ do Sushi" ou o nome do perfil.
 - **Nada sensível é gravado**: o JSON tem id, código, hora, valor, forma de pagamento, loja, grupo e motivo. Sem CPF, nome de cliente, CNPJ, chave, token, CSC ou senha.
 
 ## Relatórios

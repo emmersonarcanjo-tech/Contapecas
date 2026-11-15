@@ -1,0 +1,13 @@
+{
+ "quando": "2026-11-15T03:08-03:00",
+ "motivo": "preço trocado à mão na sexta 13/11; volta ao normal a pedido do Emerson",
+ "produtos": [
+  {
+   "product_id": 11686,
+   "nome": "Temaki Salmão grelhado ( 01 Un )",
+   "preco_antes": 24.99,
+   "preco_depois": 32.99,
+   "ativo": false
+  }
+ ]
+}

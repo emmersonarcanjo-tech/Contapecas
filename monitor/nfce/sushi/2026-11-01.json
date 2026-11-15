@@ -1,0 +1,95 @@
+{
+ "data": "2026-11-01",
+ "loja": 155,
+ "emissoes": [
+  {
+   "executada_em": "2026-11-15T02:08:54-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 320968,
+     "codigo": "iF-4073",
+     "hora": "22:25",
+     "valor": 124.42,
+     "pagamento": "Cartão Crédito: 124.42",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 321229,
+     "codigo": "APP-129",
+     "hora": "23:19",
+     "valor": 166.89,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 321256,
+     "codigo": "M-130",
+     "hora": "23:27",
+     "valor": 3.5,
+     "pagamento": "Cartão Débito: 3.50",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 321266,
+     "codigo": "M-131",
+     "hora": "23:32",
+     "valor": 68.77,
+     "pagamento": "Cartão Crédito: 68.77",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 321277,
+     "codigo": "M-132",
+     "hora": "23:36",
+     "valor": 127.62,
+     "pagamento": "Pix: 127.62",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    }
+   ],
+   "avisos": [
+    "Sem lista salva de 01/11/2026 (Tili Sushi): usei a lista gerada agora."
+   ]
+  }
+ ]
+}

@@ -25,6 +25,7 @@ Tudo roda como **Rotinas do Claude Code na nuvem**, ambiente **Contapecas**. As 
 | `monitor/boletos.py` | Segunda 07:00 e sexta 10:00 | PDFs de boletos (Pizzaria + Sushi) para o WhatsApp do financeiro: segunda = sáb–seg e ter–sex; sexta = conferência (fora da lista de segunda + vencidos sem baixa). |
 | `monitor/comprovantes.py` | Seg a sáb, 11:00, 15:00 e 19:00 | Lê os comprovantes que o financeiro manda no WhatsApp da Pizzaria e dá baixa no boleto certo, saindo do Bradesco da loja. Sem certeza, não baixa: avisa o Emerson. |
 | `monitor/ifood_semanal.py` | Segunda às 09:00 | PDF do iFood da semana (Pizzaria, Burguer, 2.0, Sushi) para o Emerson: vendas, descontos, comissão, taxas, anúncios, antecipação, repasse e verificação das taxas × contrato (`monitor/ifood/contrato.json`: comissão 10%, transação 2,73%). |
+| `monitor/folha_clt.py` | Dias 5 e 20, às 18:10 | Lança na Folha do ALIV a folha CLT paga pelo Bradesco: vale (40%) no dia 20 e saldo do mês no dia 5, com os valores do ALIV. Competência 10/2026 lançada em 15/11 (setembro ficou de fora: o ALIV não oferece mais). |
 
 Horários no fuso da Bahia, conferidos na página de Rotinas em 07/11/2026.
 

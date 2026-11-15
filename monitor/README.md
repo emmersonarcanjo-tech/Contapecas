@@ -576,3 +576,7 @@ Uso: `python3 monitor/baixa_motoboys.py [--ate AAAA-MM-DD] [--confirmar] [--what
 ## iFood da semana (`ifood_semanal.py`)
 
 Toda segunda às 09:00, semana anterior. Lê a conciliação iFood do ALIV (vendas, lançamentos, antecipações) das 4 contas e gera um PDF com o resumo por loja, alertas (anúncios, antecipação, ocorrências) e a verificação das taxas contra `monitor/ifood/contrato.json`: comissão sobre itens + entrega − desconto da loja; taxa de transação sobre o valor pago online, por forma de pagamento. O que for cobrado acima do contrato aparece em R$. Uso: `python3 monitor/ifood_semanal.py [--inicio --fim] [--whatsapp]`.
+
+## Folha CLT (`folha_clt.py`)
+
+Dias 5 e 20 às 18:10. Para cada funcionário registrado na Folha do ALIV, lança as etapas vencidas (vale de 40% no dia 20, saldo do mês no dia 5) na data de vencimento, como "PAGAMENTO DE FOLHA - BRADESCO" saindo do Bradesco, com os valores que o ALIV calcula (conferir com o holerite do contador). Uso: `python3 monitor/folha_clt.py [--ate AAAA-MM-DD] [--confirmar] [--whatsapp]`.

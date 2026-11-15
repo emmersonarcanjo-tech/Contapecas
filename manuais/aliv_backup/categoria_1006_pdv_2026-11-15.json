@@ -1,0 +1,101 @@
+{
+ "quando": "2026-11-15T03:22-03:00",
+ "categoria": 1006,
+ "campo": "show_in_pdv",
+ "antes": {
+  "id": 1006,
+  "store_id": 155,
+  "name": "SEXTA DO TEMAKI NA TILI",
+  "order_index": 1,
+  "is_active": true,
+  "sector_id": null,
+  "image_url": null,
+  "image_bank_id": null,
+  "image_bank_name": null,
+  "target_printer": null,
+  "allow_employee_discount": true,
+  "print_separate_ticket": false,
+  "print_highlight": false,
+  "show_in_kiosk": true,
+  "show_in_pdv": true,
+  "show_in_waiter": true,
+  "show_in_delivery": true,
+  "show_in_ia": true,
+  "show_in_orders_board": false,
+  "menu_ids": [],
+  "show_in_print_menu": true,
+  "is_checkout_offer": false,
+  "bonus_motoboy": null,
+  "schedule_rules": [
+   {
+    "end": "23:59",
+    "days": [
+     4
+    ],
+    "start": "00:00"
+   }
+  ],
+  "ncm": "21069090",
+  "cfop": "5102",
+  "uom": "UN",
+  "cest": null,
+  "icms_cst": null,
+  "icms_origem": null,
+  "icms_aliquota": null,
+  "pis_cst": null,
+  "pis_aliquota": null,
+  "cofins_cst": null,
+  "cofins_aliquota": null,
+  "cbenef": null,
+  "ibs_cbs_cst": null,
+  "ibs_cbs_class_trib": null
+ },
+ "depois": {
+  "id": 1006,
+  "store_id": 155,
+  "name": "SEXTA DO TEMAKI NA TILI",
+  "order_index": 1,
+  "is_active": true,
+  "sector_id": null,
+  "image_url": null,
+  "image_bank_id": null,
+  "image_bank_name": null,
+  "target_printer": null,
+  "allow_employee_discount": true,
+  "print_separate_ticket": false,
+  "print_highlight": false,
+  "show_in_kiosk": true,
+  "show_in_pdv": false,
+  "show_in_waiter": true,
+  "show_in_delivery": true,
+  "show_in_ia": true,
+  "show_in_orders_board": false,
+  "menu_ids": [],
+  "show_in_print_menu": true,
+  "is_checkout_offer": false,
+  "bonus_motoboy": null,
+  "schedule_rules": [
+   {
+    "end": "23:59",
+    "days": [
+     4
+    ],
+    "start": "00:00"
+   }
+  ],
+  "ncm": "21069090",
+  "cfop": "5102",
+  "uom": "UN",
+  "cest": null,
+  "icms_cst": null,
+  "icms_origem": null,
+  "icms_aliquota": null,
+  "pis_cst": null,
+  "pis_aliquota": null,
+  "cofins_cst": null,
+  "cofins_aliquota": null,
+  "cbenef": null,
+  "ibs_cbs_cst": null,
+  "ibs_cbs_class_trib": null
+ }
+}

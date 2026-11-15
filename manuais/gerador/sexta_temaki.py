@@ -6,6 +6,9 @@ mesma ficha, mesmo relatório, nada some do cardápio. Fora da sexta vale o pre�
 Junto: os temakis da promoção entram na categoria "SEXTA DO TEMAKI NA TILI" (que só aparece na sexta) e os 4 que ficaram com
 o preço do QR de indicação errado (27,39, resto de troca manual) voltam para preço + 10%.
 Não mexe em iFood.
+Desde 15/11/2026 a categoria da sexta fica escondida só do PDV (categoria_canal.py): o PDV do ALIV lista o produto apenas na
+categoria principal e ignora a categoria extra, então ela aparecia vazia. No PDV os temakis são vendidos pela categoria Temaki.
+O preço de cadastro NÃO deve ser trocado na sexta; se alguém trocar à mão, temakis_preco_normal.py volta ao normal.
 
   python3 sexta_temaki.py                      mostra o que faria (dry-run)
   python3 sexta_temaki.py --gravar --piloto    cria a promoção só com o Temaki Atum e confere no PDV (se hoje for sexta)

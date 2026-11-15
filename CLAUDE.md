@@ -20,6 +20,7 @@ Tudo roda como **Rotinas do Claude Code na nuvem**, ambiente **Contapecas**. As 
 | `monitor/atendimento_ia.py` | Todo dia às 03:30 | Audita o atendimento da IA no WhatsApp da Pizzaria e do Sushi no turno 16:00–01:00 e manda painel + resumo + pares de treino ao Emerson. `aprovar` grava pares só com ok do Emerson. |
 | `monitor/fechamento_semanal.py` | Segunda às 08:51 (chega ~09:00) | Fechamento da semana (seg–dom, dia 16:00–04:00) da Pizzaria, Sushi e consolidado, com comparações, mês até agora, destaques e painel do iPad (2360×1640) + texto para o Emerson. Salva `monitor/semanal/AAAA-MM-DD.md`. |
 | `monitor/consumo.py` | Todo dia às 02:20 | Limite de consumo dos funcionários: R$ 200 por ciclo (26 a 25), avisa a partir de R$ 160. Só esta Rotina avisa (saiu da Conferência 23:45 em 07/11). |
+| `monitor/notas_entrada.py` | Todo dia às 20:30 | Notas de fornecedor (SEFAZ) da Pizzaria e do Sushi: entrada no estoque + boletos nas Contas a Pagar. Vencido = pago; sem pagamento na nota = só estoque (conta paga sem caixa); Norsa sem data = +4 dias (até 15/11). Item sem insumo ligado: não lança, manda para o Emerson conferir. |
 
 Horários no fuso da Bahia, conferidos na página de Rotinas em 07/11/2026.
 

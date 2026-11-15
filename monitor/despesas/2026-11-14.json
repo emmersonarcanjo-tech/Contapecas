@@ -1,0 +1,102 @@
+{
+ "dia": "2026-11-14",
+ "despesas": [
+  {
+   "wamid": "wamid.HBgMNTU3Mzk5OTQzMDQ2FQIAEhgUM0FFNUJFOEQ4QTZCNEI1NjZEQ0EA",
+   "id": 1586646,
+   "data": "2026-11-14",
+   "hora": "16:57",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria\n[comprovante_pagamento do cliente]: Cupom fiscal do Cambuí Supermercados (Porto Seguro-BA) de 14/11/2026, com compra de hortaliças e temperos (repolho roxo, alface, acelga, cebolinha, manjericão) no total de R$ 120,9",
+   "descricao": "pizzaria [comprovante_pagamento do cliente]: Cupom fiscal do Cambuí Supermercados (Porto Seguro-BA) de 14/11/2026, com compra de hortaliças e temperos (repolho roxo, alface, acelga, cebolinha, manjeri",
+   "valor": 14.0,
+   "fotos": [
+    {
+     "wamid": "wamid.HBgMNTU3Mzk5OTQzMDQ2FQIAEhgUM0FFNUJFOEQ4QTZCNEI1NjZEQ0EA",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/183eac59472748fe90a23ef63a949072.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-14/2026-11-14_1657_josue-ruas_ZEQ0EA_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 120.97,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "Repolho Roxo Kg",
+     "Alface Americano U",
+     "Acelga Kg",
+     "Cebolinha Verde Un",
+     "Manjericao Un"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2153 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  },
+  {
+   "wamid": "wamid.HBgMNTU3Mzk5OTQzMDQ2FQIAEhgUM0E5QjlDNDg1MkVGRjg4MzIwQkYA",
+   "id": 1587029,
+   "data": "2026-11-14",
+   "hora": "17:52",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria\n[comprovante_pagamento do cliente]: Cupom fiscal do Temperão Reis de 14/11/2026, com canela em pó e três cafés Pilão, total R$ 121,90 pago no cartão de crédito.",
+   "descricao": "pizzaria [comprovante_pagamento do cliente]: Cupom fiscal do Temperão Reis de 14/11/2026, com canela em pó e três cafés Pilão, total R$ 121,90 pago no cartão de crédito.",
+   "valor": 14.0,
+   "fotos": [
+    {
+     "wamid": "wamid.HBgMNTU3Mzk5OTQzMDQ2FQIAEhgUM0E5QjlDNDg1MkVGRjg4MzIwQkYA",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/4c0eef1951044e3da4e4a02583cba773.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-14/2026-11-14_1752_josue-ruas_IwQkYA_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 121.9,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "CANELA EM PÓ",
+     "CAFÉ PILÃO VACUO TRADICIONAL"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2154 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  },
+  {
+   "wamid": "wamid.HBgMNTU3Mzk5OTQzMDQ2FQIAEhgUM0E3MTMwMDk2RDFCODJBQzc0NTgA",
+   "id": 1587045,
+   "data": "2026-11-14",
+   "hora": "17:55",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa sushi farinha de rosca\n[comprovante_pagamento do cliente]: Comprovante de compra no crédito da maquininha Stone, na Padaria Fino Sabor, de R$ 35,00, em 14/11/2026 às 17:54.",
+   "descricao": "sushi farinha de rosca [comprovante_pagamento do cliente]: Comprovante de compra no crédito da maquininha Stone, na Padaria Fino Sabor, de R$ 35,00, em 14/11/2026 às 17:54.",
+   "valor": 35.0,
+   "fotos": [
+    {
+     "wamid": "wamid.HBgMNTU3Mzk5OTQzMDQ2FQIAEhgUM0E3MTMwMDk2RDFCODJBQzc0NTgA",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/8c2989a906f64903a64365bfe0172874.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-14/2026-11-14_1755_josue-ruas_c0NTgA_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "sushi",
+    "valor": 35.0,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "farinha de rosca"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2155 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  }
+ ],
+ "total": 63.0,
+ "atualizado": "2026-11-15T00:08-03:00"
+}

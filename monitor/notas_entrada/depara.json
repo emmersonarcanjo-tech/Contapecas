@@ -1,0 +1,137 @@
+{
+ "_leia": "Ligações item da nota → insumo aprovadas pelo Emerson (15/11/2026). Chave = código de barras (EAN) do item ou o nome no XML. Valor: {id, fator} liga ao insumo; {despesa: true, categoria} lança sem estoque; {criar: nome} cria o insumo (só com ordem do Emerson).",
+ "Pizzaria": {
+  "Brioche Grandre": {
+   "id": 6532,
+   "fator": 1,
+   "obs": "pão do hambúrguer"
+  },
+  "GO 912 EMB. ORIENTAL PRETA C/ 100 CJ": {
+   "id": 6767,
+   "fator": 1
+  },
+  "GO 915 EMB. ORIENTAL PRETA C/ 100 CJ": {
+   "id": 7087,
+   "fator": 1
+  },
+  "GO 918 EMB. ORIENTAL PRETA C/ 100 CJ": {
+   "id": 7089,
+   "fator": 1
+  },
+  "ACUC CRISTAL BAIANO 1KG": {
+   "id": 23598,
+   "fator": 1
+  },
+  "LING CALAB SADIA TRAD KG": {
+   "id": 6225,
+   "fator": 1,
+   "obs": "estoque da calabresa Frisa"
+  },
+  "SAL MOIDO VENEZA 1KG": {
+   "id": 6249,
+   "fator": 1
+  },
+  "HAMBURGUER BOVINO SABOR PICANHA FRIBOI 36X120G GRANEL (PIEX)": {
+   "despesa": true,
+   "categoria": 185
+  },
+  "POTE KIT 750ML TOTAL RETANGULAR C/24 UN": {
+   "despesa": true,
+   "categoria": 185,
+   "obs": "pote das bolas de massa"
+  },
+  "POTE KIT 250ML TOTAL RETANGULAR C/24 UN": {
+   "despesa": true,
+   "categoria": 185,
+   "obs": "pote das bolas de massa"
+  },
+  "CADEADO PADO 35MM HASTE LONGA": {
+   "despesa": true,
+   "categoria": 200,
+   "obs": "manutenção"
+  },
+  "CORRENTE SOLD GALV 6MM 25KG PRATIK": {
+   "despesa": true,
+   "categoria": 200,
+   "obs": "manutenção"
+  },
+  "CHAVE ALLEN 10 PC 1,5 A 10MM THOMPSON": {
+   "despesa": true,
+   "categoria": 200,
+   "obs": "manutenção"
+  },
+  "ISQUEIRO MAX GRD BIC": {
+   "despesa": true,
+   "categoria": 200,
+   "obs": "manutenção"
+  },
+  "MACARICO A GAS RECARREGAVEL SQ": {
+   "despesa": true,
+   "categoria": 200,
+   "obs": "manutenção"
+  }
+ },
+ "Sushi": {
+  "COCA COLA ORIG LS 1L": {
+   "id": 6634,
+   "fator": 1
+  },
+  "CC SEM ACUCAR LS 1L": {
+   "id": 6638,
+   "fator": 1
+  },
+  "COCA-COLA KS 290ML": {
+   "id": 24238,
+   "fator": 1,
+   "obs": "cadastrado em 15/11 (garrafa de vidro)"
+  },
+  "SPRITE KS 290ML": {
+   "id": 24237,
+   "fator": 1,
+   "obs": "cadastrado em 15/11 (garrafa de vidro)"
+  },
+  "KUAT KS 290ML": {
+   "id": 24236,
+   "fator": 1,
+   "obs": "cadastrado em 15/11 (garrafa de vidro)"
+  },
+  "SCHWEPPES CITRUS KS 290ML": {
+   "id": 24235,
+   "fator": 1,
+   "obs": "cadastrado em 15/11 (garrafa de vidro)"
+  },
+  "MOLHO TARE SAKURA 1L": {
+   "id": 23878,
+   "fator": 0.2,
+   "obs": "1 L = 1/5 do galão de 5 L"
+  },
+  "HONDASHI PROFIS AJINOMOTO 500G": {
+   "id": 23640,
+   "fator": 1
+  },
+  "FILE TILAPIA FRESCA S/P S/E S/CL S/M ISP CXA 05": {
+   "id": 24165,
+   "fator": 1
+  },
+  "DET LIQUIDO LIMPOL 500ml NEUTRO": {
+   "despesa": true,
+   "categoria": 204,
+   "obs": "limpeza"
+  },
+  "PAPEL HIG FD MIMMO 30m 4UN": {
+   "despesa": true,
+   "categoria": 204,
+   "obs": "higiene"
+  },
+  "ABS HIG S LIVRE ADAPT SV C/ABA L8P7UN": {
+   "despesa": true,
+   "categoria": 204,
+   "obs": "higiene"
+  },
+  "ABS HIG S LIVRE NOITE DIA SV C/ABA 8UN": {
+   "despesa": true,
+   "categoria": 204,
+   "obs": "higiene"
+  }
+ }
+}

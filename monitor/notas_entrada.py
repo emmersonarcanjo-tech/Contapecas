@@ -50,6 +50,25 @@ FORMA_TPAG = {"01": "Dinheiro", "03": "Cartão Crédito", "04": "Cartão Débito
 NORSA_DIAS = 4
 NORSA_ATE = date(2026, 11, 15)   # notas da Norsa sem data de boleto emitidas até aqui: +4 dias
 FATOR_OK = {"memorizado", "preco"}  # "conferir" = o ALIV não tem certeza do fator → Emerson confere
+DEPARA = Path(__file__).resolve().parent / "notas_entrada" / "depara.json"
+
+
+def _norm(t: str) -> str:
+    return " ".join(re.sub(r"[^A-Z0-9 ]", " ", str(t or "").upper()).split())
+
+
+def ligacao(depara: dict, item: dict) -> dict | None:
+    """Ligação aprovada pelo Emerson para o item: pelo código de barras ou pelo nome no XML."""
+    if not depara:
+        return None
+    if item.get("code") and str(item["code"]) in depara:
+        return depara[str(item["code"])]
+    nome = _norm(item.get("xml_name") or item.get("name"))
+    for k, v in depara.items():
+        kn = _norm(k)
+        if kn and (kn == nome or nome.startswith(kn) or kn.startswith(nome)):
+            return v
+    return None
 
 
 def dinheiro(v) -> float:
@@ -120,7 +139,7 @@ def pagamento(xml: ET.Element | None, fornecedor: str, emissao: date, total: flo
     return "pago", {"forma": "Dinheiro", "data": emissao, "sem_pagto": True}, None
 
 
-def itens_payload(nota: dict, total: float, cat: int | None):
+def itens_payload(nota: dict, total: float, cat: int | None, depara: dict | None = None):
     """Monta os itens. Devolve (itens, problemas)."""
     itens, problemas = nota.get("items") or [], []
     base = [dinheiro((i.get("total_price") or 0) - (i.get("discount") or 0)) for i in itens]
@@ -129,6 +148,25 @@ def itens_payload(nota: dict, total: float, cat: int | None):
     out = []
     for i, b in zip(itens, base):
         nome = i.get("xml_name") or i.get("name") or "?"
+        acc = dinheiro(dif * b / soma) if soma else 0.0
+        lig = ligacao(depara or {}, i)
+        comum = {"qty": float(i.get("qty") or 0), "cost": dinheiro(b + acc), **({"accessory": acc} if acc else {}),
+                 "unit": i.get("unit"), "target_unit_id": None, "code": i.get("code"), "is_resale": False}
+        if lig and lig.get("despesa"):
+            out.append({"name_in_invoice": i.get("name") or nome, "mapped_id": None, "conversion_factor": 1,
+                        "skip_stock": True, "bill_category_id": lig.get("categoria") or cat, **comum})
+            continue
+        if lig and lig.get("criar"):
+            out.append({"name_in_invoice": lig["criar"], "mapped_id": None, "conversion_factor": 1,
+                        "is_bonus": False, "bill_category_id": cat, "expiration_date": None,
+                        "supplier_batch_code": None, "price_divergence": None, **comum})
+            continue
+        if lig and lig.get("id"):
+            out.append({"name_in_invoice": i.get("name") or nome, "mapped_id": int(lig["id"]),
+                        "conversion_factor": float(lig.get("fator") or 1), "is_bonus": False,
+                        "bill_category_id": cat, "expiration_date": None, "supplier_batch_code": None,
+                        "price_divergence": None, **comum})
+            continue
         iid = i.get("suggested_ingredient_id")
         if not iid:
             problemas.append(f"{nome}: sem insumo ligado")
@@ -136,7 +174,6 @@ def itens_payload(nota: dict, total: float, cat: int | None):
         if i.get("suggested_factor_basis") not in FATOR_OK:
             problemas.append(f"{nome}: ALIV pede para conferir (→ {i.get('suggested_matched_name')})")
             continue
-        acc = dinheiro(dif * b / soma) if soma else 0.0
         out.append({"name_in_invoice": i.get("name") or nome, "mapped_id": int(iid), "qty": float(i.get("qty") or 0),
                     "cost": dinheiro(b + acc), **({"accessory": acc} if acc else {}),
                     "conversion_factor": float(i.get("suggested_conversion_factor") or 1),
@@ -181,6 +218,7 @@ def processar(L: Loja, hoje: date, confirmar: bool, so: set[int]) -> dict:
     if so:
         pend = [p for p in pend if int(p["id"]) in so]
     res = {"lancadas": [], "conferir": [], "erros": [], "vencimentos": []}
+    depara = json.loads(DEPARA.read_text(encoding="utf-8")) if DEPARA.exists() else {}
     if not pend:
         return res
     datas = [datetime.strptime(p["date"], "%d/%m/%Y").date() for p in pend if p.get("date")]
@@ -198,7 +236,7 @@ def processar(L: Loja, hoje: date, confirmar: bool, so: set[int]) -> dict:
         if nota.get("duplicate_level") == "bloquear":
             res["conferir"].append(f"{tag}: ALIV diz que já foi lançada ({nota.get('warning')})")
             continue
-        itens, problemas = itens_payload(nota, total, L.cat_compras)
+        itens, problemas = itens_payload(nota, total, L.cat_compras, depara.get(L.nome))
         modo, pg, aviso = pagamento(xmls.get(p.get("key")), forn, emissao, total, hoje)
         if problemas or modo == "conferir":
             res["conferir"].append(f"{tag}: " + "; ".join(problemas + ([aviso] if aviso else [])))

@@ -1,0 +1,77 @@
+{
+ "dia": "2026-11-12",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 88,
+  "pedidos": 59,
+  "pedidos_ia": 36,
+  "abandonadas": 29,
+  "conversao": 0.67,
+  "abandono": 0.33,
+  "tempo_medio_min": 1.3,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 28,
+  "cancelados_ia": 0,
+  "pedidos_link": 20,
+  "pedidos_outro": 3,
+  "receberam_link": 71,
+  "abandono_com_link": 23,
+  "abandono_sem_link": 6,
+  "problemas": {
+   "demora": 13,
+   "nao_soube": 3,
+   "nao_entendeu": 3,
+   "reclamou_humano": 3,
+   "repetiu": 6,
+   "item_preco": 5,
+   "endereco_taxa": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "pagamento",
+   "user": "Vocês aceitam cartão ou pix?",
+   "assistant": "Aceitamos Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket 💳 Na entrega o motoboy leva a maquininha. Se for dinheiro, me avisa o troco 😉",
+   "exemplo_cliente": "[Áudio do cliente]: Pois é, tô indo pra casa já agora, cheguei em casa tomar um banho e tal, vou pe…",
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "endereco_taxa",
+   "user": "A taxa pro meu bairro tá errada",
+   "assistant": "Me manda o bairro e uma referência, por favor 🙏 Confiro a taxa certinha e ajusto antes de enviar o pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Formas de pagamento aceitas na entrega: Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Confirmar bairro e referência antes de fechar a taxa; nunca assumir o endereço salvo sem perguntar.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Boa noite",
+  "[Áudio do cliente]: Boa noite. Meu jovem, você tem refrigerante uva aí? Me fala.",
+  "Eu queria ver o cardápio de sushi tem ?",
+  "boa noite... o sushi é self-service? ou somente no dia da promoção?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

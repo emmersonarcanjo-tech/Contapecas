@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Lança na Folha do ALIV os pagamentos da equipe CLT (Tili Pizzaria).
+"""Lança na Folha do ALIV os pagamentos da equipe CLT (Tili Pizzaria e Tili Sushi).
+
+Cada funcionário fica na Folha da loja onde trabalha (15/11/2026: Djalma, Jamaria,
+Luiz Fernando e Tamile passaram para o Sushi), mesmo registrado na outra loja.
 
 Regra do Emerson (15/11/2026): a folha é paga pelo Bradesco; o ALIV precisa
 registrar os pagamentos para o DRE sair certo. A Folha do ALIV trabalha em duas
@@ -33,6 +36,7 @@ from monitor import BASE_URL, TZ, Aliv, AlivError, brl  # noqa: E402
 
 FORMA = "PAGAMENTO DE FOLHA - BRADESCO"
 BANCO = "BRADESCO"
+LOJAS = [("Pizzaria", "ALIV_USER", "ALIV_PASS"), ("Sushi", "ALIV_USER_SUSHI", "ALIV_PASS_SUSHI")]
 
 
 def linhas_clt(api: Aliv) -> list[dict]:
@@ -79,38 +83,42 @@ def main() -> int:
     ap.add_argument("--so", type=int, action="append", default=[], help="só estes funcionários (id)")
     a = ap.parse_args()
     ate = date.fromisoformat(a.ate) if a.ate else datetime.now(TZ).date()
-    api = Aliv(os.environ["ALIV_USER"], os.environ["ALIV_PASS"])
     feitos, avisos, total = [], [], 0.0
-    try:
-        api.login()
-        bl = api.get("/admin/api/finance/banking/accounts/list")
-        bl = bl if isinstance(bl, list) else bl.get("accounts", [])
-        banco_id = next(x["id"] for x in bl if BANCO in str(x.get("name", "")).upper())
-        for r in linhas_clt(api):
-            if a.so and r["id"] not in a.so:
-                continue
-            for _ in range(4):                      # várias etapas atrasadas, uma de cada vez
-                e = proxima_etapa(r)
-                if not e or date.fromisoformat(e["due"]) > ate:
-                    break
-                txt = (f"{r['name'][:30]} · {'vale' if e['stage'] == 'adiantamento' else 'saldo'} "
-                       f"{e['competence'][5:]}/{e['competence'][:4]} · {brl(e['valor'])} em {e['due'][8:]}/{e['due'][5:7]}")
-                if not a.confirmar:
-                    feitos.append("(teste) " + txt)
+    api = None
+    for loja, u, pw in LOJAS:
+        if not os.environ.get(u):
+            continue
+        api = Aliv(os.environ[u], os.environ[pw])
+        try:
+            api.login()
+            bl = api.get("/admin/api/finance/banking/accounts/list")
+            bl = bl if isinstance(bl, list) else bl.get("accounts", [])
+            banco_id = next(x["id"] for x in bl if BANCO in str(x.get("name", "")).upper())
+            for r in linhas_clt(api):
+                if a.so and r["id"] not in a.so:
+                    continue
+                for _ in range(4):                      # várias etapas atrasadas, uma de cada vez
+                    e = proxima_etapa(r)
+                    if not e or date.fromisoformat(e["due"]) > ate:
+                        break
+                    txt = (f"{loja} · {r['name'][:30]} · {'vale' if e['stage'] == 'adiantamento' else 'saldo'} "
+                           f"{e['competence'][5:]}/{e['competence'][:4]} · {brl(e['valor'])} em {e['due'][8:]}/{e['due'][5:7]}")
+                    if not a.confirmar:
+                        feitos.append("(teste) " + txt)
+                        total += e["valor"]
+                        break
+                    ok, msg = pagar(api, r, e, banco_id)
+                    if not ok:
+                        avisos.append(f"{txt}: ALIV recusou — {msg}")
+                        break
+                    feitos.append("✓ " + txt)
                     total += e["valor"]
-                    break
-                ok, msg = pagar(api, r, e, banco_id)
-                if not ok:
-                    avisos.append(f"{txt}: ALIV recusou — {msg}")
-                    break
-                feitos.append("✓ " + txt)
-                total += e["valor"]
-                r = next((x for x in linhas_clt(api) if x["id"] == r["id"]), None)
-                if not r:
-                    break
-    except (AlivError, OSError, StopIteration) as e:
-        print(f"Tili — Folha CLT — ERRO no ALIV\n\n{e}")
-        return 1
+                    r = next((x for x in linhas_clt(api) if x["id"] == r["id"]), None)
+                    if not r:
+                        break
+        except (AlivError, OSError, StopIteration) as e:
+            print(f"Tili — Folha CLT — ERRO no ALIV ({loja})\n\n{e}")
+            return 1
     if not feitos and not avisos:
         print(f"Tili — Folha CLT: nada vencido até {ate:%d/%m}.")
         return 0

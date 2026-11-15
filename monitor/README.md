@@ -559,3 +559,9 @@ Rotina diária às 20:30. Lê as **Notas pendentes** do ALIV (as NF-e de fornece
 - Norsa sem data no boleto: +4 dias (notas até 15/11/2026; as novas vão para a lista).
 
 Uso: `python3 monitor/notas_entrada.py` (só mostra) · `--confirmar` (lança) · `--whatsapp` (resumo para WHATSAPP_EMERSON) · `--loja Pizzaria|Sushi` · `--nota ID`.
+
+## Baixa dos motoboys (`baixa_motoboys.py`)
+
+Rotina toda segunda às 17:00. Para cada motoboy (diarista ou prestador) com saldo na Folha do ALIV, dá baixa no valor dos turnos até o domingo anterior (dia operacional = horário − 6 h). O ganho depois do domingo fica adiado para a próxima baixa (`defer_amount`). Registra como Pix com origem `none` (não mexe em caixa nem banco). Valor = saldo do ALIV, sem as correções do relatório de prestadores. Funcionário registrado com líquido zerado não é baixado: vai como aviso.
+
+Uso: `python3 monitor/baixa_motoboys.py [--ate AAAA-MM-DD] [--confirmar] [--whatsapp]`.

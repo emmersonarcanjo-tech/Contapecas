@@ -389,7 +389,10 @@ class Fiscal:
             for r in regras:
                 plat = str(r.get("platform") or "").lower()
                 conta = r.get("account_id")
-                if plat and plat == p.get("canal") and (not conta or conta == p.get("merchant")):
+                if plat == "delivery_proprio":        # regra do ALIV: delivery que não é iFood (app, IA, PDV)
+                    if p.get("delivery") and p.get("canal") != "ifood":
+                        return cnpj
+                elif plat and plat == p.get("canal") and (not conta or conta == p.get("merchant")):
                     return cnpj
         return self._principal
 

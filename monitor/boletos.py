@@ -220,13 +220,26 @@ def main() -> int:
     if a.para:
         fone = re.sub(r"\D", "", a.para)
         api = Aliv(os.environ["ALIV_USER"], os.environ["ALIV_PASS"])
-        try:
-            for txt, arq_pdf in envios:
-                api.enviar_whatsapp(fone, txt, arquivo=arq_pdf) if arq_pdf else api.enviar_whatsapp(fone, txt)
-            print("WHATSAPP: enviado.", file=sys.stderr)
-        except (AlivError, OSError) as e:
-            print(f"WHATSAPP: {e}", file=sys.stderr)
-            return 3
+        destino, nota = fone, ""
+        for i, (txt, arq_pdf) in enumerate(envios):
+            try:
+                api.enviar_whatsapp(destino, nota + txt, arquivo=arq_pdf) if arq_pdf else api.enviar_whatsapp(destino, nota + txt)
+            except (AlivError, OSError) as e:
+                # A Meta só entrega texto/arquivo se o financeiro escreveu para a loja nas últimas 24 h.
+                # Nesse caso a lista vai para o Emerson encaminhar, para ela não ficar sem.
+                if destino == fone and "24 horas" in str(e) and os.environ.get("WHATSAPP_EMERSON"):
+                    destino = re.sub(r"\D", "", os.environ["WHATSAPP_EMERSON"])
+                    nota = ("⚠️ Não consegui mandar para o financeiro (ela não escreve para a loja há mais de 24 h; "
+                            "a Meta bloqueia). Encaminhe para ela:\n")
+                    try:
+                        api.enviar_whatsapp(destino, nota + txt, arquivo=arq_pdf) if arq_pdf else api.enviar_whatsapp(destino, nota + txt)
+                        print(f"WHATSAPP: financeiro fora da janela de 24 h — enviado ao Emerson para encaminhar.", file=sys.stderr)
+                        continue
+                    except (AlivError, OSError) as e2:
+                        e = e2
+                print(f"WHATSAPP: {e}", file=sys.stderr)
+                return 3
+        print("WHATSAPP: enviado.", file=sys.stderr)
     return 0
 
 

@@ -1,0 +1,79 @@
+{
+ "dia": "2026-11-14",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 102,
+  "pedidos": 70,
+  "pedidos_ia": 40,
+  "abandonadas": 32,
+  "conversao": 0.686,
+  "abandono": 0.314,
+  "tempo_medio_min": 1.0,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 28,
+  "cancelados_ia": 0,
+  "pedidos_link": 28,
+  "pedidos_outro": 2,
+  "receberam_link": 90,
+  "abandono_com_link": 29,
+  "abandono_sem_link": 3,
+  "problemas": {
+   "item_preco": 9,
+   "reclamou_humano": 3,
+   "repetiu": 13,
+   "demora": 15,
+   "endereco_taxa": 2,
+   "nao_soube": 1,
+   "nao_entendeu": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "pagamento",
+   "user": "Vocês aceitam cartão ou pix?",
+   "assistant": "Aceitamos Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket 💳 Na entrega o motoboy leva a maquininha. Se for dinheiro, me avisa o troco 😉",
+   "exemplo_cliente": "Pagamento no alelo",
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "endereco_taxa",
+   "user": "A taxa pro meu bairro tá errada",
+   "assistant": "Me manda o bairro e uma referência, por favor 🙏 Confiro a taxa certinha e ajusto antes de enviar o pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Formas de pagamento aceitas na entrega: Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Confirmar bairro e referência antes de fechar a taxa; nunca assumir o endereço salvo sem perguntar.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "1/2 carne seca com banana da terra 1/2 calabresa Tudo sem cebola",
+  "Queria uma pizza de carne seca com banana",
+  "Cardápio e promoções",
+  "Tem alguma promoção hoje?",
+  "Qual o valor da pizza carne seca com banana",
+  "Boa noite, [nome] entrega de sushi’??"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

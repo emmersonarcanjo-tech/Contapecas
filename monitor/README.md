@@ -565,3 +565,10 @@ Uso: `python3 monitor/notas_entrada.py` (só mostra) · `--confirmar` (lança) �
 Rotina toda segunda às 17:00. Para cada motoboy (diarista ou prestador) com saldo na Folha do ALIV, dá baixa no valor dos turnos até o domingo anterior (dia operacional = horário − 6 h). O ganho depois do domingo fica adiado para a próxima baixa (`defer_amount`). Registra como Pix com origem `none` (não mexe em caixa nem banco). Valor = saldo do ALIV, sem as correções do relatório de prestadores. Funcionário registrado com líquido zerado não é baixado: vai como aviso.
 
 Uso: `python3 monitor/baixa_motoboys.py [--ate AAAA-MM-DD] [--confirmar] [--whatsapp]`.
+
+## Boletos da semana (`boletos.py`) e comprovantes (`comprovantes.py`)
+
+- `boletos.py segunda --para FONE`: dois PDFs prontos para imprimir (boletos de sábado a segunda; de terça a sexta), Pizzaria e Sushi juntos, por dia, com fornecedor, NF, parcela, valor e quadrinho "pago". Grava a lista em `monitor/boletos/AAAA-MM-DD.json`.
+- `boletos.py sexta --para FONE`: conferência — boletos da semana que ficaram de fora da lista de segunda e os que venceram sem baixa. Boletos vencidos antes de sábado ficam fora das listas (só aviso).
+- `comprovantes.py ler --de FONE`: baixa as fotos/PDFs novos do financeiro (o ALIV guarda mídia por 24 h). A Rotina lê cada comprovante e monta o JSON.
+- `comprovantes.py baixar ENTRADA.json --confirmar --whatsapp`: acha a conta pelo valor, data/vencimento e fornecedor e dá baixa saindo do Bradesco da loja. Sem certeza, não baixa e avisa o Emerson. Estado em `monitor/comprovantes/estado.json`.

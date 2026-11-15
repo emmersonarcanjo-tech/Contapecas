@@ -24,7 +24,8 @@ Tudo roda como **Rotinas do Claude Code na nuvem**, ambiente **Contapecas**. As 
 | `monitor/baixa_motoboys.py` | Segunda às 17:00 | Baixa na folha do ALIV do saldo dos motoboys (diaristas e prestadores) até o domingo anterior, como Pix sem mexer em caixa/banco; o que é de depois fica adiado. Valor = saldo do ALIV. |
 | `monitor/boletos.py` | Segunda 07:00 e sexta 10:00 | PDFs de boletos (Pizzaria + Sushi) para o WhatsApp do financeiro: segunda = sáb–seg e ter–sex; sexta = conferência (fora da lista de segunda + vencidos sem baixa). |
 | `monitor/comprovantes.py` | Seg a sáb, 11:00, 15:00 e 19:00 | Lê os comprovantes que o financeiro manda no WhatsApp da Pizzaria e dá baixa no boleto certo, saindo do Bradesco da loja. Sem certeza, não baixa: avisa o Emerson. |
-| `monitor/ifood_semanal.py` | Segunda às 09:00 | PDF do iFood da semana (Pizzaria, Burguer, 2.0, Sushi) para o Emerson: vendas, descontos, comissão, taxas, anúncios, antecipação, repasse e verificação das taxas × contrato (`monitor/ifood/contrato.json`; Pix online = 1%). |
+| `monitor/ifood_semanal.py` | Segunda às 09:00 | PDF do iFood da semana (Pizzaria, Burguer, 2.0, Sushi) para o Emerson: vendas, descontos, comissão, taxas, anúncios, antecipação, repasse e verificação das taxas × contrato (`monitor/ifood/contrato.json`: comissão 10%, transação 2,73%). |
+| `monitor/folha_clt.py` | Dias 5 e 20, às 18:10 | Lança na Folha do ALIV a folha CLT paga pelo Bradesco: vale (40%) no dia 20 e saldo do mês no dia 5, com os valores do ALIV. Competência 10/2026 lançada em 15/11 (setembro ficou de fora: o ALIV não oferece mais). |
 
 Horários no fuso da Bahia, conferidos na página de Rotinas em 07/11/2026.
 
@@ -42,3 +43,9 @@ Se os horários na página de Rotinas divergirem deste arquivo, **os da página 
 ## Como agir
 - **Pedido de mudança:** localize o script e a Rotina, faça a alteração, teste em dry-run contra o ALIV real quando possível, abra um pull request e explique o resultado em até cinco linhas.
 - **"Algo não chegou":** confira primeiro os registros da última execução da Rotina.
+
+## Taxas no ALIV (15/11/2026)
+Formas de pagamento das duas lojas: iFood Online = 10% (comissão); iFood Online (Pix, Visa, …) = 2,73% (transação); Pix = 1%; Pix Online do app (Mercado Pago) = 1%; vales (Pluxee, Alelo, VR, Ticket) = 3,6%; Cartão Crédito 3,99% e Débito 1,99% da maquininha (aguardando o Emerson confirmar). Aba Taxas da conciliação iFood: comissão 10%, pagamento 2,73%. Novembro (01–15) recalculado. Backup da tabela antiga só na sessão.
+
+## Aluguel (15/11/2026)
+Contas a Pagar, categoria "Aluguel e Contas", Boleto via DDA, pago pelo Bradesco: Pizzaria R$ 7.000 todo dia 15 (recorrente a partir de 15/12); Sushi R$ 10.000 todo dia 25, na conta do Sushi (recorrente a partir de 25/11). Agosto a outubro (e 15/11 da Pizzaria) lançados como pagos. O "Aluguel ponto 2 — R$ 5.000" de julho, na conta da Pizzaria, era o aluguel do Sushi antes do reajuste.

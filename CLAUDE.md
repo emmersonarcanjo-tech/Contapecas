@@ -44,4 +44,4 @@ Se os horários na página de Rotinas divergirem deste arquivo, **os da página 
 - **"Algo não chegou":** confira primeiro os registros da última execução da Rotina.
 
 ## Taxas no ALIV (15/11/2026)
-Formas de pagamento das duas lojas: iFood Online = 10% (comissão); iFood Online (Pix, Visa, …) = 2,73% (transação); Pix Online do app (Mercado Pago) = 1%; Cartão Crédito 3,99% e Débito 1,99% da maquininha (aguardando o Emerson confirmar). Aba Taxas da conciliação iFood: comissão 10%, pagamento 2,73%. Novembro (01–15) recalculado. Backup da tabela antiga só na sessão.
+Formas de pagamento das duas lojas: iFood Online = 10% (comissão); iFood Online (Pix, Visa, …) = 2,73% (transação); Pix = 1%; Pix Online do app (Mercado Pago) = 1%; vales (Pluxee, Alelo, VR, Ticket) = 3,6%; Cartão Crédito 3,99% e Débito 1,99% da maquininha (aguardando o Emerson confirmar). Aba Taxas da conciliação iFood: comissão 10%, pagamento 2,73%. Novembro (01–15) recalculado. Backup da tabela antiga só na sessão.

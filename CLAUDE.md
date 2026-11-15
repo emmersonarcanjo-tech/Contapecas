@@ -22,6 +22,8 @@ Tudo roda como **Rotinas do Claude Code na nuvem**, ambiente **Contapecas**. As 
 | `monitor/consumo.py` | Todo dia às 02:20 | Limite de consumo dos funcionários: R$ 200 por ciclo (26 a 25), avisa a partir de R$ 160. Só esta Rotina avisa (saiu da Conferência 23:45 em 07/11). |
 | `monitor/notas_entrada.py` | Todo dia às 20:30 | Notas de fornecedor (SEFAZ) da Pizzaria e do Sushi: entrada no estoque + boletos nas Contas a Pagar. Vencido = pago; sem pagamento na nota = só estoque (conta paga sem caixa); Norsa sem data = +4 dias (até 15/11). Item sem insumo ligado: não lança, manda para o Emerson conferir. |
 | `monitor/baixa_motoboys.py` | Segunda às 17:00 | Baixa na folha do ALIV do saldo dos motoboys (diaristas e prestadores) até o domingo anterior, como Pix sem mexer em caixa/banco; o que é de depois fica adiado. Valor = saldo do ALIV. |
+| `monitor/boletos.py` | Segunda 07:00 e sexta 10:00 | PDFs de boletos (Pizzaria + Sushi) para o WhatsApp do financeiro: segunda = sáb–seg e ter–sex; sexta = conferência (fora da lista de segunda + vencidos sem baixa). |
+| `monitor/comprovantes.py` | Seg a sáb, 11:00, 15:00 e 19:00 | Lê os comprovantes que o financeiro manda no WhatsApp da Pizzaria e dá baixa no boleto certo, saindo do Bradesco da loja. Sem certeza, não baixa: avisa o Emerson. |
 
 Horários no fuso da Bahia, conferidos na página de Rotinas em 07/11/2026.
 

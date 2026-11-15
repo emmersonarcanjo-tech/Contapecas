@@ -1,0 +1,31 @@
+{
+ "data": "2026-11-05",
+ "loja": 155,
+ "emissoes": [
+  {
+   "executada_em": "2026-11-15T02:16:43-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 328424,
+     "codigo": "iF-1687",
+     "hora": "22:51",
+     "valor": 81.07,
+     "pagamento": "iFood Online (Mastercard_Maestro)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    }
+   ],
+   "avisos": [
+    "Sem lista salva de 05/11/2026 (Tili Sushi): usei a lista gerada agora."
+   ]
+  }
+ ]
+}

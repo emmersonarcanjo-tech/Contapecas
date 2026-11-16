@@ -1,0 +1,47 @@
+{
+ "data": "2026-11-07",
+ "loja": 155,
+ "emissoes": [
+  {
+   "executada_em": "2026-11-15T02:20:00-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 333936,
+     "codigo": "iF-9040",
+     "hora": "20:03",
+     "valor": 78.78,
+     "pagamento": "iFood Online (Ifood)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 334487,
+     "codigo": "iF-5082",
+     "hora": "20:37",
+     "valor": 153.34,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    }
+   ],
+   "avisos": [
+    "Sem lista salva de 07/11/2026 (Tili Sushi): usei a lista gerada agora."
+   ]
+  }
+ ]
+}

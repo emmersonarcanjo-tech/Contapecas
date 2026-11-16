@@ -15,7 +15,7 @@ Tudo roda como **Rotinas do Claude Code na nuvem**, ambiente **Contapecas**. As 
 | `monitor/previsao_motoboys.py` | Todo dia às 08:00 | Recomenda quantos motoboys chamar hoje (faixa + histórico de 4 semanas) e manda para Emerson, Josué e Camilo. |
 | `monitor/diaristas.py` | Todo dia às 08:00 | PDF diário dos diaristas. Dia operacional: 16:00 até 08:00 do dia seguinte. |
 | `monitor/prestadores.py` | Segunda às 08:30 | Relatório semanal dos prestadores MEI. Mesmo corte de dia (16:00–08:00). |
-| `monitor/nfce.py` | Às 02:00 (na última noite do mês, às 23:50) | Lista as notas pendentes. **Só emite com o comando do Emerson.** |
+| `monitor/nfce.py` | Às 02:00 (na última noite do mês, às 23:50) | `nfce.py auto`: lista e **emite sozinho** as notas do dia nas duas lojas (Emerson, 16/11/2026), com a trava de CNPJ, e manda o resultado. `emitir` continua para emissões pedidas na sessão. |
 | `monitor/despesas.py` / `monitor/despesas_lancar.py` | 00:00 e 12:00 | Lê o grupo **Tili Despesas** pelo ALIV e lança conta e estoque. |
 | `monitor/atendimento_ia.py` | Todo dia às 03:30 | Audita o atendimento da IA no WhatsApp da Pizzaria e do Sushi no turno 16:00–01:00 e manda painel + resumo + pares de treino ao Emerson. `aprovar` grava pares só com ok do Emerson. |
 | `monitor/fechamento_semanal.py` | Segunda às 08:51 (chega ~09:00) | Fechamento da semana (seg–dom, dia 16:00–04:00) da Pizzaria, Sushi e consolidado, com comparações, mês até agora, destaques e painel do iPad (2360×1640) + texto para o Emerson. Salva `monitor/semanal/AAAA-MM-DD.md`. |
@@ -44,6 +44,7 @@ O Emerson conectou no ALIV um segundo WhatsApp da loja 150, **só para relatóri
 ## Regras de segurança
 - ALIV: **só leitura**, exceto o que o script já faz.
 - **Nunca** emitir nota fiscal, lançar despesa ou enviar WhatsApp sem o Emerson pedir na sessão.
+  - Exceção (Emerson, 16/11/2026): a Rotina de NFC-e emite sozinha com `python3 monitor/nfce.py auto` (só o que é EMITIR pelas regras, com a trava de CNPJ, uma vez por pedido, parando em LIMIT_REACHED). Fora da Rotina, emitir continua só quando o Emerson pede.
   - Exceção (Emerson, 09/11/2026): se uma previsão de motoboys já enviada estiver errada, mande **logo em seguida** a corrigida, para os mesmos destinatários, com `python3 monitor/previsao_motoboys.py --whatsapp --correcao "o que estava errado"`. Depois avise o Emerson do que mudou.
 - **Nunca** gravar credenciais, CPF, CNPJ, chave de nota ou senha em código, log ou commit.
 - Antes de alterar qualquer rotina, **resumir o que vai mudar e esperar o ok**.

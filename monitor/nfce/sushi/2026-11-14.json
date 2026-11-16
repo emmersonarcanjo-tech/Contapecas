@@ -389,5 +389,206 @@
    "outra_loja": 0,
    "outro_dia": 0
   }
- }
+ },
+ "emissoes": [
+  {
+   "executada_em": "2026-11-15T02:24:58-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 352464,
+     "codigo": "iF-6609",
+     "hora": "18:46",
+     "valor": 23.89,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 352501,
+     "codigo": "iF-3193",
+     "hora": "18:50",
+     "valor": 19.01,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 352917,
+     "codigo": "iF-7782",
+     "hora": "19:25",
+     "valor": 26.89,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 353003,
+     "codigo": "iF-0189",
+     "hora": "19:31",
+     "valor": 73.6,
+     "pagamento": "iFood Online (Alelo)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 353521,
+     "codigo": "iF-2901",
+     "hora": "20:00",
+     "valor": 12.53,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 354101,
+     "codigo": "iF-2857",
+     "hora": "20:33",
+     "valor": 109.7,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 354385,
+     "codigo": "iF-6522",
+     "hora": "20:51",
+     "valor": 28.77,
+     "pagamento": "iFood Online (Mastercard_Maestro)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 354696,
+     "codigo": "iF-0977",
+     "hora": "21:12",
+     "valor": 26.42,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 355190,
+     "codigo": "iF-9143",
+     "hora": "21:48",
+     "valor": 66.38,
+     "pagamento": "iFood Online (Alelo)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 355750,
+     "codigo": "M-97",
+     "hora": "22:47",
+     "valor": 59.86,
+     "pagamento": "Dinheiro: 50.00 | Cartão Débito: 9.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 355776,
+     "codigo": "M-100",
+     "hora": "22:51",
+     "valor": 20.93,
+     "pagamento": "Dinheiro: 2.00 | Pix: 18.93",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 355842,
+     "codigo": "APP-107",
+     "hora": "23:01",
+     "valor": 35.9,
+     "pagamento": "Pix: 35.90",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    }
+   ],
+   "avisos": []
+  }
+ ]
 }

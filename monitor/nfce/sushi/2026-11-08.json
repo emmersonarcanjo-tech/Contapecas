@@ -1,0 +1,31 @@
+{
+ "data": "2026-11-08",
+ "loja": 155,
+ "emissoes": [
+  {
+   "executada_em": "2026-11-15T02:20:30-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 339808,
+     "codigo": "iF-6116",
+     "hora": "22:59",
+     "valor": 173.39,
+     "pagamento": "Cartão Crédito: 173.39 (Troco: 2.49)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    }
+   ],
+   "avisos": [
+    "Sem lista salva de 08/11/2026 (Tili Sushi): usei a lista gerada agora."
+   ]
+  }
+ ]
+}

@@ -302,6 +302,21 @@ python3 monitor/nfce.py emitir --data 2026-11-08 --loja pizzaria         # emite
   - Depois de emitir, confere as posições 7 a 20 da chave de 44 dígitos contra a regra, **em memória** (fiscal-config da 150 e da 155 e perfis). O relatório mostra só "CNPJ único (Pizzaria)", "CNPJ do Sushi" ou o nome do perfil.
 - **Nada sensível é gravado**: o JSON tem id, código, hora, valor, forma de pagamento, loja, grupo e motivo. Sem CPF, nome de cliente, CNPJ, chave, token, CSC ou senha.
 
+## Emissão automática (`auto`, Emerson 16/11/2026)
+
+```bash
+python3 monitor/nfce.py auto --dry-run              # simula: lista + o que seria emitido, nada emitido nem enviado
+python3 monitor/nfce.py auto                        # o que a Rotina roda: dia anterior antes das 04:00
+python3 monitor/nfce.py auto --data 2026-11-15 --loja sushi
+```
+
+- Para cada loja: gera e grava a lista do dia (`"automatica": true` no JSON) e emite **tudo o que é EMITIR**, sem esperar o "emite".
+- Rodadas de até 200 notas (uma por vez), até 1.000 por loja e dia. Cada pedido é tentado **uma vez só** por execução: recusado ou travado não é reenviado.
+- Mantém tudo do `emitir`: sem CPF, trava de CNPJ (não emite se o ALIV usaria o CNPJ errado), conferência da chave, parada em `LIMIT_REACHED`.
+- Manda **uma mensagem por loja**: autorizadas por CNPJ, rejeitadas com motivo, ATENÇÃO, e o NÃO EMITIR/ATENÇÃO da lista.
+- Códigos de saída (vale o mais grave das duas lojas): `4` LIMIT_REACHED · `1` erro no ALIV · `2` faltam variáveis · `3` WhatsApp não aceitou · `0` ok.
+- Pedidos que a moça do caixa já emitiu no ALIV são pulados (o script confere o status de cada pedido antes).
+
 ## Relatórios
 
 - Lista (23:50): assunto `NFC-e Tili — DD/MM/AAAA — N a emitir / R$ X`, EMITIR por loja (qtd e valor), NÃO EMITIR por regra, ATENÇÃO pedido a pedido e "Responda *emite* para emitir".

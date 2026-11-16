@@ -1,0 +1,559 @@
+{
+ "data": "2026-11-04",
+ "loja": 155,
+ "emissoes": [
+  {
+   "executada_em": "2026-11-15T02:16:21-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 324931,
+     "codigo": "M-9",
+     "hora": "18:18",
+     "valor": 41.81,
+     "pagamento": "Pix: 41.81",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 324932,
+     "codigo": "M-10",
+     "hora": "18:19",
+     "valor": 8.9,
+     "pagamento": "Cartão Débito: 8.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 324978,
+     "codigo": "M-19",
+     "hora": "18:33",
+     "valor": 42.79,
+     "pagamento": "Alelo Refeição: 42.79",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325027,
+     "codigo": "M-31",
+     "hora": "18:47",
+     "valor": 125.42,
+     "pagamento": "Cartão Crédito: 125.42",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325050,
+     "codigo": "M-37",
+     "hora": "18:51",
+     "valor": 31.84,
+     "pagamento": "Cartão Crédito: 31.84",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325101,
+     "codigo": "M-48",
+     "hora": "19:01",
+     "valor": 7.0,
+     "pagamento": "Cartão Débito: 7.00",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325104,
+     "codigo": "M-49",
+     "hora": "19:02",
+     "valor": 84.63,
+     "pagamento": "Cartão Débito: 84.63",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325198,
+     "codigo": "M-66",
+     "hora": "19:14",
+     "valor": 108.57,
+     "pagamento": "Cartão Crédito: 108.57",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325262,
+     "codigo": "M-79",
+     "hora": "19:24",
+     "valor": 42.84,
+     "pagamento": "Cartão Crédito: 42.84",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325263,
+     "codigo": "M-80",
+     "hora": "19:24",
+     "valor": 49.78,
+     "pagamento": "Cartão Débito: 49.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325272,
+     "codigo": "M-82",
+     "hora": "19:26",
+     "valor": 58.77,
+     "pagamento": "Pix: 58.77 (Troco: 0.00)",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325377,
+     "codigo": "M-99",
+     "hora": "19:40",
+     "valor": 43.8,
+     "pagamento": "Cartão Débito: 43.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325416,
+     "codigo": "M-104",
+     "hora": "19:45",
+     "valor": 25.91,
+     "pagamento": "Cartão Débito: 25.91",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325428,
+     "codigo": "M-106",
+     "hora": "19:46",
+     "valor": 16.0,
+     "pagamento": "Pix: 16.00",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325440,
+     "codigo": "M-110",
+     "hora": "19:48",
+     "valor": 94.55,
+     "pagamento": "Cartão Débito: 94.55",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325476,
+     "codigo": "M-116",
+     "hora": "19:53",
+     "valor": 34.85,
+     "pagamento": "Cartão Débito: 34.85",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325789,
+     "codigo": "M-167",
+     "hora": "20:32",
+     "valor": 76.62,
+     "pagamento": "Cartão Débito: 76.62",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325797,
+     "codigo": "M-169",
+     "hora": "20:33",
+     "valor": 13.93,
+     "pagamento": "Cartão Crédito: 13.93",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325799,
+     "codigo": "M-170",
+     "hora": "20:33",
+     "valor": 9.95,
+     "pagamento": "Cartão Débito: 9.95",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325810,
+     "codigo": "M-172",
+     "hora": "20:35",
+     "valor": 87.6,
+     "pagamento": "Pix: 87.60",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325819,
+     "codigo": "M-174",
+     "hora": "20:36",
+     "valor": 85.57,
+     "pagamento": "Pluxee Refeição / Alimentação: 85.57",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325849,
+     "codigo": "M-181",
+     "hora": "20:40",
+     "valor": 48.77,
+     "pagamento": "Cartão Débito: 48.77 (Troco: 0.00)",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325890,
+     "codigo": "M-188",
+     "hora": "20:47",
+     "valor": 23.88,
+     "pagamento": "Pix: 23.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 325977,
+     "codigo": "M-200",
+     "hora": "21:01",
+     "valor": 39.81,
+     "pagamento": "Cartão Débito: 39.81",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 326001,
+     "codigo": "M-202",
+     "hora": "21:05",
+     "valor": 71.7,
+     "pagamento": "Pix: 71.70",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 326062,
+     "codigo": "iF-9508",
+     "hora": "21:12",
+     "valor": 84.07,
+     "pagamento": "iFood Online (Mastercard_Maestro)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 326164,
+     "codigo": "M-224",
+     "hora": "21:26",
+     "valor": 83.61,
+     "pagamento": "Cartão Débito: 83.61",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 326288,
+     "codigo": "M-239",
+     "hora": "21:51",
+     "valor": 8.9,
+     "pagamento": "Cartão Crédito: 8.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 326318,
+     "codigo": "M-242",
+     "hora": "21:56",
+     "valor": 107.6,
+     "pagamento": "Pix: 107.60",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 326325,
+     "codigo": "M-243",
+     "hora": "21:57",
+     "valor": 101.57,
+     "pagamento": "Cartão Crédito: 101.57",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 326338,
+     "codigo": "M-248",
+     "hora": "22:00",
+     "valor": 65.76,
+     "pagamento": "Pix: 65.76",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 326352,
+     "codigo": "iF-0324",
+     "hora": "22:03",
+     "valor": 67.7,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 326433,
+     "codigo": "M-264",
+     "hora": "22:20",
+     "valor": 12.0,
+     "pagamento": "Cartão Débito: 12.00",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 326626,
+     "codigo": "M-308",
+     "hora": "23:23",
+     "valor": 72.71,
+     "pagamento": "Cartão Crédito: 72.71",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    }
+   ],
+   "avisos": [
+    "Sem lista salva de 04/11/2026 (Tili Sushi): usei a lista gerada agora."
+   ]
+  }
+ ]
+}

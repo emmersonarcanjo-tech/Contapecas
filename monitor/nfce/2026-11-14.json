@@ -1104,5 +1104,350 @@
    "outra_loja": 0,
    "outro_dia": 0
   }
- }
+ },
+ "emissoes": [
+  {
+   "executada_em": "2026-11-15T02:24:01-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 352252,
+     "codigo": "M-5",
+     "hora": "18:08",
+     "valor": 7.0,
+     "pagamento": "Cartão Débito: 7.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 352449,
+     "codigo": "iF-5216",
+     "hora": "18:44",
+     "valor": 138.27,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 352614,
+     "codigo": "iF-7291",
+     "hora": "19:01",
+     "valor": 23.98,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 352882,
+     "codigo": "iF-9347",
+     "hora": "19:23",
+     "valor": 158.71,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 353426,
+     "codigo": "iF-0123",
+     "hora": "19:55",
+     "valor": 137.24,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 353552,
+     "codigo": "iF-9503",
+     "hora": "20:02",
+     "valor": 52.68,
+     "pagamento": "iFood Online (Alelo)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 353691,
+     "codigo": "iF-5423",
+     "hora": "20:12",
+     "valor": 127.36,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 354123,
+     "codigo": "iF-1785",
+     "hora": "20:34",
+     "valor": 167.79,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 354231,
+     "codigo": "iF-1194",
+     "hora": "20:41",
+     "valor": 89.57,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 354249,
+     "codigo": "iF-0651",
+     "hora": "20:42",
+     "valor": 82.7,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 354321,
+     "codigo": "iF-2262",
+     "hora": "20:47",
+     "valor": 14.74,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 354476,
+     "codigo": "iF-2463",
+     "hora": "20:57",
+     "valor": 23.59,
+     "pagamento": "iFood Online (Mastercard_Maestro)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 354647,
+     "codigo": "iF-8761",
+     "hora": "21:10",
+     "valor": 71.9,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 354779,
+     "codigo": "iF-8266",
+     "hora": "21:18",
+     "valor": 85.08,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 355051,
+     "codigo": "iF-6705",
+     "hora": "21:39",
+     "valor": 65.58,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 355551,
+     "codigo": "iF-4524",
+     "hora": "22:23",
+     "valor": 38.97,
+     "pagamento": "Cartão Débito: 38.97",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 355869,
+     "codigo": "M-95",
+     "hora": "23:04",
+     "valor": 71.5,
+     "pagamento": "Pix: 71.50",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 355903,
+     "codigo": "APP-97",
+     "hora": "23:11",
+     "valor": 99.0,
+     "pagamento": "Ticket",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 355906,
+     "codigo": "APP-98",
+     "hora": "23:12",
+     "valor": 54.98,
+     "pagamento": "Ticket: 54.98",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 355935,
+     "codigo": "iF-3207",
+     "hora": "23:19",
+     "valor": 87.2,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 356014,
+     "codigo": "iF-5465",
+     "hora": "23:45",
+     "valor": 76.77,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    }
+   ],
+   "avisos": []
+  }
+ ]
 }

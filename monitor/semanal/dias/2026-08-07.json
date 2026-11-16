@@ -1,0 +1,129 @@
+{
+ "v": 1,
+ "dia": "2026-08-07",
+ "lojas": {
+  "piz": {
+   "pedidos": 237,
+   "cancelados": 0,
+   "vendas": 15532.69,
+   "receita": 16209.72,
+   "desc_loja": 882.67,
+   "desc_plataforma": 826.25,
+   "desc_manual": 0.0,
+   "comissao_ifood": 971.63,
+   "desc_loja_ifood": 882.67,
+   "receita_ifood": 7590.88,
+   "proprios": 8618.84,
+   "entregas_delivery": 194,
+   "canais": {
+    "App": [
+     47,
+     3529.67,
+     0
+    ],
+    "iFood": [
+     110,
+     6913.85,
+     0
+    ],
+    "PDV delivery": [
+     41,
+     3229.44,
+     0
+    ],
+    "Salão": [
+     39,
+     1859.73,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     28,
+     1277.33
+    ],
+    "Pizzaria": [
+     63,
+     4461.2
+    ],
+    "?": [
+     17,
+     1025.8
+    ],
+    "Pizzaria 2.0": [
+     2,
+     149.52
+    ]
+   },
+   "motoboys": {
+    "Gustavo Cardoso Carvalho": 15,
+    "Guilherme Silva Nascimento": 19,
+    "Bruno Souza Tesch": 17,
+    "Mesaque D": 16,
+    "Carlos Silva Dos Santos Junior": 20,
+    "Claudio Da Costa Nolasso": 15,
+    "Breno Jesus de Souza": 16,
+    "Andre Vitor Silva dos Reis": 14,
+    "Walisson Jesus D": 18,
+    "Nivaldo Lima Brandao Junior": 17,
+    "Kalyson de Oliveira Santos": 12,
+    "Alexsandro Santana de Ecio": 14
+   },
+   "tempos": {
+    "prod": [
+     12.0,
+     160
+    ],
+    "rua": [
+     15.0,
+     193
+    ],
+    "vida": [
+     32.0,
+     160
+    ]
+   },
+   "atrasos": 19
+  },
+  "sushi": {
+   "pedidos": 220,
+   "cancelados": 0,
+   "vendas": 11927.51,
+   "receita": 11927.51,
+   "desc_loja": 0.0,
+   "desc_plataforma": 0.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 0.0,
+   "desc_loja_ifood": 0.0,
+   "receita_ifood": 0.0,
+   "proprios": 11927.51,
+   "entregas_delivery": 0,
+   "pecas": 5559,
+   "temakis": 0,
+   "canais": {
+    "Salão": [
+     220,
+     11927.51,
+     5559
+    ]
+   },
+   "ifood_lojas": {},
+   "motoboys": {},
+   "tempos": {
+    "prod": [
+     0.0,
+     0
+    ],
+    "rua": [
+     0.0,
+     0
+    ],
+    "vida": [
+     0.0,
+     0
+    ]
+   },
+   "atrasos": 0
+  }
+ }
+}

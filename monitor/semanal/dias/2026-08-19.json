@@ -1,0 +1,145 @@
+{
+ "v": 1,
+ "dia": "2026-08-19",
+ "lojas": {
+  "piz": {
+   "pedidos": 165,
+   "cancelados": 0,
+   "vendas": 11299.33,
+   "receita": 11658.52,
+   "desc_loja": 812.83,
+   "desc_plataforma": 482.6,
+   "desc_manual": 8.0,
+   "comissao_ifood": 713.37,
+   "desc_loja_ifood": 804.83,
+   "receita_ifood": 5573.21,
+   "proprios": 6085.31,
+   "entregas_delivery": 127,
+   "canais": {
+    "iFood": [
+     78,
+     5214.02,
+     0
+    ],
+    "App": [
+     31,
+     2420.82,
+     0
+    ],
+    "Salão": [
+     30,
+     1694.76,
+     0
+    ],
+    "PDV delivery": [
+     26,
+     1969.73,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     50,
+     3817.63
+    ],
+    "Pizzaria 2.0": [
+     9,
+     662.22
+    ],
+    "Burguer": [
+     19,
+     734.17
+    ]
+   },
+   "motoboys": {
+    "Walisson Jesus D": 15,
+    "Bruno Souza Tesch": 15,
+    "Nivaldo Lima Brandao Junior": 8,
+    "João Vitor Muniz Lago": 12,
+    "Claudio Da Costa Nolasso": 12,
+    "Alexsandro Santana de Ecio": 16,
+    "Kalyson de Oliveira Santos": 12,
+    "Andre Vitor Silva dos Reis": 14,
+    "Josue Manoel dos Santos": 13,
+    "Claudio Oliveira D": 10
+   },
+   "tempos": {
+    "prod": [
+     13.0,
+     98
+    ],
+    "rua": [
+     15.0,
+     127
+    ],
+    "vida": [
+     37.0,
+     98
+    ]
+   },
+   "atrasos": 20
+  },
+  "sushi": {
+   "pedidos": 208,
+   "cancelados": 0,
+   "vendas": 11459.07,
+   "receita": 11453.85,
+   "desc_loja": 37.0,
+   "desc_plataforma": 10.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 74.24,
+   "desc_loja_ifood": 37.0,
+   "receita_ifood": 580.02,
+   "proprios": 10873.83,
+   "entregas_delivery": 10,
+   "pecas": 4139,
+   "temakis": 1,
+   "canais": {
+    "Salão": [
+     198,
+     10336.19,
+     3807
+    ],
+    "App": [
+     6,
+     537.64,
+     159
+    ],
+    "iFood": [
+     4,
+     585.24,
+     173
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     4,
+     585.24
+    ]
+   },
+   "motoboys": {
+    "João Vitor Muniz Lago": 1,
+    "Claudio Da Costa Nolasso": 1,
+    "Walisson Jesus D": 1,
+    "Bruno Souza Tesch": 1,
+    "Nivaldo Lima Brandao Junior": 3,
+    "Claudio Oliveira D": 3
+   },
+   "tempos": {
+    "prod": [
+     26.0,
+     4
+    ],
+    "rua": [
+     12.0,
+     10
+    ],
+    "vida": [
+     52.0,
+     4
+    ]
+   },
+   "atrasos": 1
+  }
+ }
+}

@@ -1,0 +1,127 @@
+{
+ "v": 1,
+ "dia": "2026-08-01",
+ "lojas": {
+  "piz": {
+   "pedidos": 321,
+   "cancelados": 0,
+   "vendas": 23283.26,
+   "receita": 24279.47,
+   "desc_loja": 1545.33,
+   "desc_plataforma": 1240.7,
+   "desc_manual": 24.0,
+   "comissao_ifood": 1550.82,
+   "desc_loja_ifood": 1521.33,
+   "receita_ifood": 12115.8,
+   "proprios": 12163.67,
+   "entregas_delivery": 298,
+   "canais": {
+    "PDV delivery": [
+     73,
+     5704.6,
+     0
+    ],
+    "iFood": [
+     167,
+     11119.59,
+     0
+    ],
+    "App": [
+     59,
+     5055.89,
+     0
+    ],
+    "Salão": [
+     22,
+     1403.18,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     31,
+     1304.06
+    ],
+    "Pizzaria": [
+     100,
+     7217.76
+    ],
+    "?": [
+     31,
+     2159.75
+    ],
+    "Pizzaria 2.0": [
+     5,
+     438.02
+    ]
+   },
+   "motoboys": {
+    "Mesaque D": 19,
+    "Kalyson de Oliveira Santos": 17,
+    "Walisson Jesus D": 24,
+    "Carlos Silva Dos Santos Junior": 24,
+    "Guilherme Silva Nascimento": 25,
+    "Gustavo Cardoso Carvalho": 15,
+    "Alexsandro Santana de Ecio": 20,
+    "George Gomes da Silva": 15,
+    "Ricardo Gomes Camilo": 19,
+    "Beatriz Ribeiro Serafim Gonçalves D": 13,
+    "Nivaldo Lima Brandao Junior": 14,
+    "Rodrigo Santana Massaranduba Filho": 15,
+    "Bruno Souza Tesch": 16,
+    "Pablo Deivid D": 19,
+    "Andre Vitor Silva dos Reis": 17,
+    "Claudio Oliveira D": 13
+   },
+   "tempos": {
+    "prod": [
+     17.0,
+     251
+    ],
+    "rua": [
+     15.0,
+     298
+    ],
+    "vida": [
+     36.0,
+     251
+    ]
+   },
+   "atrasos": 58
+  },
+  "sushi": {
+   "pedidos": 0,
+   "cancelados": 0,
+   "vendas": 0.0,
+   "receita": 0.0,
+   "desc_loja": 0.0,
+   "desc_plataforma": 0.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 0.0,
+   "desc_loja_ifood": 0.0,
+   "receita_ifood": 0.0,
+   "proprios": 0.0,
+   "entregas_delivery": 0,
+   "pecas": 0,
+   "temakis": 0,
+   "canais": {},
+   "ifood_lojas": {},
+   "motoboys": {},
+   "tempos": {
+    "prod": [
+     0.0,
+     0
+    ],
+    "rua": [
+     0.0,
+     0
+    ],
+    "vida": [
+     0.0,
+     0
+    ]
+   },
+   "atrasos": 0
+  }
+ }
+}

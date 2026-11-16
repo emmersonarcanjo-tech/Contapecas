@@ -65,6 +65,10 @@ def proxima_etapa(r: dict) -> dict | None:
         dias = (date.fromisoformat(e["due"]) - date.fromisoformat(str(r["hired_at"])[:10])).days + 1
         if dias < 15:
             e["due"] = str(c["next"]["due"])[:10]
+        elif str(r["hired_at"])[:7] == e["competence"]:
+            # entrou no mês: vale proporcional aos dias do mês (do dia da entrada ao dia 30)
+            h = date.fromisoformat(str(r["hired_at"])[:10])
+            e["valor"] = round(e["valor"] * max(0, 30 - h.day + 1) / 30, 2)
     return e
 
 

@@ -1,0 +1,155 @@
+{
+ "v": 1,
+ "dia": "2026-09-05",
+ "lojas": {
+  "piz": {
+   "pedidos": 274,
+   "cancelados": 3,
+   "vendas": 20484.81,
+   "receita": 21364.0,
+   "desc_loja": 1195.87,
+   "desc_plataforma": 1090.86,
+   "desc_manual": 40.0,
+   "comissao_ifood": 1288.6,
+   "desc_loja_ifood": 1155.87,
+   "receita_ifood": 10067.17,
+   "proprios": 11296.83,
+   "entregas_delivery": 229,
+   "canais": {
+    "Salão": [
+     42,
+     2655.35,
+     0
+    ],
+    "PDV delivery": [
+     50,
+     4152.83,
+     0
+    ],
+    "iFood": [
+     126,
+     9187.98,
+     0
+    ],
+    "App": [
+     56,
+     4488.65,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     88,
+     7267.15
+    ],
+    "Burguer": [
+     28,
+     1078.53
+    ],
+    "Pizzaria 2.0": [
+     10,
+     842.3
+    ]
+   },
+   "motoboys": {
+    "Matheus Emilio Ferreira": 19,
+    "Pedro Vinicius Nascimento de Jesus": 15,
+    "Guilherme Silva Nascimento": 23,
+    "Rodrigo Santana Massaranduba Filho": 18,
+    "Andre Vitor Silva dos Reis": 21,
+    "Nivaldo Lima Brandao Junior": 17,
+    "Claudio Oliveira D": 12,
+    "Alexsandro Santana de Ecio": 17,
+    "Ricardo Gomes Camilo": 22,
+    "Bruno Souza Tesch": 14,
+    "Josue Manoel dos Santos": 13,
+    "Matheus Conceição D": 11,
+    "Kalyson de Oliveira Santos": 16,
+    "Gabriel Amorin D": 11
+   },
+   "tempos": {
+    "prod": [
+     15.0,
+     224
+    ],
+    "rua": [
+     15.0,
+     229
+    ],
+    "vida": [
+     39.0,
+     224
+    ]
+   },
+   "atrasos": 76
+  },
+  "sushi": {
+   "pedidos": 114,
+   "cancelados": 1,
+   "vendas": 7223.09,
+   "receita": 7252.46,
+   "desc_loja": 104.0,
+   "desc_plataforma": 46.73,
+   "desc_manual": 0.0,
+   "comissao_ifood": 96.26,
+   "desc_loja_ifood": 104.0,
+   "receita_ifood": 752.01,
+   "proprios": 6500.45,
+   "entregas_delivery": 36,
+   "pecas": 1863,
+   "temakis": 28,
+   "canais": {
+    "Salão": [
+     78,
+     4171.68,
+     1201
+    ],
+    "iFood": [
+     13,
+     722.64,
+     145
+    ],
+    "App": [
+     23,
+     2328.77,
+     517
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     13,
+     722.64
+    ]
+   },
+   "motoboys": {
+    "Bruno Souza Tesch": 2,
+    "Josue Manoel dos Santos": 3,
+    "Guilherme Silva Nascimento": 7,
+    "Alexsandro Santana de Ecio": 4,
+    "Andre Vitor Silva dos Reis": 1,
+    "Matheus Emilio Ferreira": 4,
+    "Rodrigo Santana Massaranduba Filho": 2,
+    "Claudio Oliveira D": 2,
+    "Kalyson de Oliveira Santos": 4,
+    "Gabriel Amorin D": 1,
+    "Matheus Conceição D": 1,
+    "Ricardo Gomes Camilo": 3
+   },
+   "tempos": {
+    "prod": [
+     25.0,
+     24
+    ],
+    "rua": [
+     17.0,
+     35
+    ],
+    "vida": [
+     47.0,
+     24
+    ]
+   },
+   "atrasos": 17
+  }
+ }
+}

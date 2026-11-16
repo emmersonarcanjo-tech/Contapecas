@@ -9,9 +9,10 @@ EM ABERTO (boleto), a baixa vem do comprovante. Gerentes entram na loja deles (P
 são divididos pelo rateio mensal.
 
 Faltas injustificadas (Emerson, 16/11/2026): R$ 20 por falta (600 ÷ 30), descontadas no vale
-do MÊS SEGUINTE. Vêm do fechamento de ponto do Flit (Rotina do dia 1, no computador), que grava
-monitor/vale/faltas/AAAA-MM.json = {"Nome Completo": nº de faltas injustificadas do mês}.
-Sem o arquivo do mês anterior, o vale sai sem desconto e o resumo avisa.
+do PRÓPRIO mês. O ponto fecha no dia 26, junto com a folha (ciclo 26 do mês anterior a 25 do mês):
+o fechamento de ponto do Flit (Rotina no computador) grava
+monitor/vale/faltas/AAAA-MM.json = {"Nome Completo": nº de faltas injustificadas no ciclo que
+termina em 25/MM}. Sem o arquivo do mês, o vale sai sem desconto e o resumo avisa.
 
 Uso: vale_alimentacao.py [--mes AAAA-MM] [--confirmar] [--whatsapp]
 Ajusta a conta "Vale alimentação…" do mês (valor e vencimento no dia 30) ou cria uma nova.
@@ -55,10 +56,9 @@ def _n(s: str) -> str:
     return f"{s[0]} {s[-1]}" if s else ""
 
 
-def faltas_mes_anterior(ini: date) -> dict | None:
-    ant = (ini.replace(day=1) - __import__("datetime").timedelta(days=1))
+def faltas_do_ciclo(ini: date) -> dict | None:
     try:
-        d = json.loads((FALTAS / f"{ant:%Y-%m}.json").read_text(encoding="utf-8"))
+        d = json.loads((FALTAS / f"{ini:%Y-%m}.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return None
     return {_n(k): int(v) for k, v in d.items() if int(v or 0) > 0}
@@ -92,9 +92,9 @@ def main() -> int:
     ult = calendar.monthrange(ini.year, ini.month)[1]
     fim, venc = ini.replace(day=ult), ini.replace(day=min(30, ult))
     linhas, api = [], None
-    faltas = faltas_mes_anterior(ini)
+    faltas = faltas_do_ciclo(ini)
     if faltas is None:
-        linhas.append("⚠️ Sem a lista de faltas do mês passado (fechamento de ponto) — vale sem desconto de faltas.")
+        linhas.append(f"⚠️ Sem a lista de faltas do ponto (ciclo até 25/{ini:%m}) — vale sem desconto de faltas.")
     for loja, u, p in LOJAS:
         api = Aliv(os.environ[u], os.environ[p])
         try:

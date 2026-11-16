@@ -78,6 +78,12 @@ class AlivError(RuntimeError):
     pass
 
 
+CANAL_RELATORIOS = Path(__file__).resolve().parent / "whatsapp_canal.json"
+AVISO_NUMERO_NOVO = ("📌 *Tili — número novo dos relatórios.* A partir de agora os relatórios da Tili saem por este "
+                     "número. Salve o contato e responda *OK* aqui para os arquivos (PDF e imagens) também "
+                     "chegarem por ele.")
+
+
 # ------------------------------------------------------------------ cliente
 class Aliv:
     """Cliente HTTP só leitura, sessão por cookie, relogin em 401."""
@@ -140,10 +146,58 @@ class Aliv:
             return data
         raise AlivError(f"GET {path} falhou após novas tentativas")
 
+    # ---- número exclusivo dos relatórios (Emerson, 16/11/2026) -----------------------------
+    # Um segundo WhatsApp da loja (instância Evolution "Suporte gerencial"), só para relatórios e
+    # leitura de mensagens, para desafogar o número da Pizzaria (API oficial da Meta, janela de 24 h).
+    # Como o ALIV roteia: /chat/send sai pelo número em que a pessoa escreveu por último;
+    # /chat/start-smart-conversation aceita o canal explícito, mas só texto (ignora arquivo).
+    def _canal_relatorios(self) -> str | None:
+        """Instância dos relatórios, se configurada em whatsapp_canal.json e conectada."""
+        if not hasattr(self, "_canal"):
+            self._canal = None
+            try:
+                cfg = json.loads(CANAL_RELATORIOS.read_text(encoding="utf-8"))
+                if cfg.get("ativo") and cfg.get("instancia") and cfg.get("loja"):
+                    st = self.get(f"/admin/api/stores/evolution-status/{cfg['loja']}", {"instance": cfg["instancia"]})
+                    if isinstance(st, dict) and st.get("status") == "open":
+                        self._canal = str(cfg["instancia"])
+            except (OSError, ValueError, AlivError):
+                pass
+        return self._canal
+
+    def _texto_pelo_canal(self, telefone: str, texto: str, canal: str) -> bool:
+        boundary = uuid.uuid4().hex
+        campos = (("phone", telefone), ("message", texto), ("channel", "evolution"), ("instance_name", canal))
+        body = ("".join(f'--{boundary}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'
+                        for k, v in campos) + f"--{boundary}--\r\n").encode()
+        try:
+            status, data = self._send(urllib.request.Request(
+                BASE_URL + "/admin/api/chat/start-smart-conversation", data=body, method="POST",
+                headers={"Content-Type": f"multipart/form-data; boundary={boundary}"}))
+        except OSError:
+            return False
+        return status == 200 and isinstance(data, dict) and data.get("success") is True
+
+    def _conversa_no_canal(self, telefone: str, canal: str) -> bool:
+        """A pessoa já escreveu para o número dos relatórios? (aí os arquivos também saem por ele)"""
+        try:
+            c = self.get("/admin/api/chat/contacts")
+        except AlivError:
+            return True                      # sem certeza: não incomoda com aviso
+        alvo = re.sub(r"\D", "", telefone)[-8:]
+        return any(re.sub(r"\D", "", str(x.get("phone", "")))[-8:] == alvo and x.get("wa_instance") == canal
+                   for x in (c.get("contacts") if isinstance(c, dict) else c) or [])
+
     def enviar_whatsapp(self, telefone: str, texto: str, arquivo: Path | None = None) -> None:
-        """Único envio do monitor: POST /admin/api/chat/send (mesmo do chat do ALIV),
-        pelo WhatsApp principal da loja. Com `arquivo`, anexa no campo `file` (o mesmo
-        que o chat do ALIV usa). Levanta AlivError se não confirmar."""
+        """Único envio do monitor: POST /admin/api/chat/send (mesmo do chat do ALIV).
+        Com `arquivo`, anexa no campo `file` (o mesmo que o chat do ALIV usa). Levanta AlivError
+        se não confirmar. Se o número dos relatórios estiver ativo: texto sai sempre por ele; arquivo
+        sai por ele quando a pessoa já escreveu para esse número (senão, vai um aviso pedindo o OK)."""
+        canal = self._canal_relatorios()
+        if canal and arquivo is None and self._texto_pelo_canal(telefone, texto, canal):
+            return
+        if canal and arquivo is not None and not self._conversa_no_canal(telefone, canal):
+            self._texto_pelo_canal(telefone, AVISO_NUMERO_NOVO, canal)
         boundary = uuid.uuid4().hex
         body = "".join(f'--{boundary}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'
                        for k, v in (("phone", telefone), ("message", texto))).encode()

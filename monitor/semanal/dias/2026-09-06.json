@@ -1,0 +1,159 @@
+{
+ "v": 1,
+ "dia": "2026-09-06",
+ "lojas": {
+  "piz": {
+   "pedidos": 330,
+   "cancelados": 6,
+   "vendas": 24761.61,
+   "receita": 25829.28,
+   "desc_loja": 1632.39,
+   "desc_plataforma": 1303.36,
+   "desc_manual": 0.0,
+   "comissao_ifood": 1522.49,
+   "desc_loja_ifood": 1632.39,
+   "receita_ifood": 11862.42,
+   "proprios": 13966.86,
+   "entregas_delivery": 271,
+   "canais": {
+    "iFood": [
+     163,
+     10794.75,
+     0
+    ],
+    "PDV delivery": [
+     49,
+     4481.51,
+     0
+    ],
+    "App": [
+     66,
+     6365.25,
+     0
+    ],
+    "Salão": [
+     52,
+     3120.1,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     104,
+     7493.23
+    ],
+    "Burguer": [
+     45,
+     1972.22
+    ],
+    "Pizzaria 2.0": [
+     14,
+     1329.3
+    ]
+   },
+   "motoboys": {
+    "Mesaque D": 18,
+    "Micael Oliveira Lima": 13,
+    "Ricardo Gomes Camilo": 24,
+    "Carlos Silva Dos Santos Junior": 21,
+    "Eduardo Santos Sousa": 15,
+    "Jadson Nascimento dos santos": 14,
+    "Kaua Kevin D": 10,
+    "Pedro Vinicius Nascimento de Jesus": 16,
+    "Gabriel Amorin D": 15,
+    "Claudio Da Costa Nolasso": 16,
+    "Rodrigo Santana Massaranduba Filho": 17,
+    "Matheus Emilio Ferreira": 23,
+    "Pablo Deivid D": 22,
+    "Isaac da Silva Mota Lisboa": 12,
+    "Guilherme Silva Nascimento": 22,
+    "Matheus Conceição D": 11
+   },
+   "tempos": {
+    "prod": [
+     21.0,
+     238
+    ],
+    "rua": [
+     15.0,
+     270
+    ],
+    "vida": [
+     42.0,
+     238
+    ]
+   },
+   "atrasos": 109
+  },
+  "sushi": {
+   "pedidos": 168,
+   "cancelados": 4,
+   "vendas": 10133.19,
+   "receita": 10250.21,
+   "desc_loja": 125.61,
+   "desc_plataforma": 157.35,
+   "desc_manual": 0.66,
+   "comissao_ifood": 228.64,
+   "desc_loja_ifood": 124.95,
+   "receita_ifood": 1786.17,
+   "proprios": 8464.04,
+   "entregas_delivery": 46,
+   "pecas": 2510,
+   "temakis": 43,
+   "canais": {
+    "Salão": [
+     121,
+     6109.08,
+     1666
+    ],
+    "App": [
+     24,
+     2354.96,
+     442
+    ],
+    "iFood": [
+     23,
+     1669.15,
+     402
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     23,
+     1669.15
+    ]
+   },
+   "motoboys": {
+    "Eduardo Santos Sousa": 4,
+    "Kaua Kevin D": 6,
+    "Mesaque D": 4,
+    "Guilherme Silva Nascimento": 5,
+    "Claudio Da Costa Nolasso": 3,
+    "Isaac da Silva Mota Lisboa": 3,
+    "Pedro Vinicius Nascimento de Jesus": 2,
+    "Matheus Emilio Ferreira": 3,
+    "Matheus Conceição D": 5,
+    "Ricardo Gomes Camilo": 2,
+    "Rodrigo Santana Massaranduba Filho": 3,
+    "Pablo Deivid D": 2,
+    "Carlos Silva Dos Santos Junior": 2,
+    "Gabriel Amorin D": 2
+   },
+   "tempos": {
+    "prod": [
+     37.0,
+     23
+    ],
+    "rua": [
+     17.0,
+     46
+    ],
+    "vida": [
+     64.0,
+     23
+    ]
+   },
+   "atrasos": 19
+  }
+ }
+}

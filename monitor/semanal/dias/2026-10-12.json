@@ -1,0 +1,129 @@
+{
+ "v": 1,
+ "dia": "2026-10-12",
+ "lojas": {
+  "piz": {
+   "pedidos": 404,
+   "cancelados": 8,
+   "vendas": 29628.96,
+   "receita": 31135.74,
+   "desc_loja": 1698.26,
+   "desc_plataforma": 1776.67,
+   "desc_manual": 5.5,
+   "comissao_ifood": 1528.63,
+   "desc_loja_ifood": 1692.76,
+   "receita_ifood": 11926.4,
+   "proprios": 19209.34,
+   "entregas_delivery": 340,
+   "canais": {
+    "PDV delivery": [
+     14,
+     1276.7,
+     0
+    ],
+    "Salão": [
+     48,
+     2568.79,
+     0
+    ],
+    "iFood": [
+     173,
+     10419.62,
+     0
+    ],
+    "App": [
+     169,
+     15363.85,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     54,
+     2625.58
+    ],
+    "Pizzaria 2.0": [
+     12,
+     1017.77
+    ],
+    "Pizzaria": [
+     107,
+     6776.27
+    ]
+   },
+   "motoboys": {
+    "Mesaque D": 20,
+    "Carlos Silva Dos Santos Junior": 27,
+    "Kalyson de Oliveira Santos": 20,
+    "Deivisson Santos D": 10,
+    "Matheus Emilio Ferreira": 29,
+    "Breno Jesus de Souza": 21,
+    "Gustavo Cardoso Carvalho": 20,
+    "Emanuel dos Santos Guedes": 12,
+    "Andre Vitor Silva dos Reis": 18,
+    "Gabriel Amorin D": 11,
+    "Guilherme Vieira Torres": 13,
+    "Gustavo rerles": 13,
+    "Adriano Santos de Assis Junior": 19,
+    "Marcos Vinicius silva de sousa": 13,
+    "George Gomes da Silva": 13,
+    "Pedro Vinicius Nascimento de Jesus": 15,
+    "Lohran Alcântara Rodrigues": 13,
+    "Beatriz Ribeiro Serafim Gonçalves D": 11,
+    "Claudio Oliveira D": 13,
+    "Ronalt Soares dos Santos D": 12,
+    "LEONARDOPINTO DO BOMFIM": 7,
+    "Vitor de Brito Ferreira": 10
+   },
+   "tempos": {
+    "prod": [
+     19.0,
+     281
+    ],
+    "rua": [
+     17.0,
+     340
+    ],
+    "vida": [
+     44.0,
+     281
+    ]
+   },
+   "atrasos": 142
+  },
+  "sushi": {
+   "pedidos": 0,
+   "cancelados": 0,
+   "vendas": 0.0,
+   "receita": 0.0,
+   "desc_loja": 0.0,
+   "desc_plataforma": 0.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 0.0,
+   "desc_loja_ifood": 0.0,
+   "receita_ifood": 0.0,
+   "proprios": 0.0,
+   "entregas_delivery": 0,
+   "pecas": 0,
+   "temakis": 0,
+   "canais": {},
+   "ifood_lojas": {},
+   "motoboys": {},
+   "tempos": {
+    "prod": [
+     0.0,
+     0
+    ],
+    "rua": [
+     0.0,
+     0
+    ],
+    "vida": [
+     0.0,
+     0
+    ]
+   },
+   "atrasos": 0
+  }
+ }
+}

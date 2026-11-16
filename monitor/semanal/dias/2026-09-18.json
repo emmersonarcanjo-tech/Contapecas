@@ -1,0 +1,161 @@
+{
+ "v": 1,
+ "dia": "2026-09-18",
+ "lojas": {
+  "piz": {
+   "pedidos": 247,
+   "cancelados": 2,
+   "vendas": 18912.06,
+   "receita": 19562.22,
+   "desc_loja": 956.01,
+   "desc_plataforma": 863.55,
+   "desc_manual": 59.2,
+   "comissao_ifood": 1261.81,
+   "desc_loja_ifood": 896.81,
+   "receita_ifood": 9847.91,
+   "proprios": 9714.31,
+   "entregas_delivery": 215,
+   "canais": {
+    "iFood": [
+     135,
+     9197.75,
+     0
+    ],
+    "App": [
+     49,
+     4325.84,
+     0
+    ],
+    "PDV delivery": [
+     37,
+     3200.48,
+     0
+    ],
+    "Salão": [
+     26,
+     2187.99,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     92,
+     6863.97
+    ],
+    "Burguer": [
+     31,
+     1351.64
+    ],
+    "Pizzaria 2.0": [
+     12,
+     982.14
+    ]
+   },
+   "motoboys": {
+    "Ian Mendes dos Santos": 19,
+    "Breno Jesus de Souza": 19,
+    "Rodrigo Santana Massaranduba Filho": 14,
+    "Josue Manoel dos Santos": 16,
+    "Guilherme Silva Nascimento": 22,
+    "Mesaque D": 14,
+    "Claudio Da Costa Nolasso": 15,
+    "Kalyson de Oliveira Santos": 16,
+    "Nivaldo Lima Brandao Junior": 13,
+    "Isaac da Silva Mota Lisboa": 15,
+    "Pablo Deivid D": 17,
+    "Andre Vitor Silva dos Reis": 17,
+    "Lohran Alcântara Rodrigues": 7,
+    "Claudio Oliveira D": 11
+   },
+   "tempos": {
+    "prod": [
+     15.0,
+     208
+    ],
+    "rua": [
+     17.0,
+     215
+    ],
+    "vida": [
+     38.0,
+     208
+    ]
+   },
+   "atrasos": 61
+  },
+  "sushi": {
+   "pedidos": 175,
+   "cancelados": 2,
+   "vendas": 10342.9,
+   "receita": 10376.55,
+   "desc_loja": 153.19,
+   "desc_plataforma": 60.04,
+   "desc_manual": 25.19,
+   "comissao_ifood": 152.67,
+   "desc_loja_ifood": 128.0,
+   "receita_ifood": 1192.76,
+   "proprios": 9183.79,
+   "entregas_delivery": 52,
+   "pecas": 2264,
+   "temakis": 62,
+   "canais": {
+    "Salão": [
+     117,
+     6084.93,
+     1617
+    ],
+    "App": [
+     35,
+     2885.49,
+     395
+    ],
+    "iFood": [
+     20,
+     1159.11,
+     252
+    ],
+    "PDV delivery": [
+     3,
+     213.37,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     20,
+     1159.11
+    ]
+   },
+   "motoboys": {
+    "Mesaque D": 5,
+    "Guilherme Silva Nascimento": 2,
+    "Breno Jesus de Souza": 7,
+    "Claudio Da Costa Nolasso": 6,
+    "Josue Manoel dos Santos": 4,
+    "Nivaldo Lima Brandao Junior": 4,
+    "Isaac da Silva Mota Lisboa": 3,
+    "Lohran Alcântara Rodrigues": 3,
+    "Ian Mendes dos Santos": 4,
+    "Claudio Oliveira D": 4,
+    "Pablo Deivid D": 4,
+    "Andre Vitor Silva dos Reis": 4,
+    "Rodrigo Santana Massaranduba Filho": 2
+   },
+   "tempos": {
+    "prod": [
+     24.0,
+     32
+    ],
+    "rua": [
+     16.0,
+     52
+    ],
+    "vida": [
+     49.0,
+     32
+    ]
+   },
+   "atrasos": 23
+  }
+ }
+}

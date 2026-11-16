@@ -1,0 +1,40 @@
+{
+ "dia": "2026-11-14",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 16,
+  "pedidos": 9,
+  "pedidos_ia": 2,
+  "abandonadas": 7,
+  "conversao": 0.562,
+  "abandono": 0.438,
+  "tempo_medio_min": 0.4,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 2,
+  "cancelados_ia": 0,
+  "pedidos_link": 7,
+  "pedidos_outro": 0,
+  "receberam_link": 14,
+  "abandono_com_link": 7,
+  "abandono_sem_link": 0,
+  "problemas": {
+   "nao_entendeu": 2,
+   "item_preco": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [],
+ "itens_faltando": [
+  "Não sei se foi aí?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

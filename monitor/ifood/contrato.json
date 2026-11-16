@@ -1,0 +1,5 @@
+{
+ "_leia": "Taxas do iFood confirmadas pelo Emerson (15/11/2026), as mesmas da tabela de formas de pagamento do ALIV: comissão 10% sobre itens + entrega − desconto da loja; taxa de transação 2,73% sobre o valor pago online, em todas as formas. (O 1% do Pix é do Pix Online do app do ALIV/Mercado Pago, não do iFood.) O relatório avisa quando o iFood cobrar acima disso.",
+ "comissao_pct": 10.0,
+ "taxa_transacao_pct": {"padrao": 2.73}
+}

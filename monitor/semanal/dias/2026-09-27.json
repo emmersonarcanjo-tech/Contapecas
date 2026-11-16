@@ -1,0 +1,169 @@
+{
+ "v": 1,
+ "dia": "2026-09-27",
+ "lojas": {
+  "piz": {
+   "pedidos": 359,
+   "cancelados": 1,
+   "vendas": 26364.13,
+   "receita": 26765.44,
+   "desc_loja": 1166.68,
+   "desc_plataforma": 634.39,
+   "desc_manual": 123.0,
+   "comissao_ifood": 1429.97,
+   "desc_loja_ifood": 1043.68,
+   "receita_ifood": 11171.63,
+   "proprios": 15593.81,
+   "entregas_delivery": 289,
+   "canais": {
+    "Salão": [
+     62,
+     4123.18,
+     0
+    ],
+    "iFood": [
+     152,
+     10770.32,
+     0
+    ],
+    "PDV delivery": [
+     62,
+     4985.35,
+     0
+    ],
+    "App": [
+     83,
+     6485.28,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria 2.0": [
+     12,
+     913.6
+    ],
+    "Burguer": [
+     50,
+     2343.34
+    ],
+    "Pizzaria": [
+     90,
+     7513.38
+    ]
+   },
+   "motoboys": {
+    "Josue Manoel dos Santos": 14,
+    "Yago da Silva Lopes": 8,
+    "Nivaldo Lima Brandao Junior": 16,
+    "Guilherme Silva Nascimento": 23,
+    "Caio da Cruz Sertório Sousa": 15,
+    "Adriano Santos de Assis Junior": 11,
+    "Carlos Silva Dos Santos Junior": 18,
+    "Mesaque D": 16,
+    "Claudio Da Costa Nolasso": 17,
+    "Deivisson Santos D": 17,
+    "Ricardo Gomes Camilo": 13,
+    "Kalyson de Oliveira Santos": 19,
+    "Alexsandro Santana de Ecio": 14,
+    "Isaac da Silva Mota Lisboa": 21,
+    "Rodrigo Santana Massaranduba Filho": 15,
+    "Matheus Emilio Ferreira": 19,
+    "Andre Vitor Silva dos Reis": 13,
+    "Gustavo Cardoso Carvalho": 19
+   },
+   "tempos": {
+    "prod": [
+     19.0,
+     277
+    ],
+    "rua": [
+     15.0,
+     288
+    ],
+    "vida": [
+     40.0,
+     277
+    ]
+   },
+   "atrasos": 100
+  },
+  "sushi": {
+   "pedidos": 150,
+   "cancelados": 0,
+   "vendas": 8493.94,
+   "receita": 8504.12,
+   "desc_loja": 69.97,
+   "desc_plataforma": 17.98,
+   "desc_manual": 2.97,
+   "comissao_ifood": 45.4,
+   "desc_loja_ifood": 67.0,
+   "receita_ifood": 354.68,
+   "proprios": 8149.44,
+   "entregas_delivery": 28,
+   "pecas": 2335,
+   "temakis": 17,
+   "canais": {
+    "Salão": [
+     121,
+     5927.45,
+     1704
+    ],
+    "App": [
+     21,
+     2194.07,
+     557
+    ],
+    "iFood": [
+     7,
+     344.5,
+     67
+    ],
+    "PDV delivery": [
+     1,
+     27.92,
+     7
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     7,
+     344.5
+    ]
+   },
+   "motoboys": {
+    "Isaac da Silva Mota Lisboa": 2,
+    "Alexsandro Santana de Ecio": 3,
+    "Gustavo Cardoso Carvalho": 1,
+    "Rodrigo Santana Massaranduba Filho": 1,
+    "Deivisson Santos D": 1,
+    "Adriano Santos de Assis Junior": 1,
+    "Ricardo Gomes Camilo": 3,
+    "Matheus Emilio Ferreira": 1,
+    "Claudio Da Costa Nolasso": 1,
+    "Andre Vitor Silva dos Reis": 1,
+    "Caio da Cruz Sertório Sousa": 1,
+    "Nivaldo Lima Brandao Junior": 1,
+    "Kalyson de Oliveira Santos": 2,
+    "Josue Manoel dos Santos": 3,
+    "Guilherme Silva Nascimento": 2,
+    "Yago da Silva Lopes": 3,
+    "Carlos Silva Dos Santos Junior": 1
+   },
+   "tempos": {
+    "prod": [
+     20.0,
+     22
+    ],
+    "rua": [
+     20.0,
+     28
+    ],
+    "vida": [
+     55.0,
+     22
+    ]
+   },
+   "atrasos": 12
+  }
+ }
+}

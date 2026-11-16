@@ -1,0 +1,121 @@
+{
+ "v": 1,
+ "dia": "2026-08-06",
+ "lojas": {
+  "piz": {
+   "pedidos": 164,
+   "cancelados": 2,
+   "vendas": 11867.69,
+   "receita": 12321.47,
+   "desc_loja": 751.57,
+   "desc_plataforma": 580.95,
+   "desc_manual": 2.0,
+   "comissao_ifood": 754.87,
+   "desc_loja_ifood": 749.57,
+   "receita_ifood": 5881.45,
+   "proprios": 6440.02,
+   "entregas_delivery": 142,
+   "canais": {
+    "iFood": [
+     84,
+     5427.67,
+     0
+    ],
+    "App": [
+     30,
+     2771.43,
+     0
+    ],
+    "PDV delivery": [
+     30,
+     2707.13,
+     0
+    ],
+    "Salão": [
+     20,
+     961.46,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     54,
+     3734.5
+    ],
+    "Burguer": [
+     15,
+     789.6
+    ],
+    "?": [
+     14,
+     808.45
+    ],
+    "Pizzaria 2.0": [
+     1,
+     95.12
+    ]
+   },
+   "motoboys": {
+    "Pablo Deivid D": 15,
+    "Claudio Da Costa Nolasso": 13,
+    "Breno Jesus de Souza": 18,
+    "Guilherme Silva Nascimento": 16,
+    "Ricardo Gomes Camilo": 14,
+    "Nivaldo Lima Brandao Junior": 14,
+    "Carlos Silva Dos Santos Junior": 18,
+    "Gustavo Cardoso Carvalho": 14,
+    "Andre Vitor Silva dos Reis": 11,
+    "Rodrigo Santana Massaranduba Filho": 9
+   },
+   "tempos": {
+    "prod": [
+     14.0,
+     116
+    ],
+    "rua": [
+     13.0,
+     142
+    ],
+    "vida": [
+     30.0,
+     116
+    ]
+   },
+   "atrasos": 12
+  },
+  "sushi": {
+   "pedidos": 0,
+   "cancelados": 0,
+   "vendas": 0.0,
+   "receita": 0.0,
+   "desc_loja": 0.0,
+   "desc_plataforma": 0.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 0.0,
+   "desc_loja_ifood": 0.0,
+   "receita_ifood": 0.0,
+   "proprios": 0.0,
+   "entregas_delivery": 0,
+   "pecas": 0,
+   "temakis": 0,
+   "canais": {},
+   "ifood_lojas": {},
+   "motoboys": {},
+   "tempos": {
+    "prod": [
+     0.0,
+     0
+    ],
+    "rua": [
+     0.0,
+     0
+    ],
+    "vida": [
+     0.0,
+     0
+    ]
+   },
+   "atrasos": 0
+  }
+ }
+}

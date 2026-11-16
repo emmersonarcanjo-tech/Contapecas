@@ -1,0 +1,122 @@
+{
+ "v": 1,
+ "dia": "2026-09-07",
+ "lojas": {
+  "piz": {
+   "pedidos": 370,
+   "cancelados": 3,
+   "vendas": 28550.6,
+   "receita": 29966.63,
+   "desc_loja": 2118.0,
+   "desc_plataforma": 1738.99,
+   "desc_manual": 0.0,
+   "comissao_ifood": 2057.54,
+   "desc_loja_ifood": 2118.0,
+   "receita_ifood": 16058.57,
+   "proprios": 13908.06,
+   "entregas_delivery": 349,
+   "canais": {
+    "PDV delivery": [
+     50,
+     3960.98,
+     0
+    ],
+    "iFood": [
+     210,
+     14642.54,
+     0
+    ],
+    "App": [
+     96,
+     8858.28,
+     0
+    ],
+    "Salão": [
+     14,
+     1088.8,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     153,
+     11030.11
+    ],
+    "Burguer": [
+     31,
+     1769.15
+    ],
+    "Pizzaria 2.0": [
+     26,
+     1843.28
+    ]
+   },
+   "motoboys": {
+    "Isaac da Silva Mota Lisboa": 19,
+    "Kaua Kevin D": 15,
+    "Jadson Nascimento dos santos": 16,
+    "Ian Mendes dos Santos": 22,
+    "Deivisson Santos D": 22,
+    "Guilherme Silva Nascimento": 41,
+    "Josue Manoel dos Santos": 19,
+    "Gustavo Cardoso Carvalho": 23,
+    "Bruno Souza Tesch": 21,
+    "Yago da Silva Lopes": 16,
+    "Pedro Vinicius Nascimento de Jesus": 19,
+    "Matheus Conceição D": 21,
+    "Nilson JR D": 22,
+    "Gabriel Amorin D": 18,
+    "Pablo Deivid D": 17
+   },
+   "tempos": {
+    "prod": [
+     27.0,
+     318
+    ],
+    "rua": [
+     29.0,
+     349
+    ],
+    "vida": [
+     71.0,
+     318
+    ]
+   },
+   "atrasos": 259
+  },
+  "sushi": {
+   "pedidos": 0,
+   "cancelados": 0,
+   "vendas": 0.0,
+   "receita": 0.0,
+   "desc_loja": 0.0,
+   "desc_plataforma": 0.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 0.0,
+   "desc_loja_ifood": 0.0,
+   "receita_ifood": 0.0,
+   "proprios": 0.0,
+   "entregas_delivery": 0,
+   "pecas": 0,
+   "temakis": 0,
+   "canais": {},
+   "ifood_lojas": {},
+   "motoboys": {},
+   "tempos": {
+    "prod": [
+     0.0,
+     0
+    ],
+    "rua": [
+     0.0,
+     0
+    ],
+    "vida": [
+     0.0,
+     0
+    ]
+   },
+   "atrasos": 0
+  }
+ }
+}

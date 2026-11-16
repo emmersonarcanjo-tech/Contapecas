@@ -1,0 +1,149 @@
+{
+ "v": 1,
+ "dia": "2026-09-17",
+ "lojas": {
+  "piz": {
+   "pedidos": 155,
+   "cancelados": 1,
+   "vendas": 10340.98,
+   "receita": 10740.64,
+   "desc_loja": 583.68,
+   "desc_plataforma": 538.01,
+   "desc_manual": 21.0,
+   "comissao_ifood": 752.87,
+   "desc_loja_ifood": 562.68,
+   "receita_ifood": 5881.76,
+   "proprios": 4858.88,
+   "entregas_delivery": 132,
+   "canais": {
+    "iFood": [
+     90,
+     5482.1,
+     0
+    ],
+    "App": [
+     27,
+     2074.38,
+     0
+    ],
+    "Salão": [
+     18,
+     1219.5,
+     0
+    ],
+    "PDV delivery": [
+     20,
+     1565.0,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     65,
+     4397.89
+    ],
+    "Burguer": [
+     25,
+     1084.21
+    ]
+   },
+   "motoboys": {
+    "Guilherme Silva Nascimento": 19,
+    "Gustavo Cardoso Carvalho": 18,
+    "Andre Vitor Silva dos Reis": 11,
+    "Rodrigo Santana Massaranduba Filho": 13,
+    "Alexsandro Santana de Ecio": 14,
+    "Josue Manoel dos Santos": 13,
+    "Matheus Emilio Ferreira": 12,
+    "Breno Jesus de Souza": 14,
+    "Claudio Da Costa Nolasso": 10,
+    "Pedro Vinicius Nascimento de Jesus": 8
+   },
+   "tempos": {
+    "prod": [
+     11.0,
+     126
+    ],
+    "rua": [
+     14.0,
+     132
+    ],
+    "vida": [
+     28.0,
+     126
+    ]
+   },
+   "atrasos": 5
+  },
+  "sushi": {
+   "pedidos": 100,
+   "cancelados": 0,
+   "vendas": 5329.04,
+   "receita": 5373.56,
+   "desc_loja": 101.92,
+   "desc_plataforma": 65.95,
+   "desc_manual": 4.93,
+   "comissao_ifood": 145.43,
+   "desc_loja_ifood": 96.99,
+   "receita_ifood": 1136.2,
+   "proprios": 4237.36,
+   "entregas_delivery": 20,
+   "pecas": 1272,
+   "temakis": 13,
+   "canais": {
+    "Salão": [
+     77,
+     3586.83,
+     958
+    ],
+    "App": [
+     9,
+     560.74,
+     68
+    ],
+    "iFood": [
+     13,
+     1091.68,
+     246
+    ],
+    "PDV delivery": [
+     1,
+     89.79,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     13,
+     1091.68
+    ]
+   },
+   "motoboys": {
+    "Pedro Vinicius Nascimento de Jesus": 4,
+    "Josue Manoel dos Santos": 1,
+    "Andre Vitor Silva dos Reis": 4,
+    "Alexsandro Santana de Ecio": 2,
+    "Claudio Da Costa Nolasso": 2,
+    "Matheus Emilio Ferreira": 2,
+    "Guilherme Silva Nascimento": 1,
+    "Rodrigo Santana Massaranduba Filho": 1,
+    "Breno Jesus de Souza": 2
+   },
+   "tempos": {
+    "prod": [
+     16.0,
+     7
+    ],
+    "rua": [
+     15.0,
+     19
+    ],
+    "vida": [
+     40.0,
+     7
+    ]
+   },
+   "atrasos": 2
+  }
+ }
+}

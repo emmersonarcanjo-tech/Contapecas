@@ -1,0 +1,148 @@
+{
+ "v": 1,
+ "dia": "2026-10-13",
+ "lojas": {
+  "piz": {
+   "pedidos": 228,
+   "cancelados": 2,
+   "vendas": 13176.75,
+   "receita": 13900.36,
+   "desc_loja": 917.08,
+   "desc_plataforma": 860.04,
+   "desc_manual": 43.96,
+   "comissao_ifood": 763.72,
+   "desc_loja_ifood": 873.12,
+   "receita_ifood": 5966.58,
+   "proprios": 7933.78,
+   "entregas_delivery": 173,
+   "canais": {
+    "Salão": [
+     46,
+     2079.04,
+     0
+    ],
+    "iFood": [
+     94,
+     5242.97,
+     0
+    ],
+    "App": [
+     84,
+     5556.96,
+     0
+    ],
+    "PDV delivery": [
+     4,
+     297.78,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     50,
+     3022.18
+    ],
+    "Burguer": [
+     35,
+     1506.85
+    ],
+    "Pizzaria 2.0": [
+     9,
+     713.94
+    ]
+   },
+   "motoboys": {
+    "Lohran Alcântara Rodrigues": 18,
+    "Nivaldo Lima Brandao Junior": 17,
+    "Claudio Da Costa Nolasso": 12,
+    "Guilherme Silva Nascimento": 28,
+    "Carlos Silva Dos Santos Junior": 22,
+    "Rodrigo Santana Massaranduba Filho": 13,
+    "Gustavo Cardoso Carvalho": 14,
+    "Ian Mendes dos Santos": 16,
+    "Breno Jesus de Souza": 17,
+    "Kalyson de Oliveira Santos": 16
+   },
+   "tempos": {
+    "prod": [
+     12.0,
+     126
+    ],
+    "rua": [
+     14.0,
+     173
+    ],
+    "vida": [
+     36.0,
+     126
+    ]
+   },
+   "atrasos": 26
+  },
+  "sushi": {
+   "pedidos": 73,
+   "cancelados": 0,
+   "vendas": 4404.14,
+   "receita": 4425.12,
+   "desc_loja": 113.94,
+   "desc_plataforma": 34.97,
+   "desc_manual": 0.0,
+   "comissao_ifood": 78.03,
+   "desc_loja_ifood": 113.94,
+   "receita_ifood": 609.64,
+   "proprios": 3815.48,
+   "entregas_delivery": 20,
+   "pecas": 1139,
+   "temakis": 4,
+   "canais": {
+    "Salão": [
+     52,
+     2794.03,
+     775
+    ],
+    "iFood": [
+     9,
+     588.66,
+     129
+    ],
+    "App": [
+     12,
+     1021.45,
+     235
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     9,
+     588.66
+    ]
+   },
+   "motoboys": {
+    "Ian Mendes dos Santos": 4,
+    "Carlos Silva Dos Santos Junior": 2,
+    "Claudio Da Costa Nolasso": 5,
+    "Breno Jesus de Souza": 1,
+    "Nivaldo Lima Brandao Junior": 1,
+    "Kalyson de Oliveira Santos": 1,
+    "Gustavo Cardoso Carvalho": 3,
+    "Lohran Alcântara Rodrigues": 1,
+    "Rodrigo Santana Massaranduba Filho": 2
+   },
+   "tempos": {
+    "prod": [
+     29.0,
+     11
+    ],
+    "rua": [
+     13.0,
+     20
+    ],
+    "vida": [
+     44.0,
+     11
+    ]
+   },
+   "atrasos": 5
+  }
+ }
+}

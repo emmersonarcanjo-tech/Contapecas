@@ -547,3 +547,36 @@ python3 monitor/contagem_lancar.py manuais/Folha_de_Contagem_Tili_Pizzaria.xlsx 
 - **Não finaliza.** O ajuste do estoque é feito pelo Emerson na tela: Estoque → Conferência → Finalizar (responsável + senha).
 - Testado em dry-run contra o ALIV real em 09/11/2026. O modo `--confirmar` ainda não foi rodado (grava no ALIV).
 - Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam variáveis ou planilha inválida · `3` lançou com falhas.
+
+## Notas de fornecedor (`notas_entrada.py`)
+
+Rotina diária às 20:30. Lê as **Notas pendentes** do ALIV (as NF-e de fornecedor que a SEFAZ manda para a Pizzaria e o Sushi) e dá entrada como na tela "Conferência da Nota":
+
+- itens ligados aos insumos que o ALIV já memorizou pelo código de barras (fator "conferir" ou item sem insumo = a nota não entra e vai na lista para o Emerson);
+- custo com frete/IPI/ST/desconto rateados, para bater com o total da nota;
+- boletos do XML viram contas a pagar por parcela (Boleto via DDA); parcela vencida entra paga na data do vencimento, sem mexer em caixa/banco;
+- nota sem forma de pagamento: estoque com custo real e conta paga na data da nota, sem caixa/banco;
+- Norsa sem data no boleto: +4 dias (notas até 15/11/2026; as novas vão para a lista).
+
+Uso: `python3 monitor/notas_entrada.py` (só mostra) · `--confirmar` (lança) · `--whatsapp` (resumo para WHATSAPP_EMERSON) · `--loja Pizzaria|Sushi` · `--nota ID`.
+
+## Baixa dos motoboys (`baixa_motoboys.py`)
+
+Rotina toda segunda às 17:00. Para cada motoboy (diarista ou prestador) com saldo na Folha do ALIV, dá baixa no valor dos turnos até o domingo anterior (dia operacional = horário − 6 h). O ganho depois do domingo fica adiado para a próxima baixa (`defer_amount`). Registra como Pix com origem `none` (não mexe em caixa nem banco). Valor = saldo do ALIV, sem as correções do relatório de prestadores. Funcionário registrado com líquido zerado não é baixado: vai como aviso.
+
+Uso: `python3 monitor/baixa_motoboys.py [--ate AAAA-MM-DD] [--confirmar] [--whatsapp]`.
+
+## Boletos da semana (`boletos.py`) e comprovantes (`comprovantes.py`)
+
+- `boletos.py segunda --para FONE`: dois PDFs prontos para imprimir (boletos de sábado a segunda; de terça a sexta), Pizzaria e Sushi juntos, por dia, com fornecedor, NF, parcela, valor e quadrinho "pago". Grava a lista em `monitor/boletos/AAAA-MM-DD.json`.
+- `boletos.py sexta --para FONE`: conferência — boletos da semana que ficaram de fora da lista de segunda e os que venceram sem baixa. Boletos vencidos antes de sábado ficam fora das listas (só aviso).
+- `comprovantes.py ler --de FONE`: baixa as fotos/PDFs novos do financeiro (o ALIV guarda mídia por 24 h). A Rotina lê cada comprovante e monta o JSON.
+- `comprovantes.py baixar ENTRADA.json --confirmar --whatsapp`: acha a conta pelo valor, data/vencimento e fornecedor e dá baixa saindo do Bradesco da loja. Sem certeza, não baixa e avisa o Emerson. Estado em `monitor/comprovantes/estado.json`.
+
+## iFood da semana (`ifood_semanal.py`)
+
+Toda segunda às 09:00, semana anterior. Lê a conciliação iFood do ALIV (vendas, lançamentos, antecipações) das 4 contas e gera um PDF com o resumo por loja, alertas (anúncios, antecipação, ocorrências) e a verificação das taxas contra `monitor/ifood/contrato.json`: comissão sobre itens + entrega − desconto da loja; taxa de transação sobre o valor pago online, por forma de pagamento. O que for cobrado acima do contrato aparece em R$. Uso: `python3 monitor/ifood_semanal.py [--inicio --fim] [--whatsapp]`.
+
+## Folha CLT (`folha_clt.py`)
+
+Dias 5 e 20 às 18:10. Para cada funcionário registrado na Folha do ALIV, lança as etapas vencidas (vale de 40% no dia 20, saldo do mês no dia 5) na data de vencimento, como "PAGAMENTO DE FOLHA - BRADESCO" saindo do Bradesco, com os valores que o ALIV calcula (conferir com o holerite do contador). Uso: `python3 monitor/folha_clt.py [--ate AAAA-MM-DD] [--confirmar] [--whatsapp]`.

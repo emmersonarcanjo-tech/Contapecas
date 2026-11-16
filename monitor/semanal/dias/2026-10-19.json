@@ -1,0 +1,119 @@
+{
+ "v": 1,
+ "dia": "2026-10-19",
+ "lojas": {
+  "piz": {
+   "pedidos": 167,
+   "cancelados": 4,
+   "vendas": 8442.26,
+   "receita": 9353.61,
+   "desc_loja": 927.58,
+   "desc_plataforma": 1025.97,
+   "desc_manual": 24.11,
+   "comissao_ifood": 562.69,
+   "desc_loja_ifood": 903.47,
+   "receita_ifood": 4396.03,
+   "proprios": 4957.58,
+   "entregas_delivery": 143,
+   "canais": {
+    "iFood": [
+     103,
+     3484.68,
+     0
+    ],
+    "App": [
+     45,
+     4059.91,
+     0
+    ],
+    "Salão": [
+     17,
+     711.77,
+     0
+    ],
+    "PDV delivery": [
+     2,
+     185.9,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     47,
+     1080.49
+    ],
+    "Pizzaria": [
+     49,
+     2026.86
+    ],
+    "Pizzaria 2.0": [
+     7,
+     377.33
+    ]
+   },
+   "motoboys": {
+    "Claudio Da Costa Nolasso": 10,
+    "Guilherme Silva Nascimento": 11,
+    "Kalyson de Oliveira Santos": 13,
+    "Gustavo Cardoso Carvalho": 11,
+    "Rodrigo Santana Massaranduba Filho": 11,
+    "Adriano Santos de Assis Junior": 13,
+    "Carlos Silva Dos Santos Junior": 13,
+    "Andre Vitor Silva dos Reis": 14,
+    "João Vitor Santos Ramos": 10,
+    "Jefferson Lima Chargas": 10,
+    "Alexsandro Santana de Ecio": 18,
+    "Claudio Oliveira D": 9
+   },
+   "tempos": {
+    "prod": [
+     11.0,
+     55
+    ],
+    "rua": [
+     12.0,
+     143
+    ],
+    "vida": [
+     29.0,
+     55
+    ]
+   },
+   "atrasos": 2
+  },
+  "sushi": {
+   "pedidos": 0,
+   "cancelados": 0,
+   "vendas": 0.0,
+   "receita": 0.0,
+   "desc_loja": 0.0,
+   "desc_plataforma": 0.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 0.0,
+   "desc_loja_ifood": 0.0,
+   "receita_ifood": 0.0,
+   "proprios": 0.0,
+   "entregas_delivery": 0,
+   "pecas": 0,
+   "temakis": 0,
+   "canais": {},
+   "ifood_lojas": {},
+   "motoboys": {},
+   "tempos": {
+    "prod": [
+     0.0,
+     0
+    ],
+    "rua": [
+     0.0,
+     0
+    ],
+    "vida": [
+     0.0,
+     0
+    ]
+   },
+   "atrasos": 0
+  }
+ }
+}

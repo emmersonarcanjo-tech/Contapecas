@@ -1,0 +1,165 @@
+{
+ "v": 1,
+ "dia": "2026-09-08",
+ "lojas": {
+  "piz": {
+   "pedidos": 260,
+   "cancelados": 2,
+   "vendas": 17928.85,
+   "receita": 18735.37,
+   "desc_loja": 1016.43,
+   "desc_plataforma": 958.33,
+   "desc_manual": 9.5,
+   "comissao_ifood": 996.54,
+   "desc_loja_ifood": 1006.93,
+   "receita_ifood": 7785.5,
+   "proprios": 10949.87,
+   "entregas_delivery": 219,
+   "canais": {
+    "iFood": [
+     106,
+     6978.98,
+     0
+    ],
+    "Salão": [
+     35,
+     2003.09,
+     0
+    ],
+    "App": [
+     72,
+     5289.49,
+     0
+    ],
+    "PDV delivery": [
+     47,
+     3657.29,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     22,
+     950.84
+    ],
+    "Pizzaria": [
+     77,
+     5344.18
+    ],
+    "Pizzaria 2.0": [
+     7,
+     683.96
+    ]
+   },
+   "motoboys": {
+    "Guilherme Silva Nascimento": 18,
+    "Leviton ferreira D": 12,
+    "Claudio Oliveira D": 12,
+    "Claudio Da Costa Nolasso": 12,
+    "Pablo Deivid D": 12,
+    "Josue Manoel dos Santos": 15,
+    "Carlos Silva Dos Santos Junior": 18,
+    "Rodrigo Santana Massaranduba Filho": 15,
+    "Matheus Emilio Ferreira": 15,
+    "Beatriz Ribeiro Serafim Gonçalves D": 11,
+    "Deivisson Santos D": 12,
+    "Gustavo Cardoso Carvalho": 17,
+    "Kaua Kevin D": 10,
+    "Bruno Souza Tesch": 12,
+    "Mesaque D": 9,
+    "Kalyson de Oliveira Santos": 10,
+    "Ian Mendes dos Santos": 8
+   },
+   "tempos": {
+    "prod": [
+     16.0,
+     177
+    ],
+    "rua": [
+     15.0,
+     218
+    ],
+    "vida": [
+     38.0,
+     177
+    ]
+   },
+   "atrasos": 51
+  },
+  "sushi": {
+   "pedidos": 124,
+   "cancelados": 8,
+   "vendas": 7719.21,
+   "receita": 7818.53,
+   "desc_loja": 198.95,
+   "desc_plataforma": 128.89,
+   "desc_manual": 10.0,
+   "comissao_ifood": 175.75,
+   "desc_loja_ifood": 188.95,
+   "receita_ifood": 1373.06,
+   "proprios": 6445.47,
+   "entregas_delivery": 38,
+   "pecas": 2009,
+   "temakis": 31,
+   "canais": {
+    "Salão": [
+     82,
+     4623.62,
+     1286
+    ],
+    "iFood": [
+     23,
+     1273.74,
+     316
+    ],
+    "PDV delivery": [
+     1,
+     39.88,
+     11
+    ],
+    "App": [
+     18,
+     1781.97,
+     396
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     23,
+     1273.74
+    ]
+   },
+   "motoboys": {
+    "Matheus Emilio Ferreira": 3,
+    "Pablo Deivid D": 5,
+    "Claudio Oliveira D": 1,
+    "Rodrigo Santana Massaranduba Filho": 3,
+    "Kalyson de Oliveira Santos": 4,
+    "Guilherme Silva Nascimento": 4,
+    "Mesaque D": 4,
+    "Bruno Souza Tesch": 2,
+    "Claudio Da Costa Nolasso": 3,
+    "Kaua Kevin D": 2,
+    "Ian Mendes dos Santos": 2,
+    "Gustavo Cardoso Carvalho": 1,
+    "Deivisson Santos D": 2,
+    "Josue Manoel dos Santos": 2
+   },
+   "tempos": {
+    "prod": [
+     17.0,
+     15
+    ],
+    "rua": [
+     15.0,
+     38
+    ],
+    "vida": [
+     40.0,
+     15
+    ]
+   },
+   "atrasos": 5
+  }
+ }
+}

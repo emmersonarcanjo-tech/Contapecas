@@ -1,0 +1,160 @@
+{
+ "v": 1,
+ "dia": "2026-08-30",
+ "lojas": {
+  "piz": {
+   "pedidos": 309,
+   "cancelados": 3,
+   "vendas": 24575.79,
+   "receita": 25581.02,
+   "desc_loja": 1717.95,
+   "desc_plataforma": 1296.34,
+   "desc_manual": 24.9,
+   "comissao_ifood": 1601.08,
+   "desc_loja_ifood": 1693.05,
+   "receita_ifood": 12508.44,
+   "proprios": 13091.92,
+   "entregas_delivery": 268,
+   "canais": {
+    "iFood": [
+     159,
+     11483.87,
+     0
+    ],
+    "PDV delivery": [
+     60,
+     5503.76,
+     0
+    ],
+    "Salão": [
+     37,
+     2655.56,
+     0
+    ],
+    "App": [
+     53,
+     4932.6,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     101,
+     7675.88
+    ],
+    "Burguer": [
+     40,
+     1891.78
+    ],
+    "Pizzaria 2.0": [
+     18,
+     1916.21
+    ]
+   },
+   "motoboys": {
+    "Matheus Conceição D": 16,
+    "Andre Vitor Silva dos Reis": 17,
+    "Guilherme Silva Nascimento": 26,
+    "Breno Jesus de Souza": 19,
+    "Ricardo Gomes Camilo": 20,
+    "Josue Manoel dos Santos": 15,
+    "Gabriel Amorin D": 9,
+    "Nivaldo Lima Brandao Junior": 14,
+    "Claudio Da Costa Nolasso": 14,
+    "Bruno Souza Tesch": 15,
+    "Nilson JR D": 18,
+    "Rodrigo Santana Massaranduba Filho": 20,
+    "Walisson Jesus D": 13,
+    "Gustavo Cardoso Carvalho": 16,
+    "Kalyson de Oliveira Santos": 17,
+    "Mesaque D": 16
+   },
+   "tempos": {
+    "prod": [
+     22.0,
+     203
+    ],
+    "rua": [
+     15.0,
+     267
+    ],
+    "vida": [
+     44.0,
+     203
+    ]
+   },
+   "atrasos": 99
+  },
+  "sushi": {
+   "pedidos": 107,
+   "cancelados": 0,
+   "vendas": 6558.56,
+   "receita": 6601.12,
+   "desc_loja": 168.47,
+   "desc_plataforma": 65.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 138.07,
+   "desc_loja_ifood": 168.47,
+   "receita_ifood": 1078.66,
+   "proprios": 5522.46,
+   "entregas_delivery": 32,
+   "pecas": 1621,
+   "temakis": 30,
+   "canais": {
+    "Salão": [
+     75,
+     4219.91,
+     1137
+    ],
+    "App": [
+     15,
+     1302.55,
+     338
+    ],
+    "iFood": [
+     17,
+     1036.1,
+     146
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     17,
+     1036.1
+    ]
+   },
+   "motoboys": {
+    "Mesaque D": 2,
+    "Kalyson de Oliveira Santos": 2,
+    "Ricardo Gomes Camilo": 2,
+    "Josue Manoel dos Santos": 1,
+    "Guilherme Silva Nascimento": 1,
+    "Gabriel Amorin D": 5,
+    "Nivaldo Lima Brandao Junior": 4,
+    "Bruno Souza Tesch": 1,
+    "Andre Vitor Silva dos Reis": 1,
+    "Claudio Da Costa Nolasso": 1,
+    "Walisson Jesus D": 3,
+    "Breno Jesus de Souza": 4,
+    "Nilson JR D": 1,
+    "Gustavo Cardoso Carvalho": 2,
+    "Matheus Conceição D": 2
+   },
+   "tempos": {
+    "prod": [
+     12.0,
+     16
+    ],
+    "rua": [
+     16.0,
+     31
+    ],
+    "vida": [
+     39.0,
+     16
+    ]
+   },
+   "atrasos": 6
+  }
+ }
+}

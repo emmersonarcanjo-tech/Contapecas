@@ -19,18 +19,32 @@ Lançamento (--confirmar), sem mexer em banco/caixa:
   - Pizzaria: entrada "Reembolso do rateio — Sushi MM/AAAA" (recebida, origem nenhuma).
 Não lança de novo se já existir a conta com a mesma descrição.
 
-Uso: rateio.py [--mes AAAA-MM] [--confirmar] [--whatsapp]     (padrão: mês passado)
+Compras do Sushi nas notas da Pizzaria (Emerson, 16/11/2026): a Pizzaria compra no CNPJ dela
+insumos que só o Sushi usa (salmão, embalagem oriental, arroz japonês, nori, shoyu/tarê, temperos
+do sushi). Todo mês o script soma esses itens nas notas de compra da Pizzaria emitidas no mês
+(só venda: bonificação, remessa e devolução ficam de fora) e lança, também sem banco:
+  - Sushi: despesa "Compras do Sushi pagas pela Pizzaria MM/AAAA";
+  - Pizzaria: entrada "Reembolso de compras — Sushi MM/AAAA".
+Itens que as duas lojas usam (cream cheese, camarão, bebidas) NÃO entram: são estimativa.
+
+Uso: rateio.py [--mes AAAA-MM] [--confirmar] [--whatsapp] [--so-compras]     (padrão: mês passado)
+     --so-compras: só as compras do Sushi (para meses em que o rateio já foi lançado)
 Saída: 0 ok, 1 erro ALIV, 3 WhatsApp falhou.
 """
 from __future__ import annotations
 
 import argparse
+import io
+import unicodedata
+import urllib.error
 import urllib.request
 import uuid
 import calendar
 import os
 import re
 import sys
+import xml.etree.ElementTree as ET
+import zipfile
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -49,6 +63,21 @@ ODONTO_TITULAR = 21.90      # por funcionário CLT com +3 meses; a empresa paga 
 ADMISSAO_REAL = {"tamile de jesus santos": "2026-08-11"}
 CAT_SUSHI = "Rateio de custos da Pizzaria"
 CAT_PIZ = "Reembolso de rateio (Sushi)"
+CAT_COMPRAS_SUSHI = "Compras pagas pela Pizzaria"
+CAT_COMPRAS_PIZ = "Reembolso de compras (Sushi)"
+NFE = "{http://www.portalfiscal.inf.br/nfe}"
+# Itens que só o Sushi usa (nenhuma ficha da Pizzaria leva). Lista conferida nas notas de ago–nov/2026.
+# De propósito ficam de fora: atum em lata, cream cheese, camarão, bebidas, cogumelos, gergelim e molhos comuns.
+SO_SUSHI = [
+    ("Salmão e peixes", r"\bSALMAO\b|\bSALMON\b|LOMBO (DE )?ATUM|ATUM FRESCO|\bTOBIKO\b|\bOVAS\b"),
+    ("Embalagens orientais, hashi e potes", r"EMB\.? ?ORIENTAL|EMBALAGEM ORIENTAL|POTE ORIENTAL|EMBALAGEM COMBINADO|\bHASHI\b|\bGOHAN\b"),
+    ("Arroz japonês", r"KOSHIHIKARI|JAPONICO"),
+    ("Alga nori", r"\bNORI\b|\bKOMBU\b"),
+    ("Shoyu e tarê", r"\bSHOYU\b|\bTARE\b"),
+    ("Temperos do sushi", r"TEMPERO (P/? ?|PARA )SUSHI|\bSAQUE\b|\bMIRIN\b|HONDASHI|\bWASABI\b|GENGIBRE|VINAGRE.*ARROZ"),
+    ("Outros do sushi", r"YAKIS+OBA|\bKANI\b|KANI-?KAMA|PEPINO JAPONES|\bSUDARE\b|PAPEL DE ARROZ"),
+]
+CFOP_VENDA = ("51", "61", "54", "64")      # compra de verdade; 59/69 = bonificação, remessa, comodato
 
 
 def clt_odonto(api, fim: date) -> int:
@@ -117,6 +146,71 @@ def calcular(apis: dict, mes: date, agora: datetime) -> dict:
             "lucro_sushi": A["sushi"]["l"]["lucro"]}
 
 
+def _sem_acento(s: str) -> str:
+    s = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().upper()
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def familia_sushi(nome: str) -> str | None:
+    """Família do item se ele é de uso só do Sushi; None se não é."""
+    n = _sem_acento(nome)
+    return next((fam for fam, rx in SO_SUSHI if re.search(rx, n)), None)
+
+
+def compras_do_sushi(api, ini: date, fim: date) -> dict:
+    """Itens só do Sushi nas notas de compra da Pizzaria emitidas entre ini e fim (pelo XML da nota)."""
+    req = urllib.request.Request(f"{BASE_URL}/admin/inventory/invoices/xml-zip?start={ini.isoformat()}&end={fim.isoformat()}")
+    try:
+        with api.opener.open(req, timeout=300) as r:
+            bruto = r.read()
+    except urllib.error.HTTPError as e:
+        raise AlivError(f"não consegui baixar as notas da Pizzaria (HTTP {e.code})") from e
+    try:
+        z = zipfile.ZipFile(io.BytesIO(bruto))
+    except zipfile.BadZipFile as e:
+        raise AlivError("o ALIV não devolveu o arquivo das notas da Pizzaria") from e
+    fam: dict[str, float] = {}
+    itens: dict[str, float] = {}
+    vistas: set[str] = set()
+    notas = 0
+    for nome in z.namelist():
+        if not nome.lower().endswith(".xml"):
+            continue
+        try:
+            x = ET.fromstring(z.read(nome))
+        except ET.ParseError:
+            continue
+        inf, ide = x.find(f".//{NFE}infNFe"), x.find(f".//{NFE}ide")
+        if inf is None or ide is None:
+            continue
+        chave = inf.get("Id") or nome
+        emissao = (ide.findtext(f"{NFE}dhEmi") or ide.findtext(f"{NFE}dEmi") or "")[:10]
+        if chave in vistas or not (ini.isoformat() <= emissao <= fim.isoformat()):
+            continue
+        vistas.add(chave)
+        notas += 1
+        for det in x.iter(f"{NFE}det"):
+            pr = det.find(f"{NFE}prod")
+            if pr is None or not (pr.findtext(f"{NFE}CFOP") or "").startswith(CFOP_VENDA):
+                continue
+            f = familia_sushi(pr.findtext(f"{NFE}xProd") or "")
+            if not f:
+                continue
+            # valor do item = produto − desconto (frete e impostos por fora ficam na Pizzaria)
+            v = float(pr.findtext(f"{NFE}vProd") or 0) - float(pr.findtext(f"{NFE}vDesc") or 0)
+            fam[f] = fam.get(f, 0.0) + v
+            n = _sem_acento(pr.findtext(f"{NFE}xProd") or "")[:48]
+            itens[n] = itens.get(n, 0.0) + v
+    return {"total": round(sum(fam.values()), 2), "familias": fam, "itens": itens, "notas": notas}
+
+
+def texto_compras(C: dict, mes: date) -> str:
+    L = [f"*Compras do Sushi nas notas da Pizzaria* {mes:%m/%Y}: *{brl(C['total'])}*"
+         f" (itens que só o Sushi usa, em {C['notas']} notas lidas)"]
+    L += [f"  • {f}: {brl(v)}" for f, v in sorted(C["familias"].items(), key=lambda kv: -kv[1])]
+    return "\n".join(L)
+
+
 def _form(api, path: str, c: dict):
     k = uuid.uuid4().hex
     body = "".join(f'--{k}\r\nContent-Disposition: form-data; name="{n}"\r\n\r\n{v}\r\n'
@@ -167,29 +261,56 @@ def main() -> int:
     ap.add_argument("--mes", help="AAAA-MM (padrão: mês passado)")
     ap.add_argument("--confirmar", action="store_true", help="lança no ALIV (Sushi e Pizzaria)")
     ap.add_argument("--whatsapp", action="store_true")
+    ap.add_argument("--so-compras", action="store_true",
+                    help="só as compras do Sushi nas notas da Pizzaria (rateio do mês já lançado)")
     a = ap.parse_args()
     agora = datetime.now(TZ).replace(second=0, microsecond=0)
     mes = (date.fromisoformat(a.mes + "-01") if a.mes else (agora.date().replace(day=1) - timedelta(days=1)))
+    ini = mes.replace(day=1)
+    fim = mes.replace(day=calendar.monthrange(mes.year, mes.month)[1])
     apis = {"piz": AlivSemanal(os.environ["ALIV_USER"], os.environ["ALIV_PASS"]),
             "sushi": AlivSemanal(os.environ["ALIV_USER_SUSHI"], os.environ["ALIV_PASS_SUSHI"])}
     try:
         for x in apis.values():
             x.login()
-        R = calcular(apis, mes, agora)
+        R = None if a.so_compras else calcular(apis, mes, agora)
     except (AlivError, OSError) as e:
         print(f"Tili — Rateio — ERRO no ALIV\n\n{e}")
         return 1
-    t = texto(R)
-    if a.confirmar and R["sushi"] > 0.009:
-        fim = R["mes"].replace(day=calendar.monthrange(R["mes"].year, R["mes"].month)[1])
-        try:
-            r1 = lancar(apis["sushi"], "payable", f"Rateio de custos da Pizzaria {R['mes']:%m/%Y}", R["sushi"], fim, CAT_SUSHI)
-            r2 = lancar(apis["piz"], "receivable", f"Reembolso do rateio — Sushi {R['mes']:%m/%Y}", R["sushi"], fim, CAT_PIZ)
-        except (AlivError, OSError) as e:
-            print(f"Tili — Rateio — ERRO ao lançar no ALIV\n\n{e}")
-            return 1
-        t += f"\nALIV: Sushi (despesa) {r1} · Pizzaria (reembolso) {r2} — sem mexer em banco"
-    elif not a.confirmar:
+    try:
+        C = compras_do_sushi(apis["piz"], ini, fim)
+        erro_compras = ""
+    except (AlivError, OSError, ValueError) as e:      # o rateio não para por causa das notas
+        C, erro_compras = None, str(e)
+    partes = []
+    if R is not None:
+        t = texto(R)
+        if a.confirmar and R["sushi"] > 0.009:
+            try:
+                r1 = lancar(apis["sushi"], "payable", f"Rateio de custos da Pizzaria {ini:%m/%Y}", R["sushi"], fim, CAT_SUSHI)
+                r2 = lancar(apis["piz"], "receivable", f"Reembolso do rateio — Sushi {ini:%m/%Y}", R["sushi"], fim, CAT_PIZ)
+            except (AlivError, OSError) as e:
+                print(f"Tili — Rateio — ERRO ao lançar no ALIV\n\n{e}")
+                return 1
+            t += f"\nALIV: Sushi (despesa) {r1} · Pizzaria (reembolso) {r2} — sem mexer em banco"
+        partes.append(t)
+    if C is None:
+        partes.append(f"*Compras do Sushi nas notas da Pizzaria* {ini:%m/%Y}: ⚠️ não consegui ler as notas ({erro_compras}). Nada lançado.")
+    elif C["total"] <= 0.009:
+        partes.append(f"*Compras do Sushi nas notas da Pizzaria* {ini:%m/%Y}: nenhum item só do Sushi em {C['notas']} notas da Pizzaria.")
+    else:
+        t = texto_compras(C, ini)
+        if a.confirmar:
+            try:
+                r1 = lancar(apis["sushi"], "payable", f"Compras do Sushi pagas pela Pizzaria {ini:%m/%Y}", C["total"], fim, CAT_COMPRAS_SUSHI)
+                r2 = lancar(apis["piz"], "receivable", f"Reembolso de compras — Sushi {ini:%m/%Y}", C["total"], fim, CAT_COMPRAS_PIZ)
+            except (AlivError, OSError) as e:
+                print("\n\n".join(partes + [t]) + f"\n\nTili — Rateio — ERRO ao lançar as compras no ALIV\n\n{e}")
+                return 1
+            t += f"\nALIV: Sushi (despesa) {r1} · Pizzaria (reembolso) {r2} — sem mexer em banco"
+        partes.append(t)
+    t = "\n\n".join(partes)
+    if not a.confirmar:
         t += "\n(teste — nada lançado)"
     print(t)
     if a.whatsapp:

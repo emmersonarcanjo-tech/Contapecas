@@ -632,7 +632,8 @@ def cmd_listar(lojas: list[int], dia: date, dry: bool, raw: str | None) -> int:
     return 0
 
 
-def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int, raw: str | None = None) -> int:
+def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int, raw: str | None = None,
+               enviar_whats: bool = True, resumos: list | None = None, pular: set | None = None) -> int:
     dados = ler_arquivo(dia, loja_id)
     aprovada = dados.get("lista")
     avisos = []
@@ -651,6 +652,8 @@ def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int, raw: 
             pulados.append(f"{oid}: não está mais pendente (já emitido, cancelado ou reaberto)")
         elif p["grupo"] != "EMITIR":
             pulados.append(f"#{p['codigo']}: agora está em {p['grupo']} ({p['regra']})")
+        elif pular and oid in pular:                # já tentado nesta noite (rodada anterior)
+            continue
         else:
             fila.append(p)
     novos = [p for p in col["pedidos"] if p["grupo"] == "EMITIR" and p["id"] not in set(ids_aprovados)]
@@ -704,6 +707,8 @@ def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int, raw: 
               "resultados": resultados, "avisos": avisos}
     texto = texto_emissao(dia, resumo, dry, loja_id)
     print(texto)
+    if resumos is not None:
+        resumos.append(resumo)
     if dry:
         print("\nDRY-RUN: nenhum POST, nada gravado nem enviado.", file=sys.stderr)
         return 0
@@ -712,12 +717,78 @@ def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int, raw: 
     dados.setdefault("emissoes", []).append(resumo)
     caminho = gravar_arquivo(dia, dados, loja_id)
     print(f"\nArquivo: {caminho.relative_to(PASTA.parent.parent)}")
-    falha = enviar(api, texto)
+    falha = enviar(api, texto) if enviar_whats else None
     if falha:
         print(f"WHATSAPP: não enviado — {falha}", file=sys.stderr)
     if interrompido:
         return 4
     return 3 if falha else 0
+
+
+def auto_loja(api: Aliv, loja_id: int, dia: date, dry: bool, raw: str | None) -> int:
+    """Lista do dia + emissão de tudo o que é EMITIR, sem esperar comando (Emerson, 16/11/2026).
+    Emite em rodadas de até 200 (uma nota por vez), para em LIMIT_REACHED, mantém a trava de CNPJ.
+    Manda UMA mensagem por loja: resultado + NÃO EMITIR + ATENÇÃO da lista."""
+    nome = LOJAS[loja_id]["nome"]
+    col = coletar(api, dia, loja_id)
+    _assunto, corpo_lista = texto_lista(dia, col, loja_id)
+    if not dry:
+        dados = ler_arquivo(dia, loja_id)
+        dados.update({"data": dia.isoformat(), "loja": loja_id, "automatica": True,
+                      "lista": {"gerada_em": datetime.now(TZ).isoformat(timespec="seconds"), **col}})
+        gravar_arquivo(dia, dados, loja_id)
+    resumos: list = []
+    tentados: set = set()                            # cada pedido é tentado uma vez só por execução
+    codigo = 0
+    for rodada in range(1, 6):                       # 5 × 200 = até 1.000 notas por loja e dia
+        n_antes = len(resumos)
+        codigo = cmd_emitir(api, loja_id, dia, dry, MAX_POR_EXECUCAO, raw, enviar_whats=False,
+                            resumos=resumos, pular=tentados)
+        if len(resumos) > n_antes:
+            tentados.update(r["id"] for r in resumos[-1]["resultados"] if "id" in r)
+        if codigo == 4 or dry or len(resumos) == n_antes:
+            break
+        feitos = resumos[-1]["resultados"]
+        if len(feitos) < MAX_POR_EXECUCAO:
+            break
+    resultados = [r for rs in resumos for r in rs["resultados"]]
+    avisos = [a for a in (resumos[0]["avisos"] if resumos else [])
+              if not a.startswith(("Fila com", "Sem lista salva"))]
+    avisos += [a for rs in resumos[1:] for a in rs["avisos"] if a.startswith("LIMIT_REACHED")]
+    total = {"resultados": resultados, "avisos": avisos}
+    texto = texto_emissao(dia, total, dry, loja_id).replace("— resultado*", "— emissão automática*", 1)
+    ini = corpo_lista.find("*NÃO EMITIR")
+    fim = corpo_lista.find("Responda ")
+    if ini >= 0:
+        texto += "\n\n— Da lista do dia —\n" + corpo_lista[ini:fim if fim > ini else None].rstrip()
+    aut = [r for r in resultados if r["resultado"] == "AUTORIZADA"]
+    print("\n" + "=" * 60)
+    print(f"{LOJAS[loja_id]['assunto']} — {dm(dia)} — {len(aut)} emitidas / {brl(_soma(aut))} (automática)\n")
+    print(texto)
+    if dry:
+        print(f"\nDRY-RUN ({nome}): nada emitido, gravado ou enviado.", file=sys.stderr)
+        return 0
+    falha = enviar(api, texto)
+    if falha:
+        print(f"WHATSAPP ({nome}): não enviado — {falha}", file=sys.stderr)
+        return 4 if codigo == 4 else 3
+    print(f"WHATSAPP ({nome}): resultado enviado.", file=sys.stderr)
+    return codigo
+
+
+def cmd_auto(lojas: list[int], dia: date, dry: bool, raw: str | None) -> int:
+    codigos = []
+    for loja_id in lojas:
+        try:
+            api = login_loja(loja_id, raw)
+            codigos.append(2 if api is None else auto_loja(api, loja_id, dia, dry, raw))
+        except (AlivError, OSError) as e:
+            print(f"{LOJAS[loja_id]['assunto']} — {dm(dia)} — ERRO no ALIV\n\n{e}")
+            codigos.append(1)
+    for c in (4, 1, 2, 3):
+        if c in codigos:
+            return c
+    return 0
 
 
 def loja_arg(v: str) -> int:
@@ -740,11 +811,17 @@ def main() -> int:
     pe.add_argument("--loja", type=loja_arg, required=True, help="pizzaria/150 ou sushi/155")
     pe.add_argument("--dry-run", action="store_true", help="não faz POST, só mostra")
     pe.add_argument("--limite", type=int, default=MAX_POR_EXECUCAO, help="máximo de notas (até 200)")
-    for p in (pl, pe):
+    pa = sub.add_parser("auto", help="lista + emite tudo o que é EMITIR (Rotina, sem esperar comando)")
+    pa.add_argument("--data", help="AAAA-MM-DD (padrão: hoje; antes das 04:00, ontem)")
+    pa.add_argument("--loja", type=loja_arg, help="pizzaria/150 ou sushi/155 (padrão: as duas)")
+    pa.add_argument("--dry-run", action="store_true", help="não emite, não grava, não envia")
+    for p in (pl, pe, pa):
         p.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (não commitar)")
     args = ap.parse_args()
 
     dia = date.fromisoformat(args.data) if args.data else hoje_operacional(datetime.now(TZ))
+    if args.cmd == "auto":
+        return cmd_auto([args.loja] if args.loja else list(LOJAS), dia, args.dry_run, args.raw)
     if args.cmd == "listar":
         return cmd_listar([args.loja] if args.loja else list(LOJAS), dia, args.dry_run, args.raw)
     try:

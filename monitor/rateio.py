@@ -12,8 +12,8 @@ e está pago/lançado na Pizzaria é dividido assim:
     (contas da Pizzaria com vencimento no mês) — pelo % do faturamento de cada loja.
 Faturamento e entregas vêm do mesmo levantamento do fechamento semanal (dia 16:00–04:00).
 
-  - plano odontológico: só CLT com mais de 3 meses de casa (direito após a experiência),
-    pelo nº dessas pessoas em cada loja no fim do mês.
+  - plano odontológico: R$ 21,90 por CLT do Sushi com mais de 3 meses de casa (direito após a
+    experiência; a empresa paga só o titular, dependentes são do funcionário).
 Lançamento (--confirmar), sem mexer em banco/caixa:
   - Sushi: despesa "Rateio de custos da Pizzaria MM/AAAA" (paga, origem nenhuma);
   - Pizzaria: entrada "Reembolso do rateio — Sushi MM/AAAA" (recebida, origem nenhuma).
@@ -44,6 +44,7 @@ VA_VR = 600.0
 ADMIN = ("contador", "advogada", "assistente administrativo", "marketing", "sistema aliv", "aliv")
 COMPLEMENTO = "despesa extra gerencial"
 ODONTO = "plano odontol"
+ODONTO_TITULAR = 21.90      # por funcionário CLT com +3 meses; a empresa paga só o titular
 # admissão real (carteira) quando o cadastro do ALIV usa outra data (Tamile: Sushi desde 01/11 no ALIV)
 ADMISSAO_REAL = {"tamile de jesus santos": "2026-08-11"}
 CAT_SUSHI = "Rateio de custos da Pizzaria"
@@ -104,9 +105,10 @@ def calcular(apis: dict, mes: date, agora: datetime) -> dict:
         if dl.startswith(COMPLEMENTO):
             itens.append(("Gerentes", d[:60], float(x["amount"]), pct_fat))
         elif dl.startswith(ODONTO):
-            op, os_ = clt_odonto(api, fim), clt_odonto(apis["sushi"], fim)
-            itens.append(("Benefícios", f"{d[:45]} ({os_} de {op + os_} com +3 meses no Sushi)",
-                          float(x["amount"]), os_ / (op + os_) if op + os_ else 0.0))
+            # Emerson (16/11/2026): a empresa paga R$ 21,90 só do titular (dependentes: o funcionário)
+            os_ = clt_odonto(apis["sushi"], fim)
+            itens.append(("Benefícios", f"Plano odontológico — {os_} CLT do Sushi com +3 meses × R$ 21,90",
+                          round(ODONTO_TITULAR * os_, 2), 1.0))
         elif any(dl.startswith(k) for k in ADMIN):
             itens.append(("Administrativo", d[:60], float(x["amount"]), pct_fat))
     total_sushi = round(sum(v * p for _, _, v, p in itens), 2)

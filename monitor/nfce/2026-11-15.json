@@ -7720,6 +7720,511 @@
    "avisos": [
     "Fila com 231 notas: só as primeiras 200 entram nesta execução. Rode de novo para o resto."
    ]
+  },
+  {
+   "executada_em": "2026-11-16T02:37:17-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 359452,
+     "codigo": "iF-9868",
+     "hora": "22:27",
+     "valor": 16.34,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359453,
+     "codigo": "APP-156",
+     "hora": "22:27",
+     "valor": 68.0,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359457,
+     "codigo": "M-157",
+     "hora": "22:28",
+     "valor": 7.0,
+     "pagamento": "Dinheiro: 2.00 | Cartão Débito: 5.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359477,
+     "codigo": "APP-158",
+     "hora": "22:31",
+     "valor": 129.95,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359487,
+     "codigo": "iF-7384",
+     "hora": "22:33",
+     "valor": 27.38,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359490,
+     "codigo": "APP-160",
+     "hora": "22:33",
+     "valor": 74.97,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359500,
+     "codigo": "APP-161",
+     "hora": "22:34",
+     "valor": 79.97,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359544,
+     "codigo": "iF-7635",
+     "hora": "22:42",
+     "valor": 78.5,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359571,
+     "codigo": "iF-6641",
+     "hora": "22:48",
+     "valor": 126.75,
+     "pagamento": "Cartão Crédito: 126.75",
+     "loja": "iFood Tili Pizzaria",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359575,
+     "codigo": "M-163",
+     "hora": "22:49",
+     "valor": 84.0,
+     "pagamento": "Cartão Crédito: 84.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359584,
+     "codigo": "APP-165",
+     "hora": "22:50",
+     "valor": 29.99,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359588,
+     "codigo": "M-166",
+     "hora": "22:50",
+     "valor": 97.0,
+     "pagamento": "Cartão Débito: 97.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359590,
+     "codigo": "M-167",
+     "hora": "22:51",
+     "valor": 72.0,
+     "pagamento": "Cartão Crédito: 72.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359592,
+     "codigo": "M-168",
+     "hora": "22:51",
+     "valor": 72.0,
+     "pagamento": "Cartão Crédito: 72.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359609,
+     "codigo": "iF-6008",
+     "hora": "22:55",
+     "valor": 82.0,
+     "pagamento": "Alelo Refeição: 82.00",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359640,
+     "codigo": "M-172",
+     "hora": "23:01",
+     "valor": 35.0,
+     "pagamento": "Pix: 35.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359642,
+     "codigo": "APP-173",
+     "hora": "23:02",
+     "valor": 81.5,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359643,
+     "codigo": "iF-6810",
+     "hora": "23:03",
+     "valor": 26.79,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359644,
+     "codigo": "M-174",
+     "hora": "23:03",
+     "valor": 35.0,
+     "pagamento": "Cartão Débito: 35.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359654,
+     "codigo": "M-175",
+     "hora": "23:07",
+     "valor": 336.0,
+     "pagamento": "Pix: 336.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359658,
+     "codigo": "iF-0640",
+     "hora": "23:09",
+     "valor": 59.15,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359667,
+     "codigo": "M-176",
+     "hora": "23:12",
+     "valor": 10.9,
+     "pagamento": "Cartão Crédito: 10.90",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359671,
+     "codigo": "iF-9108",
+     "hora": "23:14",
+     "valor": 19.98,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359675,
+     "codigo": "iF-8041",
+     "hora": "23:15",
+     "valor": 26.84,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359684,
+     "codigo": "M-177",
+     "hora": "23:18",
+     "valor": 37.0,
+     "pagamento": "Cartão Débito: 37.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359692,
+     "codigo": "APP-178",
+     "hora": "23:23",
+     "valor": 101.0,
+     "pagamento": "Cartão Débito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359703,
+     "codigo": "APP-179",
+     "hora": "23:26",
+     "valor": 69.98,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359715,
+     "codigo": "iF-1758",
+     "hora": "23:33",
+     "valor": 16.34,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359720,
+     "codigo": "iF-8788",
+     "hora": "23:35",
+     "valor": 20.78,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359721,
+     "codigo": "APP-182",
+     "hora": "23:35",
+     "valor": 76.0,
+     "pagamento": "Cartão Crédito: 76.00",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 359752,
+     "codigo": "M-183",
+     "hora": "23:51",
+     "valor": 4.0,
+     "pagamento": "Cartão Débito: 4.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    }
+   ],
+   "avisos": [
+    "Saíram da fila: 356443: não está mais pendente (já emitido, cancelado ou reaberto); 356453: não está mais pendente (já emitido, cancelado ou reaberto); 356465: não está mais pendente (já emitido, cancelado ou reaberto); 356473: não está mais pendente (já emitido, cancelado ou reaberto); 356482: não está mais pendente (já emitido, cancelado ou reaberto); 356484: não está mais pendente (já emitido, cancelado ou reaberto); 356493: não está mais pendente (já emitido, cancelado ou reaberto); 356535: não está mais pendente (já emitido, cancelado ou reaberto); 356536: não está mais pendente (já emitido, cancelado ou reaberto); 356571: não está mais pendente (já emitido, cancelado ou reaberto); 356573: não está mais pendente (já emitido, cancelado ou reaberto); 356598: não está mais pendente (já emitido, cancelado ou reaberto); 356604: não está mais pendente (já emitido, cancelado ou reaberto); 356623: não está mais pendente (já emitido, cancelado ou reaberto); 356624: não está mais pendente (já emitido, cancelado ou reaberto); 356635: não está mais pendente (já emitido, cancelado ou reaberto); 356646: não está mais pendente (já emitido, cancelado ou reaberto); 356661: não está mais pendente (já emitido, cancelado ou reaberto); 356667: não está mais pendente (já emitido, cancelado ou reaberto); 356672: não está mais pendente (já emitido, cancelado ou reaberto); 356673: não está mais pendente (já emitido, cancelado ou reaberto); 356687: não está mais pendente (já emitido, cancelado ou reaberto); 356740: não está mais pendente (já emitido, cancelado ou reaberto); 356749: não está mais pendente (já emitido, cancelado ou reaberto); 356760: não está mais pendente (já emitido, cancelado ou reaberto); 356766: não está mais pendente (já emitido, cancelado ou reaberto); 356787: não está mais pendente (já emitido, cancelado ou reaberto); 356794: não está mais pendente (já emitido, cancelado ou reaberto); 356809: não está mais pendente (já emitido, cancelado ou reaberto); 356824: não está mais pendente (já emitido, cancelado ou reaberto); 356826: não está mais pendente (já emitido, cancelado ou reaberto); 356829: não está mais pendente (já emitido, cancelado ou reaberto); 356849: não está mais pendente (já emitido, cancelado ou reaberto); 356856: não está mais pendente (já emitido, cancelado ou reaberto); 356871: não está mais pendente (já emitido, cancelado ou reaberto); 356873: não está mais pendente (já emitido, cancelado ou reaberto); 356876: não está mais pendente (já emitido, cancelado ou reaberto); 356883: não está mais pendente (já emitido, cancelado ou reaberto); 356894: não está mais pendente (já emitido, cancelado ou reaberto); 356898: não está mais pendente (já emitido, cancelado ou reaberto); 356923: não está mais pendente (já emitido, cancelado ou reaberto); 356934: não está mais pendente (já emitido, cancelado ou reaberto); 356969: não está mais pendente (já emitido, cancelado ou reaberto); 356976: não está mais pendente (já emitido, cancelado ou reaberto); 356980: não está mais pendente (já emitido, cancelado ou reaberto); 356989: não está mais pendente (já emitido, cancelado ou reaberto); 356990: não está mais pendente (já emitido, cancelado ou reaberto); 356993: não está mais pendente (já emitido, cancelado ou reaberto); 357015: não está mais pendente (já emitido, cancelado ou reaberto); 357069: não está mais pendente (já emitido, cancelado ou reaberto); 357127: não está mais pendente (já emitido, cancelado ou reaberto); 357141: não está mais pendente (já emitido, cancelado ou reaberto); 357143: não está mais pendente (já emitido, cancelado ou reaberto); 357151: não está mais pendente (já emitido, cancelado ou reaberto); 357169: não está mais pendente (já emitido, cancelado ou reaberto); 357187: não está mais pendente (já emitido, cancelado ou reaberto); 357190: não está mais pendente (já emitido, cancelado ou reaberto); 357192: não está mais pendente (já emitido, cancelado ou reaberto); 357197: não está mais pendente (já emitido, cancelado ou reaberto); 357228: não está mais pendente (já emitido, cancelado ou reaberto); 357239: não está mais pendente (já emitido, cancelado ou reaberto); 357243: não está mais pendente (já emitido, cancelado ou reaberto); 357252: não está mais pendente (já emitido, cancelado ou reaberto); 357255: não está mais pendente (já emitido, cancelado ou reaberto); 357268: não está mais pendente (já emitido, cancelado ou reaberto); 357271: não está mais pendente (já emitido, cancelado ou reaberto); 357291: não está mais pendente (já emitido, cancelado ou reaberto); 357292: não está mais pendente (já emitido, cancelado ou reaberto); 357294: não está mais pendente (já emitido, cancelado ou reaberto); 357301: não está mais pendente (já emitido, cancelado ou reaberto); 357302: não está mais pendente (já emitido, cancelado ou reaberto); 357312: não está mais pendente (já emitido, cancelado ou reaberto); 357316: não está mais pendente (já emitido, cancelado ou reaberto); 357348: não está mais pendente (já emitido, cancelado ou reaberto); 357356: não está mais pendente (já emitido, cancelado ou reaberto); 357363: não está mais pendente (já emitido, cancelado ou reaberto); 357374: não está mais pendente (já emitido, cancelado ou reaberto); 357396: não está mais pendente (já emitido, cancelado ou reaberto); 357419: não está mais pendente (já emitido, cancelado ou reaberto); 357432: não está mais pendente (já emitido, cancelado ou reaberto); 357434: não está mais pendente (já emitido, cancelado ou reaberto); 357445: não está mais pendente (já emitido, cancelado ou reaberto); 357453: não está mais pendente (já emitido, cancelado ou reaberto); 357461: não está mais pendente (já emitido, cancelado ou reaberto); 357465: não está mais pendente (já emitido, cancelado ou reaberto); 357467: não está mais pendente (já emitido, cancelado ou reaberto); 357497: não está mais pendente (já emitido, cancelado ou reaberto); 357505: não está mais pendente (já emitido, cancelado ou reaberto); 357514: não está mais pendente (já emitido, cancelado ou reaberto); 357515: não está mais pendente (já emitido, cancelado ou reaberto); 357521: não está mais pendente (já emitido, cancelado ou reaberto); 357553: não está mais pendente (já emitido, cancelado ou reaberto); 357568: não está mais pendente (já emitido, cancelado ou reaberto); 357613: não está mais pendente (já emitido, cancelado ou reaberto); 357628: não está mais pendente (já emitido, cancelado ou reaberto); 357644: não está mais pendente (já emitido, cancelado ou reaberto); 357648: não está mais pendente (já emitido, cancelado ou reaberto); 357649: não está mais pendente (já emitido, cancelado ou reaberto); 357650: não está mais pendente (já emitido, cancelado ou reaberto); 357654: não está mais pendente (já emitido, cancelado ou reaberto); 357660: não está mais pendente (já emitido, cancelado ou reaberto); 357702: não está mais pendente (já emitido, cancelado ou reaberto); 357713: não está mais pendente (já emitido, cancelado ou reaberto); 357726: não está mais pendente (já emitido, cancelado ou reaberto); 357761: não está mais pendente (já emitido, cancelado ou reaberto); 357789: não está mais pendente (já emitido, cancelado ou reaberto); 357836: não está mais pendente (já emitido, cancelado ou reaberto); 357907: não está mais pendente (já emitido, cancelado ou reaberto); 357915: não está mais pendente (já emitido, cancelado ou reaberto); 357931: não está mais pendente (já emitido, cancelado ou reaberto); 357985: não está mais pendente (já emitido, cancelado ou reaberto); 358020: não está mais pendente (já emitido, cancelado ou reaberto); 358025: não está mais pendente (já emitido, cancelado ou reaberto); 358046: não está mais pendente (já emitido, cancelado ou reaberto); 358083: não está mais pendente (já emitido, cancelado ou reaberto); 358104: não está mais pendente (já emitido, cancelado ou reaberto); 358124: não está mais pendente (já emitido, cancelado ou reaberto); 358136: não está mais pendente (já emitido, cancelado ou reaberto); 358146: não está mais pendente (já emitido, cancelado ou reaberto); 358168: não está mais pendente (já emitido, cancelado ou reaberto); 358172: não está mais pendente (já emitido, cancelado ou reaberto); 358173: não está mais pendente (já emitido, cancelado ou reaberto); 358174: não está mais pendente (já emitido, cancelado ou reaberto); 358219: não está mais pendente (já emitido, cancelado ou reaberto); 358239: não está mais pendente (já emitido, cancelado ou reaberto); 358256: não está mais pendente (já emitido, cancelado ou reaberto); 358265: não está mais pendente (já emitido, cancelado ou reaberto); 358287: não está mais pendente (já emitido, cancelado ou reaberto); 358305: não está mais pendente (já emitido, cancelado ou reaberto); 358306: não está mais pendente (já emitido, cancelado ou reaberto); 358310: não está mais pendente (já emitido, cancelado ou reaberto); 358316: não está mais pendente (já emitido, cancelado ou reaberto); 358326: não está mais pendente (já emitido, cancelado ou reaberto); 358349: não está mais pendente (já emitido, cancelado ou reaberto); 358354: não está mais pendente (já emitido, cancelado ou reaberto); 358372: não está mais pendente (já emitido, cancelado ou reaberto); 358376: não está mais pendente (já emitido, cancelado ou reaberto); 358400: não está mais pendente (já emitido, cancelado ou reaberto); 358410: não está mais pendente (já emitido, cancelado ou reaberto); 358431: não está mais pendente (já emitido, cancelado ou reaberto); 358452: não está mais pendente (já emitido, cancelado ou reaberto); 358454: não está mais pendente (já emitido, cancelado ou reaberto); 358472: não está mais pendente (já emitido, cancelado ou reaberto); 358518: não está mais pendente (já emitido, cancelado ou reaberto); 358527: não está mais pendente (já emitido, cancelado ou reaberto); 358542: não está mais pendente (já emitido, cancelado ou reaberto); 358567: não está mais pendente (já emitido, cancelado ou reaberto); 358588: não está mais pendente (já emitido, cancelado ou reaberto); 358611: não está mais pendente (já emitido, cancelado ou reaberto); 358620: não está mais pendente (já emitido, cancelado ou reaberto); 358631: não está mais pendente (já emitido, cancelado ou reaberto); 358649: não está mais pendente (já emitido, cancelado ou reaberto); 358669: não está mais pendente (já emitido, cancelado ou reaberto); 358691: não está mais pendente (já emitido, cancelado ou reaberto); 358718: não está mais pendente (já emitido, cancelado ou reaberto); 358727: não está mais pendente (já emitido, cancelado ou reaberto); 358764: não está mais pendente (já emitido, cancelado ou reaberto); 358768: não está mais pendente (já emitido, cancelado ou reaberto); 358773: não está mais pendente (já emitido, cancelado ou reaberto); 358793: não está mais pendente (já emitido, cancelado ou reaberto); 358798: não está mais pendente (já emitido, cancelado ou reaberto); 358817: não está mais pendente (já emitido, cancelado ou reaberto); 358818: não está mais pendente (já emitido, cancelado ou reaberto); 358846: não está mais pendente (já emitido, cancelado ou reaberto); 358870: não está mais pendente (já emitido, cancelado ou reaberto); 358876: não está mais pendente (já emitido, cancelado ou reaberto); 358880: não está mais pendente (já emitido, cancelado ou reaberto); 358888: não está mais pendente (já emitido, cancelado ou reaberto); 358904: não está mais pendente (já emitido, cancelado ou reaberto); 358906: não está mais pendente (já emitido, cancelado ou reaberto); 358913: não está mais pendente (já emitido, cancelado ou reaberto); 358921: não está mais pendente (já emitido, cancelado ou reaberto); 358935: não está mais pendente (já emitido, cancelado ou reaberto); 358976: não está mais pendente (já emitido, cancelado ou reaberto); 358980: não está mais pendente (já emitido, cancelado ou reaberto); 358999: não está mais pendente (já emitido, cancelado ou reaberto); 359005: não está mais pendente (já emitido, cancelado ou reaberto); 359100: não está mais pendente (já emitido, cancelado ou reaberto); 359127: não está mais pendente (já emitido, cancelado ou reaberto); 359150: não está mais pendente (já emitido, cancelado ou reaberto); 359182: não está mais pendente (já emitido, cancelado ou reaberto); 359238: não está mais pendente (já emitido, cancelado ou reaberto); 359239: não está mais pendente (já emitido, cancelado ou reaberto); 359240: não está mais pendente (já emitido, cancelado ou reaberto); 359246: não está mais pendente (já emitido, cancelado ou reaberto); 359274: não está mais pendente (já emitido, cancelado ou reaberto); 359303: não está mais pendente (já emitido, cancelado ou reaberto); 359316: não está mais pendente (já emitido, cancelado ou reaberto); 359331: não está mais pendente (já emitido, cancelado ou reaberto); 359347: não está mais pendente (já emitido, cancelado ou reaberto); 359350: não está mais pendente (já emitido, cancelado ou reaberto); 359354: não está mais pendente (já emitido, cancelado ou reaberto); 359376: não está mais pendente (já emitido, cancelado ou reaberto); 359378: não está mais pendente (já emitido, cancelado ou reaberto); 359384: não está mais pendente (já emitido, cancelado ou reaberto); 359387: não está mais pendente (já emitido, cancelado ou reaberto); 359389: não está mais pendente (já emitido, cancelado ou reaberto); 359403: não está mais pendente (já emitido, cancelado ou reaberto); 359412: não está mais pendente (já emitido, cancelado ou reaberto); 359426: não está mais pendente (já emitido, cancelado ou reaberto)"
+   ]
   }
  ]
 }

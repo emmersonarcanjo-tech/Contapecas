@@ -1,0 +1,27 @@
+{
+ "turno": "2026-11-16",
+ "max_motoboys_online": 7,
+ "rodadas": [
+  {
+   "hora": "2026-11-16T17:56-03:00",
+   "pedidos": 9,
+   "vendas": 461.32,
+   "ids": [
+    360094,
+    360088,
+    360085,
+    360082,
+    360078,
+    360077,
+    360064,
+    360062,
+    360061
+   ],
+   "motoboys_online": 7,
+   "entregas_live": 6,
+   "sushi_pedidos": 0,
+   "sushi_vendas": 0.0,
+   "sushi_pecas": 0
+  }
+ ]
+}

@@ -30,8 +30,8 @@ Itens que as duas lojas usam (cream cheese, camarão cru ou cozido, refrigerante
 O valor é pela data de emissão da nota. Se o mês já estiver lançado com outro valor, o script só avisa;
 com --complemento "motivo" lança só a diferença, em lançamento novo, sem tocar no original.
 
-Caminho inverso (Emerson, 16/11/2026): itens que só a Pizzaria usa (Catupiry, batata frita, fermento)
-comprados no CNPJ do Sushi. Mesma conta nas notas do Sushi; lança, sem banco:
+Caminho inverso (Emerson, 16/11/2026): itens que só a Pizzaria usa (Catupiry, batata frita, fermento,
+sachês de ketchup e maionese, manteiga) comprados no CNPJ do Sushi. Mesma conta nas notas do Sushi; lança, sem banco:
   - Pizzaria: despesa "Compras da Pizzaria pagas pelo Sushi MM/AAAA";
   - Sushi: entrada "Reembolso de compras — Pizzaria MM/AAAA".
 
@@ -99,6 +99,9 @@ SO_PIZZARIA = [
     ("Catupiry", r"REQUEIJAO.*CATUPIRY"),
     ("Batata frita", r"\bBATATA\b.*(FAST FOOD|\d+ ?MM|PALITO|PRE.?FRITA)"),
     ("Fermento", r"\bFERMENTO\b"),
+    # Emerson, 16/11/2026: sachês de ketchup e maionese e manteiga comprados no CNPJ do Sushi são da Pizzaria
+    ("Ketchup e maionese em sachê", r"(CATCHUP|KETCHUP|MAIONESE).*SACHE|SACHE.*(CATCHUP|KETCHUP|MAIONESE)"),
+    ("Manteiga", r"\bMANTEIGA\b"),
 ]
 # compra de verdade (inclui 5929/6929: nota de atacarejo sobre cupom); 59xx/69xx restantes = bonificação, remessa, comodato
 CFOP_VENDA = {p + c for p in "56" for c in ("101", "102", "103", "104", "105", "106", "116", "117", "118", "119", "120",

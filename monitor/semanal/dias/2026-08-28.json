@@ -1,0 +1,154 @@
+{
+ "v": 1,
+ "dia": "2026-08-28",
+ "lojas": {
+  "piz": {
+   "pedidos": 199,
+   "cancelados": 3,
+   "vendas": 14178.24,
+   "receita": 14653.54,
+   "desc_loja": 1024.57,
+   "desc_plataforma": 618.05,
+   "desc_manual": 6.0,
+   "comissao_ifood": 895.3,
+   "desc_loja_ifood": 1018.57,
+   "receita_ifood": 6978.5,
+   "proprios": 7675.04,
+   "entregas_delivery": 172,
+   "canais": {
+    "Salão": [
+     24,
+     1428.96,
+     0
+    ],
+    "PDV delivery": [
+     46,
+     3480.7,
+     0
+    ],
+    "iFood": [
+     92,
+     6503.2,
+     0
+    ],
+    "App": [
+     37,
+     2765.38,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     26,
+     1371.91
+    ],
+    "Pizzaria": [
+     56,
+     4320.56
+    ],
+    "Pizzaria 2.0": [
+     10,
+     810.73
+    ]
+   },
+   "motoboys": {
+    "Claudio Da Costa Nolasso": 17,
+    "Kalyson de Oliveira Santos": 13,
+    "Pablo Deivid D": 12,
+    "Ricardo Gomes Camilo": 18,
+    "Bruno Souza Tesch": 13,
+    "Alexsandro Santana de Ecio": 20,
+    "Nilson JR D": 9,
+    "Andre Vitor Silva dos Reis": 14,
+    "Guilherme Silva Nascimento": 25,
+    "Walisson Jesus D": 19,
+    "Nivaldo Lima Brandao Junior": 8
+   },
+   "tempos": {
+    "prod": [
+     12.0,
+     132
+    ],
+    "rua": [
+     17.0,
+     171
+    ],
+    "vida": [
+     38.0,
+     132
+    ]
+   },
+   "atrasos": 35
+  },
+  "sushi": {
+   "pedidos": 133,
+   "cancelados": 1,
+   "vendas": 9296.1,
+   "receita": 9313.0,
+   "desc_loja": 133.76,
+   "desc_plataforma": 26.98,
+   "desc_manual": 83.76,
+   "comissao_ifood": 65.58,
+   "desc_loja_ifood": 50.0,
+   "receita_ifood": 512.35,
+   "proprios": 8800.65,
+   "entregas_delivery": 31,
+   "pecas": 1804,
+   "temakis": 116,
+   "canais": {
+    "Salão": [
+     101,
+     6511.38,
+     1454
+    ],
+    "iFood": [
+     7,
+     495.45,
+     75
+    ],
+    "App": [
+     24,
+     2220.48,
+     275
+    ],
+    "PDV delivery": [
+     1,
+     68.79,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     7,
+     495.45
+    ]
+   },
+   "motoboys": {
+    "Bruno Souza Tesch": 2,
+    "Walisson Jesus D": 3,
+    "Andre Vitor Silva dos Reis": 1,
+    "Nilson JR D": 6,
+    "Claudio Da Costa Nolasso": 5,
+    "Ricardo Gomes Camilo": 5,
+    "Pablo Deivid D": 4,
+    "Alexsandro Santana de Ecio": 3,
+    "Kalyson de Oliveira Santos": 1
+   },
+   "tempos": {
+    "prod": [
+     23.0,
+     24
+    ],
+    "rua": [
+     16.0,
+     30
+    ],
+    "vida": [
+     57.0,
+     24
+    ]
+   },
+   "atrasos": 16
+  }
+ }
+}

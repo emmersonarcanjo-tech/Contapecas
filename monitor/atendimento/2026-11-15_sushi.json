@@ -1,0 +1,42 @@
+{
+ "dia": "2026-11-15",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 13,
+  "pedidos": 4,
+  "pedidos_ia": 1,
+  "abandonadas": 9,
+  "conversao": 0.308,
+  "abandono": 0.692,
+  "tempo_medio_min": 0.4,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 2,
+  "cancelados_ia": 0,
+  "pedidos_link": 3,
+  "pedidos_outro": 0,
+  "receberam_link": 10,
+  "abandono_com_link": 8,
+  "abandono_sem_link": 1,
+  "problemas": {
+   "reclamou_humano": 3,
+   "item_preco": 2
+  }
+ },
+ "pares": [
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido."
+ ],
+ "itens_faltando": [
+  "🔥 *PEDIDO CONFIRMADO!* 🔥 Olá *[nome]*, recebemos o seu pedido *#APP-[nº]*. Noss…"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

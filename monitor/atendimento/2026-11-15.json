@@ -1,0 +1,74 @@
+{
+ "dia": "2026-11-15",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 183,
+  "pedidos": 139,
+  "pedidos_ia": 73,
+  "abandonadas": 43,
+  "conversao": 0.76,
+  "abandono": 0.235,
+  "tempo_medio_min": 1.1,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 48,
+  "cancelados_ia": 1,
+  "pedidos_link": 57,
+  "pedidos_outro": 9,
+  "receberam_link": 148,
+  "abandono_com_link": 39,
+  "abandono_sem_link": 4,
+  "problemas": {
+   "item_preco": 15,
+   "repetiu": 18,
+   "reclamou_humano": 4,
+   "cancelado": 1,
+   "nao_soube": 2,
+   "demora": 18,
+   "nao_entendeu": 3
+  }
+ },
+ "pares": [
+  {
+   "tema": "pagamento",
+   "user": "Vocês aceitam cartão ou pix?",
+   "assistant": "Aceitamos Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket 💳 Na entrega o motoboy leva a maquininha. Se for dinheiro, me avisa o troco 😉",
+   "exemplo_cliente": "Por favor, verifica a forma de pagamento…coloquei pix mas não veio pra copiar e pagar? Pode confirm…",
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Formas de pagamento aceitas na entrega: Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "As carnes bem passada por fabor",
+  "Daí te",
+  "Quero 2 pizza grande 1 inteira frango 1 metade lobinho e metade marguerita 1 co…",
+  "Tá vendo esse hj",
+  "Só quero 1 no total",
+  "Grande",
+  "Oi, [nome] noite pra fazer um pedido por favor [nome] [endereço] [nome] Pagamen…",
+  "Boa noite! Gostaria de pedir uma pizza grande, metade carne seca e metade portu…",
+  "Metade Carne seca com catupiry e a outra metade frango com catupiry",
+  "Promoção"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

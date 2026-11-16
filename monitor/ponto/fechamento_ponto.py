@@ -53,6 +53,10 @@ def faltas_injustificadas(dados: list[dict], ini: date, fim: date) -> dict[str, 
             por[d["nome"]].append(d)
     out = {}
     for nome, dias in por.items():
+        if not any(d["marcacoes"] for d in dias):
+            # nenhuma batida no período inteiro: ainda não usa o Flit (recém-admitido) ou já saiu
+            out[nome] = {"faltas": 0, "sem_marcacao": [], "folgas_descontadas": 0, "sem_batida": True}
+            continue
         semanas = defaultdict(lambda: {"dias": 0, "falta": []})
         for d in dias:
             cls, _ = motor.analisar_dia(d)
@@ -96,6 +100,7 @@ def main() -> int:
 
     F = faltas_injustificadas(dados, ini, fim)
     com_falta = {n: v for n, v in F.items() if v["faltas"] > 0}
+    sem_batida = sorted(n for n, v in F.items() if v.get("sem_batida"))
     if not a.sem_faltas:
         FALTAS_DIR.mkdir(parents=True, exist_ok=True)
         (FALTAS_DIR / f"{fim:%Y-%m}.json").write_text(
@@ -108,6 +113,10 @@ def main() -> int:
         linhas.append(f"• {n.title()}: {v['faltas']} (dias sem marcação: "
                       + ", ".join(d.strftime("%d/%m") for d in v["sem_marcacao"])
                       + f"; {v['folgas_descontadas']} contado(s) como folga)")
+    if sem_batida:
+        linhas.append("Sem nenhuma batida no período (não contei falta — conferir se usa o Flit ou se saiu): "
+                      + ", ".join(n.title() for n in sem_batida))
+    linhas.append("Quem saiu da empresa não tem desconto (o vale só considera quem está ativo no ALIV).")
     linhas.append("Regra: 1 dia sem marcação por semana = folga. Se alguma falta foi justificada (atestado, folga extra), "
                   "lance no Flit ou me avise antes do dia 30.")
     texto = "\n".join(linhas)

@@ -35,10 +35,15 @@ sachês de ketchup e maionese, manteiga) comprados no CNPJ do Sushi. Mesma conta
   - Pizzaria: despesa "Compras da Pizzaria pagas pelo Sushi MM/AAAA";
   - Sushi: entrada "Reembolso de compras — Pizzaria MM/AAAA".
 
-Uso: rateio.py [--mes AAAA-MM] [--confirmar] [--whatsapp] [--so-compras] [--complemento MOTIVO]
-     (padrão: mês passado)
+Cerveja e sorvete são reconhecidos também pelo código fiscal do item (NCM 2203 e 2105). Nota cancelada pelo
+fornecedor não conta. Antes de gravar, o script olha os dois lados: se um deles pedir "conferir", não grava nenhum.
+
+Uso: rateio.py [--mes AAAA-MM] [--confirmar] [--whatsapp] [--so-compras]
+               [--complemento MOTIVO] [--complemento-inverso MOTIVO]            (padrão: mês passado)
      --so-compras: só as compras entre as lojas (para meses em que o rateio já foi lançado)
-     --complemento: mês já lançado com valor menor → lança a diferença (só com o ok do Emerson)
+     --complemento / --complemento-inverso: mês já lançado com valor menor → lança a diferença
+                   (só com o ok do Emerson; um motivo para cada sentido)
+     Sem --confirmar nada é gravado: a linha "ALIV (se confirmar)" mostra o que seria lançado.
 Saída: 0 ok, 1 erro ALIV, 3 WhatsApp falhou.
 """
 from __future__ import annotations
@@ -90,18 +95,21 @@ SO_SUSHI = [
     ("Temperos do sushi", r"TEMPERO (P/? ?|PARA )SUSHI|\bSAQUE\b|\bMIRIN\b|HONDASHI|\bWASS?ABI\b|GENGIBRE|VINAGRE.*ARROZ"),
     ("Outros do sushi", r"YAKIS+OBA|\bKANI\b|KANI-?KAMA|PEPINO JAPONES|\bSUDARE\b|PAPEL DE ARROZ|PANKO|GELEIA.*PIMENTA"),
     # Emerson, 16/11/2026: camarão empanado, picolés e cervejas comprados pela Pizzaria são do Sushi
-    ("Camarão empanado", r"CAMARAO EMPANADO"),
-    ("Picolés e sorvetes", r"\bPICOLE\b|\bSORVETE\b|^PALETA CX|^CONE CX"),
-    ("Cervejas", r"\bCERVEJA\b|LONG NECK|\bHEINEKEN\b|STELLA ARTOIS|\bCORONA\b"),
+    ("Camarão empanado", r"CAMARAO.*EMPAN|EMPAN.*CAMARAO"),
+    ("Picolés e sorvetes", r"\bPICOLES?\b|\bSORVETES?\b|^PALETA CX|^CONE CX"),
+    ("Cervejas", r"\bCERVEJAS?\b|LONG ?NECK|\bHEINEKEN\b|STELLA ARTOIS|\bCORONA\b"),
 ]
+# cerveja e sorvete: o nome só vale se o código fiscal do item (NCM) confirmar ("colher de sorvete" e
+# "ducha Corona" não entram), e o NCM sozinho já classifica (cerveja escrita sem a palavra "cerveja")
+NCM_FAMILIA = {"Cervejas": ("2203", "220291"), "Picolés e sorvetes": ("2105",)}
 # caminho inverso (Emerson, 16/11/2026): itens que só a Pizzaria usa, comprados no CNPJ do Sushi
 SO_PIZZARIA = [
-    ("Catupiry", r"REQUEIJAO.*CATUPIRY"),
-    ("Batata frita", r"\bBATATA\b.*(FAST FOOD|\d+ ?MM|PALITO|PRE.?FRITA)"),
-    ("Fermento", r"\bFERMENTO\b"),
+    ("Catupiry", r"^(?!.*CREAM CHEESE).*\bCATUPIRY\b"),
+    ("Batata frita", r"\bBATATAS?\b(?! DOCE).*(FAST FOOD|\d+ ?MM|PALITO|PRE.?FRITA)"),
+    ("Fermento", r"\bFERMENTO\b(?!.*QUIMIC)"),
     # Emerson, 16/11/2026: sachês de ketchup e maionese e manteiga comprados no CNPJ do Sushi são da Pizzaria
-    ("Ketchup e maionese em sachê", r"(CATCHUP|KETCHUP|MAIONESE).*SACHE|SACHE.*(CATCHUP|KETCHUP|MAIONESE)"),
-    ("Manteiga", r"\bMANTEIGA\b"),
+    ("Ketchup e maionese em sachê", r"(CATCHUP|KETCHUP|MAIONESE).*(SACHE|\bSC\b)|(SACHE|\bSC\b).*(CATCHUP|KETCHUP|MAIONESE)"),
+    ("Manteiga", r"^MANTEIGA\b(?! DE (AMENDOIM|CACAU|GARRAFA))"),
 ]
 # compra de verdade (inclui 5929/6929: nota de atacarejo sobre cupom); 59xx/69xx restantes = bonificação, remessa, comodato
 CFOP_VENDA = {p + c for p in "56" for c in ("101", "102", "103", "104", "105", "106", "116", "117", "118", "119", "120",
@@ -180,10 +188,18 @@ def _sem_acento(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
-def familia(nome: str, regras: list) -> str | None:
-    """Família do item se ele casa com alguma regra da lista; None se não casa."""
+def familia(nome: str, regras: list, ncm: str = "") -> str | None:
+    """Família do item se ele casa com alguma regra da lista; None se não casa.
+    Na lista do Sushi, cerveja e sorvete dependem do NCM do item quando ele é informado (ver NCM_FAMILIA)."""
     n = _sem_acento(nome)
-    return next((fam for fam, rx in regras if re.search(rx, n)), None)
+    f = next((fam for fam, rx in regras if re.search(rx, n)), None)
+    if regras is SO_SUSHI:
+        ncm = re.sub(r"\D", "", ncm or "")
+        por_ncm = next((fam for fam, pref in NCM_FAMILIA.items() if ncm.startswith(pref)), None) if ncm else None
+        if f in NCM_FAMILIA and ncm:        # o nome diz cerveja/sorvete: só vale se o NCM confirmar
+            return f if por_ncm == f else None
+        return f or por_ncm
+    return f
 
 
 def familia_sushi(nome: str) -> str | None:
@@ -215,10 +231,12 @@ def compras_da_outra_loja(api, ini: date, fim: date, regras: list, dona: str) ->
         raise AlivError(f"o ALIV não devolveu o arquivo das notas da loja {dona}") from e
     fam: dict[str, float] = {}
     itens: dict[str, float] = {}
+    itens_fam: dict[str, str] = {}
     forn: dict[str, list] = {}          # fornecedor → [R$ da outra loja, {item que não entrou: R$}]
     vistas: set[str] = set()
     notas = nao_lidas = 0
-    for nome in z.namelist():
+    docs, canceladas = [], set()
+    for nome in z.namelist():           # 1ª passada: separa notas de eventos e guarda as notas canceladas
         if not nome.lower().endswith(".xml"):
             continue
         try:
@@ -226,16 +244,26 @@ def compras_da_outra_loja(api, ini: date, fim: date, regras: list, dona: str) ->
         except ET.ParseError:
             nao_lidas += 1
             continue
+        ev = x.find(f".//{NFE}infEvento")
+        if ev is not None and x.find(f".//{NFE}infNFe") is None:      # evento (cancelamento, carta de correção) não é nota
+            if (ev.findtext(f"{NFE}tpEvento") or "") in ("110111", "110112"):
+                canceladas.add("NFe" + (ev.findtext(f"{NFE}chNFe") or ""))
+            continue
+        docs.append((nome, x))
+    n_canceladas = 0
+    for nome, x in docs:
         inf, ide = x.find(f".//{NFE}infNFe"), x.find(f".//{NFE}ide")
         if inf is None or ide is None:
-            if x.find(f".//{NFE}infEvento") is None:        # evento (cancelamento, carta de correção) não é nota
-                nao_lidas += 1
+            nao_lidas += 1
             continue
         chave = inf.get("Id") or nome
         emissao = (ide.findtext(f"{NFE}dhEmi") or ide.findtext(f"{NFE}dEmi") or "")[:10]
         if chave in vistas or not (ini.isoformat() <= emissao <= fim.isoformat()):
             continue
         vistas.add(chave)
+        if chave in canceladas:         # nota cancelada pelo fornecedor: não é compra
+            n_canceladas += 1
+            continue
         notas += 1
         f_nome = _sem_acento(x.findtext(f".//{NFE}emit/{NFE}xNome") or "")[:30]
         fx = forn.setdefault(f_nome, [0.0, {}])
@@ -250,13 +278,15 @@ def compras_da_outra_loja(api, ini: date, fim: date, regras: list, dona: str) ->
             v = float(pr.findtext(f"{NFE}vProd") or 0) - float(pr.findtext(f"{NFE}vDesc") or 0)
             if cf in CFOP_DEVOLUCAO:
                 v = -v
-            n = _sem_acento(pr.findtext(f"{NFE}xProd") or "")[:48]
-            f = familia(n, regras)
+            nome_item = _sem_acento(pr.findtext(f"{NFE}xProd") or "")
+            f = familia(nome_item, regras, pr.findtext(f"{NFE}NCM") or "")     # classifica pelo nome inteiro
+            n = nome_item[:48]
             if not f:
                 fx[1][n] = fx[1].get(n, 0.0) + v
                 continue
             fam[f] = fam.get(f, 0.0) + v
             itens[n] = itens.get(n, 0.0) + v
+            itens_fam[n] = f
             fx[0] += v
     if notas == 0:
         raise AlivError(f"não veio nenhuma nota da loja {dona} no arquivo do mês — conferir")
@@ -279,7 +309,8 @@ def compras_da_outra_loja(api, ini: date, fim: date, regras: list, dona: str) ->
         sem_xml = (len(aw), sum(float(x.get("total") or 0) for x in aw))
     except (AlivError, OSError, ValueError, AttributeError):
         pass
-    return {"total": round(sum(fam.values()), 2), "familias": fam, "itens": itens, "notas": notas, "nao_lidas": nao_lidas,
+    return {"total": round(sum(fam.values()), 2), "familias": fam, "itens": itens, "itens_fam": itens_fam, "notas": notas,
+            "nao_lidas": nao_lidas, "canceladas": n_canceladas,
             "fora": sorted(fora.items(), key=lambda kv: -kv[1])[:8], "sem_xml": sem_xml}
 
 
@@ -296,6 +327,8 @@ def texto_compras(C: dict, mes: date, de: str = "Sushi", dona: str = "Pizzaria")
         L.append(f"  ⚠️ {C['sem_xml'][0]} nota(s) sem XML no ALIV ({brl(C['sem_xml'][1])}) ficaram de fora — conferir na tela de notas")
     if C.get("nao_lidas"):
         L.append(f"  ⚠️ {C['nao_lidas']} arquivo(s) de nota não pude ler")
+    if C.get("canceladas"):
+        L.append(f"  {C['canceladas']} nota(s) cancelada(s) pelo fornecedor ficaram de fora")
     return "\n".join(L)
 
 
@@ -318,11 +351,15 @@ def _categoria(api, nome: str) -> int:
     return cats[nome]
 
 
-def lancar(api, tipo: str, desc: str, valor: float, dia: date, cat: str, complemento: str = "") -> str:
+def lancar(api, tipo: str, desc: str, valor: float, dia: date, cat: str, complemento: str = "", gravar: bool = True) -> str:
     """Lança sem banco. Se o mês já tem lançamento com outro valor, só avisa — a não ser que venha `complemento`
-    (motivo dito pelo Emerson): aí lança só a diferença, em lançamento novo, sem tocar no original."""
+    (motivo dito pelo Emerson): aí lança só a diferença, em lançamento novo, sem tocar no original.
+    Com gravar=False só diz o que faria ("a lançar…", "já lançado", "…conferir")."""
     b = api.get("/admin/finance/bills", {"bill_type": tipo, "status": "all"})
-    b = b if isinstance(b, list) else b.get("bills", [])
+    if isinstance(b, dict):
+        b = b.get("bills")
+    if not isinstance(b, list):             # resposta estranha não pode virar "não tem nada lançado"
+        raise AlivError("o ALIV não devolveu a lista de contas — nada lançado")
     ja = [x for x in b if str(x.get("description")) == desc or str(x.get("description")).startswith(desc + " — complemento")]
     extra = ""
     if ja:
@@ -335,7 +372,11 @@ def lancar(api, tipo: str, desc: str, valor: float, dia: date, cat: str, complem
             return "já lançado"
         if not complemento or dif < 0:     # mesmo mês, outro valor (nota atrasada, lista mudou): não mexo sozinho
             return f"já lançado com {brl(antes)} — agora deu {brl(valor)}: conferir"
-        desc, valor, extra = f"{desc} — complemento ({complemento})", dif, f" complemento de {brl(dif)} (já havia {brl(antes)})"
+        n = sum(" — complemento" in str(x.get("description")) for x in ja) + 1
+        desc = f"{desc} — complemento{f' {n}' if n > 1 else ''} ({complemento})"
+        valor, extra = dif, f" complemento de {brl(dif)} (já havia {brl(antes)})"
+    if not gravar:
+        return f"a lançar{extra}"
     st, d = _form(api, "/admin/finance/bills/save", {
         "bill_type": tipo, "description": desc, "amount": f"{valor:.2f}", "due_date": dia.isoformat(),
         "payment_method": "Transferência interna", "category_id": _categoria(api, cat), "is_recurring": "false",
@@ -344,11 +385,18 @@ def lancar(api, tipo: str, desc: str, valor: float, dia: date, cat: str, complem
 
 
 def lancar_par(apis: dict, desc_paga: str, desc_recebe: str, valor: float, dia: date, cat_paga: str, cat_recebe: str,
-               paga: str = "sushi", recebe: str = "piz", complemento: str = "") -> tuple[str, bool]:
+               paga: str = "sushi", recebe: str = "piz", complemento: str = "", gravar: bool = True) -> tuple[str, bool]:
     """Lança os dois lados sem banco: despesa na loja `paga` (padrão: Sushi) e entrada na loja `recebe`
-    (padrão: Pizzaria). Devolve (texto, deu certo)."""
+    (padrão: Pizzaria). Antes de gravar, olha os dois lados: se um deles pedir "conferir", não grava nenhum.
+    Com gravar=False só mostra o que faria. Devolve (texto, deu certo)."""
     np, nr = LOJA[paga], LOJA[recebe]
     try:
+        p1 = lancar(apis[paga], "payable", desc_paga, valor, dia, cat_paga, complemento, gravar=False)
+        p2 = lancar(apis[recebe], "receivable", desc_recebe, valor, dia, cat_recebe, complemento, gravar=False)
+        if "conferir" in p1 or "conferir" in p2:
+            return f"ALIV: {np} (despesa) {p1} · {nr} (reembolso) {p2} — nada lançado: os dois lados precisam bater", False
+        if not gravar:
+            return f"ALIV (se confirmar): {np} (despesa) {p1} · {nr} (reembolso) {p2}", True
         _categoria(apis[paga], cat_paga)              # as duas categorias antes de gravar qualquer lado
         _categoria(apis[recebe], cat_recebe)
         r1 = lancar(apis[paga], "payable", desc_paga, valor, dia, cat_paga, complemento)
@@ -385,7 +433,9 @@ def main() -> int:
     ap.add_argument("--so-compras", action="store_true",
                     help="só as compras de uma loja nas notas da outra (rateio do mês já lançado)")
     ap.add_argument("--complemento", default="", metavar="MOTIVO",
-                    help="se o mês já foi lançado com valor menor, lança só a diferença com este motivo (ex.: 'camarão empanado')")
+                    help="compras do Sushi: se o mês já foi lançado com valor menor, lança só a diferença com este motivo")
+    ap.add_argument("--complemento-inverso", default="", metavar="MOTIVO",
+                    help="caminho inverso (compras da Pizzaria nas notas do Sushi): o mesmo, com motivo próprio")
     a = ap.parse_args()
     agora = datetime.now(TZ).replace(second=0, microsecond=0)
     mes = (date.fromisoformat(a.mes + "-01") if a.mes else (agora.date().replace(day=1) - timedelta(days=1)))
@@ -425,12 +475,13 @@ def main() -> int:
         partes.append(f"*Compras do Sushi nas notas da Pizzaria* {ini:%m/%Y}: nenhum item só do Sushi em {C['notas']} notas da Pizzaria.")
     else:
         t = texto_compras(C, ini)
-        if a.confirmar:
-            r, ok = lancar_par(apis, f"Compras do Sushi pagas pela Pizzaria {ini:%m/%Y}", f"Reembolso de compras — Sushi {ini:%m/%Y}",
-                               C["total"], fim, CAT_COMPRAS_SUSHI, CAT_COMPRAS_PIZ, complemento=a.complemento)
-            falhou = falhou or not ok
-            t += "\n" + r
+        r, ok = lancar_par(apis, f"Compras do Sushi pagas pela Pizzaria {ini:%m/%Y}", f"Reembolso de compras — Sushi {ini:%m/%Y}",
+                           C["total"], fim, CAT_COMPRAS_SUSHI, CAT_COMPRAS_PIZ, complemento=a.complemento, gravar=a.confirmar)
+        falhou = falhou or (a.confirmar and not ok)
+        t += "\n" + r
         partes.append(t)
+    for n, v in sorted((C or {}).get("itens", {}).items(), key=lambda kv: -kv[1]):       # registro da Rotina: item a item
+        print(f"ITEM Pizzaria→Sushi | {C['itens_fam'].get(n)} | {n} | {brl(v)}", file=sys.stderr)
     try:                                            # caminho inverso: itens só da Pizzaria nas notas do Sushi
         Ci = compras_da_pizzaria(apis["sushi"], ini, fim)
         erro_inv = ""
@@ -439,26 +490,31 @@ def main() -> int:
     if Ci is None:
         falhou = True
         partes.append(f"*Compras da Pizzaria nas notas do Sushi* {ini:%m/%Y}: ⚠️ não consegui ler as notas ({erro_inv}). Nada lançado.")
-    elif Ci["total"] > 0.009:
+    else:                                           # mostra sempre (mesmo R$ 0,00, com os avisos); só lança se houver valor
         t = texto_compras(Ci, ini, de="Pizzaria", dona="Sushi")
-        if a.confirmar:
+        if Ci["total"] > 0.009:
             r, ok = lancar_par(apis, f"Compras da Pizzaria pagas pelo Sushi {ini:%m/%Y}", f"Reembolso de compras — Pizzaria {ini:%m/%Y}",
                                Ci["total"], fim, CAT_COMPRAS_INV_PIZ, CAT_COMPRAS_INV_SUSHI, paga="piz", recebe="sushi",
-                               complemento=a.complemento)
-            falhou = falhou or not ok
+                               complemento=a.complemento_inverso, gravar=a.confirmar)
+            falhou = falhou or (a.confirmar and not ok)
             t += "\n" + r
         partes.append(t)
-    t = "\n\n".join(partes)
+    for n, v in sorted((Ci or {}).get("itens", {}).items(), key=lambda kv: -kv[1]):
+        print(f"ITEM Sushi→Pizzaria | {Ci['itens_fam'].get(n)} | {n} | {brl(v)}", file=sys.stderr)
     if not a.confirmar:
-        t += "\n(teste — nada lançado)"
+        partes[-1] += "\n(teste — nada lançado)"
+    t = "\n\n".join(partes)
     print(t)
+    whats_falhou = False
     if a.whatsapp:
-        try:
-            apis["piz"].enviar_whatsapp(re.sub(r"\D", "", os.environ.get("WHATSAPP_EMERSON", "")), t[:3800])
+        tel = re.sub(r"\D", "", os.environ.get("WHATSAPP_EMERSON", ""))
+        try:                                        # cabe numa mensagem? vai inteira; senão, um bloco por mensagem (nada é cortado)
+            for bloco in ([t] if len(t) <= 3800 else partes):
+                apis["piz"].enviar_whatsapp(tel, bloco[:3800])
         except (AlivError, OSError) as e:
             print(f"WHATSAPP: {e}", file=sys.stderr)
-            return 3
-    return 1 if falhou else 0
+            whats_falhou = True
+    return 1 if falhou else (3 if whats_falhou else 0)
 
 
 if __name__ == "__main__":

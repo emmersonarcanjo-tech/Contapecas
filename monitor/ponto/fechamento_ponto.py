@@ -36,6 +36,7 @@ sys.path.insert(0, str(AQUI.parent))
 import auditoria_ponto as motor  # noqa: E402
 from monitor import TZ, Aliv, AlivError  # noqa: E402
 
+ADMISSAO_REAL = {"tamile santos": "2026-08-11"}   # no ALIV do Sushi a data é 01/11 (gerencial)
 FALTAS_DIR = AQUI.parent / "vale" / "faltas"
 SAIDA_DIR = AQUI / "mensal"
 
@@ -45,8 +46,32 @@ def periodo(fim: date) -> tuple[date, date]:
     return ini, fim
 
 
-def faltas_injustificadas(dados: list[dict], ini: date, fim: date) -> dict[str, dict]:
-    """{nome: {"faltas": n, "sem_marcacao": [datas], "folgas_descontadas": k}}"""
+def admitidos_no_periodo(ini: date) -> set[str]:
+    """Primeiro+último nome de quem entrou no período (cadastro do ALIV das duas lojas)."""
+    out = set()
+    for u, p in (("ALIV_USER", "ALIV_PASS"), ("ALIV_USER_SUSHI", "ALIV_PASS_SUSHI")):
+        try:
+            api = Aliv(os.environ[u], os.environ[p])
+            api.login()
+            for x in api.get("/admin/api/users/data")["users"]:
+                h = str(x.get("hired_at") or "")[:10]
+                h = ADMISSAO_REAL.get(_n(x["full_name"]), h)
+                if x.get("is_registered") and h and date.fromisoformat(h) >= ini:
+                    out.add(_n(x["full_name"]))
+        except (AlivError, OSError, KeyError, ValueError):
+            pass
+    return out
+
+
+def _n(s: str) -> str:
+    import unicodedata
+    p = "".join(c for c in unicodedata.normalize("NFKD", s or "") if not unicodedata.combining(c)).lower().split()
+    return f"{p[0]} {p[-1]}" if p else ""
+
+
+def faltas_injustificadas(dados: list[dict], ini: date, fim: date, novos: set[str] | None = None) -> dict[str, dict]:
+    """{nome: {"faltas": n, "sem_marcacao": [datas], "folgas_descontadas": k}}
+    Quem entrou no período (novos): os dias antes da 1ª batida no Flit não contam."""
     por = defaultdict(list)
     for d in dados:
         if ini <= d["data"] <= fim:
@@ -57,6 +82,9 @@ def faltas_injustificadas(dados: list[dict], ini: date, fim: date) -> dict[str, 
             # nenhuma batida no período inteiro: ainda não usa o Flit (recém-admitido) ou já saiu
             out[nome] = {"faltas": 0, "sem_marcacao": [], "folgas_descontadas": 0, "sem_batida": True}
             continue
+        if _n(nome) in (novos or set()):
+            primeira = min(d["data"] for d in dias if d["marcacoes"])
+            dias = [d for d in dias if d["data"] >= primeira]
         semanas = defaultdict(lambda: {"dias": 0, "falta": []})
         for d in dias:
             cls, _ = motor.analisar_dia(d)
@@ -98,7 +126,7 @@ def main() -> int:
     motor.gerar_excel(str(xlsx), "mensal", ini, fim, resumo, alertas, detalhe, "Flit (nuvem)")
     txt_motor = motor.resumo_texto("mensal", ini, fim, resumo, alertas)
 
-    F = faltas_injustificadas(dados, ini, fim)
+    F = faltas_injustificadas(dados, ini, fim, admitidos_no_periodo(ini))
     com_falta = {n: v for n, v in F.items() if v["faltas"] > 0}
     sem_batida = sorted(n for n, v in F.items() if v.get("sem_batida"))
     if not a.sem_faltas:

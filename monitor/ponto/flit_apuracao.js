@@ -8,12 +8,13 @@ const [ini, fim, saida] = process.argv.slice(2);
   const b = await chromium.launch();
   const p = await b.newPage();
   try {
-    await p.goto('https://manager.flitapp.com.br/login', { waitUntil: 'networkidle', timeout: 60000 });
+    await p.goto('https://manager.flitapp.com.br/login', { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await p.waitForSelector('#mat-input-0', { timeout: 60000 });
     await p.fill('#mat-input-0', process.env.FLIT_USER || '');
     await p.fill('input[type=password]', process.env.FLIT_PASS || '');
     await p.locator('button[type=submit]', { hasText: 'Entrar' }).first().click();
     await p.waitForURL(u => !u.toString().includes('/login'), { timeout: 30000 });
-    await p.goto('https://manager.flitapp.com.br/relatorios-adicionais', { waitUntil: 'networkidle', timeout: 60000 });
+    await p.goto('https://manager.flitapp.com.br/relatorios-adicionais', { waitUntil: 'domcontentloaded', timeout: 60000 });
     await p.waitForSelector('mat-select', { timeout: 30000 });
     const r = await p.evaluate(async ([INI, FIM]) => {
       const s = ms => new Promise(r => setTimeout(r, ms));

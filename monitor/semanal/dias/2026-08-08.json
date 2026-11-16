@@ -1,0 +1,134 @@
+{
+ "v": 1,
+ "dia": "2026-08-08",
+ "lojas": {
+  "piz": {
+   "pedidos": 263,
+   "cancelados": 1,
+   "vendas": 18809.33,
+   "receita": 19859.49,
+   "desc_loja": 1385.18,
+   "desc_plataforma": 1270.64,
+   "desc_manual": 78.0,
+   "comissao_ifood": 1326.44,
+   "desc_loja_ifood": 1307.18,
+   "receita_ifood": 10346.81,
+   "proprios": 9512.68,
+   "entregas_delivery": 225,
+   "canais": {
+    "iFood": [
+     144,
+     9296.65,
+     0
+    ],
+    "PDV delivery": [
+     50,
+     3936.18,
+     0
+    ],
+    "App": [
+     35,
+     3431.6,
+     0
+    ],
+    "Salão": [
+     34,
+     2144.9,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     73,
+     5370.61
+    ],
+    "?": [
+     40,
+     1954.69
+    ],
+    "Burguer": [
+     28,
+     1644.67
+    ],
+    "Pizzaria 2.0": [
+     3,
+     326.68
+    ]
+   },
+   "motoboys": {
+    "Ricardo Gomes Camilo": 12,
+    "Claudio Oliveira D": 14,
+    "Rodrigo Santana Massaranduba Filho": 13,
+    "Claudio Da Costa Nolasso": 13,
+    "Breno Jesus de Souza": 16,
+    "George Gomes da Silva": 12,
+    "Pablo Deivid D": 14,
+    "Guilherme Silva Nascimento": 12,
+    "Andre Vitor Silva dos Reis": 15,
+    "Walisson Jesus D": 15,
+    "Carlos Silva Dos Santos Junior": 14,
+    "Bruno Souza Tesch": 14,
+    "Kalyson de Oliveira Santos": 12,
+    "Gustavo Cardoso Carvalho": 11,
+    "Richard Dultra D": 11,
+    "Mesaque D": 11,
+    "Alexsandro Santana de Ecio": 11
+   },
+   "tempos": {
+    "prod": [
+     14.0,
+     186
+    ],
+    "rua": [
+     15.0,
+     225
+    ],
+    "vida": [
+     34.0,
+     186
+    ]
+   },
+   "atrasos": 28
+  },
+  "sushi": {
+   "pedidos": 196,
+   "cancelados": 0,
+   "vendas": 10731.15,
+   "receita": 10731.15,
+   "desc_loja": 0.0,
+   "desc_plataforma": 0.0,
+   "desc_manual": 0.0,
+   "comissao_ifood": 0.0,
+   "desc_loja_ifood": 0.0,
+   "receita_ifood": 0.0,
+   "proprios": 10731.15,
+   "entregas_delivery": 0,
+   "pecas": 3395,
+   "temakis": 0,
+   "canais": {
+    "Salão": [
+     196,
+     10731.15,
+     3395
+    ]
+   },
+   "ifood_lojas": {},
+   "motoboys": {},
+   "tempos": {
+    "prod": [
+     0.0,
+     0
+    ],
+    "rua": [
+     0.0,
+     0
+    ],
+    "vida": [
+     0.0,
+     0
+    ]
+   },
+   "atrasos": 0
+  }
+ }
+}

@@ -1,0 +1,135 @@
+{
+ "v": 1,
+ "dia": "2026-08-26",
+ "lojas": {
+  "piz": {
+   "pedidos": 161,
+   "cancelados": 1,
+   "vendas": 10302.94,
+   "receita": 10857.16,
+   "desc_loja": 749.79,
+   "desc_plataforma": 661.71,
+   "desc_manual": 0.0,
+   "comissao_ifood": 637.86,
+   "desc_loja_ifood": 749.79,
+   "receita_ifood": 4967.31,
+   "proprios": 5891.45,
+   "entregas_delivery": 126,
+   "canais": {
+    "iFood": [
+     75,
+     4411.49,
+     0
+    ],
+    "Salão": [
+     32,
+     1916.07,
+     0
+    ],
+    "PDV delivery": [
+     32,
+     2452.64,
+     0
+    ],
+    "App": [
+     22,
+     1522.74,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria 2.0": [
+     4,
+     398.82
+    ],
+    "Pizzaria": [
+     53,
+     3168.81
+    ],
+    "Burguer": [
+     18,
+     843.86
+    ]
+   },
+   "motoboys": {
+    "Claudio Da Costa Nolasso": 14,
+    "Kalyson de Oliveira Santos": 11,
+    "Alexsandro Santana de Ecio": 14,
+    "Rodrigo Santana Massaranduba Filho": 13,
+    "Breno Jesus de Souza": 14,
+    "Walisson Jesus D": 10,
+    "Mesaque D": 12,
+    "Nivaldo Lima Brandao Junior": 10,
+    "Matheus Conceição D": 16,
+    "Claudio Oliveira D": 9
+   },
+   "tempos": {
+    "prod": [
+     13.0,
+     87
+    ],
+    "rua": [
+     16.0,
+     126
+    ],
+    "vida": [
+     37.0,
+     87
+    ]
+   },
+   "atrasos": 21
+  },
+  "sushi": {
+   "pedidos": 241,
+   "cancelados": 1,
+   "vendas": 10616.77,
+   "receita": 10616.77,
+   "desc_loja": 20.0,
+   "desc_plataforma": 0.0,
+   "desc_manual": 20.0,
+   "comissao_ifood": 0.0,
+   "desc_loja_ifood": 0.0,
+   "receita_ifood": 0.0,
+   "proprios": 10616.77,
+   "entregas_delivery": 10,
+   "pecas": 4208,
+   "temakis": 8,
+   "canais": {
+    "Salão": [
+     230,
+     9755.06,
+     3998
+    ],
+    "App": [
+     11,
+     861.71,
+     210
+    ]
+   },
+   "ifood_lojas": {},
+   "motoboys": {
+    "Mesaque D": 2,
+    "Nivaldo Lima Brandao Junior": 2,
+    "Kalyson de Oliveira Santos": 3,
+    "Breno Jesus de Souza": 1,
+    "Alexsandro Santana de Ecio": 1,
+    "Walisson Jesus D": 1
+   },
+   "tempos": {
+    "prod": [
+     27.0,
+     10
+    ],
+    "rua": [
+     14.0,
+     10
+    ],
+    "vida": [
+     57.0,
+     10
+    ]
+   },
+   "atrasos": 7
+  }
+ }
+}

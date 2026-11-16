@@ -59,6 +59,16 @@ def proxima_etapa(r: dict) -> dict | None:
         # Emerson (15/11/2026): gerente tem salário = base + 40% de gerência; o vale (40%) é só
         # sobre a base, e o adicional de gerência vem no saldo do dia 5.
         e["valor"] = round(float(r["salary_base"]) / (1 + ADIC_GERENCIA) * 0.40, 2)
+    if e and e["stage"] == "adiantamento" and r.get("hired_at") and (c.get("next") or {}).get("due"):
+        # Emerson (16/11/2026): quem tem menos de 15 dias de casa no dia do vale não recebe
+        # adiantamento; recebe tudo no dia 5 (o vale passa para a data do saldo).
+        dias = (date.fromisoformat(e["due"]) - date.fromisoformat(str(r["hired_at"])[:10])).days + 1
+        if dias < 15:
+            e["due"] = str(c["next"]["due"])[:10]
+        elif str(r["hired_at"])[:7] == e["competence"]:
+            # entrou no mês: vale proporcional aos dias do mês (do dia da entrada ao dia 30)
+            h = date.fromisoformat(str(r["hired_at"])[:10])
+            e["valor"] = round(e["valor"] * max(0, 30 - h.day + 1) / 30, 2)
     return e
 
 

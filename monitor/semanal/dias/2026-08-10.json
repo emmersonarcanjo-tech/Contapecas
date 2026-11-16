@@ -1,0 +1,145 @@
+{
+ "v": 1,
+ "dia": "2026-08-10",
+ "lojas": {
+  "piz": {
+   "pedidos": 161,
+   "cancelados": 2,
+   "vendas": 10274.87,
+   "receita": 10847.94,
+   "desc_loja": 760.54,
+   "desc_plataforma": 699.77,
+   "desc_manual": 23.0,
+   "comissao_ifood": 745.27,
+   "desc_loja_ifood": 737.54,
+   "receita_ifood": 5822.4,
+   "proprios": 5025.54,
+   "entregas_delivery": 137,
+   "canais": {
+    "iFood": [
+     91,
+     5249.33,
+     0
+    ],
+    "PDV delivery": [
+     25,
+     2072.64,
+     0
+    ],
+    "App": [
+     25,
+     2066.24,
+     0
+    ],
+    "Salão": [
+     20,
+     886.66,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     25,
+     966.12
+    ],
+    "Pizzaria": [
+     63,
+     4045.21
+    ],
+    "Pizzaria 2.0": [
+     3,
+     238.0
+    ]
+   },
+   "motoboys": {
+    "Walisson Jesus D": 12,
+    "Gustavo Cardoso Carvalho": 16,
+    "Breno Jesus de Souza": 16,
+    "Bruno Souza Tesch": 13,
+    "Rodrigo Santana Massaranduba Filho": 10,
+    "Mesaque D": 13,
+    "Kalyson de Oliveira Santos": 11,
+    "Claudio Oliveira D": 12,
+    "Nivaldo Lima Brandao Junior": 14,
+    "Josue Manoel dos Santos": 10,
+    "Guilherme Silva Nascimento": 10
+   },
+   "tempos": {
+    "prod": [
+     14.0,
+     108
+    ],
+    "rua": [
+     14.0,
+     137
+    ],
+    "vida": [
+     31.0,
+     108
+    ]
+   },
+   "atrasos": 11
+  },
+  "sushi": {
+   "pedidos": 59,
+   "cancelados": 0,
+   "vendas": 3385.6,
+   "receita": 3388.07,
+   "desc_loja": 22.95,
+   "desc_plataforma": 6.0,
+   "desc_manual": 2.95,
+   "comissao_ifood": 21.07,
+   "desc_loja_ifood": 20.0,
+   "receita_ifood": 164.6,
+   "proprios": 3223.47,
+   "entregas_delivery": 8,
+   "pecas": 983,
+   "temakis": 3,
+   "canais": {
+    "Salão": [
+     50,
+     2674.2,
+     805
+    ],
+    "iFood": [
+     3,
+     162.13,
+     10
+    ],
+    "App": [
+     6,
+     549.27,
+     168
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     3,
+     162.13
+    ]
+   },
+   "motoboys": {
+    "Guilherme Silva Nascimento": 3,
+    "Rodrigo Santana Massaranduba Filho": 1,
+    "Gustavo Cardoso Carvalho": 2,
+    "Mesaque D": 1,
+    "Walisson Jesus D": 1
+   },
+   "tempos": {
+    "prod": [
+     10.0,
+     4
+    ],
+    "rua": [
+     9.0,
+     8
+    ],
+    "vida": [
+     21.0,
+     4
+    ]
+   },
+   "atrasos": 0
+  }
+ }
+}

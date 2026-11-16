@@ -1,0 +1,150 @@
+{
+ "v": 1,
+ "dia": "2026-08-27",
+ "lojas": {
+  "piz": {
+   "pedidos": 142,
+   "cancelados": 0,
+   "vendas": 9727.33,
+   "receita": 10285.13,
+   "desc_loja": 649.42,
+   "desc_plataforma": 657.39,
+   "desc_manual": 0.0,
+   "comissao_ifood": 577.94,
+   "desc_loja_ifood": 649.42,
+   "receita_ifood": 4515.18,
+   "proprios": 5769.95,
+   "entregas_delivery": 118,
+   "canais": {
+    "Salão": [
+     22,
+     1516.04,
+     0
+    ],
+    "iFood": [
+     68,
+     3957.38,
+     0
+    ],
+    "PDV delivery": [
+     22,
+     1733.22,
+     0
+    ],
+    "App": [
+     30,
+     2520.69,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     15,
+     597.45
+    ],
+    "Pizzaria": [
+     49,
+     3095.71
+    ],
+    "Pizzaria 2.0": [
+     4,
+     264.22
+    ]
+   },
+   "motoboys": {
+    "Deivisson Santos D": 15,
+    "Matheus Emilio Ferreira": 16,
+    "Nivaldo Lima Brandao Junior": 18,
+    "Alexsandro Santana de Ecio": 13,
+    "Ricardo Gomes Camilo": 18,
+    "Josue Manoel dos Santos": 15,
+    "Rodrigo Santana Massaranduba Filho": 8,
+    "Claudio Oliveira D": 10,
+    "Breno Jesus de Souza": 5
+   },
+   "tempos": {
+    "prod": [
+     12.0,
+     92
+    ],
+    "rua": [
+     14.0,
+     118
+    ],
+    "vida": [
+     32.0,
+     92
+    ]
+   },
+   "atrasos": 9
+  },
+  "sushi": {
+   "pedidos": 88,
+   "cancelados": 0,
+   "vendas": 5113.48,
+   "receita": 5170.52,
+   "desc_loja": 43.0,
+   "desc_plataforma": 63.97,
+   "desc_manual": 0.0,
+   "comissao_ifood": 40.88,
+   "desc_loja_ifood": 43.0,
+   "receita_ifood": 319.4,
+   "proprios": 4851.12,
+   "entregas_delivery": 18,
+   "pecas": 1339,
+   "temakis": 19,
+   "canais": {
+    "Salão": [
+     68,
+     3416.95,
+     954
+    ],
+    "iFood": [
+     5,
+     262.36,
+     55
+    ],
+    "App": [
+     13,
+     1300.49,
+     286
+    ],
+    "PDV delivery": [
+     2,
+     133.68,
+     44
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     5,
+     262.36
+    ]
+   },
+   "motoboys": {
+    "Rodrigo Santana Massaranduba Filho": 5,
+    "Josue Manoel dos Santos": 1,
+    "Claudio Oliveira D": 3,
+    "Deivisson Santos D": 4,
+    "Matheus Emilio Ferreira": 1,
+    "Alexsandro Santana de Ecio": 2,
+    "Nivaldo Lima Brandao Junior": 2
+   },
+   "tempos": {
+    "prod": [
+     21.0,
+     13
+    ],
+    "rua": [
+     13.0,
+     18
+    ],
+    "vida": [
+     51.0,
+     13
+    ]
+   },
+   "atrasos": 10
+  }
+ }
+}

@@ -1,0 +1,146 @@
+{
+ "v": 1,
+ "dia": "2026-08-13",
+ "lojas": {
+  "piz": {
+   "pedidos": 146,
+   "cancelados": 2,
+   "vendas": 9670.38,
+   "receita": 10231.6,
+   "desc_loja": 730.96,
+   "desc_plataforma": 681.94,
+   "desc_manual": 38.0,
+   "comissao_ifood": 758.32,
+   "desc_loja_ifood": 692.96,
+   "receita_ifood": 5924.38,
+   "proprios": 4307.22,
+   "entregas_delivery": 121,
+   "canais": {
+    "Salão": [
+     22,
+     1188.8,
+     0
+    ],
+    "PDV delivery": [
+     19,
+     1752.46,
+     0
+    ],
+    "iFood": [
+     88,
+     5363.16,
+     0
+    ],
+    "App": [
+     17,
+     1365.96,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     66,
+     4356.57
+    ],
+    "Pizzaria 2.0": [
+     1,
+     73.88
+    ],
+    "Burguer": [
+     15,
+     673.49
+    ],
+    "?": [
+     6,
+     259.22
+    ]
+   },
+   "motoboys": {
+    "Breno Jesus de Souza": 12,
+    "Carlos Silva Dos Santos Junior": 13,
+    "Andre Vitor Silva dos Reis": 12,
+    "George Gomes da Silva": 11,
+    "Alexsandro Santana de Ecio": 9,
+    "Kalyson de Oliveira Santos": 9,
+    "Guilherme Silva Nascimento": 14,
+    "Gustavo Cardoso Carvalho": 11,
+    "Bruno Souza Tesch": 9,
+    "Josue Manoel dos Santos": 11,
+    "Richard Dultra D": 9
+   },
+   "tempos": {
+    "prod": [
+     13.0,
+     99
+    ],
+    "rua": [
+     14.0,
+     121
+    ],
+    "vida": [
+     30.0,
+     99
+    ]
+   },
+   "atrasos": 6
+  },
+  "sushi": {
+   "pedidos": 92,
+   "cancelados": 0,
+   "vendas": 3988.11,
+   "receita": 3993.49,
+   "desc_loja": 5.0,
+   "desc_plataforma": 6.37,
+   "desc_manual": 0.0,
+   "comissao_ifood": 5.11,
+   "desc_loja_ifood": 5.0,
+   "receita_ifood": 39.9,
+   "proprios": 3953.59,
+   "entregas_delivery": 4,
+   "pecas": 1135,
+   "temakis": 6,
+   "canais": {
+    "Salão": [
+     88,
+     3742.88,
+     1071
+    ],
+    "iFood": [
+     1,
+     34.52,
+     10
+    ],
+    "App": [
+     3,
+     210.71,
+     54
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     1,
+     34.52
+    ]
+   },
+   "motoboys": {
+    "Richard Dultra D": 3,
+    "Andre Vitor Silva dos Reis": 1
+   },
+   "tempos": {
+    "prod": [
+     20.0,
+     3
+    ],
+    "rua": [
+     23.0,
+     4
+    ],
+    "vida": [
+     41.0,
+     3
+    ]
+   },
+   "atrasos": 1
+  }
+ }
+}

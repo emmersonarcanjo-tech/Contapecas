@@ -1,0 +1,24 @@
+{
+ "data": "2026-11-16",
+ "loja": 155,
+ "automatica": true,
+ "lista": {
+  "gerada_em": "2026-11-17T02:12:21-03:00",
+  "pedidos": [],
+  "contagem": {
+   "cancelados": 0,
+   "abertos": 0,
+   "ja_emitidos": 0,
+   "outra_loja": 0,
+   "outro_dia": 0
+  }
+ },
+ "emissoes": [
+  {
+   "executada_em": "2026-11-17T02:12:25-03:00",
+   "dry_run": false,
+   "resultados": [],
+   "avisos": []
+  }
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "dia": "2026-11-17",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 116,
+  "pedidos": 78,
+  "pedidos_ia": 35,
+  "abandonadas": 38,
+  "conversao": 0.672,
+  "abandono": 0.328,
+  "tempo_medio_min": 0.9,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 31,
+  "cancelados_ia": 0,
+  "pedidos_link": 41,
+  "pedidos_outro": 2,
+  "receberam_link": 94,
+  "abandono_com_link": 35,
+  "abandono_sem_link": 3,
+  "problemas": {
+   "demora": 7,
+   "item_preco": 15,
+   "repetiu": 10,
+   "nao_entendeu": 1,
+   "reclamou_humano": 1,
+   "nao_soube": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "horário",
+   "user": "Vocês estão funcionando agora?",
+   "assistant": "Estamos sim! 🍕 Nosso horário é das 16:30 às 23:45, todos os dias. Me fala o que vai querer que eu já anoto 🛵",
+   "exemplo_cliente": "Está funcionando??",
+   "ja_existe_parecido": 1,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Ola, [nome] noite Gostaria de ver o cardápio de sushi, e também as peças que en…",
+  "Já saiu?",
+  "Nesse combo da terça pode trocar a coca por suco?",
+  "Boa noite! Gostaria de saber quanto fica uma pizza grande de carne seca e uma C…",
+  "Me envia o cardápio, por favor",
+  "Entrega tai comida japonesa?",
+  "Vocês tem sushi todos os dias ?",
+  "Poderia me mandar o cardápio dos sushi",
+  "Trabalha com Yakisoba ?",
+  "Pode me enviar o cardápio de comida japonesa?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

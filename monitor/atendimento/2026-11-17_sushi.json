@@ -1,0 +1,48 @@
+{
+ "dia": "2026-11-17",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 20,
+  "pedidos": 9,
+  "pedidos_ia": 2,
+  "abandonadas": 11,
+  "conversao": 0.45,
+  "abandono": 0.55,
+  "tempo_medio_min": 0.6,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 6,
+  "cancelados_ia": 0,
+  "pedidos_link": 7,
+  "pedidos_outro": 0,
+  "receberam_link": 14,
+  "abandono_com_link": 10,
+  "abandono_sem_link": 1,
+  "problemas": {
+   "nao_soube": 1,
+   "item_preco": 3,
+   "demora": 2,
+   "repetiu": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "Ola, [nome] noite Gostaria de saber como funciona a quarta maluca, quais peças entram na promoção e…",
+   "ja_existe_parecido": 1,
+   "falta_preencher": true
+  }
+ ],
+ "regras": [
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Ola, [nome] noite Gostaria de saber como funciona a quarta maluca, quais peças…",
+  "atualizações",
+  "Quel e o dia que tem promoção de peça de suchi?.",
+  "+ uma pergunta, vcs não tem rodízio de sushi?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

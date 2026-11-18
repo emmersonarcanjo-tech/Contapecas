@@ -741,6 +741,21 @@ def _ultimos_resultados(dados: dict) -> dict:
     return res
 
 
+# Folha no formato do iPad, deitada (proporção 2360×1640, a mesma do painel semanal).
+CSS_IPAD = """
+@page { size: 300mm 208.5mm; margin: 0 }
+.pagina { width: 300mm; height: 208.5mm; padding: 9mm 11mm 14mm }
+.cols { display: flex; gap: 6mm; align-items: flex-start }
+.col { flex: 1; min-width: 0 }
+.cols table { font-size: 7.6pt }
+.cols td { padding: 1.2mm 1.3mm }
+.cols th { padding: 1.2mm 1.3mm }
+h1 { margin: 2.5mm 0 1mm }
+.cards { margin: 1mm 0 2mm }
+.pagina > .dagua { width: 100mm; height: 100mm }
+"""
+
+
 def html_pdf_dia(dia: date, gerado: datetime) -> str:
     from diaristas import CSS, EMPRESA, CNPJ_EMPRESA, DIAS_CURTO, _esc, _logo_src
     logo = _logo_src()
@@ -781,7 +796,7 @@ def html_pdf_dia(dia: date, gerado: datetime) -> str:
         por = {}
         for r in l["aut"]:
             por[r.get("perfil_emitido") or "?"] = por.get(r.get("perfil_emitido") or "?", 0) + 1
-        cnpjs = "<br>".join(f"{_esc(k)}: {v}" for k, v in sorted(por.items())) or "—"
+        cnpjs = " · ".join(f"{_esc(k)}: {v}" for k, v in sorted(por.items())) or "—"
         linhas += f"""<tr><td><b>{_esc(l["nome"])}</b></td><td class="n"><b>{len(l["aut"])}</b></td>
 <td class="n"><b>{brl(_soma(l["aut"]))}</b></td><td class="cin">{cnpjs}</td><td class="n">{len(l["rej"]) or '—'}</td>
 <td class="n">{(len(l["att"]) + len(l["pend"])) or '—'}</td><td class="n">{len(l["nao"])} <span class="pq">{brl(_soma(l["nao"]))}</span></td>
@@ -795,13 +810,13 @@ def html_pdf_dia(dia: date, gerado: datetime) -> str:
     itens = [(l["nome"], "Rejeitada", r) for l in lojas for r in l["rej"]] + \
             [(l["nome"], "Não emitida", r) for l in lojas for r in l["att"]] + \
             [(l["nome"], "Pendente", r) for l in lojas for r in l["pend"]]
-    for nome, tipo, r in itens[:12]:
+    for nome, tipo, r in itens[:8]:
         motivo = r.get("motivo") or r.get("regra") or ("ainda não emitida" if tipo == "Pendente" else "")
-        aten += f"""<tr><td>{_esc(nome)}</td><td><b>#{_esc(r.get("codigo", ""))}</b></td><td>{_esc(r.get("hora", ""))}</td>
+        aten += f"""<tr><td>{_esc(nome.replace("Tili ", ""))}</td><td><b>#{_esc(r.get("codigo", ""))}</b></td><td>{_esc(r.get("hora", ""))}</td>
 <td class="n">{brl(float(r.get("valor") or 0))}</td><td class="pq">{_esc(r.get("pagamento", ""))[:40]}</td>
 <td>{tipo}: {_esc(motivo)[:110]}</td></tr>"""
-    if len(itens) > 12:
-        aten += f'<tr><td colspan="6" class="cin">+ {len(itens) - 12} itens (ver arquivo do dia)</td></tr>'
+    if len(itens) > 8:
+        aten += f'<tr><td colspan="6" class="cin">+ {len(itens) - 8} itens (ver arquivo do dia)</td></tr>'
     bloco_aten = (f"""<div class="sec" style="margin-top:3mm">PENDENTES — PRECISAM DA SUA ATENÇÃO ({len(itens)})</div>
 <table><tr><th>LOJA</th><th>PEDIDO</th><th>HORA</th><th class="n">VALOR</th><th>PAGAMENTO</th><th>O QUE ACONTECEU</th></tr>{aten}</table>"""
                   if itens else '<div class="av" style="margin-top:3mm">Nenhuma nota rejeitada, travada ou pendente. ✓</div>')
@@ -824,7 +839,7 @@ def html_pdf_dia(dia: date, gerado: datetime) -> str:
             g[forma(r.get("pagamento") or "")] += 1
         for k, g in sorted(grupos.items(), key=lambda x: ORDEM_LOJAS.index(x[0]) if x[0] in ORDEM_LOJAS else 99):
             cols = "".join(f'<td class="n">{g[f] or "<span class=cin>—</span>"}</td>' for f in formas)
-            origem += f"""<tr><td>{_esc(l["nome"])}</td><td>{_esc(k)}</td><td class="n"><b>{g["n"]}</b></td>
+            origem += f"""<tr><td>{_esc(l["nome"].replace("Tili ", ""))}</td><td>{_esc(k)}</td><td class="n"><b>{g["n"]}</b></td>
 <td class="n"><b>{brl(g["v"])}</b></td>{cols}</tr>"""
     tot_f = {f: sum(1 for r in todas_aut if forma(r.get("pagamento") or "") == f) for f in formas}
     origem += (f'<tr class="tot"><td>TOTAL</td><td></td><td class="n">{len(todas_aut)}</td>'
@@ -838,7 +853,7 @@ def html_pdf_dia(dia: date, gerado: datetime) -> str:
             n, v = regras.get(p["regra"], (0, 0.0))
             regras[p["regra"]] = (n + 1, v + p["valor"])
         for k, (n, v) in sorted(regras.items()):
-            nao += f'<tr><td>{_esc(l["nome"])}</td><td>{_esc(k)}</td><td class="n">{n}</td><td class="n">{brl(v)}</td></tr>'
+            nao += f'<tr><td>{_esc(l["nome"].replace("Tili ", ""))}</td><td>{_esc(k)}</td><td class="n">{n}</td><td class="n">{brl(v)}</td></tr>'
 
     paginas = [f"""<div class="pagina">{topo("Resumo da emissão de NFC-e")}
 <h1>Notas fiscais do dia <span class="tag">{dm(dia)}</span></h1>
@@ -849,18 +864,21 @@ def html_pdf_dia(dia: date, gerado: datetime) -> str:
 <div class="sec">POR LOJA</div>
 <table><tr><th>LOJA</th><th class="n">EMITIDAS</th><th class="n">VALOR</th><th>CNPJ</th><th class="n">REJEIT.</th>
 <th class="n">PENDENTES</th><th class="n">NÃO EMITIR</th><th class="n">JÁ TINHAM NOTA</th><th class="n">CANCEL.</th></tr>{linhas}</table>
-<div class="sec" style="margin-top:3mm">EMITIDAS POR ORIGEM E FORMA DE PAGAMENTO (QTD. DE NOTAS)</div>
+<div class="cols" style="margin-top:2mm"><div class="col">
+<div class="sec">EMITIDAS POR ORIGEM E FORMA DE PAGAMENTO (QTD. DE NOTAS)</div>
 <table><tr><th>LOJA</th><th>ORIGEM</th><th class="n">NOTAS</th><th class="n">VALOR</th>
 {"".join(f'<th class="n">{f.upper()}</th>' for f in formas)}</tr>{origem}</table>
-<div class="sec" style="margin-top:3mm">NÃO EMITIDAS PELA REGRA</div>
+</div><div class="col">
+<div class="sec">NÃO EMITIDAS PELA REGRA</div>
 <table><tr><th>LOJA</th><th>MOTIVO</th><th class="n">PEDIDOS</th><th class="n">VALOR</th></tr>{nao or '<tr><td colspan="4" class="cin">nenhum</td></tr>'}</table>
 {bloco_aten}
+</div></div>
 <div class="nota">Regras: emite Pix, cartão, vale e pagamento online (exceto online do iFood Tili Pizzaria); dinheiro puro nunca;
 fiado, carteira e Conta Func. vão para atenção. CNPJ único (Pizzaria): Pizzaria, Burguer, 2.0 e delivery do Sushi;
 CNPJ do Sushi: balcão e PDV do Sushi. "Já tinham nota" = emitidas antes (caixa).</div></div>"""]
 
     return f"""<!doctype html><html lang="pt-br"><head><meta charset="utf-8">
-<title>NFC-e {dia:%d-%m-%Y}</title><style>{CSS}</style></head><body>{''.join(paginas)}</body></html>"""
+<title>NFC-e {dia:%d-%m-%Y}</title><style>{CSS}{CSS_IPAD}</style></head><body>{''.join(paginas)}</body></html>"""
 
 
 def gerar_pdf_dia(dia: date) -> Path:

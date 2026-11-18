@@ -1,0 +1,1947 @@
+{
+ "data": "2026-11-17",
+ "loja": 155,
+ "automatica": true,
+ "lista": {
+  "gerada_em": "2026-11-18T02:15:54-03:00",
+  "pedidos": [
+   {
+    "id": 361529,
+    "codigo": "APP-1",
+    "hora": "17:23",
+    "valor": 166.89,
+    "pagamento": "Pix Online: 166.89",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "ATENCAO",
+    "regra": "Pix Online não confirmado como pago"
+   },
+   {
+    "id": 361587,
+    "codigo": "M-2",
+    "hora": "18:15",
+    "valor": 31.9,
+    "pagamento": "Pix: 31.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361589,
+    "codigo": "M-3",
+    "hora": "18:17",
+    "valor": 89.7,
+    "pagamento": "Cartão Débito: 89.70",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361598,
+    "codigo": "M-4",
+    "hora": "18:20",
+    "valor": 35.88,
+    "pagamento": "Cartão Débito: 35.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361600,
+    "codigo": "M-5",
+    "hora": "18:20",
+    "valor": 32.89,
+    "pagamento": "Cartão Crédito: 32.89",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361601,
+    "codigo": "M-6",
+    "hora": "18:21",
+    "valor": 17.94,
+    "pagamento": "Pix: 17.94",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361602,
+    "codigo": "M-7",
+    "hora": "18:21",
+    "valor": 47.84,
+    "pagamento": "Cartão Débito: 47.84",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361618,
+    "codigo": "M-8",
+    "hora": "18:26",
+    "valor": 38.87,
+    "pagamento": "Cartão Débito: 38.87",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361623,
+    "codigo": "iF-5855",
+    "hora": "18:27",
+    "valor": 160.53,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361628,
+    "codigo": "APP-9",
+    "hora": "18:30",
+    "valor": 146.89,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361648,
+    "codigo": "M-10",
+    "hora": "18:35",
+    "valor": 98.71,
+    "pagamento": "Cartão Débito: 98.71",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361651,
+    "codigo": "iF-5567",
+    "hora": "18:36",
+    "valor": 165.34,
+    "pagamento": "iFood Online (Visa)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361669,
+    "codigo": "M-11",
+    "hora": "18:41",
+    "valor": 74.77,
+    "pagamento": "Cartão Débito: 74.77",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361702,
+    "codigo": "M-12",
+    "hora": "18:52",
+    "valor": 29.9,
+    "pagamento": "Pix: 29.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361703,
+    "codigo": "iF-4370",
+    "hora": "18:52",
+    "valor": 43.97,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361710,
+    "codigo": "M-13",
+    "hora": "18:54",
+    "valor": 68.77,
+    "pagamento": "Cartão Crédito: 68.77",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361719,
+    "codigo": "APP-14",
+    "hora": "18:57",
+    "valor": 56.89,
+    "pagamento": "Cartão Crédito: 56.89",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361740,
+    "codigo": "M-15",
+    "hora": "19:01",
+    "valor": 35.88,
+    "pagamento": "Pix: 35.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361757,
+    "codigo": "M-16",
+    "hora": "19:04",
+    "valor": 89.74,
+    "pagamento": "Pix: 89.74",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361771,
+    "codigo": "APP-17",
+    "hora": "19:07",
+    "valor": 72.79,
+    "pagamento": "Cartão Crédito",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361773,
+    "codigo": "M-18",
+    "hora": "19:07",
+    "valor": 73.82,
+    "pagamento": "Cartão Crédito: 73.82",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361797,
+    "codigo": "iF-2490",
+    "hora": "19:10",
+    "valor": 145.47,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361803,
+    "codigo": "M-19",
+    "hora": "19:11",
+    "valor": 17.94,
+    "pagamento": "Cartão Crédito: 17.94",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361811,
+    "codigo": "APP-20",
+    "hora": "19:13",
+    "valor": 191.69,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361821,
+    "codigo": "M-21",
+    "hora": "19:15",
+    "valor": 41.86,
+    "pagamento": "Dinheiro: 20.00 | Pix: 21.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 361826,
+    "codigo": "M-22",
+    "hora": "19:16",
+    "valor": 2.99,
+    "pagamento": "Dinheiro (Troco -> R$ 7.01): 2.99",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 361865,
+    "codigo": "APP-23",
+    "hora": "19:23",
+    "valor": 78.89,
+    "pagamento": "Pix",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361879,
+    "codigo": "M-24",
+    "hora": "19:25",
+    "valor": 77.78,
+    "pagamento": "Cartão Débito: 77.78",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361887,
+    "codigo": "M-26",
+    "hora": "19:27",
+    "valor": 63.32,
+    "pagamento": "Dinheiro (Troco -> R$ 36.68): 63.32",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 361891,
+    "codigo": "APP-27",
+    "hora": "19:28",
+    "valor": 22.9,
+    "pagamento": "Cartão Crédito: 22.90",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361926,
+    "codigo": "M-28",
+    "hora": "19:34",
+    "valor": 119.64,
+    "pagamento": "Cartão Crédito: 119.64",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 361993,
+    "codigo": "M-29",
+    "hora": "19:47",
+    "valor": 101.7,
+    "pagamento": "Cartão Crédito: 101.70",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362013,
+    "codigo": "M-30",
+    "hora": "19:50",
+    "valor": 65.78,
+    "pagamento": "Cartão Crédito: 65.78",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362047,
+    "codigo": "iF-9998",
+    "hora": "19:54",
+    "valor": 21.92,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362111,
+    "codigo": "iF-0435",
+    "hora": "20:04",
+    "valor": 46.05,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362146,
+    "codigo": "M-31",
+    "hora": "20:12",
+    "valor": 57.9,
+    "pagamento": "Cartão Débito: 57.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362192,
+    "codigo": "APP-32",
+    "hora": "20:21",
+    "valor": 66.89,
+    "pagamento": "Dinheiro (Troco -> R$ 3.11)",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 362244,
+    "codigo": "iF-2658",
+    "hora": "20:27",
+    "valor": 81.92,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362258,
+    "codigo": "APP-33",
+    "hora": "20:29",
+    "valor": 119.9,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362268,
+    "codigo": "APP-34",
+    "hora": "20:30",
+    "valor": 156.39,
+    "pagamento": "Pix: 156.39",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362288,
+    "codigo": "iF-2727",
+    "hora": "20:34",
+    "valor": 39.89,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362348,
+    "codigo": "M-35",
+    "hora": "20:43",
+    "valor": 62.83,
+    "pagamento": "Pix: 62.83",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362371,
+    "codigo": "iF-0356",
+    "hora": "20:46",
+    "valor": 19.89,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362391,
+    "codigo": "M-37",
+    "hora": "20:49",
+    "valor": 47.84,
+    "pagamento": "Cartão Débito: 47.84",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362395,
+    "codigo": "iF-6578",
+    "hora": "20:50",
+    "valor": 78.94,
+    "pagamento": "iFood Online (Elo)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362595,
+    "codigo": "M-38",
+    "hora": "21:23",
+    "valor": 32.89,
+    "pagamento": "Pix: 32.89",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362635,
+    "codigo": "APP-39",
+    "hora": "21:31",
+    "valor": 100.69,
+    "pagamento": "Pix",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362669,
+    "codigo": "M-40",
+    "hora": "21:39",
+    "valor": 29.9,
+    "pagamento": "Pix: 29.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362688,
+    "codigo": "M-41",
+    "hora": "21:42",
+    "valor": 147.54,
+    "pagamento": "Dinheiro: 100.00 | Cartão Crédito: 47.54",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 362700,
+    "codigo": "APP-42",
+    "hora": "21:45",
+    "valor": 91.69,
+    "pagamento": "Pix",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362747,
+    "codigo": "M-43",
+    "hora": "21:56",
+    "valor": 26.91,
+    "pagamento": "Cartão Débito: 26.91",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362759,
+    "codigo": "M-44",
+    "hora": "22:00",
+    "valor": 20.93,
+    "pagamento": "Pix: 20.93",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362762,
+    "codigo": "iF-5485",
+    "hora": "22:00",
+    "valor": 40.67,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362765,
+    "codigo": "iF-6517",
+    "hora": "22:01",
+    "valor": 40.67,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362784,
+    "codigo": "APP-45",
+    "hora": "22:05",
+    "valor": 126.79,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362788,
+    "codigo": "M-46",
+    "hora": "22:06",
+    "valor": 49.86,
+    "pagamento": "Pix: 49.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362803,
+    "codigo": "M-47",
+    "hora": "22:09",
+    "valor": 50.83,
+    "pagamento": "Pix: 50.83",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362808,
+    "codigo": "iF-3901",
+    "hora": "22:10",
+    "valor": 26.92,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362817,
+    "codigo": "APP-48",
+    "hora": "22:13",
+    "valor": 59.9,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362876,
+    "codigo": "M-49",
+    "hora": "22:28",
+    "valor": 10.9,
+    "pagamento": "Pix: 10.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362918,
+    "codigo": "M-50",
+    "hora": "22:40",
+    "valor": 41.86,
+    "pagamento": "Pix: 41.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362931,
+    "codigo": "M-51",
+    "hora": "22:44",
+    "valor": 50.83,
+    "pagamento": "Cartão Crédito: 50.83",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362953,
+    "codigo": "APP-52",
+    "hora": "22:55",
+    "valor": 118.79,
+    "pagamento": "Cartão Crédito",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362970,
+    "codigo": "M-53",
+    "hora": "23:02",
+    "valor": 44.85,
+    "pagamento": "Cartão Crédito: 44.85",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 362976,
+    "codigo": "M-54",
+    "hora": "23:06",
+    "valor": 18.47,
+    "pagamento": "Dinheiro: 5.00 | Pix: 13.47",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 362993,
+    "codigo": "iF-4434",
+    "hora": "23:14",
+    "valor": 158.89,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 363015,
+    "codigo": "iF-4238",
+    "hora": "23:27",
+    "valor": 49.4,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 363034,
+    "codigo": "M-55",
+    "hora": "23:35",
+    "valor": 185.19,
+    "pagamento": "Pix: 185.19",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 363059,
+    "codigo": "M-56",
+    "hora": "23:55",
+    "valor": 14.95,
+    "pagamento": "Dinheiro (Troco -> R$ 5.05): 14.95",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   }
+  ],
+  "contagem": {
+   "cancelados": 1,
+   "abertos": 0,
+   "ja_emitidos": 1,
+   "outra_loja": 0,
+   "outro_dia": 0
+  }
+ },
+ "emissoes": [
+  {
+   "executada_em": "2026-11-18T02:19:16-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 361587,
+     "codigo": "M-2",
+     "hora": "18:15",
+     "valor": 31.9,
+     "pagamento": "Pix: 31.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361589,
+     "codigo": "M-3",
+     "hora": "18:17",
+     "valor": 89.7,
+     "pagamento": "Cartão Débito: 89.70",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361598,
+     "codigo": "M-4",
+     "hora": "18:20",
+     "valor": 35.88,
+     "pagamento": "Cartão Débito: 35.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361600,
+     "codigo": "M-5",
+     "hora": "18:20",
+     "valor": 32.89,
+     "pagamento": "Cartão Crédito: 32.89",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361601,
+     "codigo": "M-6",
+     "hora": "18:21",
+     "valor": 17.94,
+     "pagamento": "Pix: 17.94",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361602,
+     "codigo": "M-7",
+     "hora": "18:21",
+     "valor": 47.84,
+     "pagamento": "Cartão Débito: 47.84",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361618,
+     "codigo": "M-8",
+     "hora": "18:26",
+     "valor": 38.87,
+     "pagamento": "Cartão Débito: 38.87",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361623,
+     "codigo": "iF-5855",
+     "hora": "18:27",
+     "valor": 160.53,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 361628,
+     "codigo": "APP-9",
+     "hora": "18:30",
+     "valor": 146.89,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 361648,
+     "codigo": "M-10",
+     "hora": "18:35",
+     "valor": 98.71,
+     "pagamento": "Cartão Débito: 98.71",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361651,
+     "codigo": "iF-5567",
+     "hora": "18:36",
+     "valor": 165.34,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 361669,
+     "codigo": "M-11",
+     "hora": "18:41",
+     "valor": 74.77,
+     "pagamento": "Cartão Débito: 74.77",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361702,
+     "codigo": "M-12",
+     "hora": "18:52",
+     "valor": 29.9,
+     "pagamento": "Pix: 29.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361703,
+     "codigo": "iF-4370",
+     "hora": "18:52",
+     "valor": 43.97,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 361710,
+     "codigo": "M-13",
+     "hora": "18:54",
+     "valor": 68.77,
+     "pagamento": "Cartão Crédito: 68.77",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361719,
+     "codigo": "APP-14",
+     "hora": "18:57",
+     "valor": 56.89,
+     "pagamento": "Cartão Crédito: 56.89",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 361740,
+     "codigo": "M-15",
+     "hora": "19:01",
+     "valor": 35.88,
+     "pagamento": "Pix: 35.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361757,
+     "codigo": "M-16",
+     "hora": "19:04",
+     "valor": 89.74,
+     "pagamento": "Pix: 89.74",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361771,
+     "codigo": "APP-17",
+     "hora": "19:07",
+     "valor": 72.79,
+     "pagamento": "Cartão Crédito",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 361773,
+     "codigo": "M-18",
+     "hora": "19:07",
+     "valor": 73.82,
+     "pagamento": "Cartão Crédito: 73.82",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361797,
+     "codigo": "iF-2490",
+     "hora": "19:10",
+     "valor": 145.47,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 361803,
+     "codigo": "M-19",
+     "hora": "19:11",
+     "valor": 17.94,
+     "pagamento": "Cartão Crédito: 17.94",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361811,
+     "codigo": "APP-20",
+     "hora": "19:13",
+     "valor": 191.69,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 361821,
+     "codigo": "M-21",
+     "hora": "19:15",
+     "valor": 41.86,
+     "pagamento": "Dinheiro: 20.00 | Pix: 21.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361865,
+     "codigo": "APP-23",
+     "hora": "19:23",
+     "valor": 78.89,
+     "pagamento": "Pix",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 361879,
+     "codigo": "M-24",
+     "hora": "19:25",
+     "valor": 77.78,
+     "pagamento": "Cartão Débito: 77.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361891,
+     "codigo": "APP-27",
+     "hora": "19:28",
+     "valor": 22.9,
+     "pagamento": "Cartão Crédito: 22.90",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361926,
+     "codigo": "M-28",
+     "hora": "19:34",
+     "valor": 119.64,
+     "pagamento": "Cartão Crédito: 119.64",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 361993,
+     "codigo": "M-29",
+     "hora": "19:47",
+     "valor": 101.7,
+     "pagamento": "Cartão Crédito: 101.70",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362013,
+     "codigo": "M-30",
+     "hora": "19:50",
+     "valor": 65.78,
+     "pagamento": "Cartão Crédito: 65.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362047,
+     "codigo": "iF-9998",
+     "hora": "19:54",
+     "valor": 21.92,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362111,
+     "codigo": "iF-0435",
+     "hora": "20:04",
+     "valor": 46.05,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362146,
+     "codigo": "M-31",
+     "hora": "20:12",
+     "valor": 57.9,
+     "pagamento": "Cartão Débito: 57.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362244,
+     "codigo": "iF-2658",
+     "hora": "20:27",
+     "valor": 81.92,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362258,
+     "codigo": "APP-33",
+     "hora": "20:29",
+     "valor": 119.9,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362268,
+     "codigo": "APP-34",
+     "hora": "20:30",
+     "valor": 156.39,
+     "pagamento": "Pix: 156.39",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362288,
+     "codigo": "iF-2727",
+     "hora": "20:34",
+     "valor": 39.89,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362348,
+     "codigo": "M-35",
+     "hora": "20:43",
+     "valor": 62.83,
+     "pagamento": "Pix: 62.83",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362371,
+     "codigo": "iF-0356",
+     "hora": "20:46",
+     "valor": 19.89,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362391,
+     "codigo": "M-37",
+     "hora": "20:49",
+     "valor": 47.84,
+     "pagamento": "Cartão Débito: 47.84",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362395,
+     "codigo": "iF-6578",
+     "hora": "20:50",
+     "valor": 78.94,
+     "pagamento": "iFood Online (Elo)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362595,
+     "codigo": "M-38",
+     "hora": "21:23",
+     "valor": 32.89,
+     "pagamento": "Pix: 32.89",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362635,
+     "codigo": "APP-39",
+     "hora": "21:31",
+     "valor": 100.69,
+     "pagamento": "Pix",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362669,
+     "codigo": "M-40",
+     "hora": "21:39",
+     "valor": 29.9,
+     "pagamento": "Pix: 29.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362688,
+     "codigo": "M-41",
+     "hora": "21:42",
+     "valor": 147.54,
+     "pagamento": "Dinheiro: 100.00 | Cartão Crédito: 47.54",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362700,
+     "codigo": "APP-42",
+     "hora": "21:45",
+     "valor": 91.69,
+     "pagamento": "Pix",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362747,
+     "codigo": "M-43",
+     "hora": "21:56",
+     "valor": 26.91,
+     "pagamento": "Cartão Débito: 26.91",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362759,
+     "codigo": "M-44",
+     "hora": "22:00",
+     "valor": 20.93,
+     "pagamento": "Pix: 20.93",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362762,
+     "codigo": "iF-5485",
+     "hora": "22:00",
+     "valor": 40.67,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362765,
+     "codigo": "iF-6517",
+     "hora": "22:01",
+     "valor": 40.67,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362784,
+     "codigo": "APP-45",
+     "hora": "22:05",
+     "valor": 126.79,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362788,
+     "codigo": "M-46",
+     "hora": "22:06",
+     "valor": 49.86,
+     "pagamento": "Pix: 49.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362803,
+     "codigo": "M-47",
+     "hora": "22:09",
+     "valor": 50.83,
+     "pagamento": "Pix: 50.83",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362808,
+     "codigo": "iF-3901",
+     "hora": "22:10",
+     "valor": 26.92,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362817,
+     "codigo": "APP-48",
+     "hora": "22:13",
+     "valor": 59.9,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362876,
+     "codigo": "M-49",
+     "hora": "22:28",
+     "valor": 10.9,
+     "pagamento": "Pix: 10.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362918,
+     "codigo": "M-50",
+     "hora": "22:40",
+     "valor": 41.86,
+     "pagamento": "Pix: 41.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362931,
+     "codigo": "M-51",
+     "hora": "22:44",
+     "valor": 50.83,
+     "pagamento": "Cartão Crédito: 50.83",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362953,
+     "codigo": "APP-52",
+     "hora": "22:55",
+     "valor": 118.79,
+     "pagamento": "Cartão Crédito",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 362970,
+     "codigo": "M-53",
+     "hora": "23:02",
+     "valor": 44.85,
+     "pagamento": "Cartão Crédito: 44.85",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362976,
+     "codigo": "M-54",
+     "hora": "23:06",
+     "valor": 18.47,
+     "pagamento": "Dinheiro: 5.00 | Pix: 13.47",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 362993,
+     "codigo": "iF-4434",
+     "hora": "23:14",
+     "valor": 158.89,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 363015,
+     "codigo": "iF-4238",
+     "hora": "23:27",
+     "valor": 49.4,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 363034,
+     "codigo": "M-55",
+     "hora": "23:35",
+     "valor": 185.19,
+     "pagamento": "Pix: 185.19",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    }
+   ],
+   "avisos": []
+  }
+ ]
+}

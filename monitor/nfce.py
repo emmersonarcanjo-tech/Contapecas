@@ -727,7 +727,6 @@ def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int, raw: 
 
 # ---------------------------------------------------------------- PDF do dia (Emerson, 18/11/2026)
 PASTA_PDF = PASTA / "pdf"
-LINHAS_POR_PAGINA = 33
 
 
 def _ultimos_resultados(dados: dict) -> dict:
@@ -792,73 +791,34 @@ def html_pdf_dia(dia: date, gerado: datetime) -> str:
 <td class="n">{sum(len(l["nao"]) for l in lojas)}</td><td class="n">{sum(l["cont"].get("ja_emitidos", 0) for l in lojas)}</td>
 <td class="n">{sum(l["cont"].get("cancelados", 0) for l in lojas)}</td></tr>"""
 
-    origem = ""
-    for l in lojas:
-        por = {}
-        for r in l["aut"]:
-            k = r.get("loja") or "?"
-            n, v = por.get(k, (0, 0.0))
-            por[k] = (n + 1, v + float(r.get("valor") or 0))
-        for k, (n, v) in sorted(por.items(), key=lambda x: (ORDEM_LOJAS.index(x[0]) if x[0] in ORDEM_LOJAS else 99)):
-            origem += f'<tr><td>{_esc(l["nome"])}</td><td>{_esc(k)}</td><td class="n">{n}</td><td class="n">{brl(v)}</td></tr>'
-
     aten = ""
     itens = [(l["nome"], "Rejeitada", r) for l in lojas for r in l["rej"]] + \
             [(l["nome"], "Não emitida", r) for l in lojas for r in l["att"]] + \
             [(l["nome"], "Pendente", r) for l in lojas for r in l["pend"]]
-    for nome, tipo, r in itens[:22]:
+    for nome, tipo, r in itens[:25]:
         motivo = r.get("motivo") or r.get("regra") or ("ainda não emitida" if tipo == "Pendente" else "")
         aten += f"""<tr><td>{_esc(nome)}</td><td><b>#{_esc(r.get("codigo", ""))}</b></td><td>{_esc(r.get("hora", ""))}</td>
 <td class="n">{brl(float(r.get("valor") or 0))}</td><td class="pq">{_esc(r.get("pagamento", ""))[:40]}</td>
 <td>{tipo}: {_esc(motivo)[:110]}</td></tr>"""
-    if len(itens) > 22:
-        aten += f'<tr><td colspan="6" class="cin">+ {len(itens) - 22} itens (ver arquivo do dia)</td></tr>'
-    bloco_aten = (f"""<div class="sec" style="margin-top:3mm">PRECISA DA SUA ATENÇÃO ({len(itens)})</div>
+    if len(itens) > 25:
+        aten += f'<tr><td colspan="6" class="cin">+ {len(itens) - 25} itens (ver arquivo do dia)</td></tr>'
+    bloco_aten = (f"""<div class="sec" style="margin-top:3mm">PENDENTES — PRECISAM DA SUA ATENÇÃO ({len(itens)})</div>
 <table><tr><th>LOJA</th><th>PEDIDO</th><th>HORA</th><th class="n">VALOR</th><th>PAGAMENTO</th><th>O QUE ACONTECEU</th></tr>{aten}</table>"""
                   if itens else '<div class="av" style="margin-top:3mm">Nenhuma nota rejeitada, travada ou pendente. ✓</div>')
-
-    nao = ""
-    for l in lojas:
-        regras = {}
-        for p in l["nao"]:
-            n, v = regras.get(p["regra"], (0, 0.0))
-            regras[p["regra"]] = (n + 1, v + p["valor"])
-        for k, (n, v) in sorted(regras.items()):
-            nao += f'<tr><td>{_esc(l["nome"])}</td><td>{_esc(k)}</td><td class="n">{n}</td><td class="n">{brl(v)}</td></tr>'
 
     paginas = [f"""<div class="pagina">{topo("Resumo da emissão de NFC-e")}
 <h1>Notas fiscais do dia <span class="tag">{dm(dia)}</span></h1>
 <div class="cards"><div class="card"><div class="r">NOTAS EMITIDAS</div><div class="v">{len(todas_aut)}</div></div>
-<div class="card"><div class="r">REJEITADAS / ATENÇÃO</div><div class="v">{problemas}</div></div>
+<div class="card"><div class="r">PENDENTES</div><div class="v">{problemas}</div></div>
 <div class="card"><div class="r">NÃO EMITIDAS (REGRA)</div><div class="v">{sum(len(l["nao"]) for l in lojas)}</div></div>
 <div class="card total"><div class="r">VALOR EMITIDO</div><div class="v">{brl(_soma(todas_aut))}</div></div></div>
 <div class="sec">POR LOJA</div>
 <table><tr><th>LOJA</th><th class="n">EMITIDAS</th><th class="n">VALOR</th><th>CNPJ</th><th class="n">REJEIT.</th>
-<th class="n">ATENÇÃO</th><th class="n">NÃO EMITIR</th><th class="n">JÁ TINHAM NOTA</th><th class="n">CANCEL.</th></tr>{linhas}</table>
-<div class="sec" style="margin-top:3mm">EMITIDAS POR ORIGEM</div>
-<table><tr><th>LOJA</th><th>ORIGEM</th><th class="n">NOTAS</th><th class="n">VALOR</th></tr>{origem or '<tr><td colspan="4" class="cin">nenhuma</td></tr>'}</table>
+<th class="n">PENDENTES</th><th class="n">NÃO EMITIR</th><th class="n">JÁ TINHAM NOTA</th><th class="n">CANCEL.</th></tr>{linhas}</table>
 {bloco_aten}
-<div class="sec" style="margin-top:3mm">NÃO EMITIDAS PELA REGRA</div>
-<table><tr><th>LOJA</th><th>REGRA</th><th class="n">PEDIDOS</th><th class="n">VALOR</th></tr>{nao or '<tr><td colspan="4" class="cin">nenhum</td></tr>'}</table>
 <div class="nota">Regras: emite Pix, cartão, vale e pagamento online (exceto online do iFood Tili Pizzaria); dinheiro puro nunca;
 fiado, carteira e Conta Func. vão para atenção. CNPJ único (Pizzaria): Pizzaria, Burguer, 2.0 e delivery do Sushi;
 CNPJ do Sushi: balcão e PDV do Sushi. "Já tinham nota" = emitidas antes (caixa).</div></div>"""]
-
-    for l in lojas:
-        rows = sorted(l["aut"], key=lambda r: (r.get("hora") or "", str(r.get("codigo"))))
-        for n0 in range(0, len(rows), LINHAS_POR_PAGINA):
-            parte = rows[n0:n0 + LINHAS_POR_PAGINA]
-            corpo = "".join(f"""<tr><td class="cin">{n0 + k}</td><td><b>#{_esc(r.get("codigo", ""))}</b></td><td>{_esc(r.get("hora", ""))}</td>
-<td>{_esc(r.get("loja", ""))}</td><td class="pq">{_esc(r.get("pagamento", ""))[:45]}</td><td class="n">{brl(float(r.get("valor") or 0))}</td>
-<td class="cin">{_esc(r.get("perfil_emitido", ""))}</td></tr>""" for k, r in enumerate(parte, 1))
-            fim = n0 + LINHAS_POR_PAGINA >= len(rows)
-            if fim:
-                corpo += f"""<tr class="tot"><td></td><td>TOTAL</td><td></td><td></td><td></td>
-<td class="n ver">{brl(_soma(rows))}</td><td>{len(rows)} notas</td></tr>"""
-            pag = f" ({n0 // LINHAS_POR_PAGINA + 1}/{-(-len(rows) // LINHAS_POR_PAGINA)})" if len(rows) > LINHAS_POR_PAGINA else ""
-            paginas.append(f"""<div class="pagina">{topo(f"Notas emitidas · {l['nome']}{pag}")}
-<h1>{_esc(l["nome"])} <span class="tag">{len(rows)} NOTAS</span> <span class="tag ouro">{brl(_soma(rows))}</span></h1>
-<table><tr><th>#</th><th>PEDIDO</th><th>HORA</th><th>ORIGEM</th><th>PAGAMENTO</th><th class="n">VALOR</th><th>CNPJ</th></tr>{corpo}</table></div>""")
 
     return f"""<!doctype html><html lang="pt-br"><head><meta charset="utf-8">
 <title>NFC-e {dia:%d-%m-%Y}</title><style>{CSS}</style></head><body>{''.join(paginas)}</body></html>"""

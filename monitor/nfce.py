@@ -795,16 +795,50 @@ def html_pdf_dia(dia: date, gerado: datetime) -> str:
     itens = [(l["nome"], "Rejeitada", r) for l in lojas for r in l["rej"]] + \
             [(l["nome"], "Não emitida", r) for l in lojas for r in l["att"]] + \
             [(l["nome"], "Pendente", r) for l in lojas for r in l["pend"]]
-    for nome, tipo, r in itens[:25]:
+    for nome, tipo, r in itens[:12]:
         motivo = r.get("motivo") or r.get("regra") or ("ainda não emitida" if tipo == "Pendente" else "")
         aten += f"""<tr><td>{_esc(nome)}</td><td><b>#{_esc(r.get("codigo", ""))}</b></td><td>{_esc(r.get("hora", ""))}</td>
 <td class="n">{brl(float(r.get("valor") or 0))}</td><td class="pq">{_esc(r.get("pagamento", ""))[:40]}</td>
 <td>{tipo}: {_esc(motivo)[:110]}</td></tr>"""
-    if len(itens) > 25:
-        aten += f'<tr><td colspan="6" class="cin">+ {len(itens) - 25} itens (ver arquivo do dia)</td></tr>'
+    if len(itens) > 12:
+        aten += f'<tr><td colspan="6" class="cin">+ {len(itens) - 12} itens (ver arquivo do dia)</td></tr>'
     bloco_aten = (f"""<div class="sec" style="margin-top:3mm">PENDENTES — PRECISAM DA SUA ATENÇÃO ({len(itens)})</div>
 <table><tr><th>LOJA</th><th>PEDIDO</th><th>HORA</th><th class="n">VALOR</th><th>PAGAMENTO</th><th>O QUE ACONTECEU</th></tr>{aten}</table>"""
                   if itens else '<div class="av" style="margin-top:3mm">Nenhuma nota rejeitada, travada ou pendente. ✓</div>')
+
+    formas = ["Pix", "Crédito", "Débito", "Vale", "Online", "Misto"]
+
+    def forma(pag: str) -> str:
+        nomes = {"pix": "Pix", "pix_online": "Pix", "credito": "Crédito", "debito": "Débito",
+                 "vale": "Vale", "ifood_online": "Online"}
+        ts = {nomes.get(tipo_pagamento(n)) for n, _ in partes_pagamento(pag)} - {None}
+        return ts.pop() if len(ts) == 1 else ("Misto" if ts else "Misto")
+
+    origem = ""
+    for l in lojas:
+        grupos: dict = {}
+        for r in l["aut"]:
+            g = grupos.setdefault(r.get("loja") or "?", {"n": 0, "v": 0.0, **{f: 0 for f in formas}})
+            g["n"] += 1
+            g["v"] += float(r.get("valor") or 0)
+            g[forma(r.get("pagamento") or "")] += 1
+        for k, g in sorted(grupos.items(), key=lambda x: ORDEM_LOJAS.index(x[0]) if x[0] in ORDEM_LOJAS else 99):
+            cols = "".join(f'<td class="n">{g[f] or "<span class=cin>—</span>"}</td>' for f in formas)
+            origem += f"""<tr><td>{_esc(l["nome"])}</td><td>{_esc(k)}</td><td class="n"><b>{g["n"]}</b></td>
+<td class="n"><b>{brl(g["v"])}</b></td>{cols}</tr>"""
+    tot_f = {f: sum(1 for r in todas_aut if forma(r.get("pagamento") or "") == f) for f in formas}
+    origem += (f'<tr class="tot"><td>TOTAL</td><td></td><td class="n">{len(todas_aut)}</td>'
+               f'<td class="n ver">{brl(_soma(todas_aut))}</td>'
+               + "".join(f'<td class="n">{tot_f[f] or "—"}</td>' for f in formas) + "</tr>")
+
+    nao = ""
+    for l in lojas:
+        regras: dict = {}
+        for p in l["nao"]:
+            n, v = regras.get(p["regra"], (0, 0.0))
+            regras[p["regra"]] = (n + 1, v + p["valor"])
+        for k, (n, v) in sorted(regras.items()):
+            nao += f'<tr><td>{_esc(l["nome"])}</td><td>{_esc(k)}</td><td class="n">{n}</td><td class="n">{brl(v)}</td></tr>'
 
     paginas = [f"""<div class="pagina">{topo("Resumo da emissão de NFC-e")}
 <h1>Notas fiscais do dia <span class="tag">{dm(dia)}</span></h1>
@@ -815,6 +849,11 @@ def html_pdf_dia(dia: date, gerado: datetime) -> str:
 <div class="sec">POR LOJA</div>
 <table><tr><th>LOJA</th><th class="n">EMITIDAS</th><th class="n">VALOR</th><th>CNPJ</th><th class="n">REJEIT.</th>
 <th class="n">PENDENTES</th><th class="n">NÃO EMITIR</th><th class="n">JÁ TINHAM NOTA</th><th class="n">CANCEL.</th></tr>{linhas}</table>
+<div class="sec" style="margin-top:3mm">EMITIDAS POR ORIGEM E FORMA DE PAGAMENTO (QTD. DE NOTAS)</div>
+<table><tr><th>LOJA</th><th>ORIGEM</th><th class="n">NOTAS</th><th class="n">VALOR</th>
+{"".join(f'<th class="n">{f.upper()}</th>' for f in formas)}</tr>{origem}</table>
+<div class="sec" style="margin-top:3mm">NÃO EMITIDAS PELA REGRA</div>
+<table><tr><th>LOJA</th><th>MOTIVO</th><th class="n">PEDIDOS</th><th class="n">VALOR</th></tr>{nao or '<tr><td colspan="4" class="cin">nenhum</td></tr>'}</table>
 {bloco_aten}
 <div class="nota">Regras: emite Pix, cartão, vale e pagamento online (exceto online do iFood Tili Pizzaria); dinheiro puro nunca;
 fiado, carteira e Conta Func. vão para atenção. CNPJ único (Pizzaria): Pizzaria, Burguer, 2.0 e delivery do Sushi;

@@ -725,10 +725,172 @@ def cmd_emitir(api: Aliv, loja_id: int, dia: date, dry: bool, limite: int, raw: 
     return 3 if falha else 0
 
 
-def auto_loja(api: Aliv, loja_id: int, dia: date, dry: bool, raw: str | None) -> int:
+# ---------------------------------------------------------------- PDF do dia (Emerson, 18/11/2026)
+PASTA_PDF = PASTA / "pdf"
+
+
+def _ultimos_resultados(dados: dict) -> dict:
+    """id → último resultado de emissão do dia (de todas as execuções gravadas)."""
+    res = {}
+    for em in dados.get("emissoes") or []:
+        if em.get("dry_run"):
+            continue
+        for r in em.get("resultados") or []:
+            if "id" in r:
+                res[r["id"]] = r
+    return res
+
+
+# Folha no formato do iPad, deitada (proporção 2360×1640, a mesma do painel semanal).
+CSS_IPAD = """
+@page { size: 300mm 208.5mm; margin: 0 }
+.pagina { width: 300mm; height: 208.5mm; padding: 9mm 11mm 14mm }
+.cols { display: flex; gap: 6mm; align-items: flex-start }
+.col { flex: 1; min-width: 0 }
+.cols table { font-size: 7.6pt }
+.cols td { padding: 1.2mm 1.3mm }
+.cols th { padding: 1.2mm 1.3mm }
+h1 { margin: 2.5mm 0 1mm }
+.cards { margin: 1mm 0 2mm }
+.pagina > .dagua { width: 100mm; height: 100mm }
+"""
+
+
+def html_pdf_dia(dia: date, gerado: datetime) -> str:
+    from diaristas import CSS, EMPRESA, CNPJ_EMPRESA, DIAS_CURTO, _esc, _logo_src
+    logo = _logo_src()
+    dia_txt = f"{dia:%d/%m/%Y} ({DIAS_CURTO[dia.weekday()]})"
+    timbre = (f'<img class="dagua" src="{logo}">' if logo else '') + (
+        f'<div class="timbre"><b>TILI</b>&nbsp;Pizza · Burguer · Sushi &nbsp;·&nbsp; {EMPRESA} · CNPJ {CNPJ_EMPRESA}'
+        f' &nbsp;·&nbsp; Porto Seguro-BA &nbsp;·&nbsp; WhatsApp&nbsp;<b>(73) 99917-9941</b></div>')
+
+    def topo(rel: str) -> str:
+        return timbre + f"""<div class="topo">{f'<img src="{logo}">' if logo else ''}
+<div class="marca"><div class="nome">TILI · NFC-e</div><div class="emp">Tili Pizzaria (loja 150) e Tili Sushi (loja 155)</div>
+<div class="rel">{rel}</div><div class="per">Dia dos pedidos: {dia_txt}</div></div>
+<div class="dir">Gerado em <b>{gerado:%d/%m/%Y %H:%M}</b><br>Fonte: ALIV Hub<br>Notas sem CPF do cliente</div></div>"""
+
+    lojas = []
+    for loja_id, cfg in LOJAS.items():
+        dados = ler_arquivo(dia, loja_id)
+        if not dados.get("lista"):
+            continue
+        lista = dados["lista"]
+        ultimos = _ultimos_resultados(dados)
+        peds = {p["id"]: p for p in lista.get("pedidos", [])}
+        aut = [{**peds.get(i, {}), **r} for i, r in ultimos.items() if r.get("resultado") == "AUTORIZADA"]
+        rej = [{**peds.get(i, {}), **r} for i, r in ultimos.items() if r.get("resultado") == "REJEITADA"]
+        att = [{**peds.get(i, {}), **r} for i, r in ultimos.items() if r.get("resultado") in ("ATENCAO", "LIMITE")]
+        att += [p for p in lista.get("pedidos", []) if p["grupo"] == "ATENCAO" and p["id"] not in ultimos]
+        pend = [p for p in lista.get("pedidos", []) if p["grupo"] == "EMITIR" and p["id"] not in ultimos]
+        nao = [p for p in lista.get("pedidos", []) if p["grupo"] == "NAO_EMITIR"]
+        lojas.append({"id": loja_id, "nome": cfg["nome"], "aut": aut, "rej": rej, "att": att, "pend": pend,
+                      "nao": nao, "cont": lista.get("contagem", {})})
+    if not lojas:
+        raise RuntimeError(f"sem lista gravada de {dm(dia)}")
+
+    todas_aut = [r for l in lojas for r in l["aut"]]
+    problemas = sum(len(l["rej"]) + len(l["att"]) + len(l["pend"]) for l in lojas)
+    linhas = ""
+    for l in lojas:
+        por = {}
+        for r in l["aut"]:
+            por[r.get("perfil_emitido") or "?"] = por.get(r.get("perfil_emitido") or "?", 0) + 1
+        cnpjs = " · ".join(f"{_esc(k)}: {v}" for k, v in sorted(por.items())) or "—"
+        linhas += f"""<tr><td><b>{_esc(l["nome"])}</b></td><td class="n"><b>{len(l["aut"])}</b></td>
+<td class="n"><b>{brl(_soma(l["aut"]))}</b></td><td class="cin">{cnpjs}</td><td class="n">{len(l["rej"]) or '—'}</td>
+<td class="n">{(len(l["att"]) + len(l["pend"])) or '—'}</td><td class="n">{len(l["nao"])} <span class="pq">{brl(_soma(l["nao"]))}</span></td>
+<td class="n">{l["cont"].get("ja_emitidos", 0)}</td><td class="n">{l["cont"].get("cancelados", 0)}</td></tr>"""
+    linhas += f"""<tr class="tot"><td>TOTAL</td><td class="n">{len(todas_aut)}</td><td class="n ver">{brl(_soma(todas_aut))}</td>
+<td></td><td class="n">{sum(len(l["rej"]) for l in lojas) or '—'}</td><td class="n">{sum(len(l["att"]) + len(l["pend"]) for l in lojas) or '—'}</td>
+<td class="n">{sum(len(l["nao"]) for l in lojas)}</td><td class="n">{sum(l["cont"].get("ja_emitidos", 0) for l in lojas)}</td>
+<td class="n">{sum(l["cont"].get("cancelados", 0) for l in lojas)}</td></tr>"""
+
+    aten = ""
+    itens = [(l["nome"], "Rejeitada", r) for l in lojas for r in l["rej"]] + \
+            [(l["nome"], "Não emitida", r) for l in lojas for r in l["att"]] + \
+            [(l["nome"], "Pendente", r) for l in lojas for r in l["pend"]]
+    for nome, tipo, r in itens[:8]:
+        motivo = r.get("motivo") or r.get("regra") or ("ainda não emitida" if tipo == "Pendente" else "")
+        aten += f"""<tr><td>{_esc(nome.replace("Tili ", ""))}</td><td><b>#{_esc(r.get("codigo", ""))}</b></td><td>{_esc(r.get("hora", ""))}</td>
+<td class="n">{brl(float(r.get("valor") or 0))}</td><td class="pq">{_esc(r.get("pagamento", ""))[:40]}</td>
+<td>{tipo}: {_esc(motivo)[:110]}</td></tr>"""
+    if len(itens) > 8:
+        aten += f'<tr><td colspan="6" class="cin">+ {len(itens) - 8} itens (ver arquivo do dia)</td></tr>'
+    bloco_aten = (f"""<div class="sec" style="margin-top:3mm">PENDENTES — PRECISAM DA SUA ATENÇÃO ({len(itens)})</div>
+<table><tr><th>LOJA</th><th>PEDIDO</th><th>HORA</th><th class="n">VALOR</th><th>PAGAMENTO</th><th>O QUE ACONTECEU</th></tr>{aten}</table>"""
+                  if itens else '<div class="av" style="margin-top:3mm">Nenhuma nota rejeitada, travada ou pendente. ✓</div>')
+
+    formas = ["Pix", "Crédito", "Débito", "Vale", "Online", "Misto"]
+
+    def forma(pag: str) -> str:
+        nomes = {"pix": "Pix", "pix_online": "Pix", "credito": "Crédito", "debito": "Débito",
+                 "vale": "Vale", "ifood_online": "Online"}
+        ts = {nomes.get(tipo_pagamento(n)) for n, _ in partes_pagamento(pag)} - {None}
+        return ts.pop() if len(ts) == 1 else ("Misto" if ts else "Misto")
+
+    origem = ""
+    for l in lojas:
+        grupos: dict = {}
+        for r in l["aut"]:
+            g = grupos.setdefault(r.get("loja") or "?", {"n": 0, "v": 0.0, **{f: 0 for f in formas}})
+            g["n"] += 1
+            g["v"] += float(r.get("valor") or 0)
+            g[forma(r.get("pagamento") or "")] += 1
+        for k, g in sorted(grupos.items(), key=lambda x: ORDEM_LOJAS.index(x[0]) if x[0] in ORDEM_LOJAS else 99):
+            cols = "".join(f'<td class="n">{g[f] or "<span class=cin>—</span>"}</td>' for f in formas)
+            origem += f"""<tr><td>{_esc(l["nome"].replace("Tili ", ""))}</td><td>{_esc(k)}</td><td class="n"><b>{g["n"]}</b></td>
+<td class="n"><b>{brl(g["v"])}</b></td>{cols}</tr>"""
+    tot_f = {f: sum(1 for r in todas_aut if forma(r.get("pagamento") or "") == f) for f in formas}
+    origem += (f'<tr class="tot"><td>TOTAL</td><td></td><td class="n">{len(todas_aut)}</td>'
+               f'<td class="n ver">{brl(_soma(todas_aut))}</td>'
+               + "".join(f'<td class="n">{tot_f[f] or "—"}</td>' for f in formas) + "</tr>")
+
+    nao = ""
+    for l in lojas:
+        regras: dict = {}
+        for p in l["nao"]:
+            n, v = regras.get(p["regra"], (0, 0.0))
+            regras[p["regra"]] = (n + 1, v + p["valor"])
+        for k, (n, v) in sorted(regras.items()):
+            nao += f'<tr><td>{_esc(l["nome"].replace("Tili ", ""))}</td><td>{_esc(k)}</td><td class="n">{n}</td><td class="n">{brl(v)}</td></tr>'
+
+    paginas = [f"""<div class="pagina">{topo("Resumo da emissão de NFC-e")}
+<h1>Notas fiscais do dia <span class="tag">{dm(dia)}</span></h1>
+<div class="cards"><div class="card"><div class="r">NOTAS EMITIDAS</div><div class="v">{len(todas_aut)}</div></div>
+<div class="card"><div class="r">PENDENTES</div><div class="v">{problemas}</div></div>
+<div class="card"><div class="r">NÃO EMITIDAS (REGRA)</div><div class="v">{sum(len(l["nao"]) for l in lojas)}</div></div>
+<div class="card total"><div class="r">VALOR EMITIDO</div><div class="v">{brl(_soma(todas_aut))}</div></div></div>
+<div class="sec">POR LOJA</div>
+<table><tr><th>LOJA</th><th class="n">EMITIDAS</th><th class="n">VALOR</th><th>CNPJ</th><th class="n">REJEIT.</th>
+<th class="n">PENDENTES</th><th class="n">NÃO EMITIR</th><th class="n">JÁ TINHAM NOTA</th><th class="n">CANCEL.</th></tr>{linhas}</table>
+<div class="cols" style="margin-top:2mm"><div class="col">
+<div class="sec">EMITIDAS POR ORIGEM E FORMA DE PAGAMENTO (QTD. DE NOTAS)</div>
+<table><tr><th>LOJA</th><th>ORIGEM</th><th class="n">NOTAS</th><th class="n">VALOR</th>
+{"".join(f'<th class="n">{f.upper()}</th>' for f in formas)}</tr>{origem}</table>
+</div><div class="col">
+<div class="sec">NÃO EMITIDAS PELA REGRA</div>
+<table><tr><th>LOJA</th><th>MOTIVO</th><th class="n">PEDIDOS</th><th class="n">VALOR</th></tr>{nao or '<tr><td colspan="4" class="cin">nenhum</td></tr>'}</table>
+{bloco_aten}
+</div></div>
+<div class="nota">Regras: emite Pix, cartão, vale e pagamento online (exceto online do iFood Tili Pizzaria); dinheiro puro nunca;
+fiado, carteira e Conta Func. vão para atenção. CNPJ único (Pizzaria): Pizzaria, Burguer, 2.0 e delivery do Sushi;
+CNPJ do Sushi: balcão e PDV do Sushi. "Já tinham nota" = emitidas antes (caixa).</div></div>"""]
+
+    return f"""<!doctype html><html lang="pt-br"><head><meta charset="utf-8">
+<title>NFC-e {dia:%d-%m-%Y}</title><style>{CSS}{CSS_IPAD}</style></head><body>{''.join(paginas)}</body></html>"""
+
+
+def gerar_pdf_dia(dia: date) -> Path:
+    from diaristas import html_para_pdf
+    PASTA_PDF.mkdir(parents=True, exist_ok=True)
+    return html_para_pdf(html_pdf_dia(dia, datetime.now(TZ)), PASTA_PDF / f"NFC-e_{dia:%d-%m-%Y}.pdf")
+
+
+def auto_loja(api: Aliv, loja_id: int, dia: date, dry: bool, raw: str | None) -> tuple[int, str]:
     """Lista do dia + emissão de tudo o que é EMITIR, sem esperar comando (Emerson, 16/11/2026).
     Emite em rodadas de até 200 (uma nota por vez), para em LIMIT_REACHED, mantém a trava de CNPJ.
-    Manda UMA mensagem por loja: resultado + NÃO EMITIR + ATENÇÃO da lista."""
+    Devolve (código, texto do resultado). Quem envia é cmd_auto (PDF do dia; texto só se o PDF falhar)."""
     nome = LOJAS[loja_id]["nome"]
     col = coletar(api, dia, loja_id)
     _assunto, corpo_lista = texto_lista(dia, col, loja_id)
@@ -767,24 +929,57 @@ def auto_loja(api: Aliv, loja_id: int, dia: date, dry: bool, raw: str | None) ->
     print(texto)
     if dry:
         print(f"\nDRY-RUN ({nome}): nada emitido, gravado ou enviado.", file=sys.stderr)
-        return 0
-    falha = enviar(api, texto)
-    if falha:
-        print(f"WHATSAPP ({nome}): não enviado — {falha}", file=sys.stderr)
-        return 4 if codigo == 4 else 3
-    print(f"WHATSAPP ({nome}): resultado enviado.", file=sys.stderr)
-    return codigo
+        return 0, texto
+    return codigo, texto
+
+
+def enviar_pdf(api: Aliv, pdf: Path, legenda: str) -> str | None:
+    """Manda o PDF para WHATSAPP_EMERSON. Devolve o motivo da falha ou None."""
+    fone = dig(os.environ.get("WHATSAPP_EMERSON"))
+    if not fone:
+        return "variável WHATSAPP_EMERSON não definida"
+    try:
+        api.enviar_whatsapp(fone, legenda, arquivo=pdf)
+    except (AlivError, OSError) as e:
+        return str(e)
+    return None
 
 
 def cmd_auto(lojas: list[int], dia: date, dry: bool, raw: str | None) -> int:
-    codigos = []
+    """Emite as lojas e manda UM PDF do dia (Emerson, 18/11/2026). Se o PDF falhar, manda os textos."""
+    codigos, textos, apis = [], {}, {}
     for loja_id in lojas:
         try:
             api = login_loja(loja_id, raw)
-            codigos.append(2 if api is None else auto_loja(api, loja_id, dia, dry, raw))
+            if api is None:
+                codigos.append(2)
+                continue
+            apis[loja_id] = api
+            c, textos[loja_id] = auto_loja(api, loja_id, dia, dry, raw)
+            codigos.append(c)
         except (AlivError, OSError) as e:
             print(f"{LOJAS[loja_id]['assunto']} — {dm(dia)} — ERRO no ALIV\n\n{e}")
             codigos.append(1)
+    if not dry and apis:
+        remetente = apis.get(PIZZARIA) or next(iter(apis.values()))
+        pdf, falha = None, None
+        try:
+            pdf = gerar_pdf_dia(dia)
+            print(f"\nPDF: {pdf.relative_to(PASTA.parent.parent)}")
+        except Exception as e:                       # sem PDF: manda os textos, como antes
+            print(f"PDF: não gerado — {e}", file=sys.stderr)
+        if pdf:
+            falha = enviar_pdf(remetente, pdf, f"NFC-e Tili — {dm(dia)}")
+            print(f"WHATSAPP: PDF {'não enviado — ' + falha if falha else 'enviado'}.", file=sys.stderr)
+        if not pdf or falha:
+            falha_texto = None
+            for loja_id, texto in textos.items():
+                f2 = enviar(apis[loja_id], texto)
+                print(f"WHATSAPP ({LOJAS[loja_id]['nome']}): texto {'não enviado — ' + f2 if f2 else 'enviado'}.",
+                      file=sys.stderr)
+                falha_texto = falha_texto or f2
+            if falha_texto:
+                codigos.append(3)
     for c in (4, 1, 2, 3):
         if c in codigos:
             return c
@@ -815,11 +1010,23 @@ def main() -> int:
     pa.add_argument("--data", help="AAAA-MM-DD (padrão: hoje; antes das 04:00, ontem)")
     pa.add_argument("--loja", type=loja_arg, help="pizzaria/150 ou sushi/155 (padrão: as duas)")
     pa.add_argument("--dry-run", action="store_true", help="não emite, não grava, não envia")
-    for p in (pl, pe, pa):
+    pp = sub.add_parser("pdf", help="gera (e com --enviar, manda) o PDF do dia a partir dos arquivos gravados")
+    pp.add_argument("--data", required=True, help="AAAA-MM-DD")
+    pp.add_argument("--enviar", action="store_true", help="manda o PDF para WHATSAPP_EMERSON")
+    for p in (pl, pe, pa, pp):
         p.add_argument("--raw", metavar="PASTA", help="salva as respostas cruas do ALIV (não commitar)")
     args = ap.parse_args()
 
     dia = date.fromisoformat(args.data) if args.data else hoje_operacional(datetime.now(TZ))
+    if args.cmd == "pdf":
+        pdf = gerar_pdf_dia(dia)
+        print(f"PDF: {pdf.relative_to(PASTA.parent.parent)}")
+        if args.enviar:
+            api = login_loja(PIZZARIA, args.raw)
+            falha = enviar_pdf(api, pdf, f"NFC-e Tili — {dm(dia)}") if api else "sem login da Pizzaria"
+            print(f"WHATSAPP: PDF {'não enviado — ' + falha if falha else 'enviado'}.", file=sys.stderr)
+            return 3 if falha else 0
+        return 0
     if args.cmd == "auto":
         return cmd_auto([args.loja] if args.loja else list(LOJAS), dia, args.dry_run, args.raw)
     if args.cmd == "listar":

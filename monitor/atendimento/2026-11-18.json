@@ -1,0 +1,86 @@
+{
+ "dia": "2026-11-18",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 98,
+  "pedidos": 48,
+  "pedidos_ia": 28,
+  "abandonadas": 50,
+  "conversao": 0.49,
+  "abandono": 0.51,
+  "tempo_medio_min": 1.1,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 20,
+  "cancelados_ia": 0,
+  "pedidos_link": 18,
+  "pedidos_outro": 2,
+  "receberam_link": 88,
+  "abandono_com_link": 47,
+  "abandono_sem_link": 3,
+  "problemas": {
+   "item_preco": 8,
+   "reclamou_humano": 3,
+   "endereco_taxa": 5,
+   "nao_entendeu": 3,
+   "repetiu": 13,
+   "demora": 11,
+   "nao_soube": 2
+  }
+ },
+ "pares": [
+  {
+   "tema": "horário",
+   "user": "Vocês estão funcionando agora?",
+   "assistant": "Estamos sim! 🍕 Nosso horário é das 16:30 às 23:45, todos os dias. Me fala o que vai querer que eu já anoto 🛵",
+   "exemplo_cliente": "O sushi está funcionando normalment?",
+   "ja_existe_parecido": 1,
+   "falta_preencher": false
+  },
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "Gostaria de saber mais sobre essa promoção de sushi hoje",
+   "ja_existe_parecido": null,
+   "falta_preencher": true
+  },
+  {
+   "tema": "endereco_taxa",
+   "user": "A taxa pro meu bairro tá errada",
+   "assistant": "Me manda o bairro e uma referência, por favor 🙏 Confiro a taxa certinha e ajusto antes de enviar o pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Confirmar bairro e referência antes de fechar a taxa; nunca assumir o endereço salvo sem perguntar.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Boa noite! Quais são as opções de unidades do suchi por 1,99?",
+  "Poderia mandar cardápio de sushi",
+  "Tenho interesse no sushi",
+  "Metade Frango com catupiry, metade Bacon com Cremetise",
+  "Vocês fazem yakisoba"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

@@ -1,0 +1,52 @@
+{
+ "dia": "2026-11-18",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 47,
+  "pedidos": 8,
+  "pedidos_ia": 7,
+  "abandonadas": 39,
+  "conversao": 0.17,
+  "abandono": 0.83,
+  "tempo_medio_min": 0.4,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 4,
+  "cancelados_ia": 0,
+  "pedidos_link": 1,
+  "pedidos_outro": 0,
+  "receberam_link": 46,
+  "abandono_com_link": 38,
+  "abandono_sem_link": 1,
+  "problemas": {
+   "item_preco": 9,
+   "repetiu": 3,
+   "demora": 1,
+   "nao_soube": 2
+  }
+ },
+ "pares": [
+  {
+   "tema": "horário",
+   "user": "Vocês estão funcionando agora?",
+   "assistant": "Estamos sim! 🍣 Nosso horário é das 18:00 às 23:30, menos segunda. Me fala o que vai querer que eu já anoto 🛵",
+   "exemplo_cliente": "Olá!☺️ Obrigado, [nome] seu contato! No momento estamos fora do atendimento, mas assim que possível…",
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Tem promoção hoje?",
+  "[nome] 87 campinho próximo a distribuidora do Didi",
+  "a promoção de sushi entrega também ?",
+  "Hoje tem quarta maluca ?",
+  "E das peças de sushi",
+  "Boa noite! Tudo bem? Qual a promoção do dia e se vocês fazem entrega? Obrigado",
+  "A promoção está valendo pra entrega tb?",
+  "Hoje qual a promoção?",
+  "Oi, [nome] tarde hoje tem promoção de sushi ?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

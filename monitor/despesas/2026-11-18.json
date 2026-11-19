@@ -1,0 +1,148 @@
+{
+ "dia": "2026-11-18",
+ "despesas": [
+  {
+   "wamid": "3A7352E63B940A38E14C",
+   "id": 1782793,
+   "data": "2026-11-18",
+   "hora": "16:46",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria",
+   "descricao": "pizzaria",
+   "valor": null,
+   "fotos": [
+    {
+     "wamid": "3A7352E63B940A38E14C",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/5b4845c86751418b82eba1a4ebf57740.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-18/2026-11-18_1646_josue-ruas_38E14C_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 151.99,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "CAFE 3 CORACOES EXT FORTE AVAC 250G",
+     "PI FAR DE ROSCA KG",
+     "F LIMAO KG"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2275 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  },
+  {
+   "wamid": "3A677A0C8B6185E8D020",
+   "id": 1782866,
+   "data": "2026-11-18",
+   "hora": "17:05",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria",
+   "descricao": "pizzaria",
+   "valor": null,
+   "fotos": [
+    {
+     "wamid": "3A677A0C8B6185E8D020",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/064371aed7104bf3b99d25a5c432d77e.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-18/2026-11-18_1705_josue-ruas_E8D020_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 16.01,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "ESPONJA BOMBRIL MULTIUSO C/10 1PC X",
+     "ORÉGANO"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2276 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  },
+  {
+   "wamid": "3A8248C406275CC94847",
+   "id": 1782936,
+   "data": "2026-11-18",
+   "hora": "17:08",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria",
+   "descricao": "pizzaria",
+   "valor": null,
+   "fotos": [
+    {
+     "wamid": "3A8248C406275CC94847",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/b32252b30b464f83ba6016ed9dd6d14f.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-18/2026-11-18_1708_josue-ruas_C94847_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 11.99,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "ANTIFERRUG.CHEMICOLOR 300ML"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2277 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  },
+  {
+   "wamid": "AC17C61BAB858183887F43F7A8A2A2F2",
+   "id": 1792521,
+   "data": "2026-11-18",
+   "hora": "22:20",
+   "remetente": "Thiago Camilo",
+   "telefone": "…0252",
+   "texto": "Despesa Sushi",
+   "descricao": "Sushi",
+   "valor": null,
+   "fotos": [
+    {
+     "wamid": "AC55DC0BEF0A9A6516EA0D4942857CCB",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/10bd7a07c4f743289b08cfdcf646885b.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-18/2026-11-18_2220_thiago-camilo_A2A2F2_1.jpg"
+    },
+    {
+     "wamid": "ACD9AC4B9E4AC240B022798A6E172EA5",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/f08099204ba74047b98491a818c37e14.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-18/2026-11-18_2220_thiago-camilo_A2A2F2_2.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "sushi",
+    "valor": 189.9,
+    "forma": "Dinheiro",
+    "estoque": [],
+    "sem_insumo": [
+     "HASHI BAMBU 50 PARES RED C 1CX"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2278 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  },
+  {
+   "wamid": "AC0224AF1715FA579966F394E633EB06",
+   "id": 1792553,
+   "data": "2026-11-18",
+   "hora": "22:21",
+   "remetente": "Thiago Camilo",
+   "telefone": "…0252",
+   "texto": "Despesa Pizzaria",
+   "descricao": "Pizzaria",
+   "valor": null,
+   "fotos": []
+  }
+ ],
+ "total": 0,
+ "atualizado": "2026-11-19T00:08-03:00"
+}

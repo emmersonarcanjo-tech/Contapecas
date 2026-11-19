@@ -1,0 +1,37 @@
+{
+ "dia": "2026-11-19",
+ "despesas": [
+  {
+   "wamid": "3AB96889C6A42D49EDBF",
+   "id": 1794770,
+   "data": "2026-11-19",
+   "hora": "11:47",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria coentro",
+   "descricao": "pizzaria coentro",
+   "valor": null,
+   "fotos": [
+    {
+     "wamid": "3AB96889C6A42D49EDBF",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/65420b57e0a2432fb26e6f8b3e52ac9a.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-19/2026-11-19_1147_josue-ruas_49EDBF_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 30.0,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "coentro"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2279 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  }
+ ],
+ "total": 0,
+ "atualizado": "2026-11-19T12:09-03:00"
+}

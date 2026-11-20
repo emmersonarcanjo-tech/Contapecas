@@ -1,0 +1,178 @@
+{
+ "data": "2026-11-19",
+ "loja": 155,
+ "automatica": true,
+ "lista": {
+  "gerada_em": "2026-11-20T02:09:33-03:00",
+  "pedidos": [
+   {
+    "id": 366350,
+    "codigo": "APP-1",
+    "hora": "18:04",
+    "valor": 102.79,
+    "pagamento": "Dinheiro: 100.00 | Pix: 2.79",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 366495,
+    "codigo": "iF-0728",
+    "hora": "18:41",
+    "valor": 76.57,
+    "pagamento": "iFood Online (Visa_Electron)",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 366814,
+    "codigo": "M-22",
+    "hora": "19:21",
+    "valor": 83.72,
+    "pagamento": "Dinheiro (Troco -> R$ 21.28): 83.72",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 367056,
+    "codigo": "M-25",
+    "hora": "19:46",
+    "valor": 64.83,
+    "pagamento": "Dinheiro (Troco -> R$ 35.17): 64.83",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 367441,
+    "codigo": "M-35",
+    "hora": "20:15",
+    "valor": 82.8,
+    "pagamento": "Dinheiro (Troco -> R$ 17.20): 82.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 367649,
+    "codigo": "M-39",
+    "hora": "20:31",
+    "valor": 35.88,
+    "pagamento": "Dinheiro (Troco -> R$ 14.12): 35.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 368805,
+    "codigo": "M-73",
+    "hora": "22:06",
+    "valor": 9.9,
+    "pagamento": "Dinheiro (Troco -> R$ 40.10): 9.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 369031,
+    "codigo": "iF-7706",
+    "hora": "22:33",
+    "valor": 25.89,
+    "pagamento": "Cartão Crédito: 25.89",
+    "loja": "iFood Tili Sushi",
+    "merchant": "dbd7d924-506d-403f-8107-85cdf49d17ab",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   }
+  ],
+  "contagem": {
+   "cancelados": 0,
+   "abertos": 0,
+   "ja_emitidos": 81,
+   "outra_loja": 0,
+   "outro_dia": 0
+  }
+ },
+ "emissoes": [
+  {
+   "executada_em": "2026-11-20T02:09:56-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 366350,
+     "codigo": "APP-1",
+     "hora": "18:04",
+     "valor": 102.79,
+     "pagamento": "Dinheiro: 100.00 | Pix: 2.79",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 366495,
+     "codigo": "iF-0728",
+     "hora": "18:41",
+     "valor": 76.57,
+     "pagamento": "iFood Online (Visa_Electron)",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 369031,
+     "codigo": "iF-7706",
+     "hora": "22:33",
+     "valor": 25.89,
+     "pagamento": "Cartão Crédito: 25.89",
+     "loja": "iFood Tili Sushi",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    }
+   ],
+   "avisos": []
+  }
+ ]
+}

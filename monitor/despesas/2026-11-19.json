@@ -30,8 +30,40 @@
     ],
     "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2279 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
    }
+  },
+  {
+   "wamid": "3A8594C2004CA9F8C2EB",
+   "id": 1795142,
+   "data": "2026-11-19",
+   "hora": "17:03",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa pizzaria Pix Josué",
+   "descricao": "pizzaria Pix Josué",
+   "valor": null,
+   "fotos": [
+    {
+     "wamid": "3A8594C2004CA9F8C2EB",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/79a84600ed0b476a862903e72781d36f.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-19/2026-11-19_1703_josue-ruas_F8C2EB_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 82.92,
+    "forma": "Pix",
+    "estoque": [],
+    "sem_insumo": [
+     "Cebolinha Verde Un",
+     "Manjericao Un",
+     "Alface Americano U"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2287 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
   }
  ],
  "total": 0,
- "atualizado": "2026-11-19T12:09-03:00"
+ "atualizado": "2026-11-20T00:08-03:00"
 }

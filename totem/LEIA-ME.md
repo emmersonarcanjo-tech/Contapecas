@@ -32,3 +32,5 @@ só mostra os de 1,99, então o preço certo vem sem configuração. Para mudar 
 A instrução da contagem fica em `prompt.js` (a mesma do Conta-Peças do celular).
 
 Esqueceu a senha do atendente: digite os 6 últimos caracteres da chave do Claude no lugar da senha; ela é apagada e dá para criar outra em ⚙.
+
+Trava da sacola: as peças contadas pela câmera não podem ser diminuídas nem apagadas na sacola sem a senha do atendente (a quantidade volta sozinha). Aumentar é livre. A trava zera quando o ALIV esvazia a sacola (pedido feito, Recomeçar ou tela parada).

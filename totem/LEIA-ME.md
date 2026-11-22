@@ -14,7 +14,7 @@ continuam sendo do próprio ALIV: o complemento não cria pedido, não cobra e n
 1. Instalar o **Firefox** e, nele, o complemento **Violentmonkey**.
 2. Abrir `https://emmersonarcanjo-tech.github.io/Contapecas/totem/conta-pecas-totem.user.js` e tocar em **Instalar**.
 3. Abrir o totem do ALIV no Firefox (`https://app.alivhub.com.br/kiosk/tilisushipoke`).
-4. Tocar em **Contar bandeja** → **⚙**: colar a chave do Claude, escolher a câmera, definir a senha do
+4. Tocar em **Contar bandeja** → **⚙**: colar a chave do Claude, escolher a câmera, definir a senha (só números) do
    atendente e conferir o produto de cada tipo de peça.
 
 ## Antes de usar (no cardápio do ALIV, loja 155)
@@ -23,3 +23,5 @@ Hoje existem `PEÇA SUSHI` (R$ 2,99), `Acarajapa` (R$ 2,99) e `Sashimi` (R$ 4,99
 mas nenhum está no totem. Sem produto, o complemento avisa "Sem produto no totem" e não põe nada na sacola.
 
 A instrução da contagem fica em `prompt.js` (a mesma do Conta-Peças do celular).
+
+Esqueceu a senha do atendente: digite os 6 últimos caracteres da chave do Claude no lugar da senha; ela é apagada e dá para criar outra em ⚙.

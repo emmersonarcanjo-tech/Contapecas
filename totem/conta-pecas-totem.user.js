@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Conta-Peças no totem (Tili Sushi)
 // @namespace    https://emmersonarcanjo-tech.github.io/Contapecas/
-// @version      1.0.0
+// @version      1.0.1
 // @description  Conta a bandeja do buffet pela câmera e coloca as peças na sacola do totem do ALIV. Quem cobra continua sendo o ALIV.
 // @match        https://app.alivhub.com.br/kiosk/*
 // @require      https://emmersonarcanjo-tech.github.io/Contapecas/prompt.js
@@ -225,10 +225,17 @@
     else st.pecas.push({ x: (ev.clientX - rc.left) / rc.width * 100, y: (ev.clientY - rc.top) / rc.height * 100, tipo: 'outro', incerta: false });
     render();
   });
+  // Senha só com números: o teclado do totem e o preenchimento automático do navegador
+  // não conseguem trocar letras, espaços ou maiúsculas.
+  function soNumeros(v) { return String(v == null ? '' : v).replace(/\D/g, ''); }
   function pedirPin() {
-    if (!cfg.pin) return true;
-    var p = window.prompt('Senha do atendente'); if (p === cfg.pin) return true;
-    if (p !== null) window.alert('Senha errada.'); return false;
+    var pin = soNumeros(cfg.pin); if (!pin) return true;
+    var p = window.prompt('Senha do atendente (só números)'); if (p === null) return false;
+    if (soNumeros(p) === pin) return true;
+    // Esqueceu a senha: os 6 últimos caracteres da chave do Claude liberam e apagam a senha.
+    var k = String(cfg.key || '').trim();
+    if (k.length >= 6 && String(p).trim() === k.slice(-6)) { cfg.pin = ''; salvarCfg(); window.alert('Senha apagada. Crie outra em ⚙.'); return true; }
+    window.alert('Senha errada.'); return false;
   }
 
   // ---------- sacola do ALIV ----------
@@ -252,11 +259,11 @@
     var cams = []; try { cams = (await navigator.mediaDevices.enumerateDevices()).filter(function (d) { return d.kind === 'videoinput'; }); } catch (e) { }
     var ps = produtos();
     function opts(sel) { return '<option value="">automático</option>' + ps.map(function (p) { return '<option value="' + p.id + '"' + (String(sel) === String(p.id) ? ' selected' : '') + '>' + String(p.name).replace(/</g, '&lt;') + ' — ' + brl(Number(p.price) || 0) + '</option>'; }).join(''); }
-    box.innerHTML = '<label>Chave do Claude<input type="password" data-c="key" value="' + (cfg.key ? '••••••••' : '') + '" placeholder="sk-ant-…"></label>' +
+    box.innerHTML = '<label>Chave do Claude<input type="password" data-c="key" autocomplete="off" value="' + (cfg.key ? '••••••••' : '') + '" placeholder="sk-ant-…"></label>' +
       '<label>Modo<select data-c="modo"><option value="preciso"' + (cfg.modo !== 'rapido' ? ' selected' : '') + '>Preciso (Sonnet 5.5)</option><option value="rapido"' + (cfg.modo === 'rapido' ? ' selected' : '') + '>Rápido (Haiku 5.5)</option></select></label>' +
       '<label>Câmera<select data-c="camId"><option value="">automática</option>' + cams.map(function (c, i) { return '<option value="' + c.deviceId + '"' + (c.deviceId === cfg.camId ? ' selected' : '') + '>' + (c.label || 'Câmera ' + (i + 1)) + '</option>'; }).join('') + '</select></label>' +
       '<label>Contar sozinho quando a bandeja para<select data-c="auto"><option value="1"' + (cfg.auto ? ' selected' : '') + '>Sim</option><option value="0"' + (!cfg.auto ? ' selected' : '') + '>Não</option></select></label>' +
-      '<label>Senha do atendente (para confirmar peça em dúvida e abrir ⚙)<input type="password" data-c="pin" inputmode="numeric" value="' + (cfg.pin || '') + '"></label>' +
+      '<label>Senha do atendente, só números (para confirmar peça em dúvida e abrir ⚙)<input type="tel" data-c="pin" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" autocorrect="off" spellcheck="false" value="' + soNumeros(cfg.pin) + '"></label>' +
       Object.keys(TIPOS).map(function (k) { var p = produtoDe(k); return '<label>' + TIPOS[k] + ' → produto do totem (hoje: ' + (p ? String(p.name).replace(/</g, '&lt;') : 'nenhum') + ')<select data-m="' + k + '">' + opts(cfg.mapa[k]) + '</select></label>'; }).join('') +
       '<button type="button" class="pri" data-a="salvar">Salvar</button>';
     box.hidden = false;
@@ -267,9 +274,10 @@
     cfg.modo = box.querySelector('[data-c="modo"]').value;
     var cam = box.querySelector('[data-c="camId"]').value, mudouCam = cam !== cfg.camId; cfg.camId = cam;
     cfg.auto = box.querySelector('[data-c="auto"]').value === '1';
-    cfg.pin = box.querySelector('[data-c="pin"]').value.trim();
+    var novoPin = soNumeros(box.querySelector('[data-c="pin"]').value), pinMudou = novoPin !== soNumeros(cfg.pin); cfg.pin = novoPin;
     box.querySelectorAll('[data-m]').forEach(function (s) { if (s.value) cfg.mapa[s.dataset.m] = Number(s.value); else delete cfg.mapa[s.dataset.m]; });
-    salvarCfg(); box.hidden = true; if (mudouCam && ui.hidden === false) ligarCamera(); render(); status('Configuração salva.');
+    salvarCfg(); box.hidden = true; if (mudouCam && ui.hidden === false) ligarCamera(); render();
+    status(pinMudou ? (novoPin ? 'Configuração salva. Senha do atendente: ' + novoPin + ' — anote.' : 'Configuração salva, sem senha de atendente.') : 'Configuração salva.');
   }
 
   // ---------- abrir / fechar ----------

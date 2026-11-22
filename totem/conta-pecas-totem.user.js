@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Conta-Peças no totem (Tili Sushi)
 // @namespace    https://emmersonarcanjo-tech.github.io/Contapecas/
-// @version      1.0.4
+// @version      1.0.6
 // @description  Conta a bandeja do buffet pela câmera e coloca as peças na sacola do totem do ALIV. Quem cobra continua sendo o ALIV.
 // @match        https://app.alivhub.com.br/kiosk/*
 // @require      https://emmersonarcanjo-tech.github.io/Contapecas/prompt.js
@@ -94,6 +94,10 @@
   // O botão fica no canto de baixo, mas sobe sozinho quando o ALIV mostra um botão largo no
   // rodapé (ex.: "Finalizar pedido" na sacola), para nunca tampar outro botão.
   function posicionarBotao() {
+    // Na tela da sacola o botão some (lá ficam o total e o Finalizar). Para outra bandeja: Continuar pedindo.
+    var naSacola = typeof cabecalhoDaSacola === 'function' && !!cabecalhoDaSacola();
+    btn.style.display = naSacola ? 'none' : '';
+    if (naSacola) return;
     var H = window.innerHeight, W = window.innerWidth, topo = H;
     document.querySelectorAll('button, a, [role="button"]').forEach(function (el) {
       if (el === btn || ui.contains(el)) return;
@@ -284,8 +288,69 @@
   window.addEventListener('aliv:cart-updated', function () { setTimeout(conferirTrava, 0); });
   (function () {
     var limpar = window.__totemClearCart;
-    if (typeof limpar === 'function') window.__totemClearCart = function () { trava = {}; return limpar.apply(this, arguments); };
+    if (typeof limpar === 'function') window.__totemClearCart = function () { trava = {}; fotosSacola = []; return limpar.apply(this, arguments); };
   })();
+  // ---------- foto da bandeja: no topo da sacola e guardada no totem ----------
+  // O ALIV não guarda foto no pedido. A foto (com as marcas) aparece no topo da sacola para o
+  // cliente conferir e fica guardada no próprio totem por 30 dias, com data, hora, peças e total.
+  var fotosSacola = [];
+  function fotoComMarcas() {
+    var img = $('foto'); if (!img || !img.naturalWidth) return null;
+    var s = Math.min(1, 720 / Math.max(img.naturalWidth, img.naturalHeight)), c = document.createElement('canvas');
+    c.width = Math.round(img.naturalWidth * s); c.height = Math.round(img.naturalHeight * s);
+    var g = c.getContext('2d'); g.drawImage(img, 0, 0, c.width, c.height);
+    var raio = Math.max(9, Math.round(c.width / 45));
+    st.pecas.forEach(function (p, i) {
+      var x = p.x / 100 * c.width, y = p.y / 100 * c.height;
+      g.beginPath(); g.arc(x, y, raio, 0, 7); g.fillStyle = '#FFB800'; g.fill(); g.lineWidth = 2; g.strokeStyle = '#1A1A1A'; g.stroke();
+      g.fillStyle = '#1A1A1A'; g.font = 'bold ' + Math.round(raio * 1.05) + 'px system-ui'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(String(i + 1), x, y + 1);
+    });
+    return c.toDataURL('image/jpeg', 0.8);
+  }
+  function abrirBanco() {
+    return new Promise(function (ok) {
+      try { var rq = indexedDB.open('conta_pecas_totem', 1); rq.onupgradeneeded = function () { rq.result.createObjectStore('bandejas', { keyPath: 'quando' }); };
+        rq.onsuccess = function () { ok(rq.result); }; rq.onerror = function () { ok(null); }; } catch (e) { ok(null); }
+    });
+  }
+  async function guardarNoTotem(reg) {
+    var db = await abrirBanco(); if (!db) return;
+    try {
+      var tx = db.transaction('bandejas', 'readwrite'), loja = tx.objectStore('bandejas'); loja.put(reg);
+      var limite = Date.now() - 30 * 864e5; loja.openCursor().onsuccess = function (e) { var cur = e.target.result; if (cur) { if (cur.value.quando < limite) cur.delete(); cur.continue(); } };
+    } catch (e) { }
+  }
+  function registrarFoto(r) {
+    var url = fotoComMarcas(); if (!url) return;
+    var reg = { quando: Date.now(), foto: url, pecas: st.pecas.length, total: Math.round(r.total * 100) / 100, ia: st.ia, conferido: st.liberado,
+      itens: r.linhas.map(function (l) { return { tipo: l.tipo, qtd: l.qtd, produto: l.prod.name, preco: Number(l.prod.price) || 0 }; }) };
+    fotosSacola.push(reg); guardarNoTotem(reg);
+  }
+  var cssFoto = document.createElement('style');
+  cssFoto.textContent = '#cpt-fotos{display:flex;gap:10px;overflow-x:auto;padding:10px 24px 4px;background:transparent}#cpt-fotos figure{margin:0;flex:0 0 auto;text-align:center;font:600 14px system-ui;color:#334155}#cpt-fotos img{display:block;height:180px;border-radius:12px;border:2px solid #e2e8f0}#cpt-zoom{position:fixed;inset:0;z-index:2147483002;background:rgba(0,0,0,.85);display:grid;place-items:center}#cpt-zoom img{max-width:96vw;max-height:90vh;border-radius:12px}';
+  document.head.appendChild(cssFoto);
+  function cabecalhoDaSacola() {
+    var t = Array.prototype.find.call(document.querySelectorAll('h1,h2,h3,div,span,p'), function (e) {
+      if (e.childElementCount !== 0 || e.textContent.trim() !== 'Seu pedido') return false; var r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0;
+    });
+    if (!t) return null; var linha = t; while (linha.parentElement && linha.parentElement.getBoundingClientRect().height < 140) linha = linha.parentElement;
+    return linha;
+  }
+  function mostrarFotosNaSacola() {
+    var velho = document.getElementById('cpt-fotos'), cab = fotosSacola.length ? cabecalhoDaSacola() : null;
+    if (!cab) { if (velho) velho.remove(); return; }
+    if (velho && velho.previousElementSibling === cab && velho.dataset.n === String(fotosSacola.length)) return;
+    if (velho) velho.remove();
+    var box = document.createElement('div'); box.id = 'cpt-fotos'; box.dataset.n = String(fotosSacola.length);
+    fotosSacola.forEach(function (f, i) {
+      var fig = document.createElement('figure'), img = document.createElement('img'), cap = document.createElement('figcaption');
+      img.src = f.foto; img.alt = 'Bandeja ' + (i + 1); cap.textContent = (fotosSacola.length > 1 ? 'Bandeja ' + (i + 1) + ' · ' : 'Sua bandeja · ') + f.pecas + ' peças · ' + brl(f.total);
+      img.addEventListener('click', function () { var z = document.createElement('div'); z.id = 'cpt-zoom'; var zi = document.createElement('img'); zi.src = f.foto; z.appendChild(zi); z.addEventListener('click', function () { z.remove(); }); document.body.appendChild(z); });
+      fig.appendChild(img); fig.appendChild(cap); box.appendChild(fig);
+    });
+    cab.insertAdjacentElement('afterend', box);
+  }
+  setInterval(mostrarFotosNaSacola, 500);
   function colocarNaSacola() {
     var r = resumo(); if (r.faltando.length) return;
     var itens = r.linhas.map(function (l) {
@@ -294,9 +359,15 @@
         removed_ingredients: [], removed_names: [], desc_resume: l.prod.name, offer_items: [] };
     });
     itens.forEach(function (it) { var t = trava[it.product_id] || { qtd: 0, item: it }; t.qtd += it.quantity; trava[it.product_id] = t; });
+    registrarFoto(r);
+    // Mesmo produto já na sacola (outra bandeja): soma na mesma linha.
     var atual = (window.CART || []).slice();
-    if (typeof window.__totemSetCart === 'function') window.__totemSetCart(atual.concat(itens));
-    else { window.CART = atual.concat(itens); if (window.updateCartUI) window.updateCartUI(); }
+    itens.forEach(function (it) {
+      var ja = null; for (var i = 0; i < atual.length; i++) if (String(atual[i].product_id) === String(it.product_id) && atual[i].type === 'product' && !(atual[i].addons || []).length) { ja = atual[i]; break; }
+      if (ja) ja.quantity = (Number(ja.quantity) || 0) + it.quantity; else atual.push(it);
+    });
+    if (typeof window.__totemSetCart === 'function') window.__totemSetCart(atual);
+    else { window.CART = atual; if (window.updateCartUI) window.updateCartUI(); }
     fechar();
   }
 

@@ -1,0 +1,38 @@
+{
+ "dia": "2026-11-21",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 109,
+  "pedidos": 80,
+  "pedidos_ia": 45,
+  "abandonadas": 29,
+  "conversao": 0.734,
+  "abandono": 0.266,
+  "tempo_medio_min": 1.1,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 33,
+  "cancelados_ia": 0,
+  "pedidos_link": 27,
+  "pedidos_outro": 8,
+  "receberam_link": 81,
+  "abandono_com_link": 22,
+  "abandono_sem_link": 7,
+  "problemas": {
+   "repetiu": 8,
+   "item_preco": 8,
+   "demora": 9
+  }
+ },
+ "pares": [],
+ "regras": [
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "[endereço] número [nº]",
+  "[endereço] Hotel Sued's Plaza Próximo à barraca do Gaúcho.",
+  "Frango bacon e milho td junto",
+  "Quero uma pizza metade lombinho e carne seca",
+  "Gostaria de pedir sushi"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

@@ -1,0 +1,74 @@
+{
+ "dia": "2026-11-21",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 23,
+  "pedidos": 8,
+  "pedidos_ia": 1,
+  "abandonadas": 15,
+  "conversao": 0.348,
+  "abandono": 0.652,
+  "tempo_medio_min": 0.9,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 3,
+  "cancelados_ia": 0,
+  "pedidos_link": 7,
+  "pedidos_outro": 0,
+  "receberam_link": 21,
+  "abandono_com_link": 15,
+  "abandono_sem_link": 0,
+  "problemas": {
+   "demora": 2,
+   "nao_soube": 2,
+   "nao_entendeu": 1,
+   "repetiu": 3,
+   "reclamou_humano": 1,
+   "item_preco": 2
+  }
+ },
+ "pares": [
+  {
+   "tema": "pagamento",
+   "user": "Vocês aceitam cartão ou pix?",
+   "assistant": "Aceitamos Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket 💳 Na entrega o motoboy leva a maquininha. Se for dinheiro, me avisa o troco 😉",
+   "exemplo_cliente": "Troco para [nº]",
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "Tem alguma promoção hoje ?",
+   "ja_existe_parecido": 1,
+   "falta_preencher": true
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Formas de pagamento aceitas na entrega: Dinheiro, Pix, Cartão Crédito, Cartão Débito, Pluxee Refeição / Alimentação, Alelo Refeição, Vr Refeição / Alimentação, Ticket.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "São 6 hot",
+  "Me envia o ZAP Do burguer do favor"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

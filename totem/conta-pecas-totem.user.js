@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Conta-Peças no totem (Tili Sushi)
 // @namespace    https://emmersonarcanjo-tech.github.io/Contapecas/
-// @version      1.0.1
+// @version      1.0.2
 // @description  Conta a bandeja do buffet pela câmera e coloca as peças na sacola do totem do ALIV. Quem cobra continua sendo o ALIV.
 // @match        https://app.alivhub.com.br/kiosk/*
 // @require      https://emmersonarcanjo-tech.github.io/Contapecas/prompt.js
@@ -25,12 +25,14 @@
 
   var TIPOS = { niguiri: 'Nigiri', sashimi: 'Sashimi', joy: 'Joy', ura: 'Uramaki', hosso: 'Hossomaki', hot: 'Hot roll', acara: 'Acarajapa', outro: 'Outros' };
   // Produto padrão de cada tipo, pelo nome no cardápio do totem (dá para trocar em ⚙).
+  // Produto de cada tipo pelo nome no cardápio do totem (categoria "Buffet por peça (totem)").
+  // Hossomaki, Uramaki e Hot têm um produto de quarta (R$ 1,99) com o mesmo nome: o ALIV só
+  // mostra no totem o do dia, então o preço certo vem sozinho. Dá para trocar em ⚙.
+  var PB = function (n) { return new RegExp('^' + n + ' \\(pe[çc]a buffet\\)$', 'i'); };
   var PADRAO = {
-    niguiri: [/^ni(g|gu)iri\b.*\b(pe[çc]a|unid)/i, /^pe[çc]a sushi$/i],
-    sashimi: [/^sashimi$/i, /^pe[çc]a sushi$/i],
-    joy: [/^joy\b.*\b(pe[çc]a|unid)/i, /^pe[çc]a sushi$/i],
-    ura: [/^pe[çc]a sushi$/i], hosso: [/^pe[çc]a sushi$/i], hot: [/^pe[çc]a sushi$/i], outro: [/^pe[çc]a sushi$/i],
-    acara: [/^acarajapa$/i]
+    niguiri: [PB('nigiri')], sashimi: [PB('sashimi')], joy: [PB('joy')],
+    ura: [PB('uramaki')], hosso: [PB('hossomaki')], hot: [PB('hot roll')],
+    acara: [PB('acarajapa')], outro: [PB('outras pe[çc]as')]
   };
   var MODELOS = { preciso: 'claude-sonnet-5-5', rapido: 'claude-haiku-5-5' };
   var CFG_KEY = 'conta_pecas_totem';

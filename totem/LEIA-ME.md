@@ -17,10 +17,17 @@ continuam sendo do próprio ALIV: o complemento não cria pedido, não cobra e n
 4. Tocar em **Contar bandeja** → **⚙**: colar a chave do Claude, escolher a câmera, definir a senha (só números) do
    atendente e conferir o produto de cada tipo de peça.
 
-## Antes de usar (no cardápio do ALIV, loja 155)
-Cada tipo de peça precisa de um produto **vendido por peça** e marcado para aparecer no totem.
-Hoje existem `PEÇA SUSHI` (R$ 2,99), `Acarajapa` (R$ 2,99) e `Sashimi` (R$ 4,99) na Promoção do Dia,
-mas nenhum está no totem. Sem produto, o complemento avisa "Sem produto no totem" e não põe nada na sacola.
+## Produtos por peça (loja 155, criados em 22/11/2026)
+Categorias que só aparecem no totem (fora do app, PDV, garçom, iFood e cardápio impresso):
+
+| Categoria | Dias | Produtos (preço) |
+|---|---|---|
+| Buffet por peça (totem) | todos | Nigiri 3,99 · Joy 4,99 · Sashimi 4,99 · Acarajapa 2,99 · Outras peças 2,99 |
+| Buffet por peça (totem) — dias normais | seg, ter, qui–dom | Hossomaki, Uramaki, Hot roll 2,99 |
+| Buffet por peça (totem) — quarta | quarta | Hossomaki, Uramaki, Hot roll 1,99 |
+
+Os nomes terminam em "(peça buffet)" e o complemento acha cada um sozinho. Na quarta o ALIV
+só mostra os de 1,99, então o preço certo vem sem configuração. Para mudar preço, mude no ALIV.
 
 A instrução da contagem fica em `prompt.js` (a mesma do Conta-Peças do celular).
 

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Conta-Peças no totem (Tili Sushi)
 // @namespace    https://emmersonarcanjo-tech.github.io/Contapecas/
-// @version      1.0.2
+// @version      1.0.3
 // @description  Conta a bandeja do buffet pela câmera e coloca as peças na sacola do totem do ALIV. Quem cobra continua sendo o ALIV.
 // @match        https://app.alivhub.com.br/kiosk/*
 // @require      https://emmersonarcanjo-tech.github.io/Contapecas/prompt.js
@@ -91,6 +91,18 @@
     '<div class="acoes"><button type="button" data-a="contar">Contar agora</button><button type="button" data-a="foto">Usar foto</button><button type="button" data-a="nova">Outra bandeja</button><button type="button" class="pri" data-a="sacola" disabled>Colocar na sacola</button></div>' +
     '<input type="file" accept="image/*" data-r="arquivo" hidden>';
   document.body.appendChild(ui);
+  // O botão fica no canto de baixo, mas sobe sozinho quando o ALIV mostra um botão largo no
+  // rodapé (ex.: "Finalizar pedido" na sacola), para nunca tampar outro botão.
+  function posicionarBotao() {
+    var H = window.innerHeight, W = window.innerWidth, topo = H;
+    document.querySelectorAll('button, a, [role="button"]').forEach(function (el) {
+      if (el === btn || ui.contains(el)) return;
+      var r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
+      if (r.width > W * 0.85 && r.top > H - 200 && r.bottom <= H + 2 && r.top < topo) topo = r.top;
+    });
+    btn.style.bottom = (topo < H ? Math.round(H - topo + 16) : 24) + 'px';
+  }
+  setInterval(posicionarBotao, 500); window.addEventListener('resize', posicionarBotao); posicionarBotao();
   function $(r) { return ui.querySelector('[data-r="' + r + '"]'); }
   function status(t) { $('status').textContent = t || ''; }
 

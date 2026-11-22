@@ -47,8 +47,8 @@ def sugestao(nome: str, categoria: str) -> tuple[str, str, str]:
         return "Revenda sem preparo", "2202.10.00", "refrigerante industrializado"
     if AGUA.search(nome):
         return "Revenda sem preparo", "2201.10.00", "água mineral"
-    if SUCO.search(nome):
-        return "Verificar (suco)", "21069090 se feito na loja; 2009.12.00 se industrializado", "confirmar se o suco é natural feito na loja"
+    if SUCO.search(nome):   # Emerson, 22/11/2026: suco de laranja natural, feito na hora na loja → preparo próprio
+        return "", "", ""
     if re.search(r"picol|sorvet", categoria, re.I):
         return "Revenda sem preparo", "2105.00.10", "picolé/sorvete industrializado em embalagem individual"
     return "", "", ""

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Conta-Peças no totem (Tili Sushi)
 // @namespace    https://emmersonarcanjo-tech.github.io/Contapecas/
-// @version      1.0.2
+// @version      1.0.4
 // @description  Conta a bandeja do buffet pela câmera e coloca as peças na sacola do totem do ALIV. Quem cobra continua sendo o ALIV.
 // @match        https://app.alivhub.com.br/kiosk/*
 // @require      https://emmersonarcanjo-tech.github.io/Contapecas/prompt.js
@@ -91,6 +91,18 @@
     '<div class="acoes"><button type="button" data-a="contar">Contar agora</button><button type="button" data-a="foto">Usar foto</button><button type="button" data-a="nova">Outra bandeja</button><button type="button" class="pri" data-a="sacola" disabled>Colocar na sacola</button></div>' +
     '<input type="file" accept="image/*" data-r="arquivo" hidden>';
   document.body.appendChild(ui);
+  // O botão fica no canto de baixo, mas sobe sozinho quando o ALIV mostra um botão largo no
+  // rodapé (ex.: "Finalizar pedido" na sacola), para nunca tampar outro botão.
+  function posicionarBotao() {
+    var H = window.innerHeight, W = window.innerWidth, topo = H;
+    document.querySelectorAll('button, a, [role="button"]').forEach(function (el) {
+      if (el === btn || ui.contains(el)) return;
+      var r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
+      if (r.width > W * 0.85 && r.top > H - 200 && r.bottom <= H + 2 && r.top < topo) topo = r.top;
+    });
+    btn.style.bottom = (topo < H ? Math.round(H - topo + 16) : 24) + 'px';
+  }
+  setInterval(posicionarBotao, 500); window.addEventListener('resize', posicionarBotao); posicionarBotao();
   function $(r) { return ui.querySelector('[data-r="' + r + '"]'); }
   function status(t) { $('status').textContent = t || ''; }
 
@@ -230,9 +242,9 @@
   // Senha só com números: o teclado do totem e o preenchimento automático do navegador
   // não conseguem trocar letras, espaços ou maiúsculas.
   function soNumeros(v) { return String(v == null ? '' : v).replace(/\D/g, ''); }
-  function pedirPin() {
+  function pedirPin(msg) {
     var pin = soNumeros(cfg.pin); if (!pin) return true;
-    var p = window.prompt('Senha do atendente (só números)'); if (p === null) return false;
+    var p = window.prompt((msg || 'Senha do atendente') + ' (só números)'); if (p === null) return false;
     if (soNumeros(p) === pin) return true;
     // Esqueceu a senha: os 6 últimos caracteres da chave do Claude liberam e apagam a senha.
     var k = String(cfg.key || '').trim();
@@ -241,6 +253,39 @@
   }
 
   // ---------- sacola do ALIV ----------
+  // Trava: peças contadas pela câmera não podem ser diminuídas ou apagadas na sacola sem a senha
+  // do atendente. Se o cliente tentar, a quantidade volta sozinha. Aumentar é sempre livre.
+  // A trava zera quando o ALIV esvazia a sacola (pedido feito, Recomeçar ou tela parada).
+  var trava = {};           // product_id -> { qtd, item }
+  var restaurando = false;
+  function qtdNaSacola() {
+    var q = {}; (window.CART || []).forEach(function (i) { q[i.product_id] = (q[i.product_id] || 0) + (Number(i.quantity) || 0); }); return q;
+  }
+  function conferirTrava() {
+    if (restaurando || !Object.keys(trava).length) return;
+    var q = qtdNaSacola(), faltando = [];
+    Object.keys(trava).forEach(function (id) { if ((q[id] || 0) < trava[id].qtd) faltando.push(id); });
+    if (!faltando.length) return;
+    restaurando = true;
+    try {
+      var ok = soNumeros(cfg.pin) ? pedirPin('Peças contadas pela câmera. Para retirar, digite a senha do atendente') : false;
+      if (ok) { faltando.forEach(function (id) { var n = q[id] || 0; if (n) trava[id].qtd = n; else delete trava[id]; }); return; }
+      var cart = window.CART || [];
+      faltando.forEach(function (id) {
+        var linha = null; for (var i = 0; i < cart.length; i++) if (String(cart[i].product_id) === String(id)) { linha = cart[i]; break; }
+        var falta = trava[id].qtd - (q[id] || 0);
+        if (linha) linha.quantity = (Number(linha.quantity) || 0) + falta;
+        else { var novo = JSON.parse(JSON.stringify(trava[id].item)); novo._tempId = Date.now() + Math.random(); novo.quantity = falta; cart.push(novo); }
+      });
+      if (!soNumeros(cfg.pin)) window.alert('As peças contadas pela câmera não podem ser retiradas. Chame o atendente.');
+      if (window.updateCartUI) window.updateCartUI();
+    } finally { restaurando = false; }
+  }
+  window.addEventListener('aliv:cart-updated', function () { setTimeout(conferirTrava, 0); });
+  (function () {
+    var limpar = window.__totemClearCart;
+    if (typeof limpar === 'function') window.__totemClearCart = function () { trava = {}; return limpar.apply(this, arguments); };
+  })();
   function colocarNaSacola() {
     var r = resumo(); if (r.faltando.length) return;
     var itens = r.linhas.map(function (l) {
@@ -248,6 +293,7 @@
         price_in_points: 0, observation: '', size_id: null, size_name: '', size_slices: 0, parts: [], addons: [], combo_data: [], details: [],
         removed_ingredients: [], removed_names: [], desc_resume: l.prod.name, offer_items: [] };
     });
+    itens.forEach(function (it) { var t = trava[it.product_id] || { qtd: 0, item: it }; t.qtd += it.quantity; trava[it.product_id] = t; });
     var atual = (window.CART || []).slice();
     if (typeof window.__totemSetCart === 'function') window.__totemSetCart(atual.concat(itens));
     else { window.CART = atual.concat(itens); if (window.updateCartUI) window.updateCartUI(); }

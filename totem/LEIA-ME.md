@@ -34,3 +34,5 @@ A instrução da contagem fica em `prompt.js` (a mesma do Conta-Peças do celula
 Esqueceu a senha do atendente: digite os 6 últimos caracteres da chave do Claude no lugar da senha; ela é apagada e dá para criar outra em ⚙.
 
 Trava da sacola: as peças contadas pela câmera não podem ser diminuídas nem apagadas na sacola sem a senha do atendente (a quantidade volta sozinha). Aumentar é livre. A trava zera quando o ALIV esvazia a sacola (pedido feito, Recomeçar ou tela parada).
+
+Foto da bandeja: ao colocar na sacola, a foto com as marcas aparece no topo da tela "Seu pedido" (toque para ampliar) e fica guardada no próprio totem por 30 dias (banco do navegador "conta_pecas_totem", com data, hora, peças, itens e total). O ALIV não guarda foto no pedido. Na sacola o botão Contar bandeja some; para outra bandeja, Continuar pedindo. Bandejas do mesmo produto somam na mesma linha.

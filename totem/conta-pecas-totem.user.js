@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Conta-Peças no totem (Tili Sushi)
 // @namespace    https://emmersonarcanjo-tech.github.io/Contapecas/
-// @version      1.0.7
+// @version      1.0.8
 // @description  Conta a bandeja do buffet pela câmera e coloca as peças na sacola do totem do ALIV. Quem cobra continua sendo o ALIV.
 // @match        https://app.alivhub.com.br/kiosk/*
 // @require      https://emmersonarcanjo-tech.github.io/Contapecas/prompt.js

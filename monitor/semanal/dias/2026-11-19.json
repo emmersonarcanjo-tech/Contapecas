@@ -1,0 +1,152 @@
+{
+ "v": 1,
+ "dia": "2026-11-19",
+ "lojas": {
+  "piz": {
+   "pedidos": 181,
+   "cancelados": 5,
+   "vendas": 14140.03,
+   "receita": 14597.77,
+   "desc_loja": 913.06,
+   "desc_plataforma": 623.33,
+   "desc_manual": 0.0,
+   "comissao_ifood": 917.27,
+   "desc_loja_ifood": 913.06,
+   "receita_ifood": 7150.2,
+   "proprios": 7447.57,
+   "entregas_delivery": 150,
+   "canais": {
+    "iFood": [
+     85,
+     6692.46,
+     0
+    ],
+    "App": [
+     73,
+     5993.22,
+     0
+    ],
+    "Salão": [
+     20,
+     1280.86,
+     0
+    ],
+    "PDV delivery": [
+     3,
+     173.49,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     44,
+     4056.92
+    ],
+    "Burguer": [
+     26,
+     1394.15
+    ],
+    "Pizzaria 2.0": [
+     15,
+     1241.39
+    ]
+   },
+   "motoboys": {
+    "Ricardo Gomes Camilo": 16,
+    "Alexsandro Santana de Ecio": 13,
+    "Ian Mendes dos Santos": 20,
+    "Lohran Alcântara Rodrigues": 9,
+    "Matheus Emilio Ferreira": 18,
+    "Adriano Santos de Assis Junior": 13,
+    "Breno Jesus de Souza": 20,
+    "Kalyson de Oliveira Santos": 13,
+    "João Vitor Santos Ramos": 13,
+    "Gustavo Cardoso Carvalho": 15
+   },
+   "tempos": {
+    "prod": [
+     18.0,
+     115
+    ],
+    "rua": [
+     15.0,
+     150
+    ],
+    "vida": [
+     40.0,
+     115
+    ]
+   },
+   "atrasos": 40
+  },
+  "sushi": {
+   "pedidos": 89,
+   "cancelados": 0,
+   "vendas": 6164.26,
+   "receita": 6200.45,
+   "desc_loja": 46.94,
+   "desc_plataforma": 41.03,
+   "desc_manual": 0.0,
+   "comissao_ifood": 24.76,
+   "desc_loja_ifood": 46.94,
+   "receita_ifood": 193.43,
+   "proprios": 6007.02,
+   "entregas_delivery": 16,
+   "pecas": 1665,
+   "temakis": 10,
+   "canais": {
+    "App": [
+     14,
+     1633.1,
+     402
+    ],
+    "Salão": [
+     70,
+     4282.13,
+     1171
+    ],
+    "iFood": [
+     4,
+     157.24,
+     60
+    ],
+    "PDV delivery": [
+     1,
+     91.79,
+     32
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     4,
+     157.24
+    ]
+   },
+   "motoboys": {
+    "Gustavo Cardoso Carvalho": 2,
+    "Ricardo Gomes Camilo": 3,
+    "Matheus Emilio Ferreira": 2,
+    "Adriano Santos de Assis Junior": 2,
+    "Alexsandro Santana de Ecio": 3,
+    "Kalyson de Oliveira Santos": 2,
+    "João Vitor Santos Ramos": 1,
+    "Lohran Alcântara Rodrigues": 1
+   },
+   "tempos": {
+    "prod": [
+     22.0,
+     12
+    ],
+    "rua": [
+     17.0,
+     16
+    ],
+    "vida": [
+     54.0,
+     12
+    ]
+   },
+   "atrasos": 7
+  }
+ }
+}

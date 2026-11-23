@@ -1,0 +1,159 @@
+{
+ "v": 1,
+ "dia": "2026-11-22",
+ "lojas": {
+  "piz": {
+   "pedidos": 285,
+   "cancelados": 2,
+   "vendas": 21737.12,
+   "receita": 22198.12,
+   "desc_loja": 1493.81,
+   "desc_plataforma": 688.21,
+   "desc_manual": 39.84,
+   "comissao_ifood": 1175.58,
+   "desc_loja_ifood": 1453.97,
+   "receita_ifood": 9165.26,
+   "proprios": 13032.86,
+   "entregas_delivery": 226,
+   "canais": {
+    "iFood": [
+     131,
+     8704.26,
+     0
+    ],
+    "Salão": [
+     43,
+     3036.78,
+     0
+    ],
+    "App": [
+     107,
+     9546.2,
+     0
+    ],
+    "PDV delivery": [
+     4,
+     449.88,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     48,
+     2031.25
+    ],
+    "Pizzaria": [
+     64,
+     4849.56
+    ],
+    "Pizzaria 2.0": [
+     19,
+     1823.45
+    ]
+   },
+   "motoboys": {
+    "Ricardo Souza Silva": 13,
+    "Breno Jesus de Souza": 13,
+    "Johnmichael teixeira dos santos": 16,
+    "Ricardo Gomes Camilo": 22,
+    "Alexsandro Santana de Ecio": 16,
+    "Luis Matheus Timotio dos santos": 13,
+    "Luiz Fernando Lima Goddoy": 12,
+    "Crisley Junio do nascimento": 15,
+    "Emanuel dos Santos Guedes": 13,
+    "Luan Augusto Cora": 15,
+    "Andre Vitor Silva dos Reis": 15,
+    "Adriano Santos de Assis Junior": 17,
+    "Kalyson de Oliveira Santos": 14,
+    "Matheus Emilio Ferreira": 19,
+    "Gustavo Cardoso Carvalho": 11,
+    "Lohran Alcântara Rodrigues": 2
+   },
+   "tempos": {
+    "prod": [
+     25.0,
+     154
+    ],
+    "rua": [
+     17.0,
+     226
+    ],
+    "vida": [
+     50.0,
+     154
+    ]
+   },
+   "atrasos": 104
+  },
+  "sushi": {
+   "pedidos": 133,
+   "cancelados": 2,
+   "vendas": 8585.78,
+   "receita": 8659.07,
+   "desc_loja": 208.49,
+   "desc_plataforma": 103.89,
+   "desc_manual": 0.0,
+   "comissao_ifood": 133.14,
+   "desc_loja_ifood": 208.49,
+   "receita_ifood": 1040.16,
+   "proprios": 7618.91,
+   "entregas_delivery": 39,
+   "pecas": 2158,
+   "temakis": 24,
+   "canais": {
+    "Salão": [
+     88,
+     4654.52,
+     1405
+    ],
+    "App": [
+     29,
+     2964.39,
+     539
+    ],
+    "iFood": [
+     16,
+     966.87,
+     214
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     16,
+     966.87
+    ]
+   },
+   "motoboys": {
+    "Luis Matheus Timotio dos santos": 5,
+    "Andre Vitor Silva dos Reis": 3,
+    "Gustavo Cardoso Carvalho": 6,
+    "Breno Jesus de Souza": 4,
+    "Johnmichael teixeira dos santos": 2,
+    "Ricardo Gomes Camilo": 2,
+    "Ricardo Souza Silva": 2,
+    "Alexsandro Santana de Ecio": 4,
+    "Emanuel dos Santos Guedes": 1,
+    "Adriano Santos de Assis Junior": 2,
+    "Kalyson de Oliveira Santos": 2,
+    "Matheus Emilio Ferreira": 2,
+    "Luiz Fernando Lima Goddoy": 2,
+    "Crisley Junio do nascimento": 2
+   },
+   "tempos": {
+    "prod": [
+     18.0,
+     24
+    ],
+    "rua": [
+     18.0,
+     39
+    ],
+    "vida": [
+     41.0,
+     24
+    ]
+   },
+   "atrasos": 11
+  }
+ }
+}

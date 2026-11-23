@@ -1,0 +1,144 @@
+{
+ "v": 1,
+ "dia": "2026-11-17",
+ "lojas": {
+  "piz": {
+   "pedidos": 186,
+   "cancelados": 4,
+   "vendas": 11968.43,
+   "receita": 12744.45,
+   "desc_loja": 839.06,
+   "desc_plataforma": 902.21,
+   "desc_manual": 58.5,
+   "comissao_ifood": 715.73,
+   "desc_loja_ifood": 780.56,
+   "receita_ifood": 5591.63,
+   "proprios": 7152.82,
+   "entregas_delivery": 154,
+   "canais": {
+    "iFood": [
+     79,
+     4815.61,
+     0
+    ],
+    "Salão": [
+     20,
+     954.75,
+     0
+    ],
+    "App": [
+     87,
+     6198.07,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     27,
+     1029.15
+    ],
+    "Pizzaria": [
+     32,
+     2177.09
+    ],
+    "Pizzaria 2.0": [
+     20,
+     1609.37
+    ]
+   },
+   "motoboys": {
+    "Kalyson de Oliveira Santos": 11,
+    "Ian Mendes dos Santos": 18,
+    "Adriano Santos de Assis Junior": 17,
+    "Luan Augusto Cora": 14,
+    "Deivisson Santos D": 15,
+    "Gustavo Cardoso Carvalho": 18,
+    "Ricardo Souza Silva": 15,
+    "Breno Jesus de Souza": 15,
+    "Leandro tavares de Paula": 17,
+    "Claudio Oliveira D": 14
+   },
+   "tempos": {
+    "prod": [
+     13.0,
+     121
+    ],
+    "rua": [
+     17.0,
+     154
+    ],
+    "vida": [
+     40.0,
+     121
+    ]
+   },
+   "atrasos": 42
+  },
+  "sushi": {
+   "pedidos": 70,
+   "cancelados": 1,
+   "vendas": 4884.45,
+   "receita": 4963.2,
+   "desc_loja": 163.82,
+   "desc_plataforma": 114.89,
+   "desc_manual": 0.0,
+   "comissao_ifood": 153.5,
+   "desc_loja_ifood": 163.82,
+   "receita_ifood": 1199.22,
+   "proprios": 3763.98,
+   "entregas_delivery": 27,
+   "pecas": 1258,
+   "temakis": 4,
+   "canais": {
+    "Salão": [
+     40,
+     2186.0,
+     650
+    ],
+    "iFood": [
+     15,
+     1120.47,
+     226
+    ],
+    "App": [
+     15,
+     1577.98,
+     382
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     15,
+     1120.47
+    ]
+   },
+   "motoboys": {
+    "Adriano Santos de Assis Junior": 2,
+    "Deivisson Santos D": 3,
+    "Ricardo Souza Silva": 1,
+    "Luan Augusto Cora": 4,
+    "Kalyson de Oliveira Santos": 4,
+    "Gustavo Cardoso Carvalho": 3,
+    "Breno Jesus de Souza": 4,
+    "Claudio Oliveira D": 2,
+    "Ian Mendes dos Santos": 2,
+    "Leandro tavares de Paula": 2
+   },
+   "tempos": {
+    "prod": [
+     24.0,
+     12
+    ],
+    "rua": [
+     14.0,
+     27
+    ],
+    "vida": [
+     55.0,
+     12
+    ]
+   },
+   "atrasos": 10
+  }
+ }
+}

@@ -1,0 +1,152 @@
+{
+ "v": 1,
+ "dia": "2026-11-10",
+ "lojas": {
+  "piz": {
+   "pedidos": 210,
+   "cancelados": 5,
+   "vendas": 12434.31,
+   "receita": 13286.97,
+   "desc_loja": 899.79,
+   "desc_plataforma": 984.8,
+   "desc_manual": 131.48,
+   "comissao_ifood": 681.91,
+   "desc_loja_ifood": 768.31,
+   "receita_ifood": 5327.44,
+   "proprios": 7959.53,
+   "entregas_delivery": 166,
+   "canais": {
+    "PDV delivery": [
+     2,
+     101.98,
+     0
+    ],
+    "iFood": [
+     81,
+     4474.78,
+     0
+    ],
+    "Salão": [
+     27,
+     1226.68,
+     0
+    ],
+    "App": [
+     100,
+     6630.87,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     19,
+     812.52
+    ],
+    "Pizzaria": [
+     50,
+     2722.47
+    ],
+    "Pizzaria 2.0": [
+     12,
+     939.79
+    ]
+   },
+   "motoboys": {
+    "Gustavo Cardoso Carvalho": 14,
+    "Adriano Santos de Assis Junior": 19,
+    "João Vitor Muniz Lago": 12,
+    "Emanuel dos Santos Guedes": 13,
+    "Mesaque D": 13,
+    "Carlos Silva Dos Santos Junior": 17,
+    "Pablo Deivid D": 20,
+    "Andre Vitor Silva dos Reis": 15,
+    "Luan Augusto Cora": 10,
+    "Pedrohenrique nunes": 11,
+    "Claudio Oliveira D": 12,
+    "Jefferson Lima Chargas": 8,
+    "Lohran Alcântara Rodrigues": 1
+   },
+   "tempos": {
+    "prod": [
+     12.0,
+     129
+    ],
+    "rua": [
+     16.0,
+     166
+    ],
+    "vida": [
+     35.0,
+     129
+    ]
+   },
+   "atrasos": 20
+  },
+  "sushi": {
+   "pedidos": 78,
+   "cancelados": 1,
+   "vendas": 4310.72,
+   "receita": 4359.66,
+   "desc_loja": 100.76,
+   "desc_plataforma": 61.98,
+   "desc_manual": 1.93,
+   "comissao_ifood": 64.89,
+   "desc_loja_ifood": 98.83,
+   "receita_ifood": 506.96,
+   "proprios": 3852.7,
+   "entregas_delivery": 22,
+   "pecas": 1140,
+   "temakis": 8,
+   "canais": {
+    "Salão": [
+     54,
+     2499.13,
+     774
+    ],
+    "iFood": [
+     9,
+     458.02,
+     54
+    ],
+    "App": [
+     15,
+     1353.57,
+     312
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     9,
+     458.02
+    ]
+   },
+   "motoboys": {
+    "Emanuel dos Santos Guedes": 3,
+    "João Vitor Muniz Lago": 5,
+    "Andre Vitor Silva dos Reis": 2,
+    "Mesaque D": 2,
+    "Luan Augusto Cora": 3,
+    "Claudio Oliveira D": 2,
+    "Adriano Santos de Assis Junior": 1,
+    "Gustavo Cardoso Carvalho": 2,
+    "Pablo Deivid D": 1,
+    "Jefferson Lima Chargas": 1
+   },
+   "tempos": {
+    "prod": [
+     24.0,
+     13
+    ],
+    "rua": [
+     20.0,
+     22
+    ],
+    "vida": [
+     46.0,
+     13
+    ]
+   },
+   "atrasos": 8
+  }
+ }
+}

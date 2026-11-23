@@ -1,0 +1,164 @@
+{
+ "v": 1,
+ "dia": "2026-11-20",
+ "lojas": {
+  "piz": {
+   "pedidos": 248,
+   "cancelados": 0,
+   "vendas": 18380.88,
+   "receita": 18871.73,
+   "desc_loja": 1256.7,
+   "desc_plataforma": 686.62,
+   "desc_manual": 28.47,
+   "comissao_ifood": 1036.64,
+   "desc_loja_ifood": 1228.23,
+   "receita_ifood": 8098.76,
+   "proprios": 10772.97,
+   "entregas_delivery": 196,
+   "canais": {
+    "iFood": [
+     115,
+     7607.91,
+     0
+    ],
+    "App": [
+     99,
+     8541.57,
+     0
+    ],
+    "Salão": [
+     32,
+     2066.4,
+     0
+    ],
+    "PDV delivery": [
+     2,
+     165.0,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     45,
+     3692.13
+    ],
+    "Pizzaria 2.0": [
+     17,
+     1838.41
+    ],
+    "Burguer": [
+     53,
+     2077.37
+    ]
+   },
+   "motoboys": {
+    "Claudio Da Costa Nolasso": 11,
+    "Enzo emanuel matos martins": 12,
+    "Gustavo Cardoso Carvalho": 19,
+    "Alexsandro Santana de Ecio": 11,
+    "Rodrigo Santana Massaranduba Filho": 15,
+    "Crisley Junio do nascimento": 14,
+    "Lohran Alcântara Rodrigues": 13,
+    "Adriano Santos de Assis Junior": 11,
+    "Johnmichael teixeira dos santos": 11,
+    "Matheus Emilio Ferreira": 22,
+    "Ian Mendes dos Santos": 10,
+    "Kalyson de Oliveira Santos": 7,
+    "João Vitor Santos Ramos": 11,
+    "Pablo Deivid D": 15,
+    "Breno Jesus de Souza": 14
+   },
+   "tempos": {
+    "prod": [
+     14.0,
+     141
+    ],
+    "rua": [
+     15.0,
+     196
+    ],
+    "vida": [
+     36.0,
+     141
+    ]
+   },
+   "atrasos": 34
+  },
+  "sushi": {
+   "pedidos": 203,
+   "cancelados": 0,
+   "vendas": 12976.07,
+   "receita": 13033.98,
+   "desc_loja": 173.28,
+   "desc_plataforma": 96.14,
+   "desc_manual": 1.66,
+   "comissao_ifood": 209.39,
+   "desc_loja_ifood": 171.62,
+   "receita_ifood": 1635.85,
+   "proprios": 11398.13,
+   "entregas_delivery": 55,
+   "pecas": 2622,
+   "temakis": 131,
+   "canais": {
+    "Salão": [
+     141,
+     8127.22,
+     1933
+    ],
+    "iFood": [
+     20,
+     1577.94,
+     316
+    ],
+    "App": [
+     37,
+     2858.09,
+     316
+    ],
+    "PDV delivery": [
+     5,
+     412.82,
+     57
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     20,
+     1577.94
+    ]
+   },
+   "motoboys": {
+    "Rodrigo Santana Massaranduba Filho": 6,
+    "Breno Jesus de Souza": 3,
+    "Adriano Santos de Assis Junior": 4,
+    "Lohran Alcântara Rodrigues": 3,
+    "Johnmichael teixeira dos santos": 5,
+    "João Vitor Santos Ramos": 5,
+    "Crisley Junio do nascimento": 2,
+    "Kalyson de Oliveira Santos": 4,
+    "Ian Mendes dos Santos": 3,
+    "Matheus Emilio Ferreira": 3,
+    "Pablo Deivid D": 3,
+    "Enzo emanuel matos martins": 5,
+    "Alexsandro Santana de Ecio": 4,
+    "Claudio Da Costa Nolasso": 3,
+    "Gustavo Cardoso Carvalho": 2
+   },
+   "tempos": {
+    "prod": [
+     23.0,
+     36
+    ],
+    "rua": [
+     17.0,
+     55
+    ],
+    "vida": [
+     47.0,
+     36
+    ]
+   },
+   "atrasos": 20
+  }
+ }
+}

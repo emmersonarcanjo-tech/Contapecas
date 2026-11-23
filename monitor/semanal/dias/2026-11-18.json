@@ -1,0 +1,144 @@
+{
+ "v": 1,
+ "dia": "2026-11-18",
+ "lojas": {
+  "piz": {
+   "pedidos": 154,
+   "cancelados": 0,
+   "vendas": 9967.1,
+   "receita": 10417.45,
+   "desc_loja": 800.14,
+   "desc_plataforma": 586.2,
+   "desc_manual": 3.49,
+   "comissao_ifood": 661.24,
+   "desc_loja_ifood": 796.65,
+   "receita_ifood": 5133.97,
+   "proprios": 5283.48,
+   "entregas_delivery": 119,
+   "canais": {
+    "Salão": [
+     25,
+     1251.83,
+     0
+    ],
+    "iFood": [
+     76,
+     4683.62,
+     0
+    ],
+    "App": [
+     53,
+     4031.65,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Burguer": [
+     30,
+     1386.92
+    ],
+    "Pizzaria 2.0": [
+     24,
+     1883.44
+    ],
+    "Pizzaria": [
+     22,
+     1413.26
+    ]
+   },
+   "motoboys": {
+    "João Vitor Santos Ramos": 6,
+    "Ricardo Gomes Camilo": 19,
+    "Crisley Junio do nascimento": 14,
+    "Gustavo Cardoso Carvalho": 10,
+    "Ian Mendes dos Santos": 14,
+    "Luan Augusto Cora": 12,
+    "Adriano Santos de Assis Junior": 12,
+    "Alexsandro Santana de Ecio": 10,
+    "Rodrigo Santana Massaranduba Filho": 10,
+    "Kalyson de Oliveira Santos": 10
+   },
+   "tempos": {
+    "prod": [
+     12.0,
+     75
+    ],
+    "rua": [
+     17.0,
+     118
+    ],
+    "vida": [
+     37.0,
+     75
+    ]
+   },
+   "atrasos": 21
+  },
+  "sushi": {
+   "pedidos": 340,
+   "cancelados": 1,
+   "vendas": 19044.62,
+   "receita": 19115.93,
+   "desc_loja": 185.5,
+   "desc_plataforma": 103.18,
+   "desc_manual": 0.83,
+   "comissao_ifood": 168.97,
+   "desc_loja_ifood": 184.67,
+   "receita_ifood": 1320.11,
+   "proprios": 17795.82,
+   "entregas_delivery": 31,
+   "pecas": 7190,
+   "temakis": 16,
+   "canais": {
+    "Salão": [
+     309,
+     16226.59,
+     6648
+    ],
+    "iFood": [
+     15,
+     1248.8,
+     228
+    ],
+    "App": [
+     16,
+     1569.23,
+     314
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     15,
+     1248.8
+    ]
+   },
+   "motoboys": {
+    "Ricardo Gomes Camilo": 2,
+    "Rodrigo Santana Massaranduba Filho": 7,
+    "João Vitor Santos Ramos": 5,
+    "Crisley Junio do nascimento": 2,
+    "Alexsandro Santana de Ecio": 2,
+    "Gustavo Cardoso Carvalho": 5,
+    "Luan Augusto Cora": 2,
+    "Kalyson de Oliveira Santos": 1,
+    "Ian Mendes dos Santos": 3,
+    "Adriano Santos de Assis Junior": 2
+   },
+   "tempos": {
+    "prod": [
+     27.0,
+     17
+    ],
+    "rua": [
+     15.0,
+     31
+    ],
+    "vida": [
+     49.0,
+     17
+    ]
+   },
+   "atrasos": 11
+  }
+ }
+}

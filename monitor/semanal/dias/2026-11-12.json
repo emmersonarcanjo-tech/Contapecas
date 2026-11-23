@@ -1,0 +1,147 @@
+{
+ "v": 1,
+ "dia": "2026-11-12",
+ "lojas": {
+  "piz": {
+   "pedidos": 142,
+   "cancelados": 1,
+   "vendas": 9793.83,
+   "receita": 10239.38,
+   "desc_loja": 701.62,
+   "desc_plataforma": 537.99,
+   "desc_manual": 51.58,
+   "comissao_ifood": 477.23,
+   "desc_loja_ifood": 650.04,
+   "receita_ifood": 3728.38,
+   "proprios": 6511.0,
+   "entregas_delivery": 112,
+   "canais": {
+    "iFood": [
+     62,
+     3282.83,
+     0
+    ],
+    "Salão": [
+     19,
+     978.67,
+     0
+    ],
+    "App": [
+     60,
+     5280.33,
+     0
+    ],
+    "PDV delivery": [
+     1,
+     252.0,
+     0
+    ]
+   },
+   "ifood_lojas": {
+    "Pizzaria": [
+     27,
+     1527.27
+    ],
+    "Burguer": [
+     22,
+     768.06
+    ],
+    "Pizzaria 2.0": [
+     13,
+     987.5
+    ]
+   },
+   "motoboys": {
+    "Adriano Santos de Assis Junior": 10,
+    "Matheus Emilio Ferreira": 16,
+    "Vanderson Silva Rocha": 11,
+    "Alexsandro Santana de Ecio": 11,
+    "Carlos Silva Dos Santos Junior": 14,
+    "Luis Augusto Batista Silva": 11,
+    "Rodrigo Santana Massaranduba Filho": 11,
+    "Guilherme Silva Nascimento": 13,
+    "Andre Vitor Silva dos Reis": 7,
+    "Kalyson de Oliveira Santos": 8
+   },
+   "tempos": {
+    "prod": [
+     12.0,
+     82
+    ],
+    "rua": [
+     14.0,
+     112
+    ],
+    "vida": [
+     33.0,
+     82
+    ]
+   },
+   "atrasos": 9
+  },
+  "sushi": {
+   "pedidos": 122,
+   "cancelados": 0,
+   "vendas": 6011.2,
+   "receita": 6104.15,
+   "desc_loja": 164.28,
+   "desc_plataforma": 109.8,
+   "desc_manual": 0.93,
+   "comissao_ifood": 89.72,
+   "desc_loja_ifood": 163.35,
+   "receita_ifood": 700.91,
+   "proprios": 5403.24,
+   "entregas_delivery": 23,
+   "pecas": 1449,
+   "temakis": 15,
+   "canais": {
+    "Salão": [
+     98,
+     4377.85,
+     1250
+    ],
+    "iFood": [
+     12,
+     607.96,
+     66
+    ],
+    "App": [
+     12,
+     1025.39,
+     133
+    ]
+   },
+   "ifood_lojas": {
+    "Sushi & Poke": [
+     12,
+     607.96
+    ]
+   },
+   "motoboys": {
+    "Matheus Emilio Ferreira": 2,
+    "Adriano Santos de Assis Junior": 2,
+    "Vanderson Silva Rocha": 3,
+    "Luis Augusto Batista Silva": 3,
+    "Guilherme Silva Nascimento": 4,
+    "Andre Vitor Silva dos Reis": 5,
+    "Kalyson de Oliveira Santos": 2,
+    "Rodrigo Santana Massaranduba Filho": 2
+   },
+   "tempos": {
+    "prod": [
+     16.0,
+     13
+    ],
+    "rua": [
+     14.0,
+     23
+    ],
+    "vida": [
+     44.0,
+     13
+    ]
+   },
+   "atrasos": 5
+  }
+ }
+}

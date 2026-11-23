@@ -48,6 +48,9 @@ from monitor import Aliv, AlivError, TZ, brl, num, parse_dt  # noqa: E402
 BASE = Path(__file__).resolve().parent
 PASTA = BASE / "prestadores"
 PIX_ARQ = BASE / "assets" / "pix_prestadores.json"   # {"<CNPJ só dígitos>": "chave"}; sem entrada = CNPJ
+# Valores combinados com o Emerson por motoboy e dia (ex.: moto quebrou → só R$ 20, sem diária).
+# Lista de {"id", "data": "AAAA-MM-DD", "total": valor do dia, "motivo"}; vale sobre qualquer outra regra.
+AJUSTES_ARQ = BASE / "assets" / "ajustes_prestadores.json"
 
 # ---------------------------------------------------------------- parâmetros
 VIRADA_H = 8                 # dia operacional = hora − 8h (turno 16h de D até 08h de D+1)
@@ -73,6 +76,8 @@ class Dia:
     correto: float = 0.0
     correcoes: list = field(default_factory=list)     # [(texto, delta)]
     avisos: list = field(default_factory=list)
+    combinado: str = ""                               # motivo do valor combinado (ajustes_prestadores.json)
+    rotulo: str = "valor combinado"                   # texto curto que aparece no PDF do motoboy
 
     @property
     def aberto(self) -> bool:
@@ -162,6 +167,15 @@ def dados_nome(nome_aliv: str) -> tuple[str, str]:
     return base, dig
 
 
+def carrega_ajustes() -> dict:
+    """{(id, data): {total, motivo}} a partir de assets/ajustes_prestadores.json."""
+    try:
+        itens = json.loads(AJUSTES_ARQ.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return {(int(a["id"]), date.fromisoformat(a["data"])): a for a in itens if "id" in a and "data" in a}
+
+
 def carrega_pix() -> dict:
     try:
         return {re.sub(r"\D", "", k): v for k, v in json.loads(PIX_ARQ.read_text(encoding="utf-8")).items()}
@@ -191,6 +205,7 @@ def coletar(api: Aliv, seg: date, agora: datetime) -> list[Prestador]:
         if r.get("id") is not None:
             nomes.setdefault(int(r["id"]), r.get("name", ""))
     pix = carrega_pix()
+    ajustes = carrega_ajustes()
     prest = []
     for i, n in nomes.items():
         if not eh_prestador(n):
@@ -289,6 +304,16 @@ def coletar(api: Aliv, seg: date, agora: datetime) -> list[Prestador]:
             x.pizzaria.sort(key=lambda i: i["ordem"])
             x.sushi_pedidos.sort(key=lambda i: i["ordem"])
             calcula_dia(x)
+            aj = ajustes.get((p.id, x.data))
+            if aj is not None:
+                antes, x.correto, x.combinado = x.correto, round(float(aj["total"]), 2), aj.get("motivo", "valor combinado")
+                x.rotulo = aj.get("rotulo", "valor combinado")
+                x.diaria = x.correto
+                x.correcoes = [(f"{dm(x.data)} ({DIAS_CURTO[x.data.weekday()]}): valor combinado {brl(x.correto)} — "
+                                f"{x.combinado}", x.correto - antes)]
+                x.avisos = [a for a in x.avisos if "diária padrão não aplicada" not in a]
+                x.avisos.append(f"{dm(x.data)}: valor combinado {brl(x.correto)} (cálculo daria {brl(antes)}) — "
+                                f"{x.combinado}")
         p.dias = {d: x for d, x in p.dias.items() if x.turnos or x.pizzaria or x.fechamento}
         return p
 
@@ -331,6 +356,10 @@ def calcula_dia(x: Dia) -> None:
     gravada = x.diaria_gravada or 0.0
     if gravada > 0.009:
         x.diaria = gravada
+    elif x.extras and x.diaria_gravada is None:
+        x.diaria = 0.0                               # lançaram outro valor no lugar da diária (ex.: ajuda de custo)
+        x.avisos.append(f"{d}: sem diária no ALIV, só {'; '.join(f'{t} {brl(v)}' for t, v in x.extras)} — "
+                        "diária padrão não aplicada")
     elif entregas:
         x.diaria = padrao
         x.correcoes.append((f"{d}: diária {'zerada' if x.diaria_gravada is not None else 'não gravada'} no ALIV "
@@ -374,7 +403,7 @@ def alertas(ps: list[Prestador]) -> list[str]:
         for x in p.dias_trab():
             if x.aberto:
                 out.append(f"Turno ABERTO: {p.nome} — {dm(x.data)} ({DIAS_CURTO[x.data.weekday()]})")
-            for desc, v in x.extras:
+            for desc, v in ([] if x.combinado else x.extras):
                 out.append(f"Ajuste manual somado ao fechamento (mantido): {p.nome} — {dm(x.data)} {brl(v)} — {desc[:70]}")
         for a in p.avisos:
             if a.startswith("CADASTRO DUPLICADO"):
@@ -509,16 +538,25 @@ def pagina_conferencia(seg: date, ps: list[Prestador], gerado: datetime, logo: s
 def pagina_prestador(seg: date, p: Prestador, gerado: datetime, logo: str) -> str:
     dom = seg + timedelta(days=6)
     linhas = ""
+    normais = [x for x in p.dias_trab() if not x.combinado]
     for x in p.dias_trab():
         turno = "<br>".join(f"{i:%H:%M} – {f:%H:%M}" if f else f"{i:%H:%M} – em aberto" for i, f in x.turnos) or "—"
-        sushi = f"{x.sushi} <span class='cin'>({brl(x.sushi * POR_ENTREGA)})</span>" if x.sushi else "—"
-        extra = f"<div class='pq'>+ ajuste {brl(x.extra)}</div>" if x.extra else ""
+        if x.combinado:      # valor combinado: vai inteiro na coluna da diária, para a linha somar certo
+            diaria = f"{brl(x.correto)}<div class='pq'>{_esc(x.rotulo)}</div>"
+            taxas, sushi = "—", (f"{x.sushi}" if x.sushi else "—")
+        else:
+            diaria = brl(x.diaria) + (f"<div class='pq'>+ ajuste {brl(x.extra)}</div>" if x.extra else "")
+            taxas = brl(len(x.pizzaria) * POR_ENTREGA)
+            sushi = f"{x.sushi} <span class='cin'>({brl(x.sushi * POR_ENTREGA)})</span>" if x.sushi else "—"
         linhas += f"""<tr><td><b>{dm(x.data)}</b> <span class="cin">{DIAS_CURTO[x.data.weekday()]}</span></td>
-<td class="cin">{turno}</td><td class="n">{len(x.pizzaria)}</td><td class="n">{brl(x.diaria)}</td>
-<td class="n">{brl(len(x.pizzaria) * POR_ENTREGA)}</td><td class="n">{sushi}</td><td class="n"><b>{brl(x.correto)}</b>{extra}</td></tr>"""
+<td class="cin">{turno}</td><td class="n">{len(x.pizzaria)}</td><td class="n">{diaria}</td>
+<td class="n">{taxas}</td><td class="n">{sushi}</td><td class="n"><b>{brl(x.correto)}</b></td></tr>"""
+    col_diaria = sum(x.correto if x.combinado else x.diaria + x.extra for x in p.dias_trab())
+    tx_pz = sum(len(x.pizzaria) for x in normais) * POR_ENTREGA
+    tx_su = sum(x.sushi for x in normais) * POR_ENTREGA
     linhas += f"""<tr class="tot"><td>TOTAL</td><td></td><td class="n">{p.pizzaria}</td>
-<td class="n">{brl(sum(x.diaria for x in p.dias.values()))}</td><td class="n">{brl(p.pizzaria * POR_ENTREGA)}</td>
-<td class="n">{p.sushi} <span class="cin">({brl(p.sushi * POR_ENTREGA)})</span></td><td class="n ver">{brl(p.total)}</td></tr>"""
+<td class="n">{brl(col_diaria)}</td><td class="n">{brl(tx_pz)}</td>
+<td class="n">{p.sushi} <span class="cin">({brl(tx_su)})</span></td><td class="n ver">{brl(p.total)}</td></tr>"""
     codigos = ""
     for x in p.dias_trab():
         cods = ", ".join(_esc(i["codigo"]) for i in x.pizzaria) or "—"

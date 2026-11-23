@@ -1,6 +1,6 @@
 {
  "turno": "2026-11-23",
- "max_motoboys_online": 3,
+ "max_motoboys_online": 7,
  "rodadas": [
   {
    "hora": "2026-11-23T17:56-03:00",
@@ -22,6 +22,38 @@
    ],
    "motoboys_online": 3,
    "entregas_live": 5,
+   "sushi_pedidos": 0,
+   "sushi_vendas": 0.0,
+   "sushi_pecas": 0
+  },
+  {
+   "hora": "2026-11-23T18:55-03:00",
+   "pedidos": 20,
+   "vendas": 1187.12,
+   "ids": [
+    383380,
+    383367,
+    383361,
+    383354,
+    383341,
+    383293,
+    383292,
+    383287,
+    383272,
+    383271,
+    383267,
+    383264,
+    383259,
+    383258,
+    383250,
+    383241,
+    383236,
+    383229,
+    383225,
+    383221
+   ],
+   "motoboys_online": 7,
+   "entregas_live": 10,
    "sushi_pedidos": 0,
    "sushi_vendas": 0.0,
    "sushi_pecas": 0

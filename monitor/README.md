@@ -222,6 +222,10 @@ python3 monitor/prestadores.py                                  # rodada normal:
 - **Sushi:** conta as entregas do Sushi registradas para o motoboy no ALIV (`drivers-report/orders` + 404 no login da Pizzaria). O Sushi não tem motoboy próprio e usa os da Pizzaria.
   - Antes o Sushi saía da diferença do fechamento, mas isso dava erro de R$ 1. Exemplo: Guilherme e Ricardo em 01/11, com uma entrega do Sushi gravada a R$ 7.
 - **Total do dia:** diária + R$ 2 × entregas + ajustes manuais lançados no ALIV.
+- **Outro valor no lugar da diária:** quando o dia não tem diária gravada, mas tem outro lançamento manual (ex.: "Ajuda de custo"), a diária padrão **não** é aplicada.
+- **Valor combinado:** fica em `monitor/assets/ajustes_prestadores.json`, com uma entrada por motoboy e dia (`id`, `data`, `total`, `motivo`). Ele vale sobre qualquer regra.
+  - No PDF, o valor aparece na coluna da diária como "valor combinado". Na mensagem, entra nas correções.
+  - Exemplo: Lohran em 22/11/2026 ficou com R$ 20,00 sem diária, porque a moto quebrou no início da noite.
 - **PDF completo e PDFs individuais:** só resumo, turnos, códigos e recibo. **Nenhuma correção, divergência ou aviso aparece para o motoboy.**
 - **Folha de conferência (uso interno):** fica em `Conferencia_interna_semana_DD-MM_a_DD-MM.pdf`, à parte. Mostra, por prestador, o fechamento do ALIV × o valor pago e o motivo de cada dia diferente: taxa gravada ≠ R$ 2, ou o fechamento pagou Sushi a mais ou a menos do que foi entregue. Também traz os alertas e as correções.
 - **Turno de domingo aberto:** o script espera 10 minutos e lê de novo. Se continuar aberto, gera alerta e o dia é pago pelo cálculo.

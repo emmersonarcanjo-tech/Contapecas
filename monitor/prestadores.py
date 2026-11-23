@@ -77,6 +77,7 @@ class Dia:
     correcoes: list = field(default_factory=list)     # [(texto, delta)]
     avisos: list = field(default_factory=list)
     combinado: str = ""                               # motivo do valor combinado (ajustes_prestadores.json)
+    rotulo: str = "valor combinado"                   # texto curto que aparece no PDF do motoboy
 
     @property
     def aberto(self) -> bool:
@@ -306,6 +307,7 @@ def coletar(api: Aliv, seg: date, agora: datetime) -> list[Prestador]:
             aj = ajustes.get((p.id, x.data))
             if aj is not None:
                 antes, x.correto, x.combinado = x.correto, round(float(aj["total"]), 2), aj.get("motivo", "valor combinado")
+                x.rotulo = aj.get("rotulo", "valor combinado")
                 x.diaria = x.correto
                 x.correcoes = [(f"{dm(x.data)} ({DIAS_CURTO[x.data.weekday()]}): valor combinado {brl(x.correto)} — "
                                 f"{x.combinado}", x.correto - antes)]
@@ -540,7 +542,7 @@ def pagina_prestador(seg: date, p: Prestador, gerado: datetime, logo: str) -> st
     for x in p.dias_trab():
         turno = "<br>".join(f"{i:%H:%M} – {f:%H:%M}" if f else f"{i:%H:%M} – em aberto" for i, f in x.turnos) or "—"
         if x.combinado:      # valor combinado: vai inteiro na coluna da diária, para a linha somar certo
-            diaria = f"{brl(x.correto)}<div class='pq'>valor combinado</div>"
+            diaria = f"{brl(x.correto)}<div class='pq'>{_esc(x.rotulo)}</div>"
             taxas, sushi = "—", (f"{x.sushi}" if x.sushi else "—")
         else:
             diaria = brl(x.diaria) + (f"<div class='pq'>+ ajuste {brl(x.extra)}</div>" if x.extra else "")

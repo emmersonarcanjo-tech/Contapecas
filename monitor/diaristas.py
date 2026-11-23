@@ -325,8 +325,8 @@ body { font-family: "Liberation Sans", Arial, Helvetica, sans-serif; color: #1A1
 /* papel timbrado: marca d'água + faixa da marca no rodapé de todas as páginas */
 .pagina { position: relative }
 .pagina > * { position: relative; z-index: 1 }
-.pagina > .dagua { position: absolute; z-index: 0; left: 50%; top: 52%; width: 120mm; height: 120mm;
-                   transform: translate(-50%, -50%); object-fit: contain; opacity: .06 }
+.pagina > .dagua { position: absolute; z-index: 0; left: 50%; top: 52%; width: 140mm; height: 140mm;
+                   transform: translate(-50%, -50%); object-fit: contain; opacity: .17 }   /* visível na impressão */
 .pagina > .timbre { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 9mm; background: #1A1A1A;
                     color: #fff; font-size: 6.8pt; display: flex; align-items: center; justify-content: center;
                     gap: 3mm; letter-spacing: .3px; border-top: 1.4mm solid #C8102E }

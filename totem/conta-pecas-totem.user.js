@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Conta-Peças no totem (Tili Sushi)
 // @namespace    https://emmersonarcanjo-tech.github.io/Contapecas/
-// @version      1.0.6
+// @version      1.0.7
 // @description  Conta a bandeja do buffet pela câmera e coloca as peças na sacola do totem do ALIV. Quem cobra continua sendo o ALIV.
 // @match        https://app.alivhub.com.br/kiosk/*
 // @require      https://emmersonarcanjo-tech.github.io/Contapecas/prompt.js
@@ -93,11 +93,24 @@
   document.body.appendChild(ui);
   // O botão fica no canto de baixo, mas sobe sozinho quando o ALIV mostra um botão largo no
   // rodapé (ex.: "Finalizar pedido" na sacola), para nunca tampar outro botão.
+  function noTopo(el) {
+    if (!el) return false; var r = el.getBoundingClientRect(); if (!r.width || !r.height) return false;
+    var x = r.left + r.width / 2, y = r.top + Math.min(r.height / 2, 20);
+    if (x < 0 || y < 0 || x > window.innerWidth || y > window.innerHeight) return false;
+    var topo = document.elementFromPoint(x, y); return !!topo && (topo === el || el.contains(topo) || topo.contains(el));
+  }
+  function telaDeEscolha() {
+    if (Array.prototype.some.call(document.querySelectorAll('input[placeholder*="Buscar"]'), noTopo)) return true;   // cardápio
+    return Array.prototype.some.call(document.querySelectorAll('span, p, div, button'), function (e) {   // tela inicial
+      return e.childElementCount <= 2 && /^Toque para pedir$/i.test(e.textContent.trim()) && noTopo(e);
+    });
+  }
   function posicionarBotao() {
     // Na tela da sacola o botão some (lá ficam o total e o Finalizar). Para outra bandeja: Continuar pedindo.
-    var naSacola = typeof cabecalhoDaSacola === 'function' && !!cabecalhoDaSacola();
-    btn.style.display = naSacola ? 'none' : '';
-    if (naSacola) return;
+    // O botão só aparece no cardápio e na tela inicial do totem. Sacola, Pix, maquininha e
+    // confirmação ficam limpos (não tampa total, Finalizar, nem o aviso de pagamento).
+    btn.style.display = telaDeEscolha() ? '' : 'none';
+    if (btn.style.display === 'none') return;
     var H = window.innerHeight, W = window.innerWidth, topo = H;
     document.querySelectorAll('button, a, [role="button"]').forEach(function (el) {
       if (el === btn || ui.contains(el)) return;

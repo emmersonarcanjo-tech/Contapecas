@@ -1,0 +1,62 @@
+{
+ "dia": "2026-11-25",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 50,
+  "pedidos": 12,
+  "pedidos_ia": 3,
+  "abandonadas": 38,
+  "conversao": 0.24,
+  "abandono": 0.76,
+  "tempo_medio_min": 0.8,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 2,
+  "cancelados_ia": 0,
+  "pedidos_link": 9,
+  "pedidos_outro": 0,
+  "receberam_link": 44,
+  "abandono_com_link": 38,
+  "abandono_sem_link": 0,
+  "problemas": {
+   "item_preco": 10,
+   "demora": 3,
+   "repetiu": 6,
+   "reclamou_humano": 1,
+   "nao_soube": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "Essa promoção de hoje",
+   "ja_existe_parecido": 1,
+   "falta_preencher": true
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Olá ✨ Seja muito bem-vinda ao meu estúdio! Eu sou a [nome], especialista em ext…",
+  "Queria pedir por aqui as peças de 1,99",
+  "Tem promoção ?",
+  "Ainda está tendo a promoção de 1,99?",
+  "Da peça por 2",
+  "Para entrega hoje sai o valor de 2 reais a peça ?",
+  "E hoje a promoção de sushi?",
+  "Quarta maluca de sushi é hoje ne"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

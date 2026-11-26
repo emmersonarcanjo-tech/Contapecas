@@ -1,0 +1,71 @@
+{
+ "dia": "2026-11-25",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 56,
+  "pedidos": 33,
+  "pedidos_ia": 13,
+  "abandonadas": 23,
+  "conversao": 0.589,
+  "abandono": 0.411,
+  "tempo_medio_min": 0.5,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 12,
+  "cancelados_ia": 0,
+  "pedidos_link": 14,
+  "pedidos_outro": 6,
+  "receberam_link": 44,
+  "abandono_com_link": 19,
+  "abandono_sem_link": 4,
+  "problemas": {
+   "item_preco": 7,
+   "reclamou_humano": 1,
+   "repetiu": 8,
+   "nao_entendeu": 6,
+   "demora": 2,
+   "nao_soube": 2
+  }
+ },
+ "pares": [
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "Vou pedir pelo Ifood que tá com desconto kkk, obg 🫶🏼",
+   "ja_existe_parecido": null,
+   "falta_preencher": true
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Com pão integral",
+  "Boa noite 🌙",
+  "[Áudio do cliente]: Eu vou querer duas pizzas grandes, uma de borda de catupiry…",
+  "Sushi não tem no cardápio?",
+  "Promoção ?",
+  "Tem sushi ?",
+  "E hj a promoção de sushi?",
+  "Hj é a quarta maluca né ?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

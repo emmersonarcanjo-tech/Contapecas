@@ -397,7 +397,10 @@ Consumo = lançamentos CONSUMO na carteira + pedidos pagos como "Fiado / Carteir
 python3 monitor/consumo.py                 # só mostra (dry-run)
 python3 monitor/consumo.py --whatsapp      # envia para WHATSAPP_EMERSON e WHATSAPP_ADMIN
 python3 monitor/consumo.py --hoje 2026-11-20
+python3 monitor/consumo.py --fechamento --whatsapp   # dia 26: ciclo que fechou, texto + PDF
 ```
+
+Rotina **Tili — Fechamento de consumo (dia 26, 08:40)**: roda com `--fechamento --whatsapp` e manda o resumo e o PDF do ciclo que fechou no dia 25 para o Emerson e o administrativo, mesmo que ninguém tenha estourado.
 
 Só manda mensagem se alguém estiver perto ou estourado. Códigos de saída: `0` ok · `1` erro no ALIV · `2` faltam ALIV_USER/ALIV_PASS · `3` WhatsApp falhou.
 

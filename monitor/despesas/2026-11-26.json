@@ -1,0 +1,37 @@
+{
+ "dia": "2026-11-26",
+ "despesas": [
+  {
+   "wamid": "3A30CAF187195C04D499",
+   "id": 2072195,
+   "data": "2026-11-26",
+   "hora": "09:33",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa de sushi pão do café",
+   "descricao": "de sushi pão do café",
+   "valor": null,
+   "fotos": [
+    {
+     "wamid": "3A30CAF187195C04D499",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/35741205819c4e3aa90f11128f201e07.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-26/2026-11-26_0933_josue-ruas_04D499_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "sushi",
+    "valor": 22.5,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "pão do café"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2342 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  }
+ ],
+ "total": 0,
+ "atualizado": "2026-11-26T12:08-03:00"
+}

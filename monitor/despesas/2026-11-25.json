@@ -1,0 +1,37 @@
+{
+ "dia": "2026-11-25",
+ "despesas": [
+  {
+   "wamid": "ACB8564A7342B826CBDE945DCDB86F3D",
+   "id": 1964287,
+   "data": "2026-11-25",
+   "hora": "17:07",
+   "remetente": "Thiago Camilo",
+   "telefone": "…0252",
+   "texto": "Despesa TiliPizzaria, Dinheiro do caixa!",
+   "descricao": "TiliPizzaria, Dinheiro do caixa!",
+   "valor": null,
+   "fotos": [
+    {
+     "wamid": "ACB8564A7342B826CBDE945DCDB86F3D",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/3b80ff3dd56f4645af9fa5cf37b6dae5.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-25/2026-11-25_1707_thiago-camilo_B86F3D_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "pizzaria",
+    "valor": 14.67,
+    "forma": "Dinheiro",
+    "estoque": [],
+    "sem_insumo": [
+     "Morango Bandeja 250g"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2341 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  }
+ ],
+ "total": 0,
+ "atualizado": "2026-11-26T00:08-03:00"
+}

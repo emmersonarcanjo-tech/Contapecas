@@ -1,0 +1,77 @@
+{
+ "dia": "2026-11-27",
+ "despesas": [
+  {
+   "wamid": "3A989ADE4BC0EF36E822",
+   "id": 2088228,
+   "data": "2026-11-27",
+   "hora": "09:42",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa Sushi",
+   "descricao": "Sushi",
+   "valor": null,
+   "fotos": [
+    {
+     "wamid": "3A989ADE4BC0EF36E822",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/437daf148b984594b6390677c73690c4.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-27/2026-11-27_0942_josue-ruas_36E822_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "sushi",
+    "valor": 253.51,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "Amendoa Laminad",
+     "Damasco Kg",
+     "Pistache Iran S",
+     "Canela Em Po Kg",
+     "Gergelim Branco",
+     "Gergelim Preto",
+     "Xeren Caju Trit"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2380 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  },
+  {
+   "wamid": "3AD65B47BB222BFE1B62",
+   "id": 2088262,
+   "data": "2026-11-27",
+   "hora": "10:19",
+   "remetente": "Josué Ruas",
+   "telefone": "…3046",
+   "texto": "Despesa sushi",
+   "descricao": "sushi",
+   "valor": null,
+   "fotos": [
+    {
+     "wamid": "3AD65B47BB222BFE1B62",
+     "url": "https://objectstorage.sa-vinhedo-1.oraclecloud.com/n/axbirghaetgo/b/aliv-storage/o/chat_media/82f89d82072a475da39c2a6c7db1f607.jpg",
+     "tipo": "image",
+     "arquivo": "2026-11-27/2026-11-27_1019_josue-ruas_FE1B62_1.jpg"
+    }
+   ],
+   "lancamento": {
+    "ok": true,
+    "loja": "sushi",
+    "valor": 86.8,
+    "forma": "Cartão Crédito",
+    "estoque": [],
+    "sem_insumo": [
+     "Coentro Un",
+     "Morango Bd",
+     "Alface Gourmet Un",
+     "Alecrim Un",
+     "Tomilho Un"
+    ],
+    "resposta": "{'success': True, 'message': 'Sucesso! Pedido #2381 criado, estoque atualizado e conta gerada.', 'custo_preservado': []}"
+   }
+  }
+ ],
+ "total": 0,
+ "atualizado": "2026-11-27T12:08-03:00"
+}

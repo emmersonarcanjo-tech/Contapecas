@@ -1,0 +1,14 @@
+{
+  "logo": "../../monitor/assets/logo_tili.png",
+  "etiquetas": [
+    { "tipo": "black", "nome": "Hossomaki", "preco": "1,99", "de": "2,99", "un": "a peça", "qtd": 2, "foto": "../fotos/hosso-fila.webp" },
+    { "tipo": "black", "nome": "Uramaki", "preco": "1,99", "de": "2,99", "un": "a peça", "qtd": 2, "foto": "../fotos/ura-fila.webp" },
+    { "tipo": "black", "nome": "Hot Roll", "preco": "1,99", "de": "2,99", "un": "a peça", "qtd": 2, "foto": "../fotos/hot-fila.webp" },
+    { "tipo": "black", "nome": "Peça do buffet", "preco": "1,99", "de": "2,99", "un": "a peça", "qtd": 2 },
+    { "tipo": "normal", "nome": "Joy", "preco": "4,99", "un": "a peça", "qtd": 4, "foto": "../fotos/joy-fila.webp" },
+    { "tipo": "normal", "nome": "Niguiri", "preco": "3,49", "un": "a peça", "qtd": 4, "foto": "../fotos/niguiri-salmao.webp" },
+    { "tipo": "normal", "nome": "Sashimi", "preco": "5,99", "un": "a peça", "qtd": 3, "foto": "../fotos/figuras/salmao_fatia.png", "encaixe": "contain" },
+    { "tipo": "normal", "nome": "Sunomono", "preco": "2,99", "un": "a porção", "qtd": 3, "foto": "../fotos/figuras/pepino.png", "encaixe": "contain" },
+    { "tipo": "normal", "nome": "Acarajapa", "preco": "2,99", "un": "a unidade", "qtd": 2 }
+  ]
+}

@@ -1,7 +1,8 @@
 // Etiquetas de preço para o buffet, em folhas A4 para imprimir e recortar (8 por folha, 95 x 66,5 mm cada), nas cores da Tili.
 // Uso: node etiquetas.js <spec.json> <saida.pdf> [previa.png]
 // spec: { "logo", "whatsapp" (opcional; padrão = marca_tili_sushi.json),
-//         "etiquetas": [ { "tipo": "black" | "normal", "nome", "preco": "1,99", "de": "2,99" (opcional), "un": "a peça", "qtd": 2 } ] }
+//         "etiquetas": [ { "tipo": "black" | "normal", "nome", "preco": "1,99", "de": "2,99" (opcional), "un": "a peça", "qtd": 2,
+//                          "foto": "arquivo" (opcional; só fotos da própria Tili), "encaixe": "contain" (para figura com fundo branco) } ] }
 // "black" = fundo preto com selo Black Friday; "normal" = fundo branco (gasta menos tinta).
 const { chromium } = require('playwright'); const fs = require('fs'); const path = require('path');
 const VERM = '#C8102E', OURO = '#D4A017', PRETO = '#1A1A1A';
@@ -11,10 +12,12 @@ const VERM = '#C8102E', OURO = '#D4A017', PRETO = '#1A1A1A';
   const marca = JSON.parse(fs.readFileSync(path.join(__dirname, 'marca_tili_sushi.json'), 'utf8')); const zap = spec.whatsapp || marca.whatsapp;
   const logo = `data:image/png;base64,${fs.readFileSync(path.resolve(base, spec.logo)).toString('base64')}`;
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const uri = f => { const q = path.resolve(base, f); const m = /\.webp$/i.test(q) ? 'image/webp' : /\.png$/i.test(q) ? 'image/png' : 'image/jpeg'; return `data:${m};base64,${fs.readFileSync(q).toString('base64')}`; };
   const lista = spec.etiquetas.flatMap(e => Array.from({ length: e.qtd || 1 }, () => e));
   const tag = e => { const [r, c] = String(e.preco).split(','); const bl = e.tipo === 'black';
     return `<div class="tag ${bl ? 'bl' : 'nm'}">
-      <div class="topo">${bl ? '<span class="selo">Black Friday</span>' : '<span class="marca">Tili Sushi</span>'}<span class="logo"><img src="${logo}"></span></div>
+      ${e.foto ? `<div class="foto${e.encaixe === 'contain' ? ' ct' : ''}"><img src="${uri(e.foto)}"></div>` : ''}
+      <div class="topo${e.foto ? ' cf' : ''}">${e.foto ? `<span class="logo"><img src="${logo}"></span>` : ''}${bl ? '<span class="selo">Black Friday</span>' : '<span class="marca">Tili Sushi</span>'}${e.foto ? '' : `<span class="logo"><img src="${logo}"></span>`}</div>
       <div class="nome">${esc(e.nome)}</div>
       <div class="linha"><div class="esq">${e.de ? `<div class="de">de <s>R$ ${esc(e.de)}</s> por</div>` : ''}<div class="un">${esc(e.un || 'a peça')}</div></div>
         <div class="preco"><span class="rs">R$</span><span class="v">${esc(r)}</span><span class="c">,${esc(c)}</span></div></div>
@@ -35,6 +38,10 @@ const VERM = '#C8102E', OURO = '#D4A017', PRETO = '#1A1A1A';
     .marca { font-weight: 900; font-size: 12pt; letter-spacing: 2px; text-transform: uppercase; color: ${VERM} }
     .logo { width: 10.5mm; height: 10.5mm; background: #fff; border-radius: 2mm; display: flex; align-items: center; justify-content: center; flex: none; border: 0.2mm solid #ddd }
     .logo img { width: 86%; height: 84%; object-fit: contain }
+    .topo.cf { justify-content: flex-start; gap: 3mm }
+    .foto { position: absolute; top: 3.5mm; right: 4.5mm; width: 24mm; height: 24mm; border-radius: 50%; overflow: hidden; border: 0.8mm solid ${OURO}; background: #fff; z-index: 2 }
+    .foto img { width: 100%; height: 100%; object-fit: cover; display: block }
+    .foto.ct img { object-fit: contain; padding: 2.2mm }
     .nome { font-weight: 900; font-size: 27pt; line-height: 1; letter-spacing: -0.8px; text-transform: uppercase; margin-top: 2.5mm; white-space: nowrap; flex: none }
     .linha { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 3mm; min-height: 0 }
     .de { font-weight: 700; font-size: 11.5pt; line-height: 1.1 }

@@ -1,0 +1,6 @@
+{
+ "quando": "2026-11-27T19:14-03:00",
+ "min_order_value": 20.0,
+ "pedido_minimo_retirada_proprio": false,
+ "pedido_minimo_retirada": 20.0
+}

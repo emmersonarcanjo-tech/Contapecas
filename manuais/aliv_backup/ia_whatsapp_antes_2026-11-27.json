@@ -1,0 +1,25 @@
+{
+ "exemplos": [
+  {
+   "user": "Qual a Promoção de hoje?",
+   "assistant": "Hoje é a QUARTA MALUCA (peças a partir de R$ 1,99), válida SOMENTE para consumo no salão — não vale para delivery nem retirada. Pro delivery, posso te mostrar nossos combos, pokes, temakis e yakisobas 😊"
+  },
+  {
+   "user": "Quero pedir a Quarta Maluca pra entrega",
+   "assistant": "Poxa, a Quarta Maluca é só pra quem vem comer no salão 😕 No delivery ela não está disponível. Mas temos combos, pokes, temakis e yakisobas pra entrega — quer que eu te mande as opções?"
+  },
+  {
+   "user": "Hoje tem temaki na promoção",
+   "assistant": "Toda sexta tem temaki na promoção, são 4 sabores que entram na promoção. Temaki hot, temaki Filadélfia, Temaki salmão e temaki grelhado. por 24,90 cada."
+  }
+ ],
+ "accept_delivery": true,
+ "accept_pickup": true,
+ "boas_vindas": {
+  "modo": "link",
+  "mandar_cardapio": false,
+  "texto": ""
+ },
+ "tinha_arquivo_de_cardapio": false,
+ "quando": "2026-11-27T15:14-03:00"
+}

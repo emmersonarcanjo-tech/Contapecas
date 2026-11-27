@@ -26,6 +26,7 @@ args = [a for a in sys.argv[1:] if a not in ("--gravar", "--voltar")]; GRAVAR = 
 if len(args) != 1: print(__doc__); sys.exit(2)
 arq = os.path.abspath(args[0]); dados = json.load(open(arq, encoding="utf-8"))
 api = Aliv(os.environ["ALIV_USER_SUSHI"], os.environ["ALIV_PASS_SUSHI"]); api.login()
+api.timeout = max(getattr(api, "timeout", 0) or 0, 180)      # salvar a IA também sincroniza o cardápio: pode demorar
 s = lambda v: "true" if v else "false"
 def parar(m): print("PAREI:", m); sys.exit(1)
 
@@ -110,18 +111,24 @@ if ex != antes["exemplos"] or deliv != antes["accept_delivery"] or retir != ante
     print(f"   relido: exemplos {len(novo.get('few_shot_examples') or [])} | entrega {novo.get('accept_delivery')} | retirada {novo.get('accept_pickup')} | outros campos que mudaram: {fora or 'nenhum'} | chaves intactas: {marca(atual) == marca(novo)} | IA ligada: {novo.get('active')}")
     if (novo.get("few_shot_examples") or []) != ex or novo.get("accept_delivery") != deliv or novo.get("accept_pickup") != retir or fora or marca(atual) != marca(novo) or novo.get("active") != atual.get("active"):
         parar("a configuração da IA não ficou como o plano — conferir na tela do ALIV")
-# 2) foto da boas-vindas
+falhou = lambda st, r: st != 200 or (isinstance(r, dict) and r.get("success") is False)
+quer = {"modo": nbv["modo"], "mandar_cardapio": bool(nbv.get("mandar_cardapio")), "texto": (nbv.get("texto") or "").strip()}
+def salvar_boas_vindas():
+    if quer == {k: antes["boas_vindas"].get(k) for k in quer}: return
+    st, r = enviar(f"/admin/api/stores/{LOJA}/boas-vindas", corpo_json=quer)
+    print("salvar boas-vindas:", st, str(r.get("message") if isinstance(r, dict) else r)[:160])
+    if falhou(st, r): parar("a boas-vindas não foi salva (a IA já foi gravada; rodar de novo ou voltar)")
+# 2) e 3) foto e boas-vindas. Na ida: primeiro a foto, depois a mensagem que a usa. Na volta: primeiro a mensagem, depois tira a foto.
 if foto:
     st, r = enviar(f"/admin/api/stores/{LOJA}/cardapio-pdf", arquivo=("arquivos", foto)); print("enviar foto:", st, str(r)[:200])
-    if st != 200: parar("a foto não foi enviada")
-elif plano.get("remover_foto"):
-    st, r = enviar(f"/admin/api/stores/{LOJA}/cardapio-pdf", campos=[("remover", "true")]); print("remover foto:", st, str(r)[:160])
-    if st != 200: parar("a foto não foi removida")
-# 3) boas-vindas
-if nbv != antes["boas_vindas"]:
-    st, r = enviar(f"/admin/api/stores/{LOJA}/boas-vindas", corpo_json={"modo": nbv["modo"], "mandar_cardapio": bool(nbv.get("mandar_cardapio")), "texto": (nbv.get("texto") or "").strip()})
-    print("salvar boas-vindas:", st, str(r.get("message") if isinstance(r, dict) else r)[:160])
-    if st != 200: parar("a boas-vindas não foi salva")
-fim = api.get(f"/admin/api/stores/{LOJA}/boas-vindas")
-print("   relido boas-vindas:", json.dumps(fim.get("boas_vindas"), ensure_ascii=False), "| arquivo:", json.dumps({k: v for k, v in (fim.get("cardapio_pdf") or {}).items() if k in ("tipo", "nome", "bytes")}, ensure_ascii=False) if fim.get("cardapio_pdf") else "nenhum")
+    if falhou(st, r): parar("a foto não foi enviada (a IA já foi gravada; a boas-vindas ainda não)")
+    salvar_boas_vindas()
+else:
+    salvar_boas_vindas()
+    if plano.get("remover_foto") and api.get(f"/admin/api/stores/{LOJA}/boas-vindas").get("cardapio_pdf"):
+        st, r = enviar(f"/admin/api/stores/{LOJA}/cardapio-pdf", campos=[("remover", "true")]); print("remover foto:", st, str(r)[:160])
+        if falhou(st, r): parar("a foto não foi removida (o resto já voltou)")
+fim = api.get(f"/admin/api/stores/{LOJA}/boas-vindas"); ficou = {k: (fim.get("boas_vindas") or {}).get(k) for k in quer}; tem = bool(fim.get("cardapio_pdf"))
+print("   relido boas-vindas:", json.dumps(fim.get("boas_vindas"), ensure_ascii=False), "| arquivo:", json.dumps({k: v for k, v in (fim.get("cardapio_pdf") or {}).items() if k in ("tipo", "nome", "bytes")}, ensure_ascii=False) if tem else "nenhum")
+if ficou != quer or (foto and not tem) or (plano.get("remover_foto") and tem): parar("a boas-vindas ou a foto não ficou como o plano — conferir na tela do ALIV")
 print("modo: GRAVAR | ok")

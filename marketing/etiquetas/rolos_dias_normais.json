@@ -1,0 +1,9 @@
+{
+  "logo": "../../monitor/assets/logo_tili.png",
+  "etiquetas": [
+    { "tipo": "normal", "nome": "Hossomaki", "preco": "2,99", "un": "a peça", "qtd": 2, "foto": "../fotos/hosso-fila.webp" },
+    { "tipo": "normal", "nome": "Uramaki", "preco": "2,99", "un": "a peça", "qtd": 2, "foto": "../fotos/ura-fila.webp" },
+    { "tipo": "normal", "nome": "Hot Roll", "preco": "2,99", "un": "a peça", "qtd": 2, "foto": "../fotos/hot-fila.webp" },
+    { "tipo": "normal", "nome": "Peça do buffet", "preco": "2,99", "un": "a peça", "qtd": 2 }
+  ]
+}

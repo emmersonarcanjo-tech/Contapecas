@@ -1,0 +1,28 @@
+{
+  "exemplos": [
+    {
+      "user": "Qual a promoção de hoje?",
+      "assistant": "Hoje é BLACK FRIDAY na Tili Sushi, somente para consumo no salão 🖤 Temaki Hot por R$ 19,90, os demais temakis por R$ 24,90 e peças a partir de R$ 1,99 cada, enquanto durar o estoque. Hoje não temos delivery nem retirada. Vem comer com a gente! 😊"
+    },
+    {
+      "user": "Vocês estão entregando hoje?",
+      "assistant": "Hoje não temos delivery nem retirada 😕 Estamos atendendo somente no salão, com as ofertas da Black Friday: Temaki Hot por R$ 19,90, demais temakis por R$ 24,90 e peças a partir de R$ 1,99 cada, enquanto durar o estoque. Te esperamos aqui! 🍣"
+    },
+    {
+      "user": "Quero fazer um pedido para entrega",
+      "assistant": "Poxa, hoje não estamos fazendo delivery nem retirada 😕 O atendimento hoje é somente no salão. Se puder, vem aproveitar a Black Friday aqui com a gente: Temaki Hot por R$ 19,90, demais temakis por R$ 24,90 e peças a partir de R$ 1,99 cada."
+    },
+    {
+      "user": "Hoje tem temaki na promoção?",
+      "assistant": "Tem sim! Hoje, na Black Friday, o Temaki Hot sai por R$ 19,90 e os demais temakis por R$ 24,90, somente para consumo no salão e enquanto durar o estoque. Hoje não temos delivery nem retirada."
+    }
+  ],
+  "accept_delivery": false,
+  "accept_pickup": false,
+  "boas_vindas": {
+    "modo": "so_texto",
+    "mandar_cardapio": true,
+    "texto": "🖤 BLACK FRIDAY na Tili Sushi! Só hoje, sexta 27/11, e somente no SALÃO: Temaki Hot por R$ 19,90, demais temakis por R$ 24,90 e peças a partir de R$ 1,99 cada, enquanto durar o estoque. Hoje não temos delivery nem retirada. Vem comer com a gente! 🍣"
+  },
+  "foto": "Black Friday salao 27-11 - feed.jpg"
+}

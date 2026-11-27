@@ -1,34 +1,35 @@
 {
-  "selo": "Black <b>Friday</b>",
-  "data": "Só hoje · sexta 27/11 · a partir das 18h",
+  "selo": "Black Friday",
+  "data": "Só hoje · sexta 27/11",
   "destaque": {
     "titulo": "Temaki<br><b>Hot</b>",
     "de": "33,90",
     "preco": "19,90",
     "foto": "../fotos/temaki-hot.webp",
-    "pos": "58% 50%"
+    "pos": "58% 50%",
+    "escurecer": true,
+    "nota": "Imagens ilustrativas"
   },
   "ofertas": [
     {
-      "titulo": "Demais temakis",
-      "sub": "Sexta do Temaki",
+      "titulo": "Demais<br>temakis",
       "preco": "24,90",
       "foto": "../fotos/temaki-salmao.webp",
-      "pos": "35% 55%"
+      "zoom": 1.55,
+      "origem": "30% 62%",
+      "escurecer": true
     },
     {
-      "titulo": "Peças",
-      "sub": "Preço de Quarta Maluca",
-      "prefixo": "a partir de",
+      "titulo": "Cada peça<br><b>a partir de</b>",
       "preco": "1,99",
       "foto": "../fotos/bandeja-combo-variado.webp"
     }
   ],
   "faixa": {
     "titulo": "Só no salão",
-    "sub": "Hoje <b>não tem delivery</b> · venha comer com a gente"
+    "sub": "Hoje <b>NÃO TEM DELIVERY</b> · venha comer com a gente"
   },
-  "obs": "Tudo na Black <b>enquanto durar o estoque</b> · Imagens ilustrativas",
+  "obs": "Ofertas válidas <b>enquanto durar o estoque</b>",
   "zap_rotulo": "Informações pelo WhatsApp",
   "logo": "../../monitor/assets/logo_tili.png"
 }

@@ -1,0 +1,21 @@
+{
+  "selo": "Black Friday",
+  "data": "Só hoje · sexta 27/11",
+  "titulo": "Só no salão",
+  "sub": "Hoje <b>NÃO TEM DELIVERY</b>",
+  "chips": [
+    [
+      "Temaki Hot",
+      "19,90"
+    ],
+    [
+      "Demais temakis",
+      "24,90"
+    ],
+    [
+      "Peça no buffet desde",
+      "1,99"
+    ]
+  ],
+  "logo": "../../monitor/assets/logo_tili.png"
+}

@@ -21,9 +21,9 @@ args = [a for a in sys.argv[1:] if a != "--gravar"]; GRAVAR = "--gravar" in sys.
 if not args or args[0] not in ("aplicar", "voltar") or (args[0] == "aplicar" and len(args) != 2): print(__doc__); sys.exit(2)
 ACAO = args[0]
 CAT_NOME = "🖤 HOJE: BLACK FRIDAY SÓ NO SALÃO (sem delivery)"
-PROD_NOME = "HOJE: SÓ NO SALÃO, SEM DELIVERY"
-PROD_DESC = ("Hoje, sexta 27/11, não temos delivery nem retirada. Vem comer com a gente no salão: Temaki Hot R$ 19,90, "
-             "demais temakis R$ 24,90 e peças no buffet a partir de R$ 1,99 cada, enquanto durar o estoque.")
+PROD_NOME = "HOJE NÃO TEM DELIVERY · TEMAKI PARA RETIRADA"
+PROD_DESC = ("Hoje, sexta 27/11, não temos delivery. Temaki pode ser retirado no balcão (peça pelo WhatsApp (73) 99942-6241) ou consumido no salão: "
+             "Temaki Hot R$ 19,90 e demais temakis R$ 24,90. Peças no buffet a partir de R$ 1,99 cada, só no salão. Enquanto durar o estoque.")
 MODELO = 935                                                                   # categoria Temaki: copia NCM/CFOP/unidade
 BK = "/workspace/Contapecas/manuais/aliv_backup/site_so_black_2026-11-27.json"
 api = Aliv(os.environ["ALIV_USER_SUSHI"], os.environ["ALIV_PASS_SUSHI"]); api.login(); api.timeout = max(getattr(api, "timeout", 0) or 0, 120)

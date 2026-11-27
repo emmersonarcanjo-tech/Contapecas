@@ -1,7 +1,20 @@
 {
   "selo": "Black Friday",
-  "titulo": "Só no salão",
-  "sub": "Hoje <b>NÃO TEM DELIVERY</b>",
+  "titulo": "Sem delivery",
+  "sub": "Temaki também para <b>RETIRADA</b>",
   "data": "Só hoje · sexta 27/11",
-  "precos": [["Temaki Hot", "19,90"], ["Demais temakis", "24,90"], ["Peça no buffet desde", "1,99"]]
+  "precos": [
+    [
+      "Temaki Hot",
+      "19,90"
+    ],
+    [
+      "Demais temakis",
+      "24,90"
+    ],
+    [
+      "Peça no buffet desde",
+      "1,99"
+    ]
+  ]
 }

@@ -1,0 +1,20 @@
+{
+ "quando": "2026-11-27T19:10-03:00",
+ "motivo": "retirada pelo WhatsApp só de temaki (pedido do Emerson); voltar show_in_ia = true nestas categorias",
+ "categorias_escondidas_da_ia": [
+  2775,
+  2330,
+  936,
+  1160,
+  937,
+  941,
+  930,
+  931,
+  932,
+  933,
+  934,
+  938,
+  939,
+  1232
+ ]
+}

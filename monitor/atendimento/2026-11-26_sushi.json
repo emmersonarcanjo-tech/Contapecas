@@ -1,0 +1,31 @@
+{
+ "dia": "2026-11-26",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 20,
+  "pedidos": 11,
+  "pedidos_ia": 3,
+  "abandonadas": 9,
+  "conversao": 0.55,
+  "abandono": 0.45,
+  "tempo_medio_min": 1.1,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 2,
+  "cancelados_ia": 0,
+  "pedidos_link": 8,
+  "pedidos_outro": 0,
+  "receberam_link": 17,
+  "abandono_com_link": 9,
+  "abandono_sem_link": 0,
+  "problemas": {
+   "demora": 3,
+   "item_preco": 2
+  }
+ },
+ "pares": [],
+ "regras": [],
+ "itens_faltando": [
+  "1 combo de 10 hot salão grelhado"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

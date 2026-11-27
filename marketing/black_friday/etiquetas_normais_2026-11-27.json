@@ -1,0 +1,8 @@
+{
+  "logo": "../../monitor/assets/logo_tili.png",
+  "etiquetas": [
+    { "tipo": "normal", "nome": "Sashimi", "preco": "5,99", "un": "a peça", "qtd": 3 },
+    { "tipo": "normal", "nome": "Sunomono", "preco": "2,99", "un": " ", "qtd": 3 },
+    { "tipo": "normal", "nome": "Acarajapa", "preco": "2,99", "un": "a unidade", "qtd": 2 }
+  ]
+}

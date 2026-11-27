@@ -1,0 +1,17 @@
+{
+ "quando": "2026-11-27T17:07-03:00",
+ "produtos": {
+  "30757": {
+   "nome": "Sashimi",
+   "preco": 4.99,
+   "canais": {
+    "indicacao": 5.49
+   }
+  },
+  "35080": {
+   "nome": "Sashimi (peça buffet)",
+   "preco": 4.99,
+   "canais": {}
+  }
+ }
+}

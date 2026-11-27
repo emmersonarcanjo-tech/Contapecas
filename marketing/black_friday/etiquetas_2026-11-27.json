@@ -1,0 +1,11 @@
+{
+  "logo": "../../monitor/assets/logo_tili.png",
+  "etiquetas": [
+    { "tipo": "black", "nome": "Hossomaki", "preco": "1,99", "de": "2,99", "un": "a peça", "qtd": 2 },
+    { "tipo": "black", "nome": "Uramaki", "preco": "1,99", "de": "2,99", "un": "a peça", "qtd": 2 },
+    { "tipo": "black", "nome": "Hot Roll", "preco": "1,99", "de": "2,99", "un": "a peça", "qtd": 2 },
+    { "tipo": "black", "nome": "Peça do buffet", "preco": "1,99", "de": "2,99", "un": "a peça", "qtd": 2 },
+    { "tipo": "normal", "nome": "Joy", "preco": "4,99", "un": "a peça", "qtd": 4 },
+    { "tipo": "normal", "nome": "Niguiri", "preco": "3,49", "un": "a peça", "qtd": 4 }
+  ]
+}

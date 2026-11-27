@@ -1,0 +1,145 @@
+{
+ "quando": "2026-11-27T16:45-03:00",
+ "produtos": {
+  "35078": {
+   "nome": "Nigiri (peça buffet)",
+   "preco": 3.99,
+   "canais": {},
+   "ativo": true
+  },
+  "35079": {
+   "nome": "Joy (peça buffet)",
+   "preco": 4.99,
+   "canais": {},
+   "ativo": true
+  },
+  "34551": {
+   "nome": "PEÇA NIGUIRI",
+   "preco": 2.99,
+   "canais": {
+    "indicacao": 3.29
+   },
+   "ativo": false
+  },
+  "34552": {
+   "nome": "PEÇA JOY",
+   "preco": 5.99,
+   "canais": {
+    "indicacao": 6.59
+   },
+   "ativo": false
+  },
+  "34557": {
+   "nome": "QUARTA NIGUIRI",
+   "preco": 2.99,
+   "canais": {
+    "indicacao": 3.29
+   },
+   "ativo": false
+  },
+  "34558": {
+   "nome": "QUARTA JOY",
+   "preco": 5.99,
+   "canais": {
+    "indicacao": 6.59
+   },
+   "ativo": false
+  },
+  "30114": {
+   "nome": "Niguiri Kani (1 peça)",
+   "preco": 2.49,
+   "canais": {
+    "indicacao": 2.74
+   },
+   "ativo": true
+  },
+  "30116": {
+   "nome": "Niguiri Salmão (1 peça)",
+   "preco": 2.99,
+   "canais": {
+    "indicacao": 3.29
+   },
+   "ativo": true
+  },
+  "30117": {
+   "nome": "Niguiri Atum (1 peça)",
+   "preco": 2.99,
+   "canais": {
+    "indicacao": 3.29
+   },
+   "ativo": false
+  },
+  "30118": {
+   "nome": "Niguiri Salmão Selado (1 peça)",
+   "preco": 2.99,
+   "canais": {
+    "indicacao": 3.29
+   },
+   "ativo": true
+  },
+  "30119": {
+   "nome": "Niguiri Salmão Selado c/ Geleia de Pimenta (1 peça)",
+   "preco": 2.99,
+   "canais": {
+    "indicacao": 3.29
+   },
+   "ativo": true
+  },
+  "30120": {
+   "nome": "Joy Fila (1 peça)",
+   "preco": 5.99,
+   "canais": {
+    "indicacao": 6.59
+   },
+   "ativo": true
+  },
+  "30121": {
+   "nome": "Joy Tili (1 peça)",
+   "preco": 5.99,
+   "canais": {
+    "indicacao": 6.59
+   },
+   "ativo": true
+  },
+  "30122": {
+   "nome": "Joy Especial Tili (1 peça)",
+   "preco": 5.99,
+   "canais": {
+    "indicacao": 6.59
+   },
+   "ativo": true
+  },
+  "30123": {
+   "nome": "Joy Capão (1 peça)",
+   "preco": 5.99,
+   "canais": {
+    "indicacao": 6.59
+   },
+   "ativo": true
+  },
+  "30124": {
+   "nome": "Joy Alho Poró (1 peça)",
+   "preco": 5.99,
+   "canais": {
+    "indicacao": 6.59
+   },
+   "ativo": true
+  },
+  "30125": {
+   "nome": "Joy Atum (1 peça)",
+   "preco": 5.99,
+   "canais": {
+    "indicacao": 6.59
+   },
+   "ativo": false
+  },
+  "30126": {
+   "nome": "Joy Selado c/ Geleia (1 peça)",
+   "preco": 5.99,
+   "canais": {
+    "indicacao": 6.59
+   },
+   "ativo": true
+  }
+ }
+}

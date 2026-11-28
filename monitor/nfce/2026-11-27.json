@@ -1,0 +1,5508 @@
+{
+ "data": "2026-11-27",
+ "loja": 150,
+ "automatica": true,
+ "lista": {
+  "gerada_em": "2026-11-28T02:08:06-03:00",
+  "pedidos": [
+   {
+    "id": 393076,
+    "codigo": "M-1",
+    "hora": "17:08",
+    "valor": 25.0,
+    "pagamento": "Pix: 25.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393077,
+    "codigo": "iF-1430",
+    "hora": "17:09",
+    "valor": 20.98,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393078,
+    "codigo": "M-2",
+    "hora": "17:10",
+    "valor": 50.0,
+    "pagamento": "Pix: 25.00 | Cartão Débito: 25.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393091,
+    "codigo": "iF-3928",
+    "hora": "17:28",
+    "valor": 30.52,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393094,
+    "codigo": "M-3",
+    "hora": "17:31",
+    "valor": 25.0,
+    "pagamento": "Cartão Crédito: 25.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393095,
+    "codigo": "M-4",
+    "hora": "17:32",
+    "valor": 25.0,
+    "pagamento": "Conta Func. (Iasmim Silva Maia): 25.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "ATENCAO",
+    "regra": "fiado / carteira / conta func. — decidir manualmente"
+   },
+   {
+    "id": 393104,
+    "codigo": "M-5",
+    "hora": "17:38",
+    "valor": 15.0,
+    "pagamento": "Conta Func. (Danilo Dias dos Santos): 15.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "ATENCAO",
+    "regra": "fiado / carteira / conta func. — decidir manualmente"
+   },
+   {
+    "id": 393108,
+    "codigo": "APP-6",
+    "hora": "17:43",
+    "valor": 50.9,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393118,
+    "codigo": "iF-7708",
+    "hora": "17:49",
+    "valor": 32.64,
+    "pagamento": "iFood Online (Mastercard_Maestro)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393125,
+    "codigo": "M-7",
+    "hora": "17:53",
+    "valor": 25.0,
+    "pagamento": "Conta Func. (Jabison Conceição Marques): 25.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "ATENCAO",
+    "regra": "fiado / carteira / conta func. — decidir manualmente"
+   },
+   {
+    "id": 393179,
+    "codigo": "M-8",
+    "hora": "18:11",
+    "valor": 25.0,
+    "pagamento": "Cartão Débito: 25.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393200,
+    "codigo": "APP-9",
+    "hora": "18:15",
+    "valor": 155.89,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393274,
+    "codigo": "APP-10",
+    "hora": "18:29",
+    "valor": 85.4,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393280,
+    "codigo": "IA-11",
+    "hora": "18:29",
+    "valor": 72.0,
+    "pagamento": "Dinheiro: 72.00",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 393288,
+    "codigo": "IA-12",
+    "hora": "18:30",
+    "valor": 65.9,
+    "pagamento": "Cartão Débito: 65.90",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393318,
+    "codigo": "APP-13",
+    "hora": "18:33",
+    "valor": 155.89,
+    "pagamento": "Cartão Débito: 155.89",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393338,
+    "codigo": "M-14",
+    "hora": "18:35",
+    "valor": 25.0,
+    "pagamento": "Cartão Crédito: 25.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393347,
+    "codigo": "M-15",
+    "hora": "18:36",
+    "valor": 25.0,
+    "pagamento": "Cartão Débito: 25.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393373,
+    "codigo": "iF-0807",
+    "hora": "18:38",
+    "valor": 8.89,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 393387,
+    "codigo": "APP-16",
+    "hora": "18:40",
+    "valor": 56.9,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393406,
+    "codigo": "iF-2507",
+    "hora": "18:43",
+    "valor": 132.67,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 393415,
+    "codigo": "iF-8727",
+    "hora": "18:43",
+    "valor": 58.18,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393424,
+    "codigo": "APP-17",
+    "hora": "18:44",
+    "valor": 25.0,
+    "pagamento": "Cartão Crédito: 25.00",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393457,
+    "codigo": "M-18",
+    "hora": "18:47",
+    "valor": 88.0,
+    "pagamento": "Cartão Débito: 88.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393461,
+    "codigo": "iF-0684",
+    "hora": "18:47",
+    "valor": 105.65,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 393466,
+    "codigo": "iF-4977",
+    "hora": "18:47",
+    "valor": 22.94,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393471,
+    "codigo": "iF-6076",
+    "hora": "18:48",
+    "valor": 101.37,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria 2.0",
+    "merchant": "c1577426-a0fd-420f-ad1e-cfbade3d7740",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393484,
+    "codigo": "M-19",
+    "hora": "18:49",
+    "valor": 25.0,
+    "pagamento": "Cartão Débito: 25.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393501,
+    "codigo": "APP-20",
+    "hora": "18:51",
+    "valor": 107.4,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393523,
+    "codigo": "iF-1902",
+    "hora": "18:53",
+    "valor": 339.78,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 393526,
+    "codigo": "M-21",
+    "hora": "18:54",
+    "valor": 92.5,
+    "pagamento": "Pix: 92.50",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393532,
+    "codigo": "M-22",
+    "hora": "18:55",
+    "valor": 25.0,
+    "pagamento": "Cartão Crédito: 25.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393542,
+    "codigo": "IA-23",
+    "hora": "18:56",
+    "valor": 157.9,
+    "pagamento": "Pix: 157.90",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393547,
+    "codigo": "iF-8785",
+    "hora": "18:57",
+    "valor": 178.21,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria 2.0",
+    "merchant": "c1577426-a0fd-420f-ad1e-cfbade3d7740",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393551,
+    "codigo": "iF-8274",
+    "hora": "18:57",
+    "valor": 33.89,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 393555,
+    "codigo": "iF-8543",
+    "hora": "18:58",
+    "valor": 79.77,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 393558,
+    "codigo": "APP-24",
+    "hora": "18:58",
+    "valor": 50.0,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393676,
+    "codigo": "APP-25",
+    "hora": "19:07",
+    "valor": 49.0,
+    "pagamento": "Dinheiro (Troco -> R$ 1.00)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 393680,
+    "codigo": "iF-2731",
+    "hora": "19:07",
+    "valor": 83.35,
+    "pagamento": "iFood Online (Visa)",
+    "loja": "iFood Tili Pizzaria 2.0",
+    "merchant": "c1577426-a0fd-420f-ad1e-cfbade3d7740",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393692,
+    "codigo": "APP-26",
+    "hora": "19:08",
+    "valor": 110.9,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393710,
+    "codigo": "APP-27",
+    "hora": "19:10",
+    "valor": 81.9,
+    "pagamento": "Cartão Débito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393732,
+    "codigo": "APP-28",
+    "hora": "19:12",
+    "valor": 109.4,
+    "pagamento": "Cartão Débito: 109.40",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393782,
+    "codigo": "IA-29",
+    "hora": "19:16",
+    "valor": 64.0,
+    "pagamento": "Dinheiro (Troco -> R$ 36.00): 64.00",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 393820,
+    "codigo": "APP-30",
+    "hora": "19:18",
+    "valor": 73.0,
+    "pagamento": "Cartão Débito: 73.00",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393831,
+    "codigo": "APP-31",
+    "hora": "19:19",
+    "valor": 81.9,
+    "pagamento": "Pix",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393841,
+    "codigo": "iF-4526",
+    "hora": "19:20",
+    "valor": 154.19,
+    "pagamento": "Cartão Débito: 154.19",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393856,
+    "codigo": "APP-32",
+    "hora": "19:21",
+    "valor": 60.0,
+    "pagamento": "Dinheiro: 60.00",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 393859,
+    "codigo": "APP-33",
+    "hora": "19:21",
+    "valor": 31.9,
+    "pagamento": "Conta Func. (Thiago Camilo dos Santos): 31.90",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "ATENCAO",
+    "regra": "fiado / carteira / conta func. — decidir manualmente"
+   },
+   {
+    "id": 393863,
+    "codigo": "APP-34",
+    "hora": "19:21",
+    "valor": 84.9,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393873,
+    "codigo": "APP-35",
+    "hora": "19:22",
+    "valor": 111.8,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393892,
+    "codigo": "IA-36",
+    "hora": "19:23",
+    "valor": 81.9,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393947,
+    "codigo": "APP-37",
+    "hora": "19:27",
+    "valor": 66.7,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393995,
+    "codigo": "iF-8934",
+    "hora": "19:30",
+    "valor": 8.89,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394000,
+    "codigo": "APP-38",
+    "hora": "19:30",
+    "valor": 173.4,
+    "pagamento": "Dinheiro (Troco -> R$ 1.60)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394032,
+    "codigo": "iF-4980",
+    "hora": "19:31",
+    "valor": 38.69,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 394060,
+    "codigo": "iF-0443",
+    "hora": "19:33",
+    "valor": 30.99,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394088,
+    "codigo": "APP-39",
+    "hora": "19:34",
+    "valor": 104.4,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394107,
+    "codigo": "IA-40",
+    "hora": "19:36",
+    "valor": 90.9,
+    "pagamento": "Cartão Débito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394137,
+    "codigo": "iF-7042",
+    "hora": "19:38",
+    "valor": 25.69,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394153,
+    "codigo": "IA-41",
+    "hora": "19:39",
+    "valor": 289.9,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394192,
+    "codigo": "iF-5753",
+    "hora": "19:41",
+    "valor": 123.0,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394199,
+    "codigo": "iF-0548",
+    "hora": "19:41",
+    "valor": 276.66,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 394238,
+    "codigo": "M-42",
+    "hora": "19:44",
+    "valor": 81.0,
+    "pagamento": "Cartão Crédito: 81.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394269,
+    "codigo": "APP-43",
+    "hora": "19:46",
+    "valor": 108.38,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394271,
+    "codigo": "iF-4664",
+    "hora": "19:46",
+    "valor": 448.11,
+    "pagamento": "Cartão Crédito: 448.11",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394280,
+    "codigo": "iF-1474",
+    "hora": "19:46",
+    "valor": 89.59,
+    "pagamento": "iFood Online (Mastercard_Maestro)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 394294,
+    "codigo": "M-44",
+    "hora": "19:47",
+    "valor": 60.0,
+    "pagamento": "Dinheiro (Troco -> R$ 40.00): 60.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394324,
+    "codigo": "iF-7164",
+    "hora": "19:49",
+    "valor": 62.85,
+    "pagamento": "Alelo Refeição: 62.85",
+    "loja": "iFood Tili Pizzaria 2.0",
+    "merchant": "c1577426-a0fd-420f-ad1e-cfbade3d7740",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394340,
+    "codigo": "IA-45",
+    "hora": "19:49",
+    "valor": 171.89,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394398,
+    "codigo": "iF-4548",
+    "hora": "19:53",
+    "valor": 26.98,
+    "pagamento": "iFood Online (Visa_Electron)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 394413,
+    "codigo": "M-46",
+    "hora": "19:53",
+    "valor": 60.0,
+    "pagamento": "Dinheiro: 60.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394462,
+    "codigo": "iF-8563",
+    "hora": "19:56",
+    "valor": 26.34,
+    "pagamento": "Dinheiro (Troco -> R$ 0.66): 26.34",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394474,
+    "codigo": "APP-47",
+    "hora": "19:57",
+    "valor": 81.9,
+    "pagamento": "Cartão Débito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394494,
+    "codigo": "iF-2394",
+    "hora": "19:58",
+    "valor": 64.32,
+    "pagamento": "Alelo Refeição: 64.32",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394563,
+    "codigo": "APP-48",
+    "hora": "20:01",
+    "valor": 41.9,
+    "pagamento": "Cartão Crédito: 41.90",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394576,
+    "codigo": "APP-49",
+    "hora": "20:02",
+    "valor": 155.89,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394595,
+    "codigo": "iF-0379",
+    "hora": "20:03",
+    "valor": 106.8,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 394613,
+    "codigo": "IA-50",
+    "hora": "20:04",
+    "valor": 100.8,
+    "pagamento": "Cartão Crédito: 100.80",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394620,
+    "codigo": "M-51",
+    "hora": "20:04",
+    "valor": 16.0,
+    "pagamento": "Cartão Crédito: 16.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394628,
+    "codigo": "iF-0486",
+    "hora": "20:05",
+    "valor": 140.27,
+    "pagamento": "Pix: 140.27",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394634,
+    "codigo": "APP-52",
+    "hora": "20:05",
+    "valor": 91.0,
+    "pagamento": "Cartão Débito: 91.00",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394675,
+    "codigo": "iF-8783",
+    "hora": "20:07",
+    "valor": 58.43,
+    "pagamento": "Cartão Crédito: 58.43",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394688,
+    "codigo": "iF-7548",
+    "hora": "20:08",
+    "valor": 51.15,
+    "pagamento": "iFood Online (Pix): 51.15",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 394706,
+    "codigo": "M-53",
+    "hora": "20:09",
+    "valor": 27.0,
+    "pagamento": "Cartão Crédito: 27.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394719,
+    "codigo": "iF-2287",
+    "hora": "20:09",
+    "valor": 33.93,
+    "pagamento": "iFood Online (Visa)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394787,
+    "codigo": "APP-54",
+    "hora": "20:13",
+    "valor": 36.8,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394801,
+    "codigo": "APP-55",
+    "hora": "20:14",
+    "valor": 93.88,
+    "pagamento": "Cartão Débito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394874,
+    "codigo": "APP-56",
+    "hora": "20:18",
+    "valor": 54.8,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394936,
+    "codigo": "APP-57",
+    "hora": "20:21",
+    "valor": 62.9,
+    "pagamento": "Cartão Débito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394948,
+    "codigo": "iF-4753",
+    "hora": "20:22",
+    "valor": 26.34,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394963,
+    "codigo": "iF-2720",
+    "hora": "20:23",
+    "valor": 95.42,
+    "pagamento": "Cartão Débito: 95.42",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394990,
+    "codigo": "iF-9920",
+    "hora": "20:24",
+    "valor": 96.0,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 395027,
+    "codigo": "APP-58",
+    "hora": "20:26",
+    "valor": 92.4,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395030,
+    "codigo": "M-59",
+    "hora": "20:26",
+    "valor": 75.0,
+    "pagamento": "Cartão Crédito: 75.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395079,
+    "codigo": "IA-60",
+    "hora": "20:29",
+    "valor": 125.0,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395115,
+    "codigo": "iF-4616",
+    "hora": "20:30",
+    "valor": 25.69,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395137,
+    "codigo": "M-61",
+    "hora": "20:31",
+    "valor": 35.0,
+    "pagamento": "Cartão Débito: 35.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395198,
+    "codigo": "APP-62",
+    "hora": "20:35",
+    "valor": 126.9,
+    "pagamento": "Cartão Débito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395201,
+    "codigo": "M-63",
+    "hora": "20:35",
+    "valor": 73.5,
+    "pagamento": "Cartão Débito: 73.50",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395223,
+    "codigo": "M-64",
+    "hora": "20:36",
+    "valor": 14.0,
+    "pagamento": "Cartão Débito: 7.00 | Cartão Débito: 7.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395280,
+    "codigo": "iF-3822",
+    "hora": "20:40",
+    "valor": 49.12,
+    "pagamento": "iFood Online (Visa)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 395288,
+    "codigo": "iF-6331",
+    "hora": "20:40",
+    "valor": 25.69,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395321,
+    "codigo": "iF-7871",
+    "hora": "20:42",
+    "valor": 8.89,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 395333,
+    "codigo": "M-65",
+    "hora": "20:43",
+    "valor": 60.0,
+    "pagamento": "Dinheiro (Troco -> R$ 40.00): 60.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395349,
+    "codigo": "M-66",
+    "hora": "20:44",
+    "valor": 4.5,
+    "pagamento": "Cartão Débito: 4.50",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395356,
+    "codigo": "APP-67",
+    "hora": "20:44",
+    "valor": 92.5,
+    "pagamento": "Cartão Débito: 92.50",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395363,
+    "codigo": "iF-7811",
+    "hora": "20:45",
+    "valor": 98.33,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 395388,
+    "codigo": "iF-6512",
+    "hora": "20:46",
+    "valor": 14.98,
+    "pagamento": "iFood Online (Visa)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395394,
+    "codigo": "M-68",
+    "hora": "20:47",
+    "valor": 12.0,
+    "pagamento": "Cartão Débito: 12.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395395,
+    "codigo": "iF-7876",
+    "hora": "20:47",
+    "valor": 98.55,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 395404,
+    "codigo": "iF-0884",
+    "hora": "20:47",
+    "valor": 42.95,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395407,
+    "codigo": "APP-69",
+    "hora": "20:47",
+    "valor": 88.9,
+    "pagamento": "Dinheiro (Troco -> R$ 11.10)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395421,
+    "codigo": "IA-70",
+    "hora": "20:48",
+    "valor": 68.4,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395435,
+    "codigo": "iF-9361",
+    "hora": "20:49",
+    "valor": 77.06,
+    "pagamento": "Alelo Refeição: 77.06",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395444,
+    "codigo": "iF-7053",
+    "hora": "20:50",
+    "valor": 42.9,
+    "pagamento": "Dinheiro (Troco -> R$ 57.10): 42.90",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395452,
+    "codigo": "IA-71",
+    "hora": "20:50",
+    "valor": 62.9,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395463,
+    "codigo": "iF-2861",
+    "hora": "20:50",
+    "valor": 29.94,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395470,
+    "codigo": "iF-2033",
+    "hora": "20:51",
+    "valor": 90.71,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 395474,
+    "codigo": "M-72",
+    "hora": "20:51",
+    "valor": 4.0,
+    "pagamento": "Cartão Débito: 4.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395478,
+    "codigo": "APP-73",
+    "hora": "20:51",
+    "valor": 155.89,
+    "pagamento": "Cartão Débito: 155.89",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395481,
+    "codigo": "M-74",
+    "hora": "20:52",
+    "valor": 4.0,
+    "pagamento": "Dinheiro: 4.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395482,
+    "codigo": "iF-8007",
+    "hora": "20:52",
+    "valor": 40.99,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 395491,
+    "codigo": "APP-75",
+    "hora": "20:52",
+    "valor": 155.89,
+    "pagamento": "Pix: 155.89",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395513,
+    "codigo": "iF-9338",
+    "hora": "20:53",
+    "valor": 30.94,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395532,
+    "codigo": "iF-9366",
+    "hora": "20:54",
+    "valor": 21.98,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395533,
+    "codigo": "M-76",
+    "hora": "20:54",
+    "valor": 4.0,
+    "pagamento": "Dinheiro (Troco -> R$ 1.00): 4.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395536,
+    "codigo": "iF-2949",
+    "hora": "20:54",
+    "valor": 21.98,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395556,
+    "codigo": "M-77",
+    "hora": "20:55",
+    "valor": 4.0,
+    "pagamento": "Dinheiro (Troco -> R$ 1.00): 4.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395570,
+    "codigo": "iF-5703",
+    "hora": "20:56",
+    "valor": 48.51,
+    "pagamento": "iFood Online (Ticket)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395592,
+    "codigo": "M-78",
+    "hora": "20:57",
+    "valor": 12.0,
+    "pagamento": "Cartão Débito: 12.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395612,
+    "codigo": "M-79",
+    "hora": "20:58",
+    "valor": 74.5,
+    "pagamento": "Pix: 74.50",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395617,
+    "codigo": "M-80",
+    "hora": "20:59",
+    "valor": 4.0,
+    "pagamento": "Dinheiro (Troco -> R$ 6.00): 4.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395618,
+    "codigo": "M-81",
+    "hora": "20:59",
+    "valor": 114.0,
+    "pagamento": "Pix: 98.00 | Pix: 16.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395637,
+    "codigo": "iF-6953",
+    "hora": "21:00",
+    "valor": 108.98,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Pizzaria 2.0",
+    "merchant": "c1577426-a0fd-420f-ad1e-cfbade3d7740",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395645,
+    "codigo": "APP-82",
+    "hora": "21:00",
+    "valor": 157.9,
+    "pagamento": "Pix Online (PAGO): 131.00 | Cartão Crédito: 26.90",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395655,
+    "codigo": "iF-0518",
+    "hora": "21:01",
+    "valor": 47.14,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395668,
+    "codigo": "M-83",
+    "hora": "21:01",
+    "valor": 117.0,
+    "pagamento": "Cartão Débito: 117.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395690,
+    "codigo": "APP-84",
+    "hora": "21:02",
+    "valor": 96.3,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395740,
+    "codigo": "IA-85",
+    "hora": "21:05",
+    "valor": 140.9,
+    "pagamento": "Cartão Débito: 140.90",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395751,
+    "codigo": "M-86",
+    "hora": "21:06",
+    "valor": 150.0,
+    "pagamento": "Cartão Débito: 75.00 | Pix: 75.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395764,
+    "codigo": "APP-87",
+    "hora": "21:07",
+    "valor": 126.5,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395784,
+    "codigo": "APP-88",
+    "hora": "21:08",
+    "valor": 129.9,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395792,
+    "codigo": "iF-5597",
+    "hora": "21:09",
+    "valor": 29.94,
+    "pagamento": "Pix Online (PAGO): 0.94 | Dinheiro: 29.00",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "forma não permitida: dinheiro, pix_online"
+   },
+   {
+    "id": 395822,
+    "codigo": "iF-8388",
+    "hora": "21:11",
+    "valor": 46.99,
+    "pagamento": "iFood Online (Alelo)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395826,
+    "codigo": "iF-7111",
+    "hora": "21:11",
+    "valor": 21.98,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395866,
+    "codigo": "APP-89",
+    "hora": "21:13",
+    "valor": 175.8,
+    "pagamento": "Alelo Refeição",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395874,
+    "codigo": "M-90",
+    "hora": "21:14",
+    "valor": 60.0,
+    "pagamento": "Dinheiro (Troco -> R$ 40.00): 60.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395899,
+    "codigo": "APP-91",
+    "hora": "21:16",
+    "valor": 91.4,
+    "pagamento": "Ticket: 91.40",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395904,
+    "codigo": "iF-2388",
+    "hora": "21:16",
+    "valor": 180.21,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria 2.0",
+    "merchant": "c1577426-a0fd-420f-ad1e-cfbade3d7740",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395927,
+    "codigo": "M-92",
+    "hora": "21:18",
+    "valor": 81.9,
+    "pagamento": "Pix: 81.90",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395981,
+    "codigo": "APP-93",
+    "hora": "21:21",
+    "valor": 76.9,
+    "pagamento": "Cartão Débito: 76.90",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396074,
+    "codigo": "M-94",
+    "hora": "21:27",
+    "valor": 60.0,
+    "pagamento": "Dinheiro (Troco -> R$ 40.00): 60.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396094,
+    "codigo": "iF-2754",
+    "hora": "21:28",
+    "valor": 90.53,
+    "pagamento": "iFood Online (Mastercard_Maestro)",
+    "loja": "iFood Tili Pizzaria 2.0",
+    "merchant": "c1577426-a0fd-420f-ad1e-cfbade3d7740",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396097,
+    "codigo": "iF-9617",
+    "hora": "21:28",
+    "valor": 49.9,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396122,
+    "codigo": "IA-95",
+    "hora": "21:30",
+    "valor": 79.9,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396131,
+    "codigo": "iF-4420",
+    "hora": "21:30",
+    "valor": 64.05,
+    "pagamento": "iFood Online (Visa)",
+    "loja": "iFood Tili Pizzaria 2.0",
+    "merchant": "c1577426-a0fd-420f-ad1e-cfbade3d7740",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396154,
+    "codigo": "iF-8535",
+    "hora": "21:32",
+    "valor": 82.02,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 396158,
+    "codigo": "APP-96",
+    "hora": "21:32",
+    "valor": 172.39,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396174,
+    "codigo": "APP-97",
+    "hora": "21:33",
+    "valor": 152.0,
+    "pagamento": "Pix",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396175,
+    "codigo": "APP-98",
+    "hora": "21:33",
+    "valor": 85.4,
+    "pagamento": "Cartão Crédito: 85.40",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396197,
+    "codigo": "APP-100",
+    "hora": "21:35",
+    "valor": 10.9,
+    "pagamento": "Pix",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396200,
+    "codigo": "M-101",
+    "hora": "21:35",
+    "valor": 20.0,
+    "pagamento": "Cartão Débito: 20.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396201,
+    "codigo": "IA-102",
+    "hora": "21:35",
+    "valor": 69.4,
+    "pagamento": "Cartão Débito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396268,
+    "codigo": "APP-103",
+    "hora": "21:40",
+    "valor": 47.0,
+    "pagamento": "Cartão Débito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396285,
+    "codigo": "iF-4763",
+    "hora": "21:41",
+    "valor": 72.67,
+    "pagamento": "iFood Online (Mastercard_Maestro)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 396286,
+    "codigo": "iF-4172",
+    "hora": "21:41",
+    "valor": 1.89,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396307,
+    "codigo": "M-104",
+    "hora": "21:42",
+    "valor": 75.0,
+    "pagamento": "Cartão Crédito: 75.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396319,
+    "codigo": "iF-9322",
+    "hora": "21:43",
+    "valor": 48.91,
+    "pagamento": "iFood Online (Mastercard_Maestro)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 396334,
+    "codigo": "iF-3410",
+    "hora": "21:45",
+    "valor": 78.23,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 396360,
+    "codigo": "iF-4873",
+    "hora": "21:46",
+    "valor": 61.4,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 396361,
+    "codigo": "M-105",
+    "hora": "21:46",
+    "valor": 35.0,
+    "pagamento": "Cartão Crédito: 35.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396393,
+    "codigo": "APP-106",
+    "hora": "21:49",
+    "valor": 70.9,
+    "pagamento": "Pix",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396450,
+    "codigo": "iF-1717",
+    "hora": "21:55",
+    "valor": 43.41,
+    "pagamento": "iFood Online (Mastercard_Maestro)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 396506,
+    "codigo": "IA-107",
+    "hora": "22:00",
+    "valor": 31.9,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396546,
+    "codigo": "iF-7742",
+    "hora": "22:03",
+    "valor": 26.34,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396553,
+    "codigo": "APP-108",
+    "hora": "22:03",
+    "valor": 79.8,
+    "pagamento": "Cartão Débito: 79.80",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396596,
+    "codigo": "APP-109",
+    "hora": "22:06",
+    "valor": 81.9,
+    "pagamento": "Pix",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396630,
+    "codigo": "iF-0076",
+    "hora": "22:10",
+    "valor": 56.4,
+    "pagamento": "iFood Online (Nubank)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 396640,
+    "codigo": "iF-7122",
+    "hora": "22:10",
+    "valor": 72.59,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria 2.0",
+    "merchant": "c1577426-a0fd-420f-ad1e-cfbade3d7740",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396679,
+    "codigo": "APP-110",
+    "hora": "22:14",
+    "valor": 114.3,
+    "pagamento": "Dinheiro (Troco -> R$ 0.70): 114.30",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396693,
+    "codigo": "iF-8963",
+    "hora": "22:15",
+    "valor": 37.13,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396708,
+    "codigo": "iF-9040",
+    "hora": "22:17",
+    "valor": 49.12,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 396714,
+    "codigo": "APP-111",
+    "hora": "22:17",
+    "valor": 80.9,
+    "pagamento": "Dinheiro",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396723,
+    "codigo": "iF-4645",
+    "hora": "22:18",
+    "valor": 35.63,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396725,
+    "codigo": "M-112",
+    "hora": "22:18",
+    "valor": 66.5,
+    "pagamento": "Pix: 66.50",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396757,
+    "codigo": "APP-113",
+    "hora": "22:21",
+    "valor": 50.9,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396797,
+    "codigo": "M-114",
+    "hora": "22:25",
+    "valor": 133.0,
+    "pagamento": "Cartão Débito: 133.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396802,
+    "codigo": "iF-7515",
+    "hora": "22:25",
+    "valor": 158.45,
+    "pagamento": "iFood Online (Visa): 158.45",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 396811,
+    "codigo": "M-115",
+    "hora": "22:27",
+    "valor": 60.0,
+    "pagamento": "Dinheiro: 60.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396845,
+    "codigo": "M-116",
+    "hora": "22:30",
+    "valor": 81.0,
+    "pagamento": "Dinheiro (Troco -> R$ 19.00): 81.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396852,
+    "codigo": "M-117",
+    "hora": "22:31",
+    "valor": 91.0,
+    "pagamento": "Cartão Crédito: 91.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396855,
+    "codigo": "APP-118",
+    "hora": "22:31",
+    "valor": 83.4,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396857,
+    "codigo": "IA-119",
+    "hora": "22:31",
+    "valor": 62.9,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396885,
+    "codigo": "APP-120",
+    "hora": "22:33",
+    "valor": 44.89,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396927,
+    "codigo": "iF-8623",
+    "hora": "22:37",
+    "valor": 80.43,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 396938,
+    "codigo": "iF-8551",
+    "hora": "22:39",
+    "valor": 38.98,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396977,
+    "codigo": "M-121",
+    "hora": "22:42",
+    "valor": 14.0,
+    "pagamento": "Cartão Crédito: 14.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396998,
+    "codigo": "iF-8740",
+    "hora": "22:44",
+    "valor": 66.3,
+    "pagamento": "iFood Online (Visa)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397010,
+    "codigo": "M-122",
+    "hora": "22:46",
+    "valor": 14.4,
+    "pagamento": "Cartão Crédito: 14.40",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397013,
+    "codigo": "APP-123",
+    "hora": "22:46",
+    "valor": 81.9,
+    "pagamento": "Cartão Débito: 81.90",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397015,
+    "codigo": "iF-0041",
+    "hora": "22:47",
+    "valor": 35.93,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397019,
+    "codigo": "M-124",
+    "hora": "22:47",
+    "valor": 3.5,
+    "pagamento": "Cartão Débito: 3.50",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397033,
+    "codigo": "APP-125",
+    "hora": "22:50",
+    "valor": 84.0,
+    "pagamento": "Cartão Crédito: 84.00",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397049,
+    "codigo": "iF-6177",
+    "hora": "22:52",
+    "valor": 34.34,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397063,
+    "codigo": "iF-5274",
+    "hora": "22:53",
+    "valor": 71.43,
+    "pagamento": "iFood Online (Visa)",
+    "loja": "iFood Tili Pizzaria 2.0",
+    "merchant": "c1577426-a0fd-420f-ad1e-cfbade3d7740",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397064,
+    "codigo": "APP-126",
+    "hora": "22:53",
+    "valor": 97.5,
+    "pagamento": "Cartão Débito: 97.50",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397067,
+    "codigo": "iF-4247",
+    "hora": "22:53",
+    "valor": 26.34,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397073,
+    "codigo": "iF-3450",
+    "hora": "22:54",
+    "valor": 85.79,
+    "pagamento": "iFood Online (Vr)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 397077,
+    "codigo": "iF-4188",
+    "hora": "22:55",
+    "valor": 80.43,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 397139,
+    "codigo": "IA-127",
+    "hora": "23:03",
+    "valor": 81.9,
+    "pagamento": "Pix: 81.90",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397147,
+    "codigo": "IA-128",
+    "hora": "23:04",
+    "valor": 90.9,
+    "pagamento": "Dinheiro (Troco -> R$ 9.10)",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 397156,
+    "codigo": "iF-8737",
+    "hora": "23:05",
+    "valor": 67.6,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 397166,
+    "codigo": "M-129",
+    "hora": "23:07",
+    "valor": 4.0,
+    "pagamento": "Dinheiro (Troco -> R$ 16.00): 4.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 397177,
+    "codigo": "M-130",
+    "hora": "23:10",
+    "valor": 35.0,
+    "pagamento": "Dinheiro (Troco -> R$ 65.00): 35.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 397187,
+    "codigo": "iF-3725",
+    "hora": "23:12",
+    "valor": 72.19,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 397211,
+    "codigo": "IA-131",
+    "hora": "23:18",
+    "valor": 50.0,
+    "pagamento": "Pix: 50.00",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397213,
+    "codigo": "APP-132",
+    "hora": "23:18",
+    "valor": 31.9,
+    "pagamento": "Pix",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397214,
+    "codigo": "M-133",
+    "hora": "23:19",
+    "valor": 99.5,
+    "pagamento": "Pix: 99.50",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397227,
+    "codigo": "APP-134",
+    "hora": "23:21",
+    "valor": 81.9,
+    "pagamento": "Cartão Crédito",
+    "loja": "Loja (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397231,
+    "codigo": "iF-6398",
+    "hora": "23:23",
+    "valor": 35.99,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 397262,
+    "codigo": "iF-2706",
+    "hora": "23:29",
+    "valor": 30.99,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 397264,
+    "codigo": "iF-3146",
+    "hora": "23:31",
+    "valor": 35.99,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 397267,
+    "codigo": "M-135",
+    "hora": "23:32",
+    "valor": 60.0,
+    "pagamento": "Pix: 60.00",
+    "loja": "Loja (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397275,
+    "codigo": "iF-1932",
+    "hora": "23:34",
+    "valor": 63.7,
+    "pagamento": "iFood Online (Pix)",
+    "loja": "iFood Tili Pizzaria",
+    "merchant": "21f5f70c-dd67-4f86-b6b5-961ac09161ff",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "pagamento online iFood (Tili Pizzaria)"
+   },
+   {
+    "id": 397289,
+    "codigo": "iF-3040",
+    "hora": "23:39",
+    "valor": 44.08,
+    "pagamento": "Dinheiro: 44.08",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 397303,
+    "codigo": "iF-9842",
+    "hora": "23:44",
+    "valor": 35.99,
+    "pagamento": "iFood Online (Mastercard)",
+    "loja": "iFood Tili Burguer",
+    "merchant": "34e58883-b578-4dde-812f-95ca1a14d373",
+    "canal": "ifood",
+    "delivery": true,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   }
+  ],
+  "contagem": {
+   "cancelados": 1,
+   "abertos": 0,
+   "ja_emitidos": 0,
+   "outra_loja": 0,
+   "outro_dia": 0
+  }
+ },
+ "emissoes": [
+  {
+   "executada_em": "2026-11-28T02:16:15-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 393076,
+     "codigo": "M-1",
+     "hora": "17:08",
+     "valor": 25.0,
+     "pagamento": "Pix: 25.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393077,
+     "codigo": "iF-1430",
+     "hora": "17:09",
+     "valor": 20.98,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393078,
+     "codigo": "M-2",
+     "hora": "17:10",
+     "valor": 50.0,
+     "pagamento": "Pix: 25.00 | Cartão Débito: 25.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393091,
+     "codigo": "iF-3928",
+     "hora": "17:28",
+     "valor": 30.52,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393094,
+     "codigo": "M-3",
+     "hora": "17:31",
+     "valor": 25.0,
+     "pagamento": "Cartão Crédito: 25.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393108,
+     "codigo": "APP-6",
+     "hora": "17:43",
+     "valor": 50.9,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393118,
+     "codigo": "iF-7708",
+     "hora": "17:49",
+     "valor": 32.64,
+     "pagamento": "iFood Online (Mastercard_Maestro)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393179,
+     "codigo": "M-8",
+     "hora": "18:11",
+     "valor": 25.0,
+     "pagamento": "Cartão Débito: 25.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393200,
+     "codigo": "APP-9",
+     "hora": "18:15",
+     "valor": 155.89,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393274,
+     "codigo": "APP-10",
+     "hora": "18:29",
+     "valor": 85.4,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393288,
+     "codigo": "IA-12",
+     "hora": "18:30",
+     "valor": 65.9,
+     "pagamento": "Cartão Débito: 65.90",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393318,
+     "codigo": "APP-13",
+     "hora": "18:33",
+     "valor": 155.89,
+     "pagamento": "Cartão Débito: 155.89",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393338,
+     "codigo": "M-14",
+     "hora": "18:35",
+     "valor": 25.0,
+     "pagamento": "Cartão Crédito: 25.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393347,
+     "codigo": "M-15",
+     "hora": "18:36",
+     "valor": 25.0,
+     "pagamento": "Cartão Débito: 25.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393387,
+     "codigo": "APP-16",
+     "hora": "18:40",
+     "valor": 56.9,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393415,
+     "codigo": "iF-8727",
+     "hora": "18:43",
+     "valor": 58.18,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393424,
+     "codigo": "APP-17",
+     "hora": "18:44",
+     "valor": 25.0,
+     "pagamento": "Cartão Crédito: 25.00",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393457,
+     "codigo": "M-18",
+     "hora": "18:47",
+     "valor": 88.0,
+     "pagamento": "Cartão Débito: 88.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393466,
+     "codigo": "iF-4977",
+     "hora": "18:47",
+     "valor": 22.94,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393471,
+     "codigo": "iF-6076",
+     "hora": "18:48",
+     "valor": 101.37,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393484,
+     "codigo": "M-19",
+     "hora": "18:49",
+     "valor": 25.0,
+     "pagamento": "Cartão Débito: 25.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393501,
+     "codigo": "APP-20",
+     "hora": "18:51",
+     "valor": 107.4,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393526,
+     "codigo": "M-21",
+     "hora": "18:54",
+     "valor": 92.5,
+     "pagamento": "Pix: 92.50",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393532,
+     "codigo": "M-22",
+     "hora": "18:55",
+     "valor": 25.0,
+     "pagamento": "Cartão Crédito: 25.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393542,
+     "codigo": "IA-23",
+     "hora": "18:56",
+     "valor": 157.9,
+     "pagamento": "Pix: 157.90",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393547,
+     "codigo": "iF-8785",
+     "hora": "18:57",
+     "valor": 178.21,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393558,
+     "codigo": "APP-24",
+     "hora": "18:58",
+     "valor": 50.0,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393680,
+     "codigo": "iF-2731",
+     "hora": "19:07",
+     "valor": 83.35,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393692,
+     "codigo": "APP-26",
+     "hora": "19:08",
+     "valor": 110.9,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393710,
+     "codigo": "APP-27",
+     "hora": "19:10",
+     "valor": 81.9,
+     "pagamento": "Cartão Débito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393732,
+     "codigo": "APP-28",
+     "hora": "19:12",
+     "valor": 109.4,
+     "pagamento": "Cartão Débito: 109.40",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393820,
+     "codigo": "APP-30",
+     "hora": "19:18",
+     "valor": 73.0,
+     "pagamento": "Cartão Débito: 73.00",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393831,
+     "codigo": "APP-31",
+     "hora": "19:19",
+     "valor": 81.9,
+     "pagamento": "Pix",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393841,
+     "codigo": "iF-4526",
+     "hora": "19:20",
+     "valor": 154.19,
+     "pagamento": "Cartão Débito: 154.19",
+     "loja": "iFood Tili Pizzaria",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393863,
+     "codigo": "APP-34",
+     "hora": "19:21",
+     "valor": 84.9,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393873,
+     "codigo": "APP-35",
+     "hora": "19:22",
+     "valor": 111.8,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393892,
+     "codigo": "IA-36",
+     "hora": "19:23",
+     "valor": 81.9,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393947,
+     "codigo": "APP-37",
+     "hora": "19:27",
+     "valor": 66.7,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 393995,
+     "codigo": "iF-8934",
+     "hora": "19:30",
+     "valor": 8.89,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394060,
+     "codigo": "iF-0443",
+     "hora": "19:33",
+     "valor": 30.99,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394088,
+     "codigo": "APP-39",
+     "hora": "19:34",
+     "valor": 104.4,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394107,
+     "codigo": "IA-40",
+     "hora": "19:36",
+     "valor": 90.9,
+     "pagamento": "Cartão Débito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394137,
+     "codigo": "iF-7042",
+     "hora": "19:38",
+     "valor": 25.69,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394153,
+     "codigo": "IA-41",
+     "hora": "19:39",
+     "valor": 289.9,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394192,
+     "codigo": "iF-5753",
+     "hora": "19:41",
+     "valor": 123.0,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394238,
+     "codigo": "M-42",
+     "hora": "19:44",
+     "valor": 81.0,
+     "pagamento": "Cartão Crédito: 81.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394269,
+     "codigo": "APP-43",
+     "hora": "19:46",
+     "valor": 108.38,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394271,
+     "codigo": "iF-4664",
+     "hora": "19:46",
+     "valor": 448.11,
+     "pagamento": "Cartão Crédito: 448.11",
+     "loja": "iFood Tili Pizzaria",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394324,
+     "codigo": "iF-7164",
+     "hora": "19:49",
+     "valor": 62.85,
+     "pagamento": "Alelo Refeição: 62.85",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394340,
+     "codigo": "IA-45",
+     "hora": "19:49",
+     "valor": 171.89,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394474,
+     "codigo": "APP-47",
+     "hora": "19:57",
+     "valor": 81.9,
+     "pagamento": "Cartão Débito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394494,
+     "codigo": "iF-2394",
+     "hora": "19:58",
+     "valor": 64.32,
+     "pagamento": "Alelo Refeição: 64.32",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394563,
+     "codigo": "APP-48",
+     "hora": "20:01",
+     "valor": 41.9,
+     "pagamento": "Cartão Crédito: 41.90",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394576,
+     "codigo": "APP-49",
+     "hora": "20:02",
+     "valor": 155.89,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394613,
+     "codigo": "IA-50",
+     "hora": "20:04",
+     "valor": 100.8,
+     "pagamento": "Cartão Crédito: 100.80",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394620,
+     "codigo": "M-51",
+     "hora": "20:04",
+     "valor": 16.0,
+     "pagamento": "Cartão Crédito: 16.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394628,
+     "codigo": "iF-0486",
+     "hora": "20:05",
+     "valor": 140.27,
+     "pagamento": "Pix: 140.27",
+     "loja": "iFood Tili Pizzaria",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394634,
+     "codigo": "APP-52",
+     "hora": "20:05",
+     "valor": 91.0,
+     "pagamento": "Cartão Débito: 91.00",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394675,
+     "codigo": "iF-8783",
+     "hora": "20:07",
+     "valor": 58.43,
+     "pagamento": "Cartão Crédito: 58.43",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394706,
+     "codigo": "M-53",
+     "hora": "20:09",
+     "valor": 27.0,
+     "pagamento": "Cartão Crédito: 27.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394719,
+     "codigo": "iF-2287",
+     "hora": "20:09",
+     "valor": 33.93,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394787,
+     "codigo": "APP-54",
+     "hora": "20:13",
+     "valor": 36.8,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394801,
+     "codigo": "APP-55",
+     "hora": "20:14",
+     "valor": 93.88,
+     "pagamento": "Cartão Débito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394874,
+     "codigo": "APP-56",
+     "hora": "20:18",
+     "valor": 54.8,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394936,
+     "codigo": "APP-57",
+     "hora": "20:21",
+     "valor": 62.9,
+     "pagamento": "Cartão Débito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394948,
+     "codigo": "iF-4753",
+     "hora": "20:22",
+     "valor": 26.34,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 394963,
+     "codigo": "iF-2720",
+     "hora": "20:23",
+     "valor": 95.42,
+     "pagamento": "Cartão Débito: 95.42",
+     "loja": "iFood Tili Pizzaria",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395027,
+     "codigo": "APP-58",
+     "hora": "20:26",
+     "valor": 92.4,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395030,
+     "codigo": "M-59",
+     "hora": "20:26",
+     "valor": 75.0,
+     "pagamento": "Cartão Crédito: 75.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395079,
+     "codigo": "IA-60",
+     "hora": "20:29",
+     "valor": 125.0,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395115,
+     "codigo": "iF-4616",
+     "hora": "20:30",
+     "valor": 25.69,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395137,
+     "codigo": "M-61",
+     "hora": "20:31",
+     "valor": 35.0,
+     "pagamento": "Cartão Débito: 35.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395198,
+     "codigo": "APP-62",
+     "hora": "20:35",
+     "valor": 126.9,
+     "pagamento": "Cartão Débito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395201,
+     "codigo": "M-63",
+     "hora": "20:35",
+     "valor": 73.5,
+     "pagamento": "Cartão Débito: 73.50",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395223,
+     "codigo": "M-64",
+     "hora": "20:36",
+     "valor": 14.0,
+     "pagamento": "Cartão Débito: 7.00 | Cartão Débito: 7.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395288,
+     "codigo": "iF-6331",
+     "hora": "20:40",
+     "valor": 25.69,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395349,
+     "codigo": "M-66",
+     "hora": "20:44",
+     "valor": 4.5,
+     "pagamento": "Cartão Débito: 4.50",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395356,
+     "codigo": "APP-67",
+     "hora": "20:44",
+     "valor": 92.5,
+     "pagamento": "Cartão Débito: 92.50",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395388,
+     "codigo": "iF-6512",
+     "hora": "20:46",
+     "valor": 14.98,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395394,
+     "codigo": "M-68",
+     "hora": "20:47",
+     "valor": 12.0,
+     "pagamento": "Cartão Débito: 12.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395404,
+     "codigo": "iF-0884",
+     "hora": "20:47",
+     "valor": 42.95,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395421,
+     "codigo": "IA-70",
+     "hora": "20:48",
+     "valor": 68.4,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395435,
+     "codigo": "iF-9361",
+     "hora": "20:49",
+     "valor": 77.06,
+     "pagamento": "Alelo Refeição: 77.06",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395452,
+     "codigo": "IA-71",
+     "hora": "20:50",
+     "valor": 62.9,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395463,
+     "codigo": "iF-2861",
+     "hora": "20:50",
+     "valor": 29.94,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395474,
+     "codigo": "M-72",
+     "hora": "20:51",
+     "valor": 4.0,
+     "pagamento": "Cartão Débito: 4.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395478,
+     "codigo": "APP-73",
+     "hora": "20:51",
+     "valor": 155.89,
+     "pagamento": "Cartão Débito: 155.89",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395491,
+     "codigo": "APP-75",
+     "hora": "20:52",
+     "valor": 155.89,
+     "pagamento": "Pix: 155.89",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395513,
+     "codigo": "iF-9338",
+     "hora": "20:53",
+     "valor": 30.94,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395532,
+     "codigo": "iF-9366",
+     "hora": "20:54",
+     "valor": 21.98,
+     "pagamento": "iFood Online (Nubank)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395536,
+     "codigo": "iF-2949",
+     "hora": "20:54",
+     "valor": 21.98,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395570,
+     "codigo": "iF-5703",
+     "hora": "20:56",
+     "valor": 48.51,
+     "pagamento": "iFood Online (Ticket)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395592,
+     "codigo": "M-78",
+     "hora": "20:57",
+     "valor": 12.0,
+     "pagamento": "Cartão Débito: 12.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395612,
+     "codigo": "M-79",
+     "hora": "20:58",
+     "valor": 74.5,
+     "pagamento": "Pix: 74.50",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395618,
+     "codigo": "M-81",
+     "hora": "20:59",
+     "valor": 114.0,
+     "pagamento": "Pix: 98.00 | Pix: 16.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395637,
+     "codigo": "iF-6953",
+     "hora": "21:00",
+     "valor": 108.98,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395645,
+     "codigo": "APP-82",
+     "hora": "21:00",
+     "valor": 157.9,
+     "pagamento": "Pix Online (PAGO): 131.00 | Cartão Crédito: 26.90",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395655,
+     "codigo": "iF-0518",
+     "hora": "21:01",
+     "valor": 47.14,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395668,
+     "codigo": "M-83",
+     "hora": "21:01",
+     "valor": 117.0,
+     "pagamento": "Cartão Débito: 117.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395690,
+     "codigo": "APP-84",
+     "hora": "21:02",
+     "valor": 96.3,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395740,
+     "codigo": "IA-85",
+     "hora": "21:05",
+     "valor": 140.9,
+     "pagamento": "Cartão Débito: 140.90",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395751,
+     "codigo": "M-86",
+     "hora": "21:06",
+     "valor": 150.0,
+     "pagamento": "Cartão Débito: 75.00 | Pix: 75.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395764,
+     "codigo": "APP-87",
+     "hora": "21:07",
+     "valor": 126.5,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395784,
+     "codigo": "APP-88",
+     "hora": "21:08",
+     "valor": 129.9,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395822,
+     "codigo": "iF-8388",
+     "hora": "21:11",
+     "valor": 46.99,
+     "pagamento": "iFood Online (Alelo)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395826,
+     "codigo": "iF-7111",
+     "hora": "21:11",
+     "valor": 21.98,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395866,
+     "codigo": "APP-89",
+     "hora": "21:13",
+     "valor": 175.8,
+     "pagamento": "Alelo Refeição",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395899,
+     "codigo": "APP-91",
+     "hora": "21:16",
+     "valor": 91.4,
+     "pagamento": "Ticket: 91.40",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395904,
+     "codigo": "iF-2388",
+     "hora": "21:16",
+     "valor": 180.21,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395927,
+     "codigo": "M-92",
+     "hora": "21:18",
+     "valor": 81.9,
+     "pagamento": "Pix: 81.90",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 395981,
+     "codigo": "APP-93",
+     "hora": "21:21",
+     "valor": 76.9,
+     "pagamento": "Cartão Débito: 76.90",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396094,
+     "codigo": "iF-2754",
+     "hora": "21:28",
+     "valor": 90.53,
+     "pagamento": "iFood Online (Mastercard_Maestro)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396097,
+     "codigo": "iF-9617",
+     "hora": "21:28",
+     "valor": 49.9,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396122,
+     "codigo": "IA-95",
+     "hora": "21:30",
+     "valor": 79.9,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396131,
+     "codigo": "iF-4420",
+     "hora": "21:30",
+     "valor": 64.05,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396158,
+     "codigo": "APP-96",
+     "hora": "21:32",
+     "valor": 172.39,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396174,
+     "codigo": "APP-97",
+     "hora": "21:33",
+     "valor": 152.0,
+     "pagamento": "Pix",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396175,
+     "codigo": "APP-98",
+     "hora": "21:33",
+     "valor": 85.4,
+     "pagamento": "Cartão Crédito: 85.40",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396197,
+     "codigo": "APP-100",
+     "hora": "21:35",
+     "valor": 10.9,
+     "pagamento": "Pix",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396200,
+     "codigo": "M-101",
+     "hora": "21:35",
+     "valor": 20.0,
+     "pagamento": "Cartão Débito: 20.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396201,
+     "codigo": "IA-102",
+     "hora": "21:35",
+     "valor": 69.4,
+     "pagamento": "Cartão Débito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396268,
+     "codigo": "APP-103",
+     "hora": "21:40",
+     "valor": 47.0,
+     "pagamento": "Cartão Débito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396286,
+     "codigo": "iF-4172",
+     "hora": "21:41",
+     "valor": 1.89,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396307,
+     "codigo": "M-104",
+     "hora": "21:42",
+     "valor": 75.0,
+     "pagamento": "Cartão Crédito: 75.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396361,
+     "codigo": "M-105",
+     "hora": "21:46",
+     "valor": 35.0,
+     "pagamento": "Cartão Crédito: 35.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396393,
+     "codigo": "APP-106",
+     "hora": "21:49",
+     "valor": 70.9,
+     "pagamento": "Pix",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396506,
+     "codigo": "IA-107",
+     "hora": "22:00",
+     "valor": 31.9,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396546,
+     "codigo": "iF-7742",
+     "hora": "22:03",
+     "valor": 26.34,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396553,
+     "codigo": "APP-108",
+     "hora": "22:03",
+     "valor": 79.8,
+     "pagamento": "Cartão Débito: 79.80",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396596,
+     "codigo": "APP-109",
+     "hora": "22:06",
+     "valor": 81.9,
+     "pagamento": "Pix",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396640,
+     "codigo": "iF-7122",
+     "hora": "22:10",
+     "valor": 72.59,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396693,
+     "codigo": "iF-8963",
+     "hora": "22:15",
+     "valor": 37.13,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396723,
+     "codigo": "iF-4645",
+     "hora": "22:18",
+     "valor": 35.63,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396725,
+     "codigo": "M-112",
+     "hora": "22:18",
+     "valor": 66.5,
+     "pagamento": "Pix: 66.50",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396757,
+     "codigo": "APP-113",
+     "hora": "22:21",
+     "valor": 50.9,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396797,
+     "codigo": "M-114",
+     "hora": "22:25",
+     "valor": 133.0,
+     "pagamento": "Cartão Débito: 133.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396852,
+     "codigo": "M-117",
+     "hora": "22:31",
+     "valor": 91.0,
+     "pagamento": "Cartão Crédito: 91.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396855,
+     "codigo": "APP-118",
+     "hora": "22:31",
+     "valor": 83.4,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396857,
+     "codigo": "IA-119",
+     "hora": "22:31",
+     "valor": 62.9,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396885,
+     "codigo": "APP-120",
+     "hora": "22:33",
+     "valor": 44.89,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396938,
+     "codigo": "iF-8551",
+     "hora": "22:39",
+     "valor": 38.98,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396977,
+     "codigo": "M-121",
+     "hora": "22:42",
+     "valor": 14.0,
+     "pagamento": "Cartão Crédito: 14.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 396998,
+     "codigo": "iF-8740",
+     "hora": "22:44",
+     "valor": 66.3,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397010,
+     "codigo": "M-122",
+     "hora": "22:46",
+     "valor": 14.4,
+     "pagamento": "Cartão Crédito: 14.40",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397013,
+     "codigo": "APP-123",
+     "hora": "22:46",
+     "valor": 81.9,
+     "pagamento": "Cartão Débito: 81.90",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397015,
+     "codigo": "iF-0041",
+     "hora": "22:47",
+     "valor": 35.93,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397019,
+     "codigo": "M-124",
+     "hora": "22:47",
+     "valor": 3.5,
+     "pagamento": "Cartão Débito: 3.50",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397033,
+     "codigo": "APP-125",
+     "hora": "22:50",
+     "valor": 84.0,
+     "pagamento": "Cartão Crédito: 84.00",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397049,
+     "codigo": "iF-6177",
+     "hora": "22:52",
+     "valor": 34.34,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397063,
+     "codigo": "iF-5274",
+     "hora": "22:53",
+     "valor": 71.43,
+     "pagamento": "iFood Online (Visa)",
+     "loja": "iFood Tili Pizzaria 2.0",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397064,
+     "codigo": "APP-126",
+     "hora": "22:53",
+     "valor": 97.5,
+     "pagamento": "Cartão Débito: 97.50",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397067,
+     "codigo": "iF-4247",
+     "hora": "22:53",
+     "valor": 26.34,
+     "pagamento": "iFood Online (Pix)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397139,
+     "codigo": "IA-127",
+     "hora": "23:03",
+     "valor": 81.9,
+     "pagamento": "Pix: 81.90",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397211,
+     "codigo": "IA-131",
+     "hora": "23:18",
+     "valor": 50.0,
+     "pagamento": "Pix: 50.00",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397213,
+     "codigo": "APP-132",
+     "hora": "23:18",
+     "valor": 31.9,
+     "pagamento": "Pix",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397214,
+     "codigo": "M-133",
+     "hora": "23:19",
+     "valor": 99.5,
+     "pagamento": "Pix: 99.50",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397227,
+     "codigo": "APP-134",
+     "hora": "23:21",
+     "valor": 81.9,
+     "pagamento": "Cartão Crédito",
+     "loja": "Loja (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397267,
+     "codigo": "M-135",
+     "hora": "23:32",
+     "valor": 60.0,
+     "pagamento": "Pix: 60.00",
+     "loja": "Loja (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    },
+    {
+     "id": 397303,
+     "codigo": "iF-9842",
+     "hora": "23:44",
+     "valor": 35.99,
+     "pagamento": "iFood Online (Mastercard)",
+     "loja": "iFood Tili Burguer",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ único (Pizzaria)",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ único (Pizzaria)"
+    }
+   ],
+   "avisos": []
+  }
+ ]
+}

@@ -1,0 +1,7650 @@
+{
+ "data": "2026-11-27",
+ "loja": 155,
+ "automatica": true,
+ "lista": {
+  "gerada_em": "2026-11-28T02:16:49-03:00",
+  "pedidos": [
+   {
+    "id": 393225,
+    "codigo": "M-1",
+    "hora": "18:20",
+    "valor": 39.8,
+    "pagamento": "Cartão Crédito: 39.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393238,
+    "codigo": "M-2",
+    "hora": "18:22",
+    "valor": 19.9,
+    "pagamento": "Cartão Débito: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393260,
+    "codigo": "M-3",
+    "hora": "18:26",
+    "valor": 59.7,
+    "pagamento": "Cartão Crédito: 59.70",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393264,
+    "codigo": "M-4",
+    "hora": "18:27",
+    "valor": 27.86,
+    "pagamento": "Cartão Crédito: 27.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393272,
+    "codigo": "M-5",
+    "hora": "18:28",
+    "valor": 9.95,
+    "pagamento": "Cartão Débito: 9.95",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393275,
+    "codigo": "M-6",
+    "hora": "18:29",
+    "valor": 75.71,
+    "pagamento": "Cartão Crédito: 75.71",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393281,
+    "codigo": "M-7",
+    "hora": "18:29",
+    "valor": 28.86,
+    "pagamento": "Pix: 28.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393285,
+    "codigo": "M-8",
+    "hora": "18:30",
+    "valor": 19.9,
+    "pagamento": "Cartão Crédito: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393305,
+    "codigo": "M-9",
+    "hora": "18:31",
+    "valor": 67.25,
+    "pagamento": "Pluxee Refeição / Alimentação: 67.25",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393316,
+    "codigo": "M-10",
+    "hora": "18:32",
+    "valor": 65.68,
+    "pagamento": "Cartão Débito: 65.68",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393317,
+    "codigo": "M-11",
+    "hora": "18:33",
+    "valor": 25.42,
+    "pagamento": "Ticket: 25.42",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393337,
+    "codigo": "M-12",
+    "hora": "18:34",
+    "valor": 82.75,
+    "pagamento": "Cartão Débito: 82.75",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393340,
+    "codigo": "M-13",
+    "hora": "18:35",
+    "valor": 95.67,
+    "pagamento": "Cartão Débito: 95.67",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393353,
+    "codigo": "M-14",
+    "hora": "18:36",
+    "valor": 49.3,
+    "pagamento": "Cartão Débito: 49.30",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393371,
+    "codigo": "M-15",
+    "hora": "18:38",
+    "valor": 39.37,
+    "pagamento": "Cartão Débito: 39.37",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393381,
+    "codigo": "M-16",
+    "hora": "18:39",
+    "valor": 37.84,
+    "pagamento": "Cartão Débito: 37.84",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393383,
+    "codigo": "M-17",
+    "hora": "18:40",
+    "valor": 7.0,
+    "pagamento": "Cartão Débito: 7.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393397,
+    "codigo": "M-18",
+    "hora": "18:42",
+    "valor": 64.29,
+    "pagamento": "Cartão Crédito: 64.29",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393398,
+    "codigo": "M-19",
+    "hora": "18:42",
+    "valor": 79.19,
+    "pagamento": "Pix: 79.19",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393403,
+    "codigo": "M-20",
+    "hora": "18:42",
+    "valor": 41.3,
+    "pagamento": "Cartão Crédito: 41.30",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393407,
+    "codigo": "M-21",
+    "hora": "18:43",
+    "valor": 35.82,
+    "pagamento": "Cartão Débito: 35.82",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393419,
+    "codigo": "M-22",
+    "hora": "18:44",
+    "valor": 42.35,
+    "pagamento": "Cartão Débito: 42.35",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393423,
+    "codigo": "M-23",
+    "hora": "18:44",
+    "valor": 71.77,
+    "pagamento": "Pix: 71.77",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393427,
+    "codigo": "M-24",
+    "hora": "18:44",
+    "valor": 9.95,
+    "pagamento": "Cartão Débito: 9.95",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393437,
+    "codigo": "M-25",
+    "hora": "18:45",
+    "valor": 9.95,
+    "pagamento": "Cartão Débito: 9.95",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393456,
+    "codigo": "M-26",
+    "hora": "18:47",
+    "valor": 86.72,
+    "pagamento": "Cartão Crédito: 86.72",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393473,
+    "codigo": "M-27",
+    "hora": "18:48",
+    "valor": 38.81,
+    "pagamento": "Pix: 38.81",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393478,
+    "codigo": "M-28",
+    "hora": "18:48",
+    "valor": 33.83,
+    "pagamento": "Cartão Débito: 33.83",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393515,
+    "codigo": "M-29",
+    "hora": "18:52",
+    "valor": 88.64,
+    "pagamento": "Alelo Refeição: 88.64",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393516,
+    "codigo": "M-30",
+    "hora": "18:53",
+    "valor": 15.92,
+    "pagamento": "Cartão Débito: 15.92",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393538,
+    "codigo": "M-31",
+    "hora": "18:56",
+    "valor": 6.0,
+    "pagamento": "Cartão Débito: 6.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393548,
+    "codigo": "M-32",
+    "hora": "18:57",
+    "valor": 136.47,
+    "pagamento": "Pix: 136.47",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393550,
+    "codigo": "M-33",
+    "hora": "18:57",
+    "valor": 4.0,
+    "pagamento": "Cartão Débito: 4.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393559,
+    "codigo": "M-34",
+    "hora": "18:58",
+    "valor": 15.93,
+    "pagamento": "Pix: 15.93",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393566,
+    "codigo": "M-35",
+    "hora": "18:59",
+    "valor": 13.94,
+    "pagamento": "Cartão Crédito: 13.94",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393570,
+    "codigo": "M-36",
+    "hora": "18:59",
+    "valor": 135.98,
+    "pagamento": "Pix: 135.98",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393610,
+    "codigo": "M-37",
+    "hora": "19:02",
+    "valor": 83.76,
+    "pagamento": "Pix: 83.76",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393627,
+    "codigo": "M-38",
+    "hora": "19:03",
+    "valor": 15.92,
+    "pagamento": "Cartão Débito: 15.92",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393652,
+    "codigo": "M-39",
+    "hora": "19:04",
+    "valor": 72.65,
+    "pagamento": "Cartão Crédito: 72.65",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393668,
+    "codigo": "M-40",
+    "hora": "19:06",
+    "valor": 143.33,
+    "pagamento": "Cartão Crédito: 143.33",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393669,
+    "codigo": "M-41",
+    "hora": "19:06",
+    "valor": 41.88,
+    "pagamento": "Cartão Débito: 41.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393739,
+    "codigo": "M-42",
+    "hora": "19:13",
+    "valor": 63.3,
+    "pagamento": "Cartão Crédito: 63.30",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393751,
+    "codigo": "M-43",
+    "hora": "19:14",
+    "valor": 36.91,
+    "pagamento": "Pix: 36.91",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393753,
+    "codigo": "M-44",
+    "hora": "19:14",
+    "valor": 7.0,
+    "pagamento": "Cartão Crédito: 7.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393763,
+    "codigo": "M-45",
+    "hora": "19:14",
+    "valor": 84.64,
+    "pagamento": "Cartão Crédito: 84.64",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393775,
+    "codigo": "M-46",
+    "hora": "19:16",
+    "valor": 88.73,
+    "pagamento": "Pix: 88.73",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393788,
+    "codigo": "M-47",
+    "hora": "19:16",
+    "valor": 15.92,
+    "pagamento": "Pix: 15.92",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393794,
+    "codigo": "M-48",
+    "hora": "19:17",
+    "valor": 21.9,
+    "pagamento": "Pix: 21.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393809,
+    "codigo": "M-49",
+    "hora": "19:18",
+    "valor": 24.88,
+    "pagamento": "Cartão Débito: 24.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393857,
+    "codigo": "M-50",
+    "hora": "19:21",
+    "valor": 27.94,
+    "pagamento": "Cartão Débito: 27.94",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393860,
+    "codigo": "M-51",
+    "hora": "19:21",
+    "valor": 36.83,
+    "pagamento": "Cartão Débito: 36.83",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393875,
+    "codigo": "IA-52",
+    "hora": "19:22",
+    "valor": 44.8,
+    "pagamento": "Cartão Débito",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393920,
+    "codigo": "M-53",
+    "hora": "19:25",
+    "valor": 62.76,
+    "pagamento": "Pix: 62.76",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393926,
+    "codigo": "M-54",
+    "hora": "19:25",
+    "valor": 108.02,
+    "pagamento": "Pix: 108.02",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393942,
+    "codigo": "M-55",
+    "hora": "19:27",
+    "valor": 36.86,
+    "pagamento": "Pix: 36.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393948,
+    "codigo": "IA-56",
+    "hora": "19:27",
+    "valor": 39.8,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393961,
+    "codigo": "M-57",
+    "hora": "19:28",
+    "valor": 121.02,
+    "pagamento": "Pix: 121.02",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393969,
+    "codigo": "M-58",
+    "hora": "19:28",
+    "valor": 49.78,
+    "pagamento": "Cartão Débito: 49.78",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 393992,
+    "codigo": "M-59",
+    "hora": "19:30",
+    "valor": 139.41,
+    "pagamento": "Cartão Débito: 139.41",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394006,
+    "codigo": "M-60",
+    "hora": "19:30",
+    "valor": 25.87,
+    "pagamento": "Pix: 25.87",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394033,
+    "codigo": "M-61",
+    "hora": "19:32",
+    "valor": 173.18,
+    "pagamento": "Cartão Débito: 150.00 | Pix: 23.18",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394052,
+    "codigo": "M-62",
+    "hora": "19:33",
+    "valor": 138.44,
+    "pagamento": "Cartão Débito: 138.44",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394063,
+    "codigo": "M-63",
+    "hora": "19:33",
+    "valor": 39.8,
+    "pagamento": "Cartão Crédito: 39.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394066,
+    "codigo": "M-64",
+    "hora": "19:33",
+    "valor": 45.83,
+    "pagamento": "Cartão Crédito: 45.83",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394074,
+    "codigo": "M-65",
+    "hora": "19:34",
+    "valor": 45.33,
+    "pagamento": "Pix: 45.33",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394075,
+    "codigo": "M-66",
+    "hora": "19:34",
+    "valor": 18.92,
+    "pagamento": "Cartão Crédito: 18.92",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394078,
+    "codigo": "M-67",
+    "hora": "19:34",
+    "valor": 49.75,
+    "pagamento": "Cartão Débito: 49.75",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394091,
+    "codigo": "M-68",
+    "hora": "19:35",
+    "valor": 49.28,
+    "pagamento": "Pix: 49.28",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394099,
+    "codigo": "M-69",
+    "hora": "19:35",
+    "valor": 19.9,
+    "pagamento": "Cartão Débito: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394110,
+    "codigo": "M-70",
+    "hora": "19:36",
+    "valor": 45.78,
+    "pagamento": "Cartão Débito: 45.78",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394111,
+    "codigo": "M-71",
+    "hora": "19:36",
+    "valor": 32.91,
+    "pagamento": "Cartão Crédito: 32.91",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394129,
+    "codigo": "M-72",
+    "hora": "19:37",
+    "valor": 63.25,
+    "pagamento": "Cartão Débito: 63.25",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394138,
+    "codigo": "M-73",
+    "hora": "19:38",
+    "valor": 88.65,
+    "pagamento": "Cartão Débito: 88.65",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394139,
+    "codigo": "M-74",
+    "hora": "19:38",
+    "valor": 9.95,
+    "pagamento": "Cartão Débito: 9.95",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394140,
+    "codigo": "M-75",
+    "hora": "19:38",
+    "valor": 154.02,
+    "pagamento": "Pix: 154.02",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394158,
+    "codigo": "M-76",
+    "hora": "19:39",
+    "valor": 127.36,
+    "pagamento": "Cartão Crédito: 127.36",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394168,
+    "codigo": "M-77",
+    "hora": "19:40",
+    "valor": 11.94,
+    "pagamento": "Pix: 11.94",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394170,
+    "codigo": "M-78",
+    "hora": "19:40",
+    "valor": 13.93,
+    "pagamento": "Dinheiro: 10.00 | Cartão Débito: 3.93",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 394171,
+    "codigo": "M-79",
+    "hora": "19:40",
+    "valor": 73.22,
+    "pagamento": "Cartão Crédito: 73.22",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394173,
+    "codigo": "APP-80",
+    "hora": "19:40",
+    "valor": 159.9,
+    "pagamento": "Cartão Crédito: 159.90",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394181,
+    "codigo": "M-81",
+    "hora": "19:41",
+    "valor": 39.8,
+    "pagamento": "Cartão Débito: 39.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394205,
+    "codigo": "M-82",
+    "hora": "19:42",
+    "valor": 27.9,
+    "pagamento": "Cartão Débito: 27.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394219,
+    "codigo": "M-83",
+    "hora": "19:43",
+    "valor": 49.75,
+    "pagamento": "Dinheiro (Troco -> R$ 0.25): 49.75",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394231,
+    "codigo": "M-84",
+    "hora": "19:44",
+    "valor": 39.8,
+    "pagamento": "Cartão Crédito: 39.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394253,
+    "codigo": "M-85",
+    "hora": "19:45",
+    "valor": 33.35,
+    "pagamento": "Pix: 33.35",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394255,
+    "codigo": "M-86",
+    "hora": "19:45",
+    "valor": 12.94,
+    "pagamento": "Pix: 12.94",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394265,
+    "codigo": "M-87",
+    "hora": "19:46",
+    "valor": 162.39,
+    "pagamento": "Dinheiro (Troco -> R$ 37.61): 162.39",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394305,
+    "codigo": "M-88",
+    "hora": "19:47",
+    "valor": 59.73,
+    "pagamento": "Pix: 59.73",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394317,
+    "codigo": "M-89",
+    "hora": "19:48",
+    "valor": 41.39,
+    "pagamento": "Cartão Crédito: 41.39",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394325,
+    "codigo": "M-90",
+    "hora": "19:49",
+    "valor": 29.88,
+    "pagamento": "Cartão Crédito: 29.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394332,
+    "codigo": "M-91",
+    "hora": "19:49",
+    "valor": 47.31,
+    "pagamento": "Cartão Débito: 47.31",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394339,
+    "codigo": "M-92",
+    "hora": "19:49",
+    "valor": 7.97,
+    "pagamento": "Cartão Crédito: 7.97",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394358,
+    "codigo": "M-93",
+    "hora": "19:50",
+    "valor": 46.29,
+    "pagamento": "Pix: 46.29",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394385,
+    "codigo": "M-94",
+    "hora": "19:52",
+    "valor": 90.67,
+    "pagamento": "Pix: 90.67",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394405,
+    "codigo": "M-95",
+    "hora": "19:53",
+    "valor": 57.8,
+    "pagamento": "Pix: 57.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394419,
+    "codigo": "M-96",
+    "hora": "19:54",
+    "valor": 65.7,
+    "pagamento": "Pix: 65.70",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394435,
+    "codigo": "M-97",
+    "hora": "19:55",
+    "valor": 57.77,
+    "pagamento": "Pix: 57.77",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394442,
+    "codigo": "M-98",
+    "hora": "19:55",
+    "valor": 47.3,
+    "pagamento": "Cartão Crédito: 47.30",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394455,
+    "codigo": "M-99",
+    "hora": "19:56",
+    "valor": 104.48,
+    "pagamento": "Pix: 104.48",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394464,
+    "codigo": "M-100",
+    "hora": "19:56",
+    "valor": 49.78,
+    "pagamento": "Cartão Crédito: 49.78",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394497,
+    "codigo": "M-101",
+    "hora": "19:58",
+    "valor": 38.36,
+    "pagamento": "Cartão Crédito: 38.36",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394500,
+    "codigo": "M-102",
+    "hora": "19:58",
+    "valor": 47.79,
+    "pagamento": "Dinheiro (Troco -> R$ 5.21): 47.79",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394513,
+    "codigo": "M-103",
+    "hora": "19:59",
+    "valor": 19.9,
+    "pagamento": "Dinheiro (Troco -> R$ 0.10): 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394532,
+    "codigo": "M-104",
+    "hora": "20:00",
+    "valor": 118.17,
+    "pagamento": "Dinheiro: 100.00 | Cartão Débito: 18.17",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 394627,
+    "codigo": "M-105",
+    "hora": "20:05",
+    "valor": 42.8,
+    "pagamento": "Cartão Crédito: 42.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394630,
+    "codigo": "M-106",
+    "hora": "20:05",
+    "valor": 24.9,
+    "pagamento": "Cartão Débito: 24.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394670,
+    "codigo": "M-107",
+    "hora": "20:07",
+    "valor": 115.48,
+    "pagamento": "Cartão Crédito: 115.48",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394682,
+    "codigo": "M-108",
+    "hora": "20:07",
+    "valor": 82.64,
+    "pagamento": "Dinheiro (Troco -> R$ 17.36): 82.64",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394708,
+    "codigo": "M-109",
+    "hora": "20:09",
+    "valor": 35.9,
+    "pagamento": "Pix: 35.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394726,
+    "codigo": "M-110",
+    "hora": "20:10",
+    "valor": 111.14,
+    "pagamento": "Dinheiro (Troco -> R$ 0.86): 111.14",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394748,
+    "codigo": "M-111",
+    "hora": "20:11",
+    "valor": 35.34,
+    "pagamento": "Pix: 35.34",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394750,
+    "codigo": "M-112",
+    "hora": "20:11",
+    "valor": 58.29,
+    "pagamento": "Cartão Crédito: 58.29",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394772,
+    "codigo": "M-113",
+    "hora": "20:12",
+    "valor": 168.78,
+    "pagamento": "Cartão Crédito: 168.78",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394790,
+    "codigo": "M-114",
+    "hora": "20:13",
+    "valor": 61.3,
+    "pagamento": "Cartão Crédito: 61.30",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394807,
+    "codigo": "M-115",
+    "hora": "20:14",
+    "valor": 21.92,
+    "pagamento": "Pix: 21.92",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394820,
+    "codigo": "M-116",
+    "hora": "20:15",
+    "valor": 73.21,
+    "pagamento": "Cartão Crédito: 73.21",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394830,
+    "codigo": "M-117",
+    "hora": "20:15",
+    "valor": 17.94,
+    "pagamento": "Cartão Débito: 17.94",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394836,
+    "codigo": "M-118",
+    "hora": "20:15",
+    "valor": 75.63,
+    "pagamento": "Dinheiro: 30.00 | Pix: 45.63",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 394842,
+    "codigo": "M-119",
+    "hora": "20:16",
+    "valor": 24.89,
+    "pagamento": "Pix: 24.89",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394861,
+    "codigo": "M-120",
+    "hora": "20:17",
+    "valor": 35.85,
+    "pagamento": "Cartão Crédito: 35.85",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394863,
+    "codigo": "M-121",
+    "hora": "20:17",
+    "valor": 72.73,
+    "pagamento": "Cartão Débito: 72.73",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394868,
+    "codigo": "M-122",
+    "hora": "20:17",
+    "valor": 29.85,
+    "pagamento": "Cartão Débito: 29.85",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394893,
+    "codigo": "M-123",
+    "hora": "20:19",
+    "valor": 32.84,
+    "pagamento": "Cartão Crédito: 32.84",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394896,
+    "codigo": "M-124",
+    "hora": "20:19",
+    "valor": 103.11,
+    "pagamento": "Dinheiro: 70.00 | Cartão Débito: 33.11",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 394919,
+    "codigo": "M-125",
+    "hora": "20:20",
+    "valor": 12.0,
+    "pagamento": "Dinheiro (Troco -> R$ 8.00): 12.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 394927,
+    "codigo": "M-126",
+    "hora": "20:20",
+    "valor": 70.26,
+    "pagamento": "Cartão Crédito: 70.26",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394929,
+    "codigo": "M-127",
+    "hora": "20:21",
+    "valor": 25.88,
+    "pagamento": "Pix: 25.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394933,
+    "codigo": "M-128",
+    "hora": "20:21",
+    "valor": 44.81,
+    "pagamento": "Cartão Crédito: 44.81",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394942,
+    "codigo": "M-129",
+    "hora": "20:21",
+    "valor": 68.3,
+    "pagamento": "Pix: 68.30",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394949,
+    "codigo": "M-130",
+    "hora": "20:22",
+    "valor": 72.8,
+    "pagamento": "Pix: 72.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394957,
+    "codigo": "M-131",
+    "hora": "20:22",
+    "valor": 52.27,
+    "pagamento": "Cartão Crédito: 52.27",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394975,
+    "codigo": "M-132",
+    "hora": "20:23",
+    "valor": 45.77,
+    "pagamento": "Cartão Débito: 45.77",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394976,
+    "codigo": "M-133",
+    "hora": "20:24",
+    "valor": 41.8,
+    "pagamento": "Cartão Débito: 41.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394977,
+    "codigo": "M-134",
+    "hora": "20:24",
+    "valor": 76.62,
+    "pagamento": "Cartão Débito: 76.62",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 394987,
+    "codigo": "M-135",
+    "hora": "20:24",
+    "valor": 43.84,
+    "pagamento": "Cartão Crédito: 43.84",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395014,
+    "codigo": "M-136",
+    "hora": "20:26",
+    "valor": 39.8,
+    "pagamento": "Dinheiro (Troco -> R$ 0.20): 39.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395017,
+    "codigo": "M-137",
+    "hora": "20:26",
+    "valor": 32.85,
+    "pagamento": "Dinheiro (Troco -> R$ 17.15): 32.85",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395029,
+    "codigo": "M-138",
+    "hora": "20:26",
+    "valor": 36.83,
+    "pagamento": "Cartão Crédito: 36.83",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395037,
+    "codigo": "M-139",
+    "hora": "20:27",
+    "valor": 19.9,
+    "pagamento": "Pix: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395055,
+    "codigo": "M-140",
+    "hora": "20:28",
+    "valor": 61.71,
+    "pagamento": "Pix: 61.71",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395057,
+    "codigo": "M-141",
+    "hora": "20:28",
+    "valor": 19.9,
+    "pagamento": "Cartão Débito: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395073,
+    "codigo": "M-142",
+    "hora": "20:29",
+    "valor": 23.91,
+    "pagamento": "Pix: 23.91",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395080,
+    "codigo": "M-143",
+    "hora": "20:29",
+    "valor": 18.43,
+    "pagamento": "Cartão Crédito: 18.43",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395126,
+    "codigo": "M-144",
+    "hora": "20:31",
+    "valor": 68.27,
+    "pagamento": "Cartão Débito: 68.27",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395143,
+    "codigo": "M-145",
+    "hora": "20:32",
+    "valor": 52.89,
+    "pagamento": "Cartão Crédito: 52.89",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395146,
+    "codigo": "M-146",
+    "hora": "20:32",
+    "valor": 91.67,
+    "pagamento": "Cartão Débito: 91.67",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395151,
+    "codigo": "M-147",
+    "hora": "20:32",
+    "valor": 5.97,
+    "pagamento": "Cartão Débito: 5.97",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395179,
+    "codigo": "M-148",
+    "hora": "20:33",
+    "valor": 53.79,
+    "pagamento": "Cartão Crédito: 53.79",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395182,
+    "codigo": "M-149",
+    "hora": "20:34",
+    "valor": 4.0,
+    "pagamento": "Dinheiro: 4.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395199,
+    "codigo": "M-150",
+    "hora": "20:35",
+    "valor": 56.23,
+    "pagamento": "Cartão Crédito: 56.23",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395209,
+    "codigo": "M-151",
+    "hora": "20:35",
+    "valor": 48.8,
+    "pagamento": "Cartão Débito: 48.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395225,
+    "codigo": "IA-152",
+    "hora": "20:36",
+    "valor": 19.9,
+    "pagamento": "Pix: 19.90",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395236,
+    "codigo": "M-153",
+    "hora": "20:37",
+    "valor": 101.07,
+    "pagamento": "Cartão Débito: 101.07",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395238,
+    "codigo": "M-154",
+    "hora": "20:37",
+    "valor": 14.94,
+    "pagamento": "Cartão Crédito: 14.94",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395256,
+    "codigo": "M-155",
+    "hora": "20:38",
+    "valor": 19.9,
+    "pagamento": "Cartão Débito: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395282,
+    "codigo": "M-156",
+    "hora": "20:40",
+    "valor": 19.9,
+    "pagamento": "Cartão Débito: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395291,
+    "codigo": "M-157",
+    "hora": "20:40",
+    "valor": 119.13,
+    "pagamento": "Dinheiro (Troco -> R$ 0.87): 119.13",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395310,
+    "codigo": "M-158",
+    "hora": "20:42",
+    "valor": 55.29,
+    "pagamento": "Pix: 55.29",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395314,
+    "codigo": "M-159",
+    "hora": "20:42",
+    "valor": 6.0,
+    "pagamento": "Cartão Crédito: 6.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395338,
+    "codigo": "M-160",
+    "hora": "20:43",
+    "valor": 74.72,
+    "pagamento": "Pix: 74.72",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395341,
+    "codigo": "M-161",
+    "hora": "20:43",
+    "valor": 32.87,
+    "pagamento": "Cartão Crédito: 32.87",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395355,
+    "codigo": "M-162",
+    "hora": "20:44",
+    "valor": 22.92,
+    "pagamento": "Cartão Crédito: 22.92",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395365,
+    "codigo": "M-163",
+    "hora": "20:45",
+    "valor": 57.31,
+    "pagamento": "Pix: 57.31",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395379,
+    "codigo": "M-164",
+    "hora": "20:46",
+    "valor": 41.85,
+    "pagamento": "Cartão Crédito: 41.85",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395384,
+    "codigo": "M-165",
+    "hora": "20:46",
+    "valor": 69.65,
+    "pagamento": "Pix: 69.65",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395399,
+    "codigo": "M-166",
+    "hora": "20:47",
+    "valor": 231.12,
+    "pagamento": "Cartão Crédito: 231.12",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395401,
+    "codigo": "M-167",
+    "hora": "20:47",
+    "valor": 56.27,
+    "pagamento": "Cartão Débito: 56.27",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395433,
+    "codigo": "M-168",
+    "hora": "20:49",
+    "valor": 106.61,
+    "pagamento": "Cartão Débito: 106.61",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395439,
+    "codigo": "IA-169",
+    "hora": "20:49",
+    "valor": 119.5,
+    "pagamento": "Cartão Crédito: 119.50",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395447,
+    "codigo": "M-170",
+    "hora": "20:50",
+    "valor": 39.8,
+    "pagamento": "Cartão Débito: 39.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395448,
+    "codigo": "M-171",
+    "hora": "20:50",
+    "valor": 29.85,
+    "pagamento": "Cartão Débito: 29.85",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395489,
+    "codigo": "M-172",
+    "hora": "20:52",
+    "valor": 6.0,
+    "pagamento": "Cartão Débito: 6.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395543,
+    "codigo": "M-173",
+    "hora": "20:55",
+    "valor": 53.84,
+    "pagamento": "Cartão Débito: 53.84",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395546,
+    "codigo": "M-174",
+    "hora": "20:55",
+    "valor": 39.8,
+    "pagamento": "Dinheiro: 30.00 | Pix: 9.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 395578,
+    "codigo": "M-175",
+    "hora": "20:56",
+    "valor": 40.86,
+    "pagamento": "Cartão Crédito: 40.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395594,
+    "codigo": "M-176",
+    "hora": "20:57",
+    "valor": 58.75,
+    "pagamento": "Pix: 58.75",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395611,
+    "codigo": "M-177",
+    "hora": "20:58",
+    "valor": 57.73,
+    "pagamento": "Cartão Crédito: 57.73",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395614,
+    "codigo": "M-178",
+    "hora": "20:58",
+    "valor": 48.31,
+    "pagamento": "Pix: 48.31",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395622,
+    "codigo": "M-179",
+    "hora": "20:59",
+    "valor": 39.84,
+    "pagamento": "Pix: 39.84",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395631,
+    "codigo": "M-180",
+    "hora": "20:59",
+    "valor": 8.97,
+    "pagamento": "Pix: 8.97",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395641,
+    "codigo": "M-181",
+    "hora": "21:00",
+    "valor": 28.87,
+    "pagamento": "Pix: 28.87",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395679,
+    "codigo": "M-182",
+    "hora": "21:02",
+    "valor": 34.88,
+    "pagamento": "Cartão Crédito: 34.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395688,
+    "codigo": "M-183",
+    "hora": "21:02",
+    "valor": 21.9,
+    "pagamento": "Dinheiro (Troco -> R$ 3.10): 21.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 395689,
+    "codigo": "M-184",
+    "hora": "21:02",
+    "valor": 63.69,
+    "pagamento": "Cartão Crédito: 40.00 | Pix: 23.69",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395697,
+    "codigo": "M-185",
+    "hora": "21:03",
+    "valor": 49.78,
+    "pagamento": "Pix: 49.78",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395752,
+    "codigo": "M-186",
+    "hora": "21:07",
+    "valor": 29.85,
+    "pagamento": "Cartão Débito: 29.85",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395770,
+    "codigo": "M-187",
+    "hora": "21:07",
+    "valor": 56.77,
+    "pagamento": "Pix: 56.77",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395776,
+    "codigo": "IA-188",
+    "hora": "21:08",
+    "valor": 69.7,
+    "pagamento": "Pix Online (PAGO)",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395782,
+    "codigo": "M-189",
+    "hora": "21:08",
+    "valor": 67.8,
+    "pagamento": "Cartão Débito: 67.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395793,
+    "codigo": "M-190",
+    "hora": "21:09",
+    "valor": 50.79,
+    "pagamento": "Cartão Crédito: 50.79",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395798,
+    "codigo": "M-191",
+    "hora": "21:09",
+    "valor": 44.8,
+    "pagamento": "Cartão Débito: 44.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395811,
+    "codigo": "M-192",
+    "hora": "21:10",
+    "valor": 24.89,
+    "pagamento": "Cartão Débito: 24.89",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395832,
+    "codigo": "M-193",
+    "hora": "21:12",
+    "valor": 22.9,
+    "pagamento": "Cartão Débito: 22.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395856,
+    "codigo": "M-194",
+    "hora": "21:13",
+    "valor": 75.72,
+    "pagamento": "Cartão Crédito: 75.72",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395857,
+    "codigo": "M-195",
+    "hora": "21:13",
+    "valor": 79.64,
+    "pagamento": "Cartão Crédito: 79.64",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395868,
+    "codigo": "M-196",
+    "hora": "21:14",
+    "valor": 34.86,
+    "pagamento": "Cartão Crédito: 34.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395895,
+    "codigo": "M-197",
+    "hora": "21:15",
+    "valor": 23.9,
+    "pagamento": "Cartão Débito: 23.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395915,
+    "codigo": "M-198",
+    "hora": "21:17",
+    "valor": 131.34,
+    "pagamento": "Pix: 131.34",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395926,
+    "codigo": "M-199",
+    "hora": "21:18",
+    "valor": 72.24,
+    "pagamento": "Cartão Crédito: 72.24",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 395966,
+    "codigo": "M-200",
+    "hora": "21:20",
+    "valor": 117.63,
+    "pagamento": "Cartão Débito: 117.63",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396003,
+    "codigo": "M-201",
+    "hora": "21:22",
+    "valor": 53.75,
+    "pagamento": "Cartão Débito: 53.75",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396021,
+    "codigo": "M-202",
+    "hora": "21:23",
+    "valor": 19.9,
+    "pagamento": "Dinheiro: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396053,
+    "codigo": "M-203",
+    "hora": "21:25",
+    "valor": 51.86,
+    "pagamento": "Cartão Débito: 51.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396060,
+    "codigo": "M-204",
+    "hora": "21:26",
+    "valor": 19.9,
+    "pagamento": "Pix: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396075,
+    "codigo": "M-205",
+    "hora": "21:27",
+    "valor": 46.28,
+    "pagamento": "Cartão Crédito: 46.28",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396078,
+    "codigo": "M-206",
+    "hora": "21:27",
+    "valor": 39.8,
+    "pagamento": "Pix: 39.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396104,
+    "codigo": "M-207",
+    "hora": "21:29",
+    "valor": 99.63,
+    "pagamento": "Pix: 99.63",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396123,
+    "codigo": "M-208",
+    "hora": "21:30",
+    "valor": 59.7,
+    "pagamento": "Dinheiro (Troco -> R$ 40.30): 59.70",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396128,
+    "codigo": "M-209",
+    "hora": "21:30",
+    "valor": 56.77,
+    "pagamento": "Cartão Débito: 56.77",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396133,
+    "codigo": "M-210",
+    "hora": "21:30",
+    "valor": 184.1,
+    "pagamento": "Cartão Débito: 184.10",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396152,
+    "codigo": "M-211",
+    "hora": "21:31",
+    "valor": 70.26,
+    "pagamento": "Pix: 70.26",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396181,
+    "codigo": "M-212",
+    "hora": "21:34",
+    "valor": 41.81,
+    "pagamento": "Dinheiro (Troco -> R$ 58.19): 41.81",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396188,
+    "codigo": "M-213",
+    "hora": "21:34",
+    "valor": 110.57,
+    "pagamento": "Cartão Crédito: 110.57",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396193,
+    "codigo": "M-214",
+    "hora": "21:34",
+    "valor": 24.88,
+    "pagamento": "Pix: 24.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396219,
+    "codigo": "M-215",
+    "hora": "21:37",
+    "valor": 28.87,
+    "pagamento": "Pix: 28.87",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396231,
+    "codigo": "M-216",
+    "hora": "21:37",
+    "valor": 94.07,
+    "pagamento": "Cartão Débito: 30.00 | Pix: 64.07",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396256,
+    "codigo": "M-217",
+    "hora": "21:39",
+    "valor": 19.9,
+    "pagamento": "Cartão Crédito: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396292,
+    "codigo": "M-218",
+    "hora": "21:42",
+    "valor": 136.96,
+    "pagamento": "Cartão Crédito: 136.96",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396306,
+    "codigo": "M-219",
+    "hora": "21:42",
+    "valor": 62.33,
+    "pagamento": "Cartão Crédito: 62.33",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396313,
+    "codigo": "M-220",
+    "hora": "21:43",
+    "valor": 44.8,
+    "pagamento": "Pix: 44.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396320,
+    "codigo": "M-221",
+    "hora": "21:43",
+    "valor": 26.9,
+    "pagamento": "Pix: 26.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396322,
+    "codigo": "M-222",
+    "hora": "21:43",
+    "valor": 23.88,
+    "pagamento": "Cartão Débito: 23.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396329,
+    "codigo": "M-223",
+    "hora": "21:44",
+    "valor": 39.8,
+    "pagamento": "Cartão Débito: 39.80",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396342,
+    "codigo": "M-224",
+    "hora": "21:45",
+    "valor": 12.95,
+    "pagamento": "Pix: 12.95",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396344,
+    "codigo": "M-225",
+    "hora": "21:45",
+    "valor": 44.85,
+    "pagamento": "Cartão Débito: 44.85",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396363,
+    "codigo": "M-226",
+    "hora": "21:47",
+    "valor": 23.88,
+    "pagamento": "Cartão Crédito: 23.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396431,
+    "codigo": "M-227",
+    "hora": "21:53",
+    "valor": 76.78,
+    "pagamento": "Pix: 76.78",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396440,
+    "codigo": "M-228",
+    "hora": "21:54",
+    "valor": 89.64,
+    "pagamento": "Pix: 89.64",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396468,
+    "codigo": "M-229",
+    "hora": "21:56",
+    "valor": 25.88,
+    "pagamento": "Dinheiro (Troco -> R$ 24.12): 25.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396531,
+    "codigo": "M-230",
+    "hora": "22:01",
+    "valor": 19.9,
+    "pagamento": "Cartão Crédito: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396540,
+    "codigo": "M-231",
+    "hora": "22:02",
+    "valor": 15.93,
+    "pagamento": "Dinheiro (Troco -> R$ 1.07): 15.93",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396567,
+    "codigo": "M-232",
+    "hora": "22:04",
+    "valor": 52.88,
+    "pagamento": "Cartão Débito: 52.88",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396582,
+    "codigo": "M-233",
+    "hora": "22:05",
+    "valor": 59.7,
+    "pagamento": "Cartão Crédito: 59.70",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396587,
+    "codigo": "M-234",
+    "hora": "22:05",
+    "valor": 44.83,
+    "pagamento": "Pix: 44.83",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396607,
+    "codigo": "M-235",
+    "hora": "22:07",
+    "valor": 59.7,
+    "pagamento": "Cartão Débito: 59.70",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396610,
+    "codigo": "M-236",
+    "hora": "22:07",
+    "valor": 70.73,
+    "pagamento": "Cartão Débito: 70.73",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396612,
+    "codigo": "M-237",
+    "hora": "22:08",
+    "valor": 64.27,
+    "pagamento": "Cartão Débito: 64.27",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396631,
+    "codigo": "M-238",
+    "hora": "22:10",
+    "valor": 117.6,
+    "pagamento": "Cartão Crédito: 117.60",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396634,
+    "codigo": "M-239",
+    "hora": "22:10",
+    "valor": 40.9,
+    "pagamento": "Cartão Débito: 40.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396636,
+    "codigo": "M-240",
+    "hora": "22:10",
+    "valor": 37.81,
+    "pagamento": "Cartão Crédito: 37.81",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396651,
+    "codigo": "IA-241",
+    "hora": "22:11",
+    "valor": 39.8,
+    "pagamento": "Cartão Débito: 39.80",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396657,
+    "codigo": "M-242",
+    "hora": "22:11",
+    "valor": 36.89,
+    "pagamento": "Pix: 36.89",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396668,
+    "codigo": "M-243",
+    "hora": "22:12",
+    "valor": 19.92,
+    "pagamento": "Dinheiro (Troco -> R$ 30.08): 19.92",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396674,
+    "codigo": "M-244",
+    "hora": "22:13",
+    "valor": 6.0,
+    "pagamento": "Dinheiro (Troco -> R$ 4.00): 6.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "NAO_EMITIR",
+    "regra": "dinheiro"
+   },
+   {
+    "id": 396727,
+    "codigo": "M-245",
+    "hora": "22:18",
+    "valor": 41.36,
+    "pagamento": "Cartão Débito: 41.36",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396735,
+    "codigo": "M-246",
+    "hora": "22:19",
+    "valor": 52.38,
+    "pagamento": "Pix: 52.38",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396736,
+    "codigo": "M-247",
+    "hora": "22:19",
+    "valor": 36.86,
+    "pagamento": "Pix: 36.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396739,
+    "codigo": "M-248",
+    "hora": "22:19",
+    "valor": 67.26,
+    "pagamento": "Cartão Débito: 67.26",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396764,
+    "codigo": "M-249",
+    "hora": "22:21",
+    "valor": 74.7,
+    "pagamento": "Pix: 69.70 | Dinheiro (Troco -> R$ 5.00): 5.00",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 396767,
+    "codigo": "M-250",
+    "hora": "22:21",
+    "valor": 69.74,
+    "pagamento": "Cartão Crédito: 69.74",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396774,
+    "codigo": "M-251",
+    "hora": "22:22",
+    "valor": 40.83,
+    "pagamento": "Cartão Débito: 40.83",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396823,
+    "codigo": "M-252",
+    "hora": "22:28",
+    "valor": 128.49,
+    "pagamento": "Cartão Débito: 128.49",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396858,
+    "codigo": "M-253",
+    "hora": "22:31",
+    "valor": 19.9,
+    "pagamento": "Cartão Débito: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396880,
+    "codigo": "M-254",
+    "hora": "22:33",
+    "valor": 71.78,
+    "pagamento": "Cartão Crédito: 71.78",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396893,
+    "codigo": "M-255",
+    "hora": "22:34",
+    "valor": 21.98,
+    "pagamento": "Cartão Débito: 21.98",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396919,
+    "codigo": "M-256",
+    "hora": "22:37",
+    "valor": 101.6,
+    "pagamento": "Cartão Débito: 101.60",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396935,
+    "codigo": "M-257",
+    "hora": "22:38",
+    "valor": 47.76,
+    "pagamento": "Pix: 47.76",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 396988,
+    "codigo": "M-258",
+    "hora": "22:43",
+    "valor": 36.4,
+    "pagamento": "Cartão Crédito: 36.40",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397035,
+    "codigo": "IA-259",
+    "hora": "22:50",
+    "valor": 65.67,
+    "pagamento": "Cartão Crédito: 65.67",
+    "loja": "Sushi (app próprio)",
+    "merchant": null,
+    "canal": "app",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397047,
+    "codigo": "M-260",
+    "hora": "22:51",
+    "valor": 89.56,
+    "pagamento": "Cartão Crédito: 89.56",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397053,
+    "codigo": "M-261",
+    "hora": "22:52",
+    "valor": 87.56,
+    "pagamento": "Cartão Crédito: 87.56",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397062,
+    "codigo": "M-262",
+    "hora": "22:53",
+    "valor": 63.68,
+    "pagamento": "Cartão Débito: 63.68",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397118,
+    "codigo": "M-263",
+    "hora": "23:01",
+    "valor": 21.89,
+    "pagamento": "Cartão Débito: 21.89",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397131,
+    "codigo": "M-264",
+    "hora": "23:02",
+    "valor": 109.62,
+    "pagamento": "Pix: 109.62",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397154,
+    "codigo": "M-265",
+    "hora": "23:05",
+    "valor": 131.99,
+    "pagamento": "Pix: 131.99",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397162,
+    "codigo": "M-266",
+    "hora": "23:06",
+    "valor": 9.9,
+    "pagamento": "Dinheiro: 6.00 | Cartão Débito: 3.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "misto com dinheiro"
+   },
+   {
+    "id": 397207,
+    "codigo": "M-267",
+    "hora": "23:17",
+    "valor": 38.82,
+    "pagamento": "Pix: 38.82",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397250,
+    "codigo": "M-268",
+    "hora": "23:26",
+    "valor": 46.78,
+    "pagamento": "Pix: 46.78",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397253,
+    "codigo": "M-269",
+    "hora": "23:28",
+    "valor": 123.01,
+    "pagamento": "Pix: 123.01",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397274,
+    "codigo": "M-270",
+    "hora": "23:34",
+    "valor": 19.9,
+    "pagamento": "Cartão Débito: 19.90",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397298,
+    "codigo": "M-271",
+    "hora": "23:43",
+    "valor": 29.85,
+    "pagamento": "Cartão Débito: 29.85",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397305,
+    "codigo": "M-272",
+    "hora": "23:45",
+    "valor": 27.86,
+    "pagamento": "Cartão Débito: 27.86",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   },
+   {
+    "id": 397314,
+    "codigo": "M-273",
+    "hora": "23:47",
+    "valor": 11.94,
+    "pagamento": "Pix: 11.94",
+    "loja": "Sushi (PDV/balcão)",
+    "merchant": null,
+    "canal": "pdv",
+    "delivery": false,
+    "grupo": "EMITIR",
+    "regra": "ok"
+   }
+  ],
+  "contagem": {
+   "cancelados": 0,
+   "abertos": 0,
+   "ja_emitidos": 0,
+   "outra_loja": 0,
+   "outro_dia": 0
+  }
+ },
+ "emissoes": [
+  {
+   "executada_em": "2026-11-28T02:27:02-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 393225,
+     "codigo": "M-1",
+     "hora": "18:20",
+     "valor": 39.8,
+     "pagamento": "Cartão Crédito: 39.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393238,
+     "codigo": "M-2",
+     "hora": "18:22",
+     "valor": 19.9,
+     "pagamento": "Cartão Débito: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393260,
+     "codigo": "M-3",
+     "hora": "18:26",
+     "valor": 59.7,
+     "pagamento": "Cartão Crédito: 59.70",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393264,
+     "codigo": "M-4",
+     "hora": "18:27",
+     "valor": 27.86,
+     "pagamento": "Cartão Crédito: 27.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393272,
+     "codigo": "M-5",
+     "hora": "18:28",
+     "valor": 9.95,
+     "pagamento": "Cartão Débito: 9.95",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393275,
+     "codigo": "M-6",
+     "hora": "18:29",
+     "valor": 75.71,
+     "pagamento": "Cartão Crédito: 75.71",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393281,
+     "codigo": "M-7",
+     "hora": "18:29",
+     "valor": 28.86,
+     "pagamento": "Pix: 28.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393285,
+     "codigo": "M-8",
+     "hora": "18:30",
+     "valor": 19.9,
+     "pagamento": "Cartão Crédito: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393305,
+     "codigo": "M-9",
+     "hora": "18:31",
+     "valor": 67.25,
+     "pagamento": "Pluxee Refeição / Alimentação: 67.25",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393316,
+     "codigo": "M-10",
+     "hora": "18:32",
+     "valor": 65.68,
+     "pagamento": "Cartão Débito: 65.68",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393317,
+     "codigo": "M-11",
+     "hora": "18:33",
+     "valor": 25.42,
+     "pagamento": "Ticket: 25.42",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393337,
+     "codigo": "M-12",
+     "hora": "18:34",
+     "valor": 82.75,
+     "pagamento": "Cartão Débito: 82.75",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393340,
+     "codigo": "M-13",
+     "hora": "18:35",
+     "valor": 95.67,
+     "pagamento": "Cartão Débito: 95.67",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393353,
+     "codigo": "M-14",
+     "hora": "18:36",
+     "valor": 49.3,
+     "pagamento": "Cartão Débito: 49.30",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393371,
+     "codigo": "M-15",
+     "hora": "18:38",
+     "valor": 39.37,
+     "pagamento": "Cartão Débito: 39.37",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393381,
+     "codigo": "M-16",
+     "hora": "18:39",
+     "valor": 37.84,
+     "pagamento": "Cartão Débito: 37.84",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393383,
+     "codigo": "M-17",
+     "hora": "18:40",
+     "valor": 7.0,
+     "pagamento": "Cartão Débito: 7.00",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393397,
+     "codigo": "M-18",
+     "hora": "18:42",
+     "valor": 64.29,
+     "pagamento": "Cartão Crédito: 64.29",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393398,
+     "codigo": "M-19",
+     "hora": "18:42",
+     "valor": 79.19,
+     "pagamento": "Pix: 79.19",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393403,
+     "codigo": "M-20",
+     "hora": "18:42",
+     "valor": 41.3,
+     "pagamento": "Cartão Crédito: 41.30",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393407,
+     "codigo": "M-21",
+     "hora": "18:43",
+     "valor": 35.82,
+     "pagamento": "Cartão Débito: 35.82",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393419,
+     "codigo": "M-22",
+     "hora": "18:44",
+     "valor": 42.35,
+     "pagamento": "Cartão Débito: 42.35",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393423,
+     "codigo": "M-23",
+     "hora": "18:44",
+     "valor": 71.77,
+     "pagamento": "Pix: 71.77",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393427,
+     "codigo": "M-24",
+     "hora": "18:44",
+     "valor": 9.95,
+     "pagamento": "Cartão Débito: 9.95",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393437,
+     "codigo": "M-25",
+     "hora": "18:45",
+     "valor": 9.95,
+     "pagamento": "Cartão Débito: 9.95",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393456,
+     "codigo": "M-26",
+     "hora": "18:47",
+     "valor": 86.72,
+     "pagamento": "Cartão Crédito: 86.72",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393473,
+     "codigo": "M-27",
+     "hora": "18:48",
+     "valor": 38.81,
+     "pagamento": "Pix: 38.81",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393478,
+     "codigo": "M-28",
+     "hora": "18:48",
+     "valor": 33.83,
+     "pagamento": "Cartão Débito: 33.83",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393515,
+     "codigo": "M-29",
+     "hora": "18:52",
+     "valor": 88.64,
+     "pagamento": "Alelo Refeição: 88.64",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393516,
+     "codigo": "M-30",
+     "hora": "18:53",
+     "valor": 15.92,
+     "pagamento": "Cartão Débito: 15.92",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393538,
+     "codigo": "M-31",
+     "hora": "18:56",
+     "valor": 6.0,
+     "pagamento": "Cartão Débito: 6.00",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393548,
+     "codigo": "M-32",
+     "hora": "18:57",
+     "valor": 136.47,
+     "pagamento": "Pix: 136.47",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393550,
+     "codigo": "M-33",
+     "hora": "18:57",
+     "valor": 4.0,
+     "pagamento": "Cartão Débito: 4.00",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393559,
+     "codigo": "M-34",
+     "hora": "18:58",
+     "valor": 15.93,
+     "pagamento": "Pix: 15.93",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393566,
+     "codigo": "M-35",
+     "hora": "18:59",
+     "valor": 13.94,
+     "pagamento": "Cartão Crédito: 13.94",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393570,
+     "codigo": "M-36",
+     "hora": "18:59",
+     "valor": 135.98,
+     "pagamento": "Pix: 135.98",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393610,
+     "codigo": "M-37",
+     "hora": "19:02",
+     "valor": 83.76,
+     "pagamento": "Pix: 83.76",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393627,
+     "codigo": "M-38",
+     "hora": "19:03",
+     "valor": 15.92,
+     "pagamento": "Cartão Débito: 15.92",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393652,
+     "codigo": "M-39",
+     "hora": "19:04",
+     "valor": 72.65,
+     "pagamento": "Cartão Crédito: 72.65",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393668,
+     "codigo": "M-40",
+     "hora": "19:06",
+     "valor": 143.33,
+     "pagamento": "Cartão Crédito: 143.33",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393669,
+     "codigo": "M-41",
+     "hora": "19:06",
+     "valor": 41.88,
+     "pagamento": "Cartão Débito: 41.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393739,
+     "codigo": "M-42",
+     "hora": "19:13",
+     "valor": 63.3,
+     "pagamento": "Cartão Crédito: 63.30",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393751,
+     "codigo": "M-43",
+     "hora": "19:14",
+     "valor": 36.91,
+     "pagamento": "Pix: 36.91",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393753,
+     "codigo": "M-44",
+     "hora": "19:14",
+     "valor": 7.0,
+     "pagamento": "Cartão Crédito: 7.00",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393763,
+     "codigo": "M-45",
+     "hora": "19:14",
+     "valor": 84.64,
+     "pagamento": "Cartão Crédito: 84.64",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393775,
+     "codigo": "M-46",
+     "hora": "19:16",
+     "valor": 88.73,
+     "pagamento": "Pix: 88.73",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393788,
+     "codigo": "M-47",
+     "hora": "19:16",
+     "valor": 15.92,
+     "pagamento": "Pix: 15.92",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393794,
+     "codigo": "M-48",
+     "hora": "19:17",
+     "valor": 21.9,
+     "pagamento": "Pix: 21.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393809,
+     "codigo": "M-49",
+     "hora": "19:18",
+     "valor": 24.88,
+     "pagamento": "Cartão Débito: 24.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393857,
+     "codigo": "M-50",
+     "hora": "19:21",
+     "valor": 27.94,
+     "pagamento": "Cartão Débito: 27.94",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393860,
+     "codigo": "M-51",
+     "hora": "19:21",
+     "valor": 36.83,
+     "pagamento": "Cartão Débito: 36.83",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393875,
+     "codigo": "IA-52",
+     "hora": "19:22",
+     "valor": 44.8,
+     "pagamento": "Cartão Débito",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393920,
+     "codigo": "M-53",
+     "hora": "19:25",
+     "valor": 62.76,
+     "pagamento": "Pix: 62.76",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393926,
+     "codigo": "M-54",
+     "hora": "19:25",
+     "valor": 108.02,
+     "pagamento": "Pix: 108.02",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393942,
+     "codigo": "M-55",
+     "hora": "19:27",
+     "valor": 36.86,
+     "pagamento": "Pix: 36.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393948,
+     "codigo": "IA-56",
+     "hora": "19:27",
+     "valor": 39.8,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393961,
+     "codigo": "M-57",
+     "hora": "19:28",
+     "valor": 121.02,
+     "pagamento": "Pix: 121.02",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393969,
+     "codigo": "M-58",
+     "hora": "19:28",
+     "valor": 49.78,
+     "pagamento": "Cartão Débito: 49.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 393992,
+     "codigo": "M-59",
+     "hora": "19:30",
+     "valor": 139.41,
+     "pagamento": "Cartão Débito: 139.41",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394006,
+     "codigo": "M-60",
+     "hora": "19:30",
+     "valor": 25.87,
+     "pagamento": "Pix: 25.87",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394033,
+     "codigo": "M-61",
+     "hora": "19:32",
+     "valor": 173.18,
+     "pagamento": "Cartão Débito: 150.00 | Pix: 23.18",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394052,
+     "codigo": "M-62",
+     "hora": "19:33",
+     "valor": 138.44,
+     "pagamento": "Cartão Débito: 138.44",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394063,
+     "codigo": "M-63",
+     "hora": "19:33",
+     "valor": 39.8,
+     "pagamento": "Cartão Crédito: 39.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394066,
+     "codigo": "M-64",
+     "hora": "19:33",
+     "valor": 45.83,
+     "pagamento": "Cartão Crédito: 45.83",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394074,
+     "codigo": "M-65",
+     "hora": "19:34",
+     "valor": 45.33,
+     "pagamento": "Pix: 45.33",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394075,
+     "codigo": "M-66",
+     "hora": "19:34",
+     "valor": 18.92,
+     "pagamento": "Cartão Crédito: 18.92",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394078,
+     "codigo": "M-67",
+     "hora": "19:34",
+     "valor": 49.75,
+     "pagamento": "Cartão Débito: 49.75",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394091,
+     "codigo": "M-68",
+     "hora": "19:35",
+     "valor": 49.28,
+     "pagamento": "Pix: 49.28",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394099,
+     "codigo": "M-69",
+     "hora": "19:35",
+     "valor": 19.9,
+     "pagamento": "Cartão Débito: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394110,
+     "codigo": "M-70",
+     "hora": "19:36",
+     "valor": 45.78,
+     "pagamento": "Cartão Débito: 45.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394111,
+     "codigo": "M-71",
+     "hora": "19:36",
+     "valor": 32.91,
+     "pagamento": "Cartão Crédito: 32.91",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394129,
+     "codigo": "M-72",
+     "hora": "19:37",
+     "valor": 63.25,
+     "pagamento": "Cartão Débito: 63.25",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394138,
+     "codigo": "M-73",
+     "hora": "19:38",
+     "valor": 88.65,
+     "pagamento": "Cartão Débito: 88.65",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394139,
+     "codigo": "M-74",
+     "hora": "19:38",
+     "valor": 9.95,
+     "pagamento": "Cartão Débito: 9.95",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394140,
+     "codigo": "M-75",
+     "hora": "19:38",
+     "valor": 154.02,
+     "pagamento": "Pix: 154.02",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394158,
+     "codigo": "M-76",
+     "hora": "19:39",
+     "valor": 127.36,
+     "pagamento": "Cartão Crédito: 127.36",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394168,
+     "codigo": "M-77",
+     "hora": "19:40",
+     "valor": 11.94,
+     "pagamento": "Pix: 11.94",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394170,
+     "codigo": "M-78",
+     "hora": "19:40",
+     "valor": 13.93,
+     "pagamento": "Dinheiro: 10.00 | Cartão Débito: 3.93",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394171,
+     "codigo": "M-79",
+     "hora": "19:40",
+     "valor": 73.22,
+     "pagamento": "Cartão Crédito: 73.22",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394173,
+     "codigo": "APP-80",
+     "hora": "19:40",
+     "valor": 159.9,
+     "pagamento": "Cartão Crédito: 159.90",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394181,
+     "codigo": "M-81",
+     "hora": "19:41",
+     "valor": 39.8,
+     "pagamento": "Cartão Débito: 39.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394205,
+     "codigo": "M-82",
+     "hora": "19:42",
+     "valor": 27.9,
+     "pagamento": "Cartão Débito: 27.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394231,
+     "codigo": "M-84",
+     "hora": "19:44",
+     "valor": 39.8,
+     "pagamento": "Cartão Crédito: 39.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394253,
+     "codigo": "M-85",
+     "hora": "19:45",
+     "valor": 33.35,
+     "pagamento": "Pix: 33.35",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394255,
+     "codigo": "M-86",
+     "hora": "19:45",
+     "valor": 12.94,
+     "pagamento": "Pix: 12.94",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394305,
+     "codigo": "M-88",
+     "hora": "19:47",
+     "valor": 59.73,
+     "pagamento": "Pix: 59.73",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394317,
+     "codigo": "M-89",
+     "hora": "19:48",
+     "valor": 41.39,
+     "pagamento": "Cartão Crédito: 41.39",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394325,
+     "codigo": "M-90",
+     "hora": "19:49",
+     "valor": 29.88,
+     "pagamento": "Cartão Crédito: 29.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394332,
+     "codigo": "M-91",
+     "hora": "19:49",
+     "valor": 47.31,
+     "pagamento": "Cartão Débito: 47.31",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394339,
+     "codigo": "M-92",
+     "hora": "19:49",
+     "valor": 7.97,
+     "pagamento": "Cartão Crédito: 7.97",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394358,
+     "codigo": "M-93",
+     "hora": "19:50",
+     "valor": 46.29,
+     "pagamento": "Pix: 46.29",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394385,
+     "codigo": "M-94",
+     "hora": "19:52",
+     "valor": 90.67,
+     "pagamento": "Pix: 90.67",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394405,
+     "codigo": "M-95",
+     "hora": "19:53",
+     "valor": 57.8,
+     "pagamento": "Pix: 57.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394419,
+     "codigo": "M-96",
+     "hora": "19:54",
+     "valor": 65.7,
+     "pagamento": "Pix: 65.70",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394435,
+     "codigo": "M-97",
+     "hora": "19:55",
+     "valor": 57.77,
+     "pagamento": "Pix: 57.77",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394442,
+     "codigo": "M-98",
+     "hora": "19:55",
+     "valor": 47.3,
+     "pagamento": "Cartão Crédito: 47.30",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394455,
+     "codigo": "M-99",
+     "hora": "19:56",
+     "valor": 104.48,
+     "pagamento": "Pix: 104.48",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394464,
+     "codigo": "M-100",
+     "hora": "19:56",
+     "valor": 49.78,
+     "pagamento": "Cartão Crédito: 49.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394497,
+     "codigo": "M-101",
+     "hora": "19:58",
+     "valor": 38.36,
+     "pagamento": "Cartão Crédito: 38.36",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394532,
+     "codigo": "M-104",
+     "hora": "20:00",
+     "valor": 118.17,
+     "pagamento": "Dinheiro: 100.00 | Cartão Débito: 18.17",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394627,
+     "codigo": "M-105",
+     "hora": "20:05",
+     "valor": 42.8,
+     "pagamento": "Cartão Crédito: 42.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394630,
+     "codigo": "M-106",
+     "hora": "20:05",
+     "valor": 24.9,
+     "pagamento": "Cartão Débito: 24.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394670,
+     "codigo": "M-107",
+     "hora": "20:07",
+     "valor": 115.48,
+     "pagamento": "Cartão Crédito: 115.48",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394708,
+     "codigo": "M-109",
+     "hora": "20:09",
+     "valor": 35.9,
+     "pagamento": "Pix: 35.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394748,
+     "codigo": "M-111",
+     "hora": "20:11",
+     "valor": 35.34,
+     "pagamento": "Pix: 35.34",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394750,
+     "codigo": "M-112",
+     "hora": "20:11",
+     "valor": 58.29,
+     "pagamento": "Cartão Crédito: 58.29",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394772,
+     "codigo": "M-113",
+     "hora": "20:12",
+     "valor": 168.78,
+     "pagamento": "Cartão Crédito: 168.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394790,
+     "codigo": "M-114",
+     "hora": "20:13",
+     "valor": 61.3,
+     "pagamento": "Cartão Crédito: 61.30",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394807,
+     "codigo": "M-115",
+     "hora": "20:14",
+     "valor": 21.92,
+     "pagamento": "Pix: 21.92",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394820,
+     "codigo": "M-116",
+     "hora": "20:15",
+     "valor": 73.21,
+     "pagamento": "Cartão Crédito: 73.21",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394830,
+     "codigo": "M-117",
+     "hora": "20:15",
+     "valor": 17.94,
+     "pagamento": "Cartão Débito: 17.94",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394836,
+     "codigo": "M-118",
+     "hora": "20:15",
+     "valor": 75.63,
+     "pagamento": "Dinheiro: 30.00 | Pix: 45.63",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394842,
+     "codigo": "M-119",
+     "hora": "20:16",
+     "valor": 24.89,
+     "pagamento": "Pix: 24.89",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394861,
+     "codigo": "M-120",
+     "hora": "20:17",
+     "valor": 35.85,
+     "pagamento": "Cartão Crédito: 35.85",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394863,
+     "codigo": "M-121",
+     "hora": "20:17",
+     "valor": 72.73,
+     "pagamento": "Cartão Débito: 72.73",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394868,
+     "codigo": "M-122",
+     "hora": "20:17",
+     "valor": 29.85,
+     "pagamento": "Cartão Débito: 29.85",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394893,
+     "codigo": "M-123",
+     "hora": "20:19",
+     "valor": 32.84,
+     "pagamento": "Cartão Crédito: 32.84",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394896,
+     "codigo": "M-124",
+     "hora": "20:19",
+     "valor": 103.11,
+     "pagamento": "Dinheiro: 70.00 | Cartão Débito: 33.11",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394927,
+     "codigo": "M-126",
+     "hora": "20:20",
+     "valor": 70.26,
+     "pagamento": "Cartão Crédito: 70.26",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394929,
+     "codigo": "M-127",
+     "hora": "20:21",
+     "valor": 25.88,
+     "pagamento": "Pix: 25.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394933,
+     "codigo": "M-128",
+     "hora": "20:21",
+     "valor": 44.81,
+     "pagamento": "Cartão Crédito: 44.81",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394942,
+     "codigo": "M-129",
+     "hora": "20:21",
+     "valor": 68.3,
+     "pagamento": "Pix: 68.30",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394949,
+     "codigo": "M-130",
+     "hora": "20:22",
+     "valor": 72.8,
+     "pagamento": "Pix: 72.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394957,
+     "codigo": "M-131",
+     "hora": "20:22",
+     "valor": 52.27,
+     "pagamento": "Cartão Crédito: 52.27",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394975,
+     "codigo": "M-132",
+     "hora": "20:23",
+     "valor": 45.77,
+     "pagamento": "Cartão Débito: 45.77",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394976,
+     "codigo": "M-133",
+     "hora": "20:24",
+     "valor": 41.8,
+     "pagamento": "Cartão Débito: 41.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394977,
+     "codigo": "M-134",
+     "hora": "20:24",
+     "valor": 76.62,
+     "pagamento": "Cartão Débito: 76.62",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 394987,
+     "codigo": "M-135",
+     "hora": "20:24",
+     "valor": 43.84,
+     "pagamento": "Cartão Crédito: 43.84",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395029,
+     "codigo": "M-138",
+     "hora": "20:26",
+     "valor": 36.83,
+     "pagamento": "Cartão Crédito: 36.83",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395037,
+     "codigo": "M-139",
+     "hora": "20:27",
+     "valor": 19.9,
+     "pagamento": "Pix: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395055,
+     "codigo": "M-140",
+     "hora": "20:28",
+     "valor": 61.71,
+     "pagamento": "Pix: 61.71",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395057,
+     "codigo": "M-141",
+     "hora": "20:28",
+     "valor": 19.9,
+     "pagamento": "Cartão Débito: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395073,
+     "codigo": "M-142",
+     "hora": "20:29",
+     "valor": 23.91,
+     "pagamento": "Pix: 23.91",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395080,
+     "codigo": "M-143",
+     "hora": "20:29",
+     "valor": 18.43,
+     "pagamento": "Cartão Crédito: 18.43",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395126,
+     "codigo": "M-144",
+     "hora": "20:31",
+     "valor": 68.27,
+     "pagamento": "Cartão Débito: 68.27",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395143,
+     "codigo": "M-145",
+     "hora": "20:32",
+     "valor": 52.89,
+     "pagamento": "Cartão Crédito: 52.89",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395146,
+     "codigo": "M-146",
+     "hora": "20:32",
+     "valor": 91.67,
+     "pagamento": "Cartão Débito: 91.67",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395151,
+     "codigo": "M-147",
+     "hora": "20:32",
+     "valor": 5.97,
+     "pagamento": "Cartão Débito: 5.97",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395179,
+     "codigo": "M-148",
+     "hora": "20:33",
+     "valor": 53.79,
+     "pagamento": "Cartão Crédito: 53.79",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395199,
+     "codigo": "M-150",
+     "hora": "20:35",
+     "valor": 56.23,
+     "pagamento": "Cartão Crédito: 56.23",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395209,
+     "codigo": "M-151",
+     "hora": "20:35",
+     "valor": 48.8,
+     "pagamento": "Cartão Débito: 48.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395225,
+     "codigo": "IA-152",
+     "hora": "20:36",
+     "valor": 19.9,
+     "pagamento": "Pix: 19.90",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395236,
+     "codigo": "M-153",
+     "hora": "20:37",
+     "valor": 101.07,
+     "pagamento": "Cartão Débito: 101.07",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395238,
+     "codigo": "M-154",
+     "hora": "20:37",
+     "valor": 14.94,
+     "pagamento": "Cartão Crédito: 14.94",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395256,
+     "codigo": "M-155",
+     "hora": "20:38",
+     "valor": 19.9,
+     "pagamento": "Cartão Débito: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395282,
+     "codigo": "M-156",
+     "hora": "20:40",
+     "valor": 19.9,
+     "pagamento": "Cartão Débito: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395310,
+     "codigo": "M-158",
+     "hora": "20:42",
+     "valor": 55.29,
+     "pagamento": "Pix: 55.29",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395314,
+     "codigo": "M-159",
+     "hora": "20:42",
+     "valor": 6.0,
+     "pagamento": "Cartão Crédito: 6.00",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395338,
+     "codigo": "M-160",
+     "hora": "20:43",
+     "valor": 74.72,
+     "pagamento": "Pix: 74.72",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395341,
+     "codigo": "M-161",
+     "hora": "20:43",
+     "valor": 32.87,
+     "pagamento": "Cartão Crédito: 32.87",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395355,
+     "codigo": "M-162",
+     "hora": "20:44",
+     "valor": 22.92,
+     "pagamento": "Cartão Crédito: 22.92",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395365,
+     "codigo": "M-163",
+     "hora": "20:45",
+     "valor": 57.31,
+     "pagamento": "Pix: 57.31",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395379,
+     "codigo": "M-164",
+     "hora": "20:46",
+     "valor": 41.85,
+     "pagamento": "Cartão Crédito: 41.85",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395384,
+     "codigo": "M-165",
+     "hora": "20:46",
+     "valor": 69.65,
+     "pagamento": "Pix: 69.65",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395399,
+     "codigo": "M-166",
+     "hora": "20:47",
+     "valor": 231.12,
+     "pagamento": "Cartão Crédito: 231.12",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395401,
+     "codigo": "M-167",
+     "hora": "20:47",
+     "valor": 56.27,
+     "pagamento": "Cartão Débito: 56.27",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395433,
+     "codigo": "M-168",
+     "hora": "20:49",
+     "valor": 106.61,
+     "pagamento": "Cartão Débito: 106.61",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395439,
+     "codigo": "IA-169",
+     "hora": "20:49",
+     "valor": 119.5,
+     "pagamento": "Cartão Crédito: 119.50",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395447,
+     "codigo": "M-170",
+     "hora": "20:50",
+     "valor": 39.8,
+     "pagamento": "Cartão Débito: 39.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395448,
+     "codigo": "M-171",
+     "hora": "20:50",
+     "valor": 29.85,
+     "pagamento": "Cartão Débito: 29.85",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395489,
+     "codigo": "M-172",
+     "hora": "20:52",
+     "valor": 6.0,
+     "pagamento": "Cartão Débito: 6.00",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395543,
+     "codigo": "M-173",
+     "hora": "20:55",
+     "valor": 53.84,
+     "pagamento": "Cartão Débito: 53.84",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395546,
+     "codigo": "M-174",
+     "hora": "20:55",
+     "valor": 39.8,
+     "pagamento": "Dinheiro: 30.00 | Pix: 9.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395578,
+     "codigo": "M-175",
+     "hora": "20:56",
+     "valor": 40.86,
+     "pagamento": "Cartão Crédito: 40.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395594,
+     "codigo": "M-176",
+     "hora": "20:57",
+     "valor": 58.75,
+     "pagamento": "Pix: 58.75",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395611,
+     "codigo": "M-177",
+     "hora": "20:58",
+     "valor": 57.73,
+     "pagamento": "Cartão Crédito: 57.73",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395614,
+     "codigo": "M-178",
+     "hora": "20:58",
+     "valor": 48.31,
+     "pagamento": "Pix: 48.31",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395622,
+     "codigo": "M-179",
+     "hora": "20:59",
+     "valor": 39.84,
+     "pagamento": "Pix: 39.84",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395631,
+     "codigo": "M-180",
+     "hora": "20:59",
+     "valor": 8.97,
+     "pagamento": "Pix: 8.97",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395641,
+     "codigo": "M-181",
+     "hora": "21:00",
+     "valor": 28.87,
+     "pagamento": "Pix: 28.87",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395679,
+     "codigo": "M-182",
+     "hora": "21:02",
+     "valor": 34.88,
+     "pagamento": "Cartão Crédito: 34.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395689,
+     "codigo": "M-184",
+     "hora": "21:02",
+     "valor": 63.69,
+     "pagamento": "Cartão Crédito: 40.00 | Pix: 23.69",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395697,
+     "codigo": "M-185",
+     "hora": "21:03",
+     "valor": 49.78,
+     "pagamento": "Pix: 49.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395752,
+     "codigo": "M-186",
+     "hora": "21:07",
+     "valor": 29.85,
+     "pagamento": "Cartão Débito: 29.85",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395770,
+     "codigo": "M-187",
+     "hora": "21:07",
+     "valor": 56.77,
+     "pagamento": "Pix: 56.77",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395776,
+     "codigo": "IA-188",
+     "hora": "21:08",
+     "valor": 69.7,
+     "pagamento": "Pix Online (PAGO)",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395782,
+     "codigo": "M-189",
+     "hora": "21:08",
+     "valor": 67.8,
+     "pagamento": "Cartão Débito: 67.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395793,
+     "codigo": "M-190",
+     "hora": "21:09",
+     "valor": 50.79,
+     "pagamento": "Cartão Crédito: 50.79",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395798,
+     "codigo": "M-191",
+     "hora": "21:09",
+     "valor": 44.8,
+     "pagamento": "Cartão Débito: 44.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395811,
+     "codigo": "M-192",
+     "hora": "21:10",
+     "valor": 24.89,
+     "pagamento": "Cartão Débito: 24.89",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395832,
+     "codigo": "M-193",
+     "hora": "21:12",
+     "valor": 22.9,
+     "pagamento": "Cartão Débito: 22.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395856,
+     "codigo": "M-194",
+     "hora": "21:13",
+     "valor": 75.72,
+     "pagamento": "Cartão Crédito: 75.72",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395857,
+     "codigo": "M-195",
+     "hora": "21:13",
+     "valor": 79.64,
+     "pagamento": "Cartão Crédito: 79.64",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395868,
+     "codigo": "M-196",
+     "hora": "21:14",
+     "valor": 34.86,
+     "pagamento": "Cartão Crédito: 34.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395895,
+     "codigo": "M-197",
+     "hora": "21:15",
+     "valor": 23.9,
+     "pagamento": "Cartão Débito: 23.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395915,
+     "codigo": "M-198",
+     "hora": "21:17",
+     "valor": 131.34,
+     "pagamento": "Pix: 131.34",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395926,
+     "codigo": "M-199",
+     "hora": "21:18",
+     "valor": 72.24,
+     "pagamento": "Cartão Crédito: 72.24",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 395966,
+     "codigo": "M-200",
+     "hora": "21:20",
+     "valor": 117.63,
+     "pagamento": "Cartão Débito: 117.63",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396003,
+     "codigo": "M-201",
+     "hora": "21:22",
+     "valor": 53.75,
+     "pagamento": "Cartão Débito: 53.75",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396053,
+     "codigo": "M-203",
+     "hora": "21:25",
+     "valor": 51.86,
+     "pagamento": "Cartão Débito: 51.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396060,
+     "codigo": "M-204",
+     "hora": "21:26",
+     "valor": 19.9,
+     "pagamento": "Pix: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396075,
+     "codigo": "M-205",
+     "hora": "21:27",
+     "valor": 46.28,
+     "pagamento": "Cartão Crédito: 46.28",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396078,
+     "codigo": "M-206",
+     "hora": "21:27",
+     "valor": 39.8,
+     "pagamento": "Pix: 39.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396104,
+     "codigo": "M-207",
+     "hora": "21:29",
+     "valor": 99.63,
+     "pagamento": "Pix: 99.63",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396128,
+     "codigo": "M-209",
+     "hora": "21:30",
+     "valor": 56.77,
+     "pagamento": "Cartão Débito: 56.77",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396133,
+     "codigo": "M-210",
+     "hora": "21:30",
+     "valor": 184.1,
+     "pagamento": "Cartão Débito: 184.10",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396152,
+     "codigo": "M-211",
+     "hora": "21:31",
+     "valor": 70.26,
+     "pagamento": "Pix: 70.26",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396188,
+     "codigo": "M-213",
+     "hora": "21:34",
+     "valor": 110.57,
+     "pagamento": "Cartão Crédito: 110.57",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396193,
+     "codigo": "M-214",
+     "hora": "21:34",
+     "valor": 24.88,
+     "pagamento": "Pix: 24.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396219,
+     "codigo": "M-215",
+     "hora": "21:37",
+     "valor": 28.87,
+     "pagamento": "Pix: 28.87",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    }
+   ],
+   "avisos": [
+    "Fila com 254 notas: só as primeiras 200 entram nesta execução. Rode de novo para o resto."
+   ]
+  },
+  {
+   "executada_em": "2026-11-28T02:30:13-03:00",
+   "dry_run": false,
+   "resultados": [
+    {
+     "id": 396231,
+     "codigo": "M-216",
+     "hora": "21:37",
+     "valor": 94.07,
+     "pagamento": "Cartão Débito: 30.00 | Pix: 64.07",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396256,
+     "codigo": "M-217",
+     "hora": "21:39",
+     "valor": 19.9,
+     "pagamento": "Cartão Crédito: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396292,
+     "codigo": "M-218",
+     "hora": "21:42",
+     "valor": 136.96,
+     "pagamento": "Cartão Crédito: 136.96",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396306,
+     "codigo": "M-219",
+     "hora": "21:42",
+     "valor": 62.33,
+     "pagamento": "Cartão Crédito: 62.33",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396313,
+     "codigo": "M-220",
+     "hora": "21:43",
+     "valor": 44.8,
+     "pagamento": "Pix: 44.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396320,
+     "codigo": "M-221",
+     "hora": "21:43",
+     "valor": 26.9,
+     "pagamento": "Pix: 26.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396322,
+     "codigo": "M-222",
+     "hora": "21:43",
+     "valor": 23.88,
+     "pagamento": "Cartão Débito: 23.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396329,
+     "codigo": "M-223",
+     "hora": "21:44",
+     "valor": 39.8,
+     "pagamento": "Cartão Débito: 39.80",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396342,
+     "codigo": "M-224",
+     "hora": "21:45",
+     "valor": 12.95,
+     "pagamento": "Pix: 12.95",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396344,
+     "codigo": "M-225",
+     "hora": "21:45",
+     "valor": 44.85,
+     "pagamento": "Cartão Débito: 44.85",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396363,
+     "codigo": "M-226",
+     "hora": "21:47",
+     "valor": 23.88,
+     "pagamento": "Cartão Crédito: 23.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396431,
+     "codigo": "M-227",
+     "hora": "21:53",
+     "valor": 76.78,
+     "pagamento": "Pix: 76.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396440,
+     "codigo": "M-228",
+     "hora": "21:54",
+     "valor": 89.64,
+     "pagamento": "Pix: 89.64",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396531,
+     "codigo": "M-230",
+     "hora": "22:01",
+     "valor": 19.9,
+     "pagamento": "Cartão Crédito: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396567,
+     "codigo": "M-232",
+     "hora": "22:04",
+     "valor": 52.88,
+     "pagamento": "Cartão Débito: 52.88",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396582,
+     "codigo": "M-233",
+     "hora": "22:05",
+     "valor": 59.7,
+     "pagamento": "Cartão Crédito: 59.70",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396587,
+     "codigo": "M-234",
+     "hora": "22:05",
+     "valor": 44.83,
+     "pagamento": "Pix: 44.83",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396607,
+     "codigo": "M-235",
+     "hora": "22:07",
+     "valor": 59.7,
+     "pagamento": "Cartão Débito: 59.70",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396610,
+     "codigo": "M-236",
+     "hora": "22:07",
+     "valor": 70.73,
+     "pagamento": "Cartão Débito: 70.73",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396612,
+     "codigo": "M-237",
+     "hora": "22:08",
+     "valor": 64.27,
+     "pagamento": "Cartão Débito: 64.27",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396631,
+     "codigo": "M-238",
+     "hora": "22:10",
+     "valor": 117.6,
+     "pagamento": "Cartão Crédito: 117.60",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396634,
+     "codigo": "M-239",
+     "hora": "22:10",
+     "valor": 40.9,
+     "pagamento": "Cartão Débito: 40.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396636,
+     "codigo": "M-240",
+     "hora": "22:10",
+     "valor": 37.81,
+     "pagamento": "Cartão Crédito: 37.81",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396651,
+     "codigo": "IA-241",
+     "hora": "22:11",
+     "valor": 39.8,
+     "pagamento": "Cartão Débito: 39.80",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396657,
+     "codigo": "M-242",
+     "hora": "22:11",
+     "valor": 36.89,
+     "pagamento": "Pix: 36.89",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396727,
+     "codigo": "M-245",
+     "hora": "22:18",
+     "valor": 41.36,
+     "pagamento": "Cartão Débito: 41.36",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396735,
+     "codigo": "M-246",
+     "hora": "22:19",
+     "valor": 52.38,
+     "pagamento": "Pix: 52.38",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396736,
+     "codigo": "M-247",
+     "hora": "22:19",
+     "valor": 36.86,
+     "pagamento": "Pix: 36.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396739,
+     "codigo": "M-248",
+     "hora": "22:19",
+     "valor": 67.26,
+     "pagamento": "Cartão Débito: 67.26",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396764,
+     "codigo": "M-249",
+     "hora": "22:21",
+     "valor": 74.7,
+     "pagamento": "Pix: 69.70 | Dinheiro (Troco -> R$ 5.00): 5.00",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396767,
+     "codigo": "M-250",
+     "hora": "22:21",
+     "valor": 69.74,
+     "pagamento": "Cartão Crédito: 69.74",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396774,
+     "codigo": "M-251",
+     "hora": "22:22",
+     "valor": 40.83,
+     "pagamento": "Cartão Débito: 40.83",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396823,
+     "codigo": "M-252",
+     "hora": "22:28",
+     "valor": 128.49,
+     "pagamento": "Cartão Débito: 128.49",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396858,
+     "codigo": "M-253",
+     "hora": "22:31",
+     "valor": 19.9,
+     "pagamento": "Cartão Débito: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396880,
+     "codigo": "M-254",
+     "hora": "22:33",
+     "valor": 71.78,
+     "pagamento": "Cartão Crédito: 71.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396893,
+     "codigo": "M-255",
+     "hora": "22:34",
+     "valor": 21.98,
+     "pagamento": "Cartão Débito: 21.98",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396919,
+     "codigo": "M-256",
+     "hora": "22:37",
+     "valor": 101.6,
+     "pagamento": "Cartão Débito: 101.60",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396935,
+     "codigo": "M-257",
+     "hora": "22:38",
+     "valor": 47.76,
+     "pagamento": "Pix: 47.76",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 396988,
+     "codigo": "M-258",
+     "hora": "22:43",
+     "valor": 36.4,
+     "pagamento": "Cartão Crédito: 36.40",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397035,
+     "codigo": "IA-259",
+     "hora": "22:50",
+     "valor": 65.67,
+     "pagamento": "Cartão Crédito: 65.67",
+     "loja": "Sushi (app próprio)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397047,
+     "codigo": "M-260",
+     "hora": "22:51",
+     "valor": 89.56,
+     "pagamento": "Cartão Crédito: 89.56",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397053,
+     "codigo": "M-261",
+     "hora": "22:52",
+     "valor": 87.56,
+     "pagamento": "Cartão Crédito: 87.56",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397062,
+     "codigo": "M-262",
+     "hora": "22:53",
+     "valor": 63.68,
+     "pagamento": "Cartão Débito: 63.68",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397118,
+     "codigo": "M-263",
+     "hora": "23:01",
+     "valor": 21.89,
+     "pagamento": "Cartão Débito: 21.89",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397131,
+     "codigo": "M-264",
+     "hora": "23:02",
+     "valor": 109.62,
+     "pagamento": "Pix: 109.62",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397154,
+     "codigo": "M-265",
+     "hora": "23:05",
+     "valor": 131.99,
+     "pagamento": "Pix: 131.99",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397162,
+     "codigo": "M-266",
+     "hora": "23:06",
+     "valor": 9.9,
+     "pagamento": "Dinheiro: 6.00 | Cartão Débito: 3.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397207,
+     "codigo": "M-267",
+     "hora": "23:17",
+     "valor": 38.82,
+     "pagamento": "Pix: 38.82",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397250,
+     "codigo": "M-268",
+     "hora": "23:26",
+     "valor": 46.78,
+     "pagamento": "Pix: 46.78",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397253,
+     "codigo": "M-269",
+     "hora": "23:28",
+     "valor": 123.01,
+     "pagamento": "Pix: 123.01",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397274,
+     "codigo": "M-270",
+     "hora": "23:34",
+     "valor": 19.9,
+     "pagamento": "Cartão Débito: 19.90",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397298,
+     "codigo": "M-271",
+     "hora": "23:43",
+     "valor": 29.85,
+     "pagamento": "Cartão Débito: 29.85",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397305,
+     "codigo": "M-272",
+     "hora": "23:45",
+     "valor": 27.86,
+     "pagamento": "Cartão Débito: 27.86",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    },
+    {
+     "id": 397314,
+     "codigo": "M-273",
+     "hora": "23:47",
+     "valor": 11.94,
+     "pagamento": "Pix: 11.94",
+     "loja": "Sushi (PDV/balcão)",
+     "tentativas": [
+      "sem CPF"
+     ],
+     "resultado": "AUTORIZADA",
+     "motivo": "",
+     "perfil_emitido": "CNPJ do Sushi",
+     "perfil_ok": true,
+     "perfil_esperado": "CNPJ do Sushi"
+    }
+   ],
+   "avisos": [
+    "Saíram da fila: 393225: não está mais pendente (já emitido, cancelado ou reaberto); 393238: não está mais pendente (já emitido, cancelado ou reaberto); 393260: não está mais pendente (já emitido, cancelado ou reaberto); 393264: não está mais pendente (já emitido, cancelado ou reaberto); 393272: não está mais pendente (já emitido, cancelado ou reaberto); 393275: não está mais pendente (já emitido, cancelado ou reaberto); 393281: não está mais pendente (já emitido, cancelado ou reaberto); 393285: não está mais pendente (já emitido, cancelado ou reaberto); 393305: não está mais pendente (já emitido, cancelado ou reaberto); 393316: não está mais pendente (já emitido, cancelado ou reaberto); 393317: não está mais pendente (já emitido, cancelado ou reaberto); 393337: não está mais pendente (já emitido, cancelado ou reaberto); 393340: não está mais pendente (já emitido, cancelado ou reaberto); 393353: não está mais pendente (já emitido, cancelado ou reaberto); 393371: não está mais pendente (já emitido, cancelado ou reaberto); 393381: não está mais pendente (já emitido, cancelado ou reaberto); 393383: não está mais pendente (já emitido, cancelado ou reaberto); 393397: não está mais pendente (já emitido, cancelado ou reaberto); 393398: não está mais pendente (já emitido, cancelado ou reaberto); 393403: não está mais pendente (já emitido, cancelado ou reaberto); 393407: não está mais pendente (já emitido, cancelado ou reaberto); 393419: não está mais pendente (já emitido, cancelado ou reaberto); 393423: não está mais pendente (já emitido, cancelado ou reaberto); 393427: não está mais pendente (já emitido, cancelado ou reaberto); 393437: não está mais pendente (já emitido, cancelado ou reaberto); 393456: não está mais pendente (já emitido, cancelado ou reaberto); 393473: não está mais pendente (já emitido, cancelado ou reaberto); 393478: não está mais pendente (já emitido, cancelado ou reaberto); 393515: não está mais pendente (já emitido, cancelado ou reaberto); 393516: não está mais pendente (já emitido, cancelado ou reaberto); 393538: não está mais pendente (já emitido, cancelado ou reaberto); 393548: não está mais pendente (já emitido, cancelado ou reaberto); 393550: não está mais pendente (já emitido, cancelado ou reaberto); 393559: não está mais pendente (já emitido, cancelado ou reaberto); 393566: não está mais pendente (já emitido, cancelado ou reaberto); 393570: não está mais pendente (já emitido, cancelado ou reaberto); 393610: não está mais pendente (já emitido, cancelado ou reaberto); 393627: não está mais pendente (já emitido, cancelado ou reaberto); 393652: não está mais pendente (já emitido, cancelado ou reaberto); 393668: não está mais pendente (já emitido, cancelado ou reaberto); 393669: não está mais pendente (já emitido, cancelado ou reaberto); 393739: não está mais pendente (já emitido, cancelado ou reaberto); 393751: não está mais pendente (já emitido, cancelado ou reaberto); 393753: não está mais pendente (já emitido, cancelado ou reaberto); 393763: não está mais pendente (já emitido, cancelado ou reaberto); 393775: não está mais pendente (já emitido, cancelado ou reaberto); 393788: não está mais pendente (já emitido, cancelado ou reaberto); 393794: não está mais pendente (já emitido, cancelado ou reaberto); 393809: não está mais pendente (já emitido, cancelado ou reaberto); 393857: não está mais pendente (já emitido, cancelado ou reaberto); 393860: não está mais pendente (já emitido, cancelado ou reaberto); 393875: não está mais pendente (já emitido, cancelado ou reaberto); 393920: não está mais pendente (já emitido, cancelado ou reaberto); 393926: não está mais pendente (já emitido, cancelado ou reaberto); 393942: não está mais pendente (já emitido, cancelado ou reaberto); 393948: não está mais pendente (já emitido, cancelado ou reaberto); 393961: não está mais pendente (já emitido, cancelado ou reaberto); 393969: não está mais pendente (já emitido, cancelado ou reaberto); 393992: não está mais pendente (já emitido, cancelado ou reaberto); 394006: não está mais pendente (já emitido, cancelado ou reaberto); 394033: não está mais pendente (já emitido, cancelado ou reaberto); 394052: não está mais pendente (já emitido, cancelado ou reaberto); 394063: não está mais pendente (já emitido, cancelado ou reaberto); 394066: não está mais pendente (já emitido, cancelado ou reaberto); 394074: não está mais pendente (já emitido, cancelado ou reaberto); 394075: não está mais pendente (já emitido, cancelado ou reaberto); 394078: não está mais pendente (já emitido, cancelado ou reaberto); 394091: não está mais pendente (já emitido, cancelado ou reaberto); 394099: não está mais pendente (já emitido, cancelado ou reaberto); 394110: não está mais pendente (já emitido, cancelado ou reaberto); 394111: não está mais pendente (já emitido, cancelado ou reaberto); 394129: não está mais pendente (já emitido, cancelado ou reaberto); 394138: não está mais pendente (já emitido, cancelado ou reaberto); 394139: não está mais pendente (já emitido, cancelado ou reaberto); 394140: não está mais pendente (já emitido, cancelado ou reaberto); 394158: não está mais pendente (já emitido, cancelado ou reaberto); 394168: não está mais pendente (já emitido, cancelado ou reaberto); 394170: não está mais pendente (já emitido, cancelado ou reaberto); 394171: não está mais pendente (já emitido, cancelado ou reaberto); 394173: não está mais pendente (já emitido, cancelado ou reaberto); 394181: não está mais pendente (já emitido, cancelado ou reaberto); 394205: não está mais pendente (já emitido, cancelado ou reaberto); 394231: não está mais pendente (já emitido, cancelado ou reaberto); 394253: não está mais pendente (já emitido, cancelado ou reaberto); 394255: não está mais pendente (já emitido, cancelado ou reaberto); 394305: não está mais pendente (já emitido, cancelado ou reaberto); 394317: não está mais pendente (já emitido, cancelado ou reaberto); 394325: não está mais pendente (já emitido, cancelado ou reaberto); 394332: não está mais pendente (já emitido, cancelado ou reaberto); 394339: não está mais pendente (já emitido, cancelado ou reaberto); 394358: não está mais pendente (já emitido, cancelado ou reaberto); 394385: não está mais pendente (já emitido, cancelado ou reaberto); 394405: não está mais pendente (já emitido, cancelado ou reaberto); 394419: não está mais pendente (já emitido, cancelado ou reaberto); 394435: não está mais pendente (já emitido, cancelado ou reaberto); 394442: não está mais pendente (já emitido, cancelado ou reaberto); 394455: não está mais pendente (já emitido, cancelado ou reaberto); 394464: não está mais pendente (já emitido, cancelado ou reaberto); 394497: não está mais pendente (já emitido, cancelado ou reaberto); 394532: não está mais pendente (já emitido, cancelado ou reaberto); 394627: não está mais pendente (já emitido, cancelado ou reaberto); 394630: não está mais pendente (já emitido, cancelado ou reaberto); 394670: não está mais pendente (já emitido, cancelado ou reaberto); 394708: não está mais pendente (já emitido, cancelado ou reaberto); 394748: não está mais pendente (já emitido, cancelado ou reaberto); 394750: não está mais pendente (já emitido, cancelado ou reaberto); 394772: não está mais pendente (já emitido, cancelado ou reaberto); 394790: não está mais pendente (já emitido, cancelado ou reaberto); 394807: não está mais pendente (já emitido, cancelado ou reaberto); 394820: não está mais pendente (já emitido, cancelado ou reaberto); 394830: não está mais pendente (já emitido, cancelado ou reaberto); 394836: não está mais pendente (já emitido, cancelado ou reaberto); 394842: não está mais pendente (já emitido, cancelado ou reaberto); 394861: não está mais pendente (já emitido, cancelado ou reaberto); 394863: não está mais pendente (já emitido, cancelado ou reaberto); 394868: não está mais pendente (já emitido, cancelado ou reaberto); 394893: não está mais pendente (já emitido, cancelado ou reaberto); 394896: não está mais pendente (já emitido, cancelado ou reaberto); 394927: não está mais pendente (já emitido, cancelado ou reaberto); 394929: não está mais pendente (já emitido, cancelado ou reaberto); 394933: não está mais pendente (já emitido, cancelado ou reaberto); 394942: não está mais pendente (já emitido, cancelado ou reaberto); 394949: não está mais pendente (já emitido, cancelado ou reaberto); 394957: não está mais pendente (já emitido, cancelado ou reaberto); 394975: não está mais pendente (já emitido, cancelado ou reaberto); 394976: não está mais pendente (já emitido, cancelado ou reaberto); 394977: não está mais pendente (já emitido, cancelado ou reaberto); 394987: não está mais pendente (já emitido, cancelado ou reaberto); 395029: não está mais pendente (já emitido, cancelado ou reaberto); 395037: não está mais pendente (já emitido, cancelado ou reaberto); 395055: não está mais pendente (já emitido, cancelado ou reaberto); 395057: não está mais pendente (já emitido, cancelado ou reaberto); 395073: não está mais pendente (já emitido, cancelado ou reaberto); 395080: não está mais pendente (já emitido, cancelado ou reaberto); 395126: não está mais pendente (já emitido, cancelado ou reaberto); 395143: não está mais pendente (já emitido, cancelado ou reaberto); 395146: não está mais pendente (já emitido, cancelado ou reaberto); 395151: não está mais pendente (já emitido, cancelado ou reaberto); 395179: não está mais pendente (já emitido, cancelado ou reaberto); 395199: não está mais pendente (já emitido, cancelado ou reaberto); 395209: não está mais pendente (já emitido, cancelado ou reaberto); 395225: não está mais pendente (já emitido, cancelado ou reaberto); 395236: não está mais pendente (já emitido, cancelado ou reaberto); 395238: não está mais pendente (já emitido, cancelado ou reaberto); 395256: não está mais pendente (já emitido, cancelado ou reaberto); 395282: não está mais pendente (já emitido, cancelado ou reaberto); 395310: não está mais pendente (já emitido, cancelado ou reaberto); 395314: não está mais pendente (já emitido, cancelado ou reaberto); 395338: não está mais pendente (já emitido, cancelado ou reaberto); 395341: não está mais pendente (já emitido, cancelado ou reaberto); 395355: não está mais pendente (já emitido, cancelado ou reaberto); 395365: não está mais pendente (já emitido, cancelado ou reaberto); 395379: não está mais pendente (já emitido, cancelado ou reaberto); 395384: não está mais pendente (já emitido, cancelado ou reaberto); 395399: não está mais pendente (já emitido, cancelado ou reaberto); 395401: não está mais pendente (já emitido, cancelado ou reaberto); 395433: não está mais pendente (já emitido, cancelado ou reaberto); 395439: não está mais pendente (já emitido, cancelado ou reaberto); 395447: não está mais pendente (já emitido, cancelado ou reaberto); 395448: não está mais pendente (já emitido, cancelado ou reaberto); 395489: não está mais pendente (já emitido, cancelado ou reaberto); 395543: não está mais pendente (já emitido, cancelado ou reaberto); 395546: não está mais pendente (já emitido, cancelado ou reaberto); 395578: não está mais pendente (já emitido, cancelado ou reaberto); 395594: não está mais pendente (já emitido, cancelado ou reaberto); 395611: não está mais pendente (já emitido, cancelado ou reaberto); 395614: não está mais pendente (já emitido, cancelado ou reaberto); 395622: não está mais pendente (já emitido, cancelado ou reaberto); 395631: não está mais pendente (já emitido, cancelado ou reaberto); 395641: não está mais pendente (já emitido, cancelado ou reaberto); 395679: não está mais pendente (já emitido, cancelado ou reaberto); 395689: não está mais pendente (já emitido, cancelado ou reaberto); 395697: não está mais pendente (já emitido, cancelado ou reaberto); 395752: não está mais pendente (já emitido, cancelado ou reaberto); 395770: não está mais pendente (já emitido, cancelado ou reaberto); 395776: não está mais pendente (já emitido, cancelado ou reaberto); 395782: não está mais pendente (já emitido, cancelado ou reaberto); 395793: não está mais pendente (já emitido, cancelado ou reaberto); 395798: não está mais pendente (já emitido, cancelado ou reaberto); 395811: não está mais pendente (já emitido, cancelado ou reaberto); 395832: não está mais pendente (já emitido, cancelado ou reaberto); 395856: não está mais pendente (já emitido, cancelado ou reaberto); 395857: não está mais pendente (já emitido, cancelado ou reaberto); 395868: não está mais pendente (já emitido, cancelado ou reaberto); 395895: não está mais pendente (já emitido, cancelado ou reaberto); 395915: não está mais pendente (já emitido, cancelado ou reaberto); 395926: não está mais pendente (já emitido, cancelado ou reaberto); 395966: não está mais pendente (já emitido, cancelado ou reaberto); 396003: não está mais pendente (já emitido, cancelado ou reaberto); 396053: não está mais pendente (já emitido, cancelado ou reaberto); 396060: não está mais pendente (já emitido, cancelado ou reaberto); 396075: não está mais pendente (já emitido, cancelado ou reaberto); 396078: não está mais pendente (já emitido, cancelado ou reaberto); 396104: não está mais pendente (já emitido, cancelado ou reaberto); 396128: não está mais pendente (já emitido, cancelado ou reaberto); 396133: não está mais pendente (já emitido, cancelado ou reaberto); 396152: não está mais pendente (já emitido, cancelado ou reaberto); 396188: não está mais pendente (já emitido, cancelado ou reaberto); 396193: não está mais pendente (já emitido, cancelado ou reaberto); 396219: não está mais pendente (já emitido, cancelado ou reaberto)"
+   ]
+  }
+ ]
+}

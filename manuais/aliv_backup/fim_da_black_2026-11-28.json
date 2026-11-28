@@ -1,0 +1,27 @@
+{
+ "quando": "2026-11-28T11:22-03:00",
+ "motivo": "a Black acabou: volta ao cardápio de antes (pedido do Emerson em 28/11)",
+ "feito": [
+  {
+   "produto": 35840,
+   "ativo": [
+    true,
+    false
+   ]
+  },
+  {
+   "categoria": 2906,
+   "ativa": [
+    true,
+    false
+   ]
+  },
+  {
+   "promocao": 628,
+   "ligada": [
+    true,
+    false
+   ]
+  }
+ ]
+}

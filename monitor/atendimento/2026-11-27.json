@@ -1,0 +1,76 @@
+{
+ "dia": "2026-11-27",
+ "loja": "Pizzaria",
+ "resumo": {
+  "conversas": 106,
+  "pedidos": 70,
+  "pedidos_ia": 29,
+  "abandonadas": 35,
+  "conversao": 0.66,
+  "abandono": 0.33,
+  "tempo_medio_min": 1.4,
+  "tempo_mediana_min": 0.0,
+  "sem_resposta": 30,
+  "cancelados_ia": 1,
+  "pedidos_link": 31,
+  "pedidos_outro": 10,
+  "receberam_link": 84,
+  "abandono_com_link": 30,
+  "abandono_sem_link": 5,
+  "problemas": {
+   "item_preco": 4,
+   "reclamou_humano": 4,
+   "demora": 10,
+   "repetiu": 13,
+   "nao_soube": 6,
+   "nao_entendeu": 1,
+   "cancelado": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "promoção",
+   "user": "Tem alguma promoção hoje?",
+   "assistant": "Tem sim! 😍 [DIGITE AQUI A PROMOÇÃO DO DIA]. Quer que eu já monte o seu?",
+   "exemplo_cliente": "Tem alguma promoção hoje!??",
+   "ja_existe_parecido": 5,
+   "falta_preencher": true
+  },
+  {
+   "tema": "tempo de entrega",
+   "user": "Quanto tempo demora pra chegar?",
+   "assistant": "Hoje está saindo em média em [XX] a [YY] minutos 🛵 Assim que sair pra entrega eu te aviso aqui!",
+   "exemplo_cliente": "Já saiu",
+   "ja_existe_parecido": null,
+   "falta_preencher": true
+  },
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  },
+  {
+   "tema": "nao_entendeu",
+   "user": "Não foi isso que eu pedi",
+   "assistant": "Desculpa! 🙏 Me fala de novo o item, o tamanho e o sabor que eu corrijo agora no seu pedido.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Informar um tempo médio de entrega (ex.: 40–50 min) e avisar quando o pedido sair.",
+  "Cadastrar a promoção do dia no ALIV antes das 16:30 para a IA saber responder.",
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Vcs trabalha apenas com delivery ?",
+  "[foto de produto do cliente]: Tela do app com a oferta Black Friday: 1 pizza gr…",
+  "Vai ter alguma promoção de sushi hoje?"
+ ],
+ "pedidos_ia_sem_chat": 0
+}

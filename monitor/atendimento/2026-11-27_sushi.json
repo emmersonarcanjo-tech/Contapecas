@@ -1,0 +1,50 @@
+{
+ "dia": "2026-11-27",
+ "loja": "Sushi",
+ "resumo": {
+  "conversas": 49,
+  "pedidos": 9,
+  "pedidos_ia": 8,
+  "abandonadas": 40,
+  "conversao": 0.184,
+  "abandono": 0.816,
+  "tempo_medio_min": 3.6,
+  "tempo_mediana_min": 1.0,
+  "sem_resposta": 5,
+  "cancelados_ia": 0,
+  "pedidos_link": 1,
+  "pedidos_outro": 0,
+  "receberam_link": 19,
+  "abandono_com_link": 16,
+  "abandono_sem_link": 24,
+  "problemas": {
+   "repetiu": 5,
+   "demora": 4,
+   "item_preco": 5,
+   "reclamou_humano": 1
+  }
+ },
+ "pares": [
+  {
+   "tema": "reclamou_humano",
+   "user": "Quero falar com um atendente",
+   "assistant": "Claro! 🙏 Já chamei alguém da equipe pra falar com você aqui mesmo. Enquanto isso, me conta o que aconteceu que eu já adianto.",
+   "exemplo_cliente": null,
+   "ja_existe_parecido": null,
+   "falta_preencher": false
+  }
+ ],
+ "regras": [
+  "Quando o cliente pedir atendente ou reclamar, chamar a equipe na hora e não insistir no pedido.",
+  "Não repetir pergunta já respondida (endereço, pagamento, tamanho): conferir o histórico da conversa."
+ ],
+ "itens_faltando": [
+  "Tem cardápio?",
+  "queria os fritos",
+  "Manda cardápio pfv ?",
+  "Nem pizza Não tem delivery hj ?",
+  "Boa noite! Poderia me enviar o cardápio por favor!",
+  "Poderia mandar o cardápio"
+ ],
+ "pedidos_ia_sem_chat": 0
+}
